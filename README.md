@@ -6,7 +6,8 @@
 2. Install expo globally, if not already `npm install --global expo-cli`
 3. Clone the repo `git clone [link]`
 4. `cd siren`
-5. Test the app by running `expo start`
+5. Install dependencies with `npm install`
+6. Test the app by running `expo start`
 
 ## Accessing Environment Variables
 
