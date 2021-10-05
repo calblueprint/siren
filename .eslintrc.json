@@ -5,6 +5,8 @@
   },
   "extends": [
     "airbnb",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
   ],
@@ -19,6 +21,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
+      "typescript": {},
+      "babel-module": {},
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
@@ -39,6 +43,12 @@
       }
     ],
     "react/jsx-props-no-spreading": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": ["../*"]
+      }
+    ]
   }
 }
