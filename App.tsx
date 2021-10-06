@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useCollection } from "react-firebase-hooks/firestore";
 import firebase from './firebase/clientApp';
+import renderForm from './jotform/jotform';
 
 export default function App() {
   //Retrieves firestore collection called 'clients'
@@ -15,9 +16,12 @@ export default function App() {
     clients.docs.map((doc) => console.log(doc.data()));
   }
 
+  const intakeForm = renderForm();
+
   return (
     <View style={styles.container}>
       <Text>SIREN Mobile</Text>
+      {intakeForm}
       <StatusBar style="auto" />
     </View>
   );
