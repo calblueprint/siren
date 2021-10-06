@@ -3,6 +3,11 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useCollection } from "react-firebase-hooks/firestore";
 import firebase from './firebase/clientApp';
+import './BottomTabs'
+import { BottomTabBar } from '@react-navigation/bottom-tabs';
+import NavBar from './BottomTabs';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
   //Retrieves firestore collection called 'clients'
@@ -19,6 +24,7 @@ export default function App() {
     <View style={styles.container}>
       <Text>SIREN Mobile</Text>
       <StatusBar style="auto" />
+      <NavBar></NavBar>
     </View>
   );
 }
