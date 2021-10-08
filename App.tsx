@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useCollection } from "react-firebase-hooks/firestore";
 import firebase from './firebase/clientApp';
 import './BottomTabs'
-import { BottomTabBar } from '@react-navigation/bottom-tabs';
+// import { BottomTabBar } from '@react-navigation/bottom-tabs';
 import NavBar from './BottomTabs';
 import { NavigationContainer } from '@react-navigation/native';
 

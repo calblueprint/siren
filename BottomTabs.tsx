@@ -15,7 +15,7 @@ const NavBar = () => {
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
     { key: 'home', title: 'Home', icon: 'home' },
-    { key: 'forms', title: 'Forms', icon: 'pencil' },
+    { key: 'forms', title: 'Forms', icon: 'file-document-outline' }, // go here https://materialdesignicons.com/ to find more 
     { key: 'upload', title: 'Recents', icon: 'upload' },
     { key: 'schedule', title: 'Schedule', icon: 'calendar'}
   ]);
