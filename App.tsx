@@ -22,8 +22,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>SIREN Mobile</Text>
-      <StatusBar style="auto" />
+        <Text>SIREN Mobile</Text>
+        <StatusBar style="auto" />
       <NavBar></NavBar>
     </View>
   );
@@ -31,9 +31,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%', 
+    height: '100%',
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
