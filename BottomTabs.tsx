@@ -6,7 +6,6 @@ import { UploadScreen } from './screens/UploadScreen';
 import { FormsScreen } from './screens/FormsScreen';
 import { ScheduleScreen } from './screens/ScheduleScreen';
 
-
 const Tab = createMaterialBottomTabNavigator();
 
 function BottomTabs() {
@@ -14,7 +13,6 @@ function BottomTabs() {
     <Tab.Navigator
       initialRouteName="Home"
       barStyle={{backgroundColor: '#0F2536'}}
-  
     >
       <Tab.Screen
         name="Home"
@@ -56,10 +54,5 @@ function BottomTabs() {
     </Tab.Navigator>
   );
 }
-
-
-
-
-
 export default BottomTabs;
 
