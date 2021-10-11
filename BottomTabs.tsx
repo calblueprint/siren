@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HomeScreen } from './Screens/HomeScreen';
-import { UploadScreen } from './Screens/UploadScreen';
-import { FormsScreen } from './Screens/FormsScreen';
-import { ScheduleScreen } from './Screens/ScheduleScreen';
+import { HomeScreen } from './screens/HomeScreen';
+import { UploadScreen } from './screens/UploadScreen';
+import { FormsScreen } from './screens/FormsScreen';
+import { ScheduleScreen } from './screens/ScheduleScreen';
 
 
 const Tab = createMaterialBottomTabNavigator();
