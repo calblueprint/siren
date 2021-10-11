@@ -23,6 +23,7 @@ export default function App() {
   if (!clientLoading && clients) {
     clients.docs.map(doc => console.log(doc.data()));
   }
+  // test name
 
   return (
     <View style={styles.container}>
