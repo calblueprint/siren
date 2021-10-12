@@ -1,40 +1,73 @@
 import * as React from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
-import App from './App';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import HomeScreen from './screens/HomeScreen';
+import UploadScreen from './screens/UploadScreen';
+import FormsScreen from './screens/FormsScreen';
+import ScheduleScreen from './screens/ScheduleScreen';
 
-//will be the respective screens
-const Home = () => <Text>Welcome to the homepage!</Text>; 
+const Tab = createMaterialBottomTabNavigator();
 
-const Forms = () => <Text>Fill out your intake form!</Text>;
-
-const Upload = () => <Text>Upload your necessary documents!</Text>;
-
-const Schedule = () => <Text>Schedule an appointment with your attorney!</Text>
-
-const NavBar = () => {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'home', title: 'Home', icon: 'home' },
-    { key: 'forms', title: 'Forms', icon: 'pencil' },
-    { key: 'upload', title: 'Recents', icon: 'upload' },
-    { key: 'schedule', title: 'Schedule', icon: 'calendar'}
-  ]);
-
-  const renderScene = BottomNavigation.SceneMap({
-    home: Home,
-    forms: Forms,
-    upload: Upload,
-    schedule: Schedule,
-  });
-
+const BottomTabs = () => {
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-    />
+    <Tab.Navigator
+      initialRouteName="Home"
+      barStyle={{ backgroundColor: '#0F2536' }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="home-outline"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Forms"
+        component={FormsScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="note-text-outline"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Upload"
+        component={UploadScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="file-upload-outline"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Schedule"
+        component={ScheduleScreen}
+        options={{
+          tabBarAccessibilityLabel: 'Schedule',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="calendar-month-outline"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
-
-export default NavBar;
-
+export default BottomTabs;
