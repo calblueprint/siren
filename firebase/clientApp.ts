@@ -12,7 +12,7 @@ import {
 
 
 const clientCredentials = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  apiKey: NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
   projectId: NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
@@ -22,6 +22,8 @@ const clientCredentials = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(clientCredentials);
+} else {
+  firebase.app(); 
 }
 
 export default firebase;

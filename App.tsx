@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollection } from 'react-firebase-hooks/firestore';
 import firebase from './firebase/clientApp';
 import './BottomTabs'
 import { BottomTabBar } from '@react-navigation/bottom-tabs';
@@ -9,15 +9,24 @@ import NavBar from './BottomTabs';
 import { NavigationContainer } from '@react-navigation/native';
 
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
 export default function App() {
-  //Retrieves firestore collection called 'clients'
-  const [clients, clientLoading, clientError] = useCollection(
-    firebase.firestore().collection("clients"),
-    {}
+  // Retrieves firestore collection called 'clients'
+  const [clients, clientLoading] = useCollection(
+    firebase.firestore().collection('clients'),
+    {},
   );
 
   if (!clientLoading && clients) {
-    clients.docs.map((doc) => console.log(doc.data()));
+    clients.docs.map(doc => console.log(doc.data()));
   }
 
   return (
@@ -28,12 +37,3 @@ export default function App() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
