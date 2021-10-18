@@ -1,10 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { NavigationContainer } from '@react-navigation/native';
 import firebase from './firebase/clientApp';
-import NavBar from './BottomTabs';
+import RootNavigator from './navigation/RootNavigator';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,16 +20,12 @@ export default function App() {
   );
 
   if (!clientLoading && clients) {
-    clients.docs.map(doc => console.log(doc.data()));
+    clients.docs.map((doc: { data: () => any }) => console.log(doc.data()));
   }
 
   return (
     <View style={styles.container}>
-      <Text>SIREN Mobile</Text>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <NavBar />
-      </NavigationContainer>
+      <RootNavigator />
     </View>
   );
 }
