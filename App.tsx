@@ -13,9 +13,9 @@ export default function App() {
   const logData = async (): Promise<void> => {
     //Retrieves firestore collection called 'clients'
     const clientSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await getAllClients()
-    const caseSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await getAllCasesByID(clientSnap.docs[1].id)
-    const documentSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await getAllDocumentsByID(clientSnap.docs[1].id, caseSnap.docs[0].id)
-    console.log(clientSnap.docs[1].data())
+    const caseSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await getAllCasesByID(clientSnap.docs[0].id)
+    const documentSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> = await getAllDocumentsByID(clientSnap.docs[0].id, caseSnap.docs[0].id)
+    console.log(clientSnap.docs[0].data())
     console.log(caseSnap.docs[0].data())
     console.log(documentSnap.docs[0].data())
   }
