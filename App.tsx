@@ -5,6 +5,8 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { NavigationContainer } from '@react-navigation/native';
 import firebase from './firebase/clientApp';
 import NavBar from './BottomTabs';
+import GlobalThemes from './GlobalThemes';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,12 +28,14 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>SIREN Mobile</Text>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <NavBar />
-      </NavigationContainer>
-    </View>
+    <PaperProvider theme={GlobalThemes}>
+      <View style={styles.container}>
+        <Text>SIREN Mobile</Text>
+        <StatusBar style="auto" />
+        <NavigationContainer>
+          <NavBar />
+        </NavigationContainer>
+      </View>
+    </PaperProvider>
   );
 }

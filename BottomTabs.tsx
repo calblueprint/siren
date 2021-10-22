@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import UploadScreen from './screens/UploadScreen';
 import FormsScreen from './screens/FormsScreen';
 import ScheduleScreen from './screens/ScheduleScreen';
+import  GlobalThemes from './GlobalThemes';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -13,6 +14,7 @@ const BottomTabs = () => {
     <Tab.Navigator
       initialRouteName="Home"
       barStyle={{ backgroundColor: '#0F2536' }}
+      activeColor={GlobalThemes.colors.activeNavIcon}
     >
       <Tab.Screen
         name="Home"
