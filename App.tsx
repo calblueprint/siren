@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useCollection } from 'react-firebase-hooks/firestore';
 import { NavigationContainer } from '@react-navigation/native';
+import {
+  getAllClients,
+  getAllCasesByID,
+  getAllDocumentsByID,
+} from './firebase/queries';
 import firebase from './firebase/clientApp';
 import NavBar from './BottomTabs';
 
@@ -15,15 +19,21 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  // Retrieves firestore collection called 'clients'
-  const [clients, clientLoading] = useCollection(
-    firebase.firestore().collection('clients'),
-    {},
-  );
-
-  if (!clientLoading && clients) {
-    clients.docs.map(doc => console.log(doc.data()));
-  }
+  const logData = async (): Promise<void> => {
+    // Retrieves firestore collection called 'clients'
+    const clientSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
+      await getAllClients();
+    const caseSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
+      await getAllCasesByID(clientSnap.docs[0].id);
+    const documentSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
+      await getAllDocumentsByID(clientSnap.docs[0].id, caseSnap.docs[0].id);
+    console.log(clientSnap.docs[0].data());
+    console.log(caseSnap.docs[0].data());
+    console.log(documentSnap.docs[0].data());
+  };
+  useEffect(() => {
+    logData();
+  }, []);
 
   return (
     <View style={styles.container}>
