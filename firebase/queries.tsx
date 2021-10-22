@@ -1,74 +1,27 @@
 import firebase from './clientApp';
+import { Client } from '../types/types';
 
-export const getAllClients = async (): Promise<
-  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
-> => {
-  const colSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
-    await firebase.firestore().collection('clients').get();
-  return colSnap;
+const database = firebase.firestore();
+const clientCollection = database.collection('clients');
+
+export const getClient = async (id: string): Promise<Client> => {
+  try {
+    const doc = await clientCollection.doc(id).get();
+    return doc.data() as Client;
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling.
+  }
 };
 
-export const getClientByID = async (
-  clientID: string,
-): Promise<
-  firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
-> => {
-  const docSnap: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData> =
-    await firebase.firestore().collection('clients').doc(clientID).get();
-  return docSnap;
-};
-
-export const getAllCasesByID = async (
-  clientID: string,
-): Promise<
-  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
-> => {
-  const colSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
-    await firebase.firestore().collection(`clients/${clientID}/cases`).get();
-  return colSnap;
-};
-
-export const getCaseByID = async (
-  clientID: string,
-  caseID: string,
-): Promise<
-  firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
-> => {
-  const docSnap: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData> =
-    await firebase
-      .firestore()
-      .collection(`clients/${clientID}/cases`)
-      .doc(caseID)
-      .get();
-  return docSnap;
-};
-
-export const getAllDocumentsByID = async (
-  clientID: string,
-  caseID: string,
-): Promise<
-  firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
-> => {
-  const colSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
-    await firebase
-      .firestore()
-      .collection(`clients/${clientID}/cases/${caseID}/documents`)
-      .get();
-  return colSnap;
-};
-
-export const getDocumentByID = async (
-  clientID: string,
-  caseID: string,
-  documentID: string,
-): Promise<
-  firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
-> => {
-  const docSnap: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData> =
-    await firebase
-      .firestore()
-      .collection(`clients/${clientID}/cases/${caseID}/documents`)
-      .doc(documentID)
-      .get();
-  return docSnap;
+export const getAllClients = async (): Promise<Client[]> => {
+  try {
+    const response = await clientCollection.get();
+    return response.docs.map(doc => doc.data() as Client);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling
+  }
 };
