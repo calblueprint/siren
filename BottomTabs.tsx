@@ -5,7 +5,7 @@ import HomeScreen from './screens/HomeScreen';
 import UploadScreen from './screens/UploadScreen';
 import FormsScreen from './screens/FormsScreen';
 import ScheduleScreen from './screens/ScheduleScreen';
-import  GlobalThemes from './GlobalThemes';
+import GlobalThemes from './GlobalThemes';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -14,12 +14,13 @@ const BottomTabs = () => {
     <Tab.Navigator
       initialRouteName="Home"
       barStyle={{ backgroundColor: '#0F2536' }}
-      activeColor={GlobalThemes.colors.activeNavIcon}
+      activeColor={GlobalThemes.colors.babyPink}
     >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
+          tabBarAccessibilityLabel: 'Home Screen',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
@@ -33,6 +34,7 @@ const BottomTabs = () => {
         name="Forms"
         component={FormsScreen}
         options={{
+          tabBarAccessibilityLabel: 'Submit your intake form',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="note-text-outline"
@@ -46,6 +48,7 @@ const BottomTabs = () => {
         name="Upload"
         component={UploadScreen}
         options={{
+          tabBarAccessibilityLabel: 'Upload Documents',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="file-upload-outline"
@@ -59,7 +62,7 @@ const BottomTabs = () => {
         name="Schedule"
         component={ScheduleScreen}
         options={{
-          tabBarAccessibilityLabel: 'Schedule',
+          tabBarAccessibilityLabel: 'Schedule an Appointment',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="calendar-month-outline"
