@@ -2,10 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { Client, Case, Document, Question, CaseStatus } from './types/types';
 import {
-  getAllClients,
-  getAllCasesByID,
-  getAllDocumentsByID,
+  getClient,
+  setClient,
+  getCase,
+  setCase,
+  getDocument,
+  setDocument,
+  getQuestion,
+  setQuestion,
 } from './firebase/queries';
 import firebase from './firebase/clientApp';
 import NavBar from './BottomTabs';
@@ -21,15 +27,29 @@ const styles = StyleSheet.create({
 export default function App() {
   const logData = async (): Promise<void> => {
     // Retrieves firestore collection called 'clients'
-    const clientSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
-      await getAllClients();
-    const caseSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
-      await getAllCasesByID(clientSnap.docs[0].id);
-    const documentSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
-      await getAllDocumentsByID(clientSnap.docs[0].id, caseSnap.docs[0].id);
-    console.log(clientSnap.docs[0].data());
-    console.log(caseSnap.docs[0].data());
-    console.log(documentSnap.docs[0].data());
+    const client: Client = await getClient('sample');
+    console.log(client.answers);
+    client.fullName = 'Do Not Deletee';
+    await setClient(client);
+
+    const clientCase: Case = await getCase(client.id, 'daca-0');
+    console.log(clientCase.status);
+    clientCase.status = CaseStatus.SchedApt;
+    await setCase(client.id, clientCase);
+
+    const document: Document = await getDocument(
+      client.id,
+      clientCase.id,
+      'document0',
+    );
+    console.log(document.url);
+    document.type = 'driversLicense';
+    await setDocument(client.id, clientCase.id, document);
+
+    const question: Question = await getQuestion('JfgQHQm4W9rIsDyUB5Wm');
+    console.log(question.displayText);
+    question.example = 'b';
+    await setQuestion(question);
   };
   useEffect(() => {
     logData();

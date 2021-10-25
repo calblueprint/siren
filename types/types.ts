@@ -1,22 +1,22 @@
-enum CaseStatus {
+export enum CaseStatus {
   SubmitForm = 'submitForm',
   SubmitDoc = 'submitDoc',
   SchedApt = 'schedApt',
 }
 
-enum CaseType {
+export enum CaseType {
   Daca = 'daca',
   Citizenship = 'citizenship',
   CriminalRecord = 'criminalRecord',
 }
 
-enum QuestionType {
+export enum QuestionType {
   General = 'general',
   Daca = 'daca',
   Citizenship = 'citizenship',
 }
 
-enum AnswerType {
+export enum AnswerType {
   LField = 'lField',
   SField = 'sField',
   Dropdown = 'dropdown',
@@ -28,7 +28,6 @@ export type Client = {
   id: string;
   fullName: string;
   createdAt: Date;
-  cases: Case[];
   answers: Map<string, Map<string, string>>;
 };
 
@@ -36,7 +35,6 @@ export type Case = {
   id: string;
   status: CaseStatus;
   type: CaseType;
-  documents: Document[];
 };
 
 export type Document = {
@@ -47,6 +45,7 @@ export type Document = {
 };
 
 export type Question = {
+  id: string;
   displayText: string;
   description: string;
   example: string;
