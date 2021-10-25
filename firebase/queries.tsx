@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-console */
 import firebase from './clientApp';
 import { Client, Case, Document, Question } from '../types/types';
 
@@ -37,9 +39,15 @@ export const setClient = async (client: Client) => {
   }
 };
 
-export const addClient = async (client: Client) => {
+export const deleteClient = async (client: Client) => {
   try {
-    await clientCollection.add(client);
+    const cases: Case[] = await getAllCases(client.id);
+    const promises = [];
+    for (let i = 0; i < cases.length; i += 1) {
+      promises.push(deleteCase(client.id, cases[i]));
+    }
+    await Promise.all(promises);
+    await clientCollection.doc(client.id).delete();
   } catch (e) {
     console.warn(e);
     throw e;
@@ -88,9 +96,17 @@ export const setCase = async (clientId: string, clientCase: Case) => {
   }
 };
 
-export const addCase = async (clientId: string, clientCase: Case) => {
+export const deleteCase = async (clientId: string, clientCase: Case) => {
   try {
-    await database.collection(`clients/${clientId}/cases`).add(clientCase);
+    const documents: Document[] = await getAllDocuments(
+      clientId,
+      clientCase.id,
+    );
+    await documents.map(doc => deleteDocument(clientId, clientCase.id, doc));
+    await database
+      .collection(`clients/${clientId}/cases`)
+      .doc(clientCase.id)
+      .delete();
   } catch (e) {
     console.warn(e);
     throw e;
@@ -149,7 +165,7 @@ export const setDocument = async (
   }
 };
 
-export const addDocument = async (
+export const deleteDocument = async (
   clientId: string,
   caseId: string,
   document: Document,
@@ -157,7 +173,8 @@ export const addDocument = async (
   try {
     await database
       .collection(`clients/${clientId}/cases/${caseId}/documents`)
-      .add(document);
+      .doc(document.id)
+      .delete();
   } catch (e) {
     console.warn(e);
     throw e;
@@ -197,9 +214,9 @@ export const setQuestion = async (question: Question) => {
   }
 };
 
-export const addQuestion = async (question: Question) => {
+export const deleteQuestion = async (question: Question) => {
   try {
-    await questionCollection.add(question);
+    await questionCollection.doc(question.id).delete();
   } catch (e) {
     console.warn(e);
     throw e;

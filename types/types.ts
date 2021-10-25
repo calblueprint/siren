@@ -28,7 +28,7 @@ export type Client = {
   id: string;
   fullName: string;
   createdAt: Date;
-  answers: Map<string, Map<string, string>>;
+  answers?: Map<string, Map<string, string>>;
 };
 
 export type Case = {
