@@ -13,7 +13,7 @@ const BottomTabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      barStyle={{ backgroundColor: '#0F2536' }}
+      barStyle={{ backgroundColor: GlobalThemes.colors.prussianBlue }}
       activeColor={GlobalThemes.colors.babyPink}
     >
       <Tab.Screen

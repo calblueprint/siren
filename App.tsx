@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const logData = async (): Promise<void> => {
+ /* const logData = async (): Promise<void> => {
     // Retrieves firestore collection called 'clients'
     const clientSnap: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData> =
       await getAllClients();
@@ -39,7 +39,7 @@ export default function App() {
   useEffect(() => {
     logData();
   }, []);
-
+*/
   return (
     <PaperProvider theme={GlobalThemes}>
       <View style={styles.container}>
