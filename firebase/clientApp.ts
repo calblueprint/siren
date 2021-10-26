@@ -8,6 +8,7 @@ import {
   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   NEXT_PUBLIC_FIREBASE_APP_ID,
+  // eslint-disable-next-line import/no-unresolved
 } from '@env';
 
 const clientCredentials = {
