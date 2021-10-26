@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
   form: {
     paddingHorizontal: '12%',
     width: '100%',
+    marginTop: '-15%',
   },
   input: {
     marginVertical: 10,
@@ -26,6 +27,7 @@ export const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 30,
+    textAlign: 'center',
   },
   button: {
     position: 'absolute',
@@ -52,10 +54,10 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.title}>
-        <Text>Log into SIREN</Text>
-      </View>
       <View style={styles.form}>
+        <View style={styles.title}>
+          <Text>Log into SIREN</Text>
+        </View>
         <Text>
           Email <Text style={styles.red}>*</Text>
         </Text>
