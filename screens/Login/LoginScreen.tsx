@@ -9,6 +9,27 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  form: {
+    paddingHorizontal: '12%',
+    width: '100%',
+  },
+  input: {
+    marginVertical: 10,
+    border: '1px solid black',
+    borderRadius: 5,
+    padding: 5,
+  },
+  red: {
+    color: 'red',
+  },
+  title: {
+    marginBottom: 30,
+  },
+  button: {
+    position: 'absolute',
+    bottom: '15%',
   },
 });
 
@@ -31,18 +52,32 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Login</Text>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={(text: React.SetStateAction<string>) => setEmail(text)}
-      />
-      <TextInput
-        placeholder="Password"
-        value={password}
-        onChangeText={(text: React.SetStateAction<string>) => setPassword(text)}
-      />
-      <Button title="Login" onPress={onLogin} />
+      <View style={styles.title}>
+        <Text>Log into SIREN</Text>
+      </View>
+      <View style={styles.form}>
+        <Text>
+          Email <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          value={email}
+          onChangeText={(text: React.SetStateAction<string>) => setEmail(text)}
+          style={styles.input}
+        />
+        <Text>
+          Password <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          value={password}
+          onChangeText={(text: React.SetStateAction<string>) =>
+            setPassword(text)
+          }
+          style={styles.input}
+        />
+      </View>
+      <View style={styles.button}>
+        <Button title="Login" onPress={onLogin} />
+      </View>
     </View>
   );
 };
