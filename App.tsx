@@ -3,9 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
 import NavBar from './BottomTabs';
+import GlobalThemes from './GlobalThemes';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,12 +28,14 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <Text>SIREN Mobile</Text>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <NavBar />
-      </NavigationContainer>
-    </View>
+    <PaperProvider theme={GlobalThemes}>
+      <View style={styles.container}>
+        <Text>SIREN Mobile</Text>
+        <StatusBar style="auto" />
+        <NavigationContainer>
+          <NavBar />
+        </NavigationContainer>
+      </View>
+    </PaperProvider>
   );
 }
