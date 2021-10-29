@@ -21,7 +21,6 @@ const BottomTabs = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarAccessibilityLabel: 'Home Screen',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
@@ -35,7 +34,6 @@ const BottomTabs = () => {
         name="Forms"
         component={FormsScreen}
         options={{
-          tabBarAccessibilityLabel: 'Submit your intake form',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="note-text-outline"
@@ -49,7 +47,6 @@ const BottomTabs = () => {
         name="Upload"
         component={UploadScreen}
         options={{
-          tabBarAccessibilityLabel: 'Upload Documents',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="file-upload-outline"
@@ -63,7 +60,7 @@ const BottomTabs = () => {
         name="Schedule"
         component={ScheduleScreen}
         options={{
-          tabBarAccessibilityLabel: 'Schedule an Appointment',
+          tabBarAccessibilityLabel: 'Schedule',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="calendar-month-outline"
