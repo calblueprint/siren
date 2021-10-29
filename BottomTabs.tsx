@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from 'react-native-paper';
 import HomeScreen from './screens/HomeScreen';
 import UploadScreen from './screens/UploadScreen';
 import FormsScreen from './screens/FormsScreen';
 import ScheduleScreen from './screens/ScheduleScreen';
-import GlobalThemes from './GlobalThemes';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const BottomTabs = () => {
+  const { colors } = useTheme();
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      barStyle={{ backgroundColor: GlobalThemes.colors.prussianBlue }}
-      activeColor={GlobalThemes.colors.babyPink}
+      barStyle={{ backgroundColor: colors.prussianBlue }}
+      activeColor={colors.babyPink}
     >
       <Tab.Screen
         name="Home"
