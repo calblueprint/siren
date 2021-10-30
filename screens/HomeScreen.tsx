@@ -16,6 +16,8 @@ const HomeScreen = ({ navigation }) => {
   const user: firebase.User | null = firebase.auth().currentUser;
   if (user == null) {
     return null; // TODO: send user back to login?
+  } else {
+    
   }
 
   const onLogout = async () => {
@@ -29,7 +31,8 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={screenStyles.text}>
       <StatusBar />
-      <Text>Welcome {user.email}!</Text>
+      <Text>Welcome {user.displayName}!</Text>
+      <Text>User speaks {user.language}!</Text>
       <Text>Your UID is: {user.uid}</Text>
       <Button title="Logout" onPress={onLogout} />
     </View>
