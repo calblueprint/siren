@@ -4,10 +4,10 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { Client } from './types/types';
-import { getClient } from './firebase/queries';
-import NavBar from './BottomTabs';
-import GlobalThemes from './GlobalThemes';
+import { Client } from 'types/types';
+import { getClient } from 'database/queries';
+import NavBar from 'components/BottomTabs';
+import GlobalThemes from 'themes/GlobalThemes';
 
 const styles = StyleSheet.create({
   container: {
