@@ -6,7 +6,8 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         alignItems: 'center',
-        marginBottom: 24
+        marginBottom: 24,
+        zIndex: 1000
     },
     displayText: {
         width: '74%',

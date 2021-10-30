@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     },
     calendar: {
         width: '74%',
+        height: 106,
         borderWidth: 1,
         borderColor: '#2B2B2B',
         borderRadius: 8
@@ -37,7 +38,7 @@ function renderCalendar() {
                 value={date}
                 mode={'date'}
                 is24Hour={true}
-                display="default"
+                display="spinner"
             />
         </View>
     );
