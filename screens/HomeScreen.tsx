@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, StyleSheet, StatusBar, Button } from 'react-native';
 import firebase from '../firebase/clientApp';
+import { Client } from '../types/types';
+import { getClient } from '../firebase/queries';
 
 const auth = firebase.auth();
 
@@ -13,12 +15,11 @@ export const screenStyles = StyleSheet.create({
 });
 
 const HomeScreen = ({ navigation }) => {
-  const user: firebase.User | null = firebase.auth().currentUser;
-  if (user == null) {
-    return null; // TODO: send user back to login?
-  } else {
-    
+  if (auth.currentUser == null) {
+    return <></>;
   }
+
+  const user: firebase.User = auth.currentUser; // TODO: user displayname will not update until reload
 
   const onLogout = async () => {
     try {
@@ -32,7 +33,6 @@ const HomeScreen = ({ navigation }) => {
     <View style={screenStyles.text}>
       <StatusBar />
       <Text>Welcome {user.displayName}!</Text>
-      <Text>User speaks {user.language}!</Text>
       <Text>Your UID is: {user.uid}</Text>
       <Button title="Logout" onPress={onLogout} />
     </View>

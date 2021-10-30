@@ -9,7 +9,7 @@ import ScheduleScreen from '../screens/ScheduleScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const HomeStack = () => {
+const BottomTabs = () => {
   const { colors } = useTheme();
   return (
     <Tab.Navigator
@@ -73,4 +73,4 @@ const HomeStack = () => {
     </Tab.Navigator>
   );
 };
-export default HomeStack;
+export default BottomTabs;

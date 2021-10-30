@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
 import firebase from '../firebase/clientApp';
 import AuthStack from './AuthStack';
-import HomeStack from './HomeStack';
+import HomeStack from './BottomTabs';
 
 const auth = firebase.auth();
 

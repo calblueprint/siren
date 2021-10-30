@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import firebase from '../../firebase/clientApp';
+import { Client } from '../../types/types';
+import { setClient } from '../../firebase/queries';
 
 const auth = firebase.auth();
 
@@ -49,13 +51,15 @@ const RegisterScreen = ({ navigation }) => {
     // TODO: error handling
     await auth
       .createUserWithEmailAndPassword(data.email, data.password)
-      .then(res => {
+      .then(async res => {
+        res.user.updateProfile({ displayName: data.name });
         if (res.user != null) {
-          firebase.database().ref(`users/${res.user.uid}`).set({
-            name: data.name,
-            email: data.email,
-            language: data.language,
-          });
+          const client: Client = {
+            id: res.user.uid,
+            fullName: data.name,
+            createdAt: Date.now(),
+          };
+          await setClient(client);
         }
       });
   };
