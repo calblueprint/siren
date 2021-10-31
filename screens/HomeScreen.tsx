@@ -12,7 +12,9 @@ export const screenStyles = StyleSheet.create({
 const HomeScreen = () => {
   return (
     <View style={screenStyles.text}>
-      <Text>Welcome to the homepage!</Text>
+      <Text style={{ fontFamily: 'PTSans_400Regular', fontSize: 20 }}>
+        Welcome to the homepage!
+      </Text>
     </View>
   );
 };

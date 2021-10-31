@@ -1,9 +1,11 @@
 /* eslint-disable react/style-prop-object */
+/* eslint-disable camelcase */
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
+import declareFonts from './GlobalFonts';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
 import NavBar from './BottomTabs';
@@ -18,6 +20,7 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
+  declareFonts();
   const logData = async (): Promise<void> => {
     const client: Client = await getClient('sample');
     // eslint-disable-next-line no-console
