@@ -2,14 +2,14 @@
 /* eslint-disable camelcase */
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import declareFonts from './GlobalFonts';
+import declareFonts from './styles/GlobalFonts';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
 import NavBar from './BottomTabs';
-import GlobalThemes from './GlobalThemes';
+import GlobalThemes from './styles/GlobalThemes';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,7 +33,6 @@ export default function App() {
   return (
     <PaperProvider theme={GlobalThemes}>
       <View style={styles.container}>
-        <Text>SIREN Mobile</Text>
         <StatusBar style="auto" />
         <NavigationContainer>
           <NavBar />
