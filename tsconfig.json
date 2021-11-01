@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false,
     "allowJs": false,
     "esModuleInterop": true,
     "jsx": "react-native",
