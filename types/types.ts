@@ -17,10 +17,9 @@ export enum QuestionType {
 }
 
 export enum AnswerType {
-  LField = 'lField',
-  SField = 'sField',
+  LargeInput = 'largeInput',
+  SmallInput = 'smallInput',
   Dropdown = 'dropdown',
-  Radio = 'radio',
   Calendar = 'calendar',
 }
 

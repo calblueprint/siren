@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
+    "@react-native-community/datetimepicker": "^3.5.2",
     "@react-navigation/material-bottom-tabs": "^6.0.8",
     "@react-navigation/native": "^6.0.4",
     "expo": "~42.0.0",
@@ -21,6 +22,7 @@
     "react-firebase-hooks": "^3.0.4",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-dotenv": "^3.2.0",
+    "react-native-dropdown-picker": "^5.2.3",
     "react-native-paper": "^4.9.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.5"

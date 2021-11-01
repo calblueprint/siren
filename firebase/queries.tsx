@@ -204,6 +204,22 @@ export const getAllQuestions = async (): Promise<Question[]> => {
   }
 };
 
+export const getAllQuestionsOfType = async (
+  type: string,
+): Promise<Question[]> => {
+  try {
+    const ref = await questionCollection
+      .where('questionType', '==', type)
+      .orderBy('order')
+      .get();
+    return ref.docs.map(doc => doc.data() as Question);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling
+  }
+};
+
 export const setQuestion = async (question: Question) => {
   try {
     await questionCollection.doc(question.id).set(question);
