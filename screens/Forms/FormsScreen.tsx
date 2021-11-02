@@ -1,12 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-
-import { screenStyles } from './HomeScreen';
+import styles from '../ScreenStyles';
 
 const FormsScreen = () => {
   return (
-    <View style={screenStyles.text}>
-      <Text>Fill out your intake form!</Text>
+    <View style={styles.root}>
+      <Text style={styles.text}>Fill out your intake form!</Text>
     </View>
   );
 };
