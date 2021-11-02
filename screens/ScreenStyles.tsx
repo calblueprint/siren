@@ -4,7 +4,7 @@ import spaces from '../styles/GlobalSpacing';
 export default StyleSheet.create({
   root: {
     display: 'flex',
-    height: '100mv',
+    height: '100%', // cannot use 'mv' in React Native
     alignItems: 'center',
     flexDirection: 'column',
     padding: spaces.PADDING,
