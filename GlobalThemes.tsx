@@ -1,12 +1,5 @@
+import * as React from 'react';
 import { DefaultTheme } from 'react-native-paper';
-
-// TO DO: ADD SPACING / TEXT SIZE
-
-/* FONTS INCOMPATIBLE 
-  React-Native-Paper lacks support for custom Typography in Typescript
-  Site example does not work: 
-  https://github.com/callstack/react-native-paper/blob/main/example/src/index.tsx
-*/
 
 declare global {
   namespace ReactNativePaper {
@@ -18,6 +11,12 @@ declare global {
       dimGray: string;
       prussianBlue: string;
       white: string;
+    }
+    interface ThemeFonts {
+      display: React.CSSProperties;
+      header: React.CSSProperties;
+      body: React.CSSProperties;
+      bodyBold: React.CSSProperties;
     }
   }
 }
@@ -34,6 +33,32 @@ const GlobalThemes: ReactNativePaper.Theme = {
     dimGray: '#6A6A6A',
     prussianBlue: '#0F2536',
     white: '#FFFFFF',
+  },
+
+  fonts: {
+    ...DefaultTheme.fonts,
+    display: {
+      fontFamily: 'Myriad Pro',
+      fontWeight: 600,
+      fontSize: 24,
+    },
+
+    header: {
+      fontFamily: 'Myriad Pro',
+      fontWeight: 600,
+      fontSize: 16,
+    },
+
+    body: {
+      fontFamily: 'Myriad Pro',
+      fontSize: 14,
+    },
+
+    bodyBold: {
+      fontFamily: 'Myriad Pro',
+      fontWeight: 'bold',
+      fontSize: 14,
+    },
   },
 };
 
