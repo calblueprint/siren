@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable react/style-prop-object */
 /* eslint-disable camelcase */
 import { StatusBar } from 'expo-status-bar';
