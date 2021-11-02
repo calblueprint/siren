@@ -68,6 +68,12 @@ export default function GeneralQuestionManager() {
     <View style={styles.container}>
       <Text>SIREN Questions</Text>
       {currentQuestions.map(question => getQuestionComponent(question))}
+      <button
+        type="button"
+        onClick={() => (screen > 0 ? setScreen(screen - 1) : null)}
+      >
+        Previous Screen
+      </button>
       <button type="button" onClick={() => setScreen(screen + 1)}>
         Next Screen
       </button>
