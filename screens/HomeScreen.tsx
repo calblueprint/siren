@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { TextRegular, TextBold, TextBoldItalic } from '../assets/fonts/Fonts';
 
 export const screenStyles = StyleSheet.create({
   text: {
@@ -13,7 +14,7 @@ export const screenStyles = StyleSheet.create({
 const HomeScreen = () => {
   return (
     <View style={screenStyles.text}>
-      <Text>Welcome to the homepage!</Text>
+      <TextBoldItalic>Welcome to the homepage!</TextBoldItalic>
     </View>
   );
 };

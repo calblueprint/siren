@@ -1,11 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { screenStyles } from './HomeScreen';
+import { TextRegular } from '../assets/fonts/Fonts';
 
 const UploadScreen = () => {
   return (
     <View style={screenStyles.text}>
-      <Text>Upload your necessary documents!</Text>
+      <TextRegular>Upload your necessary documents!</TextRegular>
     </View>
   );
 };

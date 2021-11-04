@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { Button, Text, View } from 'react-native';
+import { TextRegular } from '../assets/fonts/Fonts';
 import { screenStyles } from './HomeScreen';
 
 const ScheduleScreen = () => {
@@ -18,7 +19,7 @@ const ScheduleScreen = () => {
 
   return (
     <View style={screenStyles.text}>
-      <Text>Schedule an appointment with your attorney!</Text>
+      <TextRegular>Schedule an appointment with your attorney!</TextRegular>
       <Button title="Open Calendly" onPress={openCalendlyOnBrowser} />
     </View>
   );

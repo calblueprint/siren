@@ -6,6 +6,7 @@ import HomeScreen from './screens/HomeScreen';
 import UploadScreen from './screens/UploadScreen';
 import FormsScreen from './screens/FormsScreen';
 import ScheduleScreen from './screens/ScheduleScreen';
+import { Colors } from './assets/Colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -14,8 +15,8 @@ const BottomTabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      barStyle={{ backgroundColor: colors.prussianBlue }}
-      activeColor={colors.babyPink}
+      barStyle={{ backgroundColor: Colors.brandBlue }}
+      activeColor={Colors.navbarPink}
     >
       <Tab.Screen
         name="Home"
