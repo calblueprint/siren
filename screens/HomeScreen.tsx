@@ -9,6 +9,7 @@ export const screenStyles = StyleSheet.create({
   },
 });
 
+// TO DO: test if fonts work
 const HomeScreen = () => {
   return (
     <View style={screenStyles.text}>

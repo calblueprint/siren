@@ -4,6 +4,9 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Fonts } from './assets/fonts/Fonts';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
 import NavBar from './BottomTabs';
@@ -26,6 +29,11 @@ export default function App() {
   useEffect(() => {
     logData();
   }, []);
+
+  const [fontsLoaded] = useFonts(Fonts);
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <PaperProvider theme={GlobalThemes}>
