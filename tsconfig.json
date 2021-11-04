@@ -17,10 +17,5 @@
       "./src/types"
     ]
   },
-<<<<<<< HEAD
   "extends": "expo/tsconfig.base",
 }
-=======
-  "extends": "expo/tsconfig.base"
-}
->>>>>>> 750e65e898941140d9e4095c676d3ee2ee18b5b2

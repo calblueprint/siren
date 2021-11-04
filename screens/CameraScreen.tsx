@@ -36,9 +36,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     backgroundColor: '#fff',
   },
+  previewContainer: {
+    flex: 1,
+    width: '100%',
+  },
   previewImage: {
     width: '100%',
-    height: '100%',
     padding: 100,
   },
 });
@@ -80,12 +83,17 @@ export default function UploadScreen() {
     setCameraState(CameraStatus.PREVIEW);
   };
 
-  const CameraPreview = ({ photo }: any) => (
-    <View style={styles.previewContainer}>
+  const uploadPicture = async () => {
+    setDocument(photo?.uri);
+  };
+
+  const CameraPreview = ({ p }: any) => (
+    <View style={styles.container}>
       <ImageBackground
-        source={{ uri: photo && photo.uri }}
+        source={{ uri: p && p.uri }}
         style={styles.previewImage}
       />
+      <Button title="Keep Scan" onPress={} />
     </View>
   );
 
