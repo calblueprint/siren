@@ -40,7 +40,3 @@ export async function logout() {
     console.log('Error logging out');
   }
 }
-
-export async function getCurrentUser() {
-  return firebase.auth().currentUser;
-}
