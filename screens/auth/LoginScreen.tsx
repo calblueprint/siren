@@ -1,10 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import firebase from '../../firebase/clientApp';
-
-const auth = firebase.auth();
+import { login } from '../../firebase/auth';
 
 export const styles = StyleSheet.create({
   container: {
@@ -39,18 +36,9 @@ export const styles = StyleSheet.create({
   },
 });
 
-type LoginData = {
-  email: string;
-  password: string;
-};
-
-const LoginScreen = ({ navigation }) => {
-  const { control, handleSubmit } = useForm();
-
-  const onLogin = async (data: LoginData) => {
-    // TODO: error handling
-    await auth.signInWithEmailAndPassword(data.email, data.password);
-  };
+const LoginScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <View style={styles.container}>
@@ -58,47 +46,21 @@ const LoginScreen = ({ navigation }) => {
         <View style={styles.title}>
           <Text>Log into SIREN</Text>
         </View>
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Email <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="email"
-          defaultValue=""
-        />
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Password <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="password"
-          defaultValue=""
+        <Text>
+          Email <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput style={styles.input} onChangeText={text => setEmail(text)} />
+        <Text>
+          Password <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setPassword(text)}
+          secureTextEntry
         />
       </View>
       <View style={styles.button}>
-        <Button title="Log in" onPress={handleSubmit(onLogin)} />
+        <Button title="Log in" onPress={() => login(email, password)} />
       </View>
     </View>
   );

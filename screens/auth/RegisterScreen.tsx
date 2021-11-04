@@ -1,12 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
-import firebase from '../../firebase/clientApp';
-import { Client } from '../../types/types';
-import { setClient } from '../../firebase/queries';
-
-const auth = firebase.auth();
+import { register } from '../../firebase/auth';
 
 export const styles = StyleSheet.create({
   container: {
@@ -37,134 +32,66 @@ export const styles = StyleSheet.create({
   },
 });
 
-type RegisterData = {
-  name: string;
-  email: string;
-  password: string;
-  language: string; // TODO: edit
-};
+const RegisterScreen = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [language, setLanguage] = useState('');
 
-const RegisterScreen = ({ navigation }) => {
-  const { control, handleSubmit } = useForm();
-
-  const onRegister = async (data: RegisterData) => {
-    // TODO: error handling
-    await auth
-      .createUserWithEmailAndPassword(data.email, data.password)
-      .then(async res => {
-        res.user.updateProfile({ displayName: data.name });
-        if (res.user != null) {
-          const client: Client = {
-            id: res.user.uid,
-            fullName: data.name,
-            createdAt: Date.now(),
-          };
-          await setClient(client);
-        }
-      });
+  const onRegister = (e: string, p: string, n: string) => {
+    if (email === '' || password === '' || fullName === '' || language === '') {
+      console.log('please fill in all inputs');
+    } else if (password !== passwordRepeat) {
+      console.log('passwords do not match');
+    } else {
+      register(e, p, n);
+    }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Name <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="name"
-          defaultValue=""
+        <Text>
+          Name <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setFullName(text)}
         />
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Email <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="email"
-          defaultValue=""
+        <Text>
+          Email <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput style={styles.input} onChangeText={text => setEmail(text)} />
+        <Text>
+          Password <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setPassword(text)}
+          secureTextEntry
         />
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Password <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="password"
-          defaultValue=""
+        <Text>
+          Re-enter Password <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setPasswordRepeat(text)}
+          secureTextEntry
         />
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Re-enter password <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="re-password"
-          defaultValue=""
-        />
-        <Controller
-          control={control}
-          rules={{ required: true }}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <>
-              <Text>
-                Language preference <Text style={styles.red}>*</Text>
-              </Text>
-              <TextInput
-                style={styles.input}
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
-              />
-            </>
-          )}
-          name="language"
-          defaultValue=""
+        <Text>
+          Language preference <Text style={styles.red}>*</Text>
+        </Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={text => setLanguage(text)}
         />
       </View>
       <View style={styles.button}>
-        <Button title="Get started!" onPress={handleSubmit(onRegister)} />
+        <Button
+          title="Get started!"
+          onPress={() => onRegister(email, password, fullName)}
+        />
       </View>
     </View>
   );
