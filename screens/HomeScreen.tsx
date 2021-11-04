@@ -26,7 +26,7 @@ const HomeScreen = ({ navigation }: any) => {
       }
     }
     getUserInfo();
-  });
+  }, []);
 
   return (
     <View style={screenStyles.text}>
