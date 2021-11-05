@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
-import { Question } from '../types/types';
+import { QuestionComponentProps } from '../types/types';
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: 24,
+    marginBottom: 15,
+    position: 'relative',
   },
   displayText: {
     width: '74%',
@@ -20,25 +21,29 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function Dropdown(question: Question) {
-  const { answerOptions, displayText } = question;
+export default function Dropdown(props: QuestionComponentProps) {
+  const { question, setAnswer } = props;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const userOptions: ItemType[] = [];
-  if (answerOptions) {
-    for (let i = 0; i < answerOptions.length; i += 1) {
+  if (question.answerOptions) {
+    for (let i = 0; i < question.answerOptions.length; i += 1) {
       const item: ItemType = {
-        label: answerOptions[i],
-        value: answerOptions[i],
+        label: question.answerOptions[i],
+        value: question.answerOptions[i],
       };
       userOptions.push(item);
     }
   }
   const [items, setItems] = useState(userOptions);
 
+  const onChange = (newValue?: any): void => {
+    setAnswer(question, newValue);
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.displayText}>{displayText}</Text>
+      <Text style={styles.displayText}>{question.displayText}</Text>
       <DropDownPicker
         open={open}
         value={value}
@@ -46,9 +51,11 @@ export default function Dropdown(question: Question) {
         setOpen={setOpen}
         setValue={setValue}
         setItems={setItems}
+        onChangeValue={onChange}
+        dropDownDirection="AUTO"
         containerStyle={{
           width: '74%',
-          height: 50,
+          height: 150,
           borderColor: '#2B2B2B',
           borderRadius: 8,
         }}

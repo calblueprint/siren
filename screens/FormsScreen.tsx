@@ -1,13 +1,18 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import GeneralQuestionManager from './GeneralQuestionManager';
-import { screenStyles } from './HomeScreen';
+
+export const screenStyles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    alignItems: 'stretch',
+  },
+});
 
 const FormsScreen = () => {
   return (
-    <View style={screenStyles.text}>
+    <View style={screenStyles.container}>
       <GeneralQuestionManager />
-      <Text>Fill out your intake form!</Text>
     </View>
   );
 };

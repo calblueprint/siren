@@ -27,7 +27,7 @@ export type Client = {
   id: string;
   fullName: string;
   createdAt: Date;
-  answers?: Map<string, Map<string, string>>;
+  answers: Map<string, Map<string, string>>;
 };
 
 export type Case = {
@@ -54,4 +54,13 @@ export type Question = {
   active: boolean;
   answerType: AnswerType;
   answerOptions?: string[];
+};
+
+export type QuestionComponentProps = {
+  question: Question;
+  setAnswer: (question: Question, input: any) => void;
+};
+
+export type Dictionary = {
+  [key: string]: any;
 };

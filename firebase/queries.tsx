@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
 import firebase from './clientApp';
-import { Client, Case, Document, Question } from '../types/types';
+import { Client, Case, Document, Question, Dictionary } from '../types/types';
+import { objectToMap, mapToObject } from './helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -10,7 +11,9 @@ const questionCollection = database.collection('questions');
 export const getClient = async (clientId: string): Promise<Client> => {
   try {
     const doc = await clientCollection.doc(clientId).get();
-    return doc.data() as Client;
+    const client = doc.data() as Client;
+    client.answers = objectToMap(client.answers);
+    return client;
   } catch (e) {
     console.warn(e);
     throw e;
@@ -31,7 +34,9 @@ export const getAllClients = async (): Promise<Client[]> => {
 
 export const setClient = async (client: Client) => {
   try {
-    await clientCollection.doc(client.id).set(client);
+    const copy = { ...client } as Dictionary;
+    copy.answers = mapToObject(client.answers);
+    await clientCollection.doc(copy.id).set(copy);
   } catch (e) {
     console.warn(e);
     throw e;

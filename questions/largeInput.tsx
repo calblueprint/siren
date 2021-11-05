@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { Question } from '../types/types';
+import { QuestionComponentProps } from '../types/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '74%',
-    height: 116,
+    height: 100,
     fontSize: 12,
     lineHeight: 14,
     color: '#6A6A6A',
@@ -38,13 +38,16 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function LargeInput(props: Question) {
-  const { displayText, description } = props;
+export default function LargeInput(props: QuestionComponentProps) {
+  const { question, setAnswer } = props;
   return (
     <View style={styles.container}>
-      <Text style={styles.displayText}>{displayText}</Text>
-      <Text style={styles.description}>{description}</Text>
-      <TextInput style={styles.input} multiline />
+      <Text style={styles.displayText}>{question.displayText}</Text>
+      <Text style={styles.description}>{question.description}</Text>
+      <TextInput
+        style={styles.input}
+        onChangeText={t => setAnswer(question, t)}
+      />
     </View>
   );
 }
