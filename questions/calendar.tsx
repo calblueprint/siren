@@ -42,6 +42,7 @@ function renderCalendar() {
             />
         </View>
     );
+
 };
 
 export default renderCalendar;

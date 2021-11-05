@@ -2,42 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
-interface smallTextProps {
+interface smallInputProps {
     displayText: string;
     description?: string;
     example?: string;
-}
-
-const questions = {
-    0: {
-        active: true,
-        answerType: 'smallText',
-        description: 'Your name as written on legal documents',
-        displayText: 'Name',
-        example: 'ex. Noah Alexander Hernandex',
-        key: 'Name',
-        order: 0,
-        questionType: 'Intake'
-    },
-    1: {
-        active: true,
-        answerType: 'smallText',
-        description: 'If you do not have an email, put N/A.',
-        displayText: 'Email Address',
-        example: 'ex. example@example.com',
-        key: 'Email',
-        order: 1,
-        questionType: 'Intake'
-    },
-    2: {
-        active: true,
-        answerType: 'smallText',
-        displayText: 'Telephone',
-        example: 'ex. 000-000-0000',
-        key: 'Telephone',
-        order: 2,
-        questionType: 'Intake'
-    }
 }
 
 const styles = StyleSheet.create({
@@ -76,7 +44,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function renderSmallText() {
+const SmallInput = (props: smallInputProps) => {
     return (
         <View style={styles.container}>
             <Text style={styles.displayText}>Name</Text>
@@ -86,4 +54,4 @@ function renderSmallText() {
     )
 }
 
-export default renderSmallText
+export default SmallInput;
