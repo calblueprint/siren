@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import { TextRegular } from '../../assets/fonts/Fonts';
 
 export const styles = StyleSheet.create({
   container: {
