@@ -12,7 +12,7 @@ import {
   TextBold,
   TextRegularWhite,
 } from '../../assets/fonts/Fonts';
-import { ButtonDark, ButtonLight } from '../../assets/buttons/Buttons';
+import { ButtonDark, ButtonLight } from '../../assets/Components';
 
 const WelcomeScreen = ({ navigation }: any) => {
   return (

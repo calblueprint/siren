@@ -5,7 +5,7 @@ export const ContentContainer = styled.View`
   height: 80%;
   display: flex;
   justify-content: center;
-  margin-top: -%;
+  margin-top: -10%;
 `;
 
 export const TitleContainer = styled.View`
@@ -14,10 +14,13 @@ export const TitleContainer = styled.View`
 `;
 
 export const ButtonContainer = styled.View`
+  position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  padding-horizontal: 12%;
+  bottom: 10%;
 `;
 
 export const ButtonView = styled.View`

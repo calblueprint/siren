@@ -32,6 +32,11 @@ export const TextRegular = styled.Text`
   font-size: 14px;
 `;
 
+export const TextSubtitle = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 12px;
+`;
+
 export const TextBoldItalic = styled.Text`
   font-family: public-sans-boldit;
 `;
