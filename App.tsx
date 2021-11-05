@@ -1,7 +1,10 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Fonts } from './assets/fonts/Fonts';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
 import RootNavigator from './navigation/RootNavigator';
@@ -25,11 +28,17 @@ export default function App() {
     logData();
   }, []);
 
+  const [fontsLoaded] = useFonts(Fonts);
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <PaperProvider theme={GlobalThemes}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <NavigationContainer>
         <RootNavigator />
-      </View>
-    </PaperProvider>
+      </NavigationContainer>
+    </View>
   );
 }

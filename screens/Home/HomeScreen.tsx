@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, StatusBar, Button } from 'react-native';
-import firebase from '../firebase/clientApp';
-import { logout } from '../firebase/auth';
-import { getClient } from '../firebase/queries';
-
-export const screenStyles = StyleSheet.create({
-  text: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+import { Button } from 'react-native';
+import firebase from '../../firebase/clientApp';
+import { TextRegular } from '../../assets/fonts/Fonts';
+import { PageContainer } from '../styles';
+import { logout } from '../../firebase/auth';
+import { getClient } from '../../firebase/queries';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
@@ -29,12 +23,11 @@ const HomeScreen = ({ navigation }: any) => {
   }, []);
 
   return (
-    <View style={screenStyles.text}>
-      <StatusBar />
-      <Text>Welcome {name}!</Text>
-      <Text>Your UID is: {uid}</Text>
+    <PageContainer>
+      <TextRegular>Welcome {name}!</TextRegular>
+      <TextRegular>Your UID is: {uid}</TextRegular>
       <Button title="Logout" onPress={logout} />
-    </View>
+    </PageContainer>
   );
 };
 
