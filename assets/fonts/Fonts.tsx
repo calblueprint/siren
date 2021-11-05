@@ -20,17 +20,18 @@ export const Fonts = {
   'public-sans-semiboldit': require('./PublicSans-SemiBoldItalic.otf'),
   'public-sans-thin': require('./PublicSans-Thin.otf'),
   'public-sans-thinit': require('./PublicSans-ThinItalic.otf'),
-  // TO DO: add remaining fonts
 };
 
 export const TextBold = styled.Text`
   font-family: public-sans-semibold;
+  font-size: 14px;
 `;
 
 export const TextRegular = styled.Text`
   font-family: public-sans-regular;
+  font-size: 18px;
 `;
 
 export const TextBoldItalic = styled.Text`
-  font-family: public-sans-boldit
+  font-family: public-sans-boldit;
 `;
