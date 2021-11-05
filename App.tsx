@@ -1,13 +1,14 @@
 /* eslint-disable react/style-prop-object */
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { Provider as PaperProvider } from 'react-native-paper';
+import { useFonts } from 'expo-font';
+import AppLoading from 'expo-app-loading';
+import { Fonts } from './assets/fonts/Fonts';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
-import NavBar from './BottomTabs';
-import GlobalThemes from './GlobalThemes';
+import NavBar from './NavBar';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,15 +28,17 @@ export default function App() {
     logData();
   }, []);
 
+  const [fontsLoaded] = useFonts(Fonts);
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
   return (
-    <PaperProvider theme={GlobalThemes}>
-      <View style={styles.container}>
-        <Text>SIREN Mobile</Text>
-        <StatusBar style="auto" />
-        <NavigationContainer>
-          <NavBar />
-        </NavigationContainer>
-      </View>
-    </PaperProvider>
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <NavBar />
+      </NavigationContainer>
+    </View>
   );
 }
