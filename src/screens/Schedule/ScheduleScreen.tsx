@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
-import { Button, Text, View } from 'react-native';
-import { screenStyles } from './HomeScreen';
+import { Button } from 'react-native';
+import { TextRegular } from 'assets/fonts/Fonts';
+import { PageContainer } from 'screens/styles';
 
 const ScheduleScreen = () => {
   const [calendlyLink, setCalendlyLink] = useState<string>('');
@@ -17,10 +18,10 @@ const ScheduleScreen = () => {
   };
 
   return (
-    <View style={screenStyles.text}>
-      <Text>Schedule an appointment with your attorney!</Text>
+    <PageContainer>
+      <TextRegular>Schedule an appointment with your attorney!</TextRegular>
       <Button title="Open Calendly" onPress={openCalendlyOnBrowser} />
-    </View>
+    </PageContainer>
   );
 };
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
 import { Client, Case, Document, Question } from 'types/types';
-import firebase from './clientApp';
+import firebase from 'database/clientApp';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');

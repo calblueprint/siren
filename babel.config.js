@@ -17,11 +17,9 @@ module.exports = function(api) {
           "src": "./",
           "assets": "./assets",
           "components": "./src/components",
-          "constants": "./src/constants",
           "database": "./src/database",
           "navigation": "./src/navigation",
           "screens": "./src/screens",
-          "themes": "./src/themes",
           "types": "./src/types"
         }
       }],

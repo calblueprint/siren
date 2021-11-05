@@ -5,9 +5,9 @@ import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { Fonts } from './assets/fonts/Fonts';
-import { Client } from './types/types';
-import { getClient } from './firebase/queries';
+import { Fonts } from 'assets/fonts/Fonts';
+import { Client } from 'types/types';
+import { getClient } from 'database/queries';
 import NavBar from './NavBar';
 
 const styles = StyleSheet.create({
