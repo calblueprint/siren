@@ -2,7 +2,10 @@
 import styled from 'styled-components/native';
 
 export const PageContainer = styled.View`
-  margin: 5%;
-  justify-content: 'center';
-  align-items: 'center';
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  padding-horizontal: 12%;
 `;

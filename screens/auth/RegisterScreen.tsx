@@ -1,36 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { ContentContainer, ButtonView, TextInput } from './styles';
+import {
+  TextRegular,
+  TextRegularWhite,
+  TextRegularRed,
+} from '../../assets/fonts/Fonts';
+import { ButtonDark } from '../../assets/buttons/Buttons';
+import { PageContainer } from '../styles';
 import { register } from '../../firebase/auth';
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: 'white',
-    width: '100%',
-    height: '100%',
-    paddingHorizontal: '12%',
-  },
-  content: {
-    height: '80%',
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  input: {
-    marginVertical: 10,
-    border: '1px solid black',
-    borderRadius: 5,
-    padding: 5,
-  },
-  red: {
-    color: 'red',
-  },
-  button: {
-    width: '80%',
-  },
-});
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -50,50 +28,38 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
-        <Text>
-          Name <Text style={styles.red}>*</Text>
-        </Text>
+    <PageContainer>
+      <ContentContainer>
+        <TextRegular>
+          Name <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput onChangeText={text => setFullName(text)} />
+        <TextRegular>
+          Email <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput onChangeText={text => setEmail(text)} />
+        <TextRegular>
+          Password <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
+        <TextRegular>
+          Re-enter Password <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
         <TextInput
-          style={styles.input}
-          onChangeText={text => setFullName(text)}
-        />
-        <Text>
-          Email <Text style={styles.red}>*</Text>
-        </Text>
-        <TextInput style={styles.input} onChangeText={text => setEmail(text)} />
-        <Text>
-          Password <Text style={styles.red}>*</Text>
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setPassword(text)}
-          secureTextEntry
-        />
-        <Text>
-          Re-enter Password <Text style={styles.red}>*</Text>
-        </Text>
-        <TextInput
-          style={styles.input}
           onChangeText={text => setPasswordRepeat(text)}
           secureTextEntry
         />
-        <Text>
-          Language preference <Text style={styles.red}>*</Text>
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setLanguage(text)}
-        />
-      </View>
-      <View style={styles.button}>
-        <Button
-          title="Get started!"
-          onPress={() => onRegister(email, password, fullName)}
-        />
-      </View>
-    </View>
+        <TextRegular>
+          Language preference <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput onChangeText={text => setLanguage(text)} />
+      </ContentContainer>
+      <ButtonView>
+        <ButtonDark onPress={() => onRegister(email, password, fullName)}>
+          <TextRegularWhite>Get started!</TextRegularWhite>
+        </ButtonDark>
+      </ButtonView>
+    </PageContainer>
   );
 };
 

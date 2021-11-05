@@ -1,0 +1,25 @@
+/* eslint-disable import/prefer-default-export */
+import styled from 'styled-components/native';
+
+export const ContentContainer = styled.View`
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  margin-top: -%;
+`;
+
+export const TitleContainer = styled.View`
+  margin-bottom: 30;
+  text-align: center;
+`;
+
+export const ButtonContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+export const ButtonView = styled.View`
+  width: 45%;
+`;

@@ -1,14 +1,12 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Fonts } from './assets/fonts/Fonts';
 import { Client } from './types/types';
 import { getClient } from './firebase/queries';
 import RootNavigator from './navigation/RootNavigator';
-import GlobalThemes from './GlobalThemes';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,10 +33,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <RootNavigator />
     </View>
   );
 }
