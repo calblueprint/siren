@@ -1,6 +1,18 @@
 {
   "compilerOptions": {
     "allowJs": false,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "assets/*": ["assets/*"],
+      "components/*": ["src/components/*"],
+      "constants/*": ["src/constants/*"],
+      "database/*": ["src/database/*"],
+      "navigation/*": ["src/navigation/*"],
+      "screens/*": ["src/screens/*"],
+      "themes/*": ["src/themes/*"],
+      "types/*": ["src/types/*"]
+    },
     "esModuleInterop": true,
     "jsx": "react-native",
     "lib": [
@@ -14,7 +26,7 @@
     "target": "ESNext",
     "strict": true,
     "typeRoots": [
-      "./src/types"
+      "./src/types/types"
     ]
   },
   "extends": "expo/tsconfig.base"
