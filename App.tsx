@@ -4,9 +4,9 @@ import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Fonts } from './assets/fonts/Fonts';
-import { Client } from './types/types';
-import { getClient } from './firebase/queries';
-import RootNavigator from './navigation/RootNavigator';
+import { Client } from './src/types/types';
+import { getClient } from './src/database/queries';
+import RootNavigator from './src/navigation/RootNavigator';
 
 const styles = StyleSheet.create({
   container: {

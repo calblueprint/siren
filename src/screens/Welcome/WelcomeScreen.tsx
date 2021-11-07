@@ -11,8 +11,8 @@ import {
   TextRegular,
   TextBold,
   TextRegularWhite,
-} from '../../assets/fonts/Fonts';
-import { ButtonDark, ButtonLight } from '../../assets/Components';
+} from '../../../assets/fonts/Fonts';
+import { ButtonDark, ButtonLight } from '../../../assets/Components';
 
 const WelcomeScreen = ({ navigation }: any) => {
   return (

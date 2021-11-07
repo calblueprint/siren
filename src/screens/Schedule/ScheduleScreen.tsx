@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
 import { Button } from 'react-native';
-import { TextRegular } from '../../assets/fonts/Fonts';
+import { TextRegular } from '../../../assets/fonts/Fonts';
 import { PageContainer } from '../styles';
 
 const ScheduleScreen = () => {

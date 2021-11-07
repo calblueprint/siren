@@ -7,10 +7,10 @@ import {
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from '../../assets/fonts/Fonts';
-import { ButtonDark, TextInput } from '../../assets/Components';
+} from '../../../assets/fonts/Fonts';
+import { ButtonDark, TextInput } from '../../../assets/Components';
 import { PageContainer } from '../styles';
-import { register } from '../../firebase/auth';
+import { register } from '../../database/auth';
 
 const RegisterScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
