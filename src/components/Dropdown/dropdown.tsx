@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DropDownPicker, { ItemType } from 'react-native-dropdown-picker';
-import { QuestionComponentProps } from '../types/types';
+import { QuestionComponentProps } from 'types/types';
 
 const styles = StyleSheet.create({
   container: {

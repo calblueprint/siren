@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
-import firebase from './clientApp';
-import { Client, Case, Document, Question, Dictionary } from '../types/types';
-import { objectToMap, mapToObject } from './helpers';
+import { Client, Case, Document, Question, Dictionary } from 'types/types';
+import firebase from 'database/clientApp';
+import { objectToMap, mapToObject } from 'database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');

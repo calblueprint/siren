@@ -2,16 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { Button } from 'react-native-paper';
-import {
-  getAllQuestionsOfType,
-  getClient,
-  setClient,
-} from '../firebase/queries';
-import { Question, Client } from '../types/types';
-import LargeInput from '../questions/largeInput';
-import SmallInput from '../questions/smallInput';
-import Dropdown from '../questions/dropdown';
-import Calendar from '../questions/calendar';
+import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
+import { Question, Client } from 'types/types';
+import LargeInput from 'components/LargeInput/largeInput';
+import SmallInput from 'components/SmallInput/smallInput';
+import Dropdown from 'components/Dropdown/dropdown';
+import Calendar from 'components/Calendar/calendar';
 
 const styles = StyleSheet.create({
   container: {

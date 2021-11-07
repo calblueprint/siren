@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import { QuestionComponentProps } from '../types/types';
+import { QuestionComponentProps } from 'types/types';
 
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 24,
   },
   displayText: {
     width: '74%',
@@ -20,17 +20,16 @@ const styles = StyleSheet.create({
   },
   description: {
     width: '74%',
-    height: 17,
     fontSize: 14,
     lineHeight: 17,
     color: '#6A6A6A',
     marginBottom: 8,
   },
-  example: {
+  input: {
     width: '74%',
-    height: 50,
+    height: 100,
     fontSize: 12,
-    lineHeight: 7,
+    lineHeight: 14,
     color: '#6A6A6A',
     borderWidth: 1,
     borderColor: '#2B2B2B',
@@ -39,15 +38,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function SmallInput(props: QuestionComponentProps) {
+export default function LargeInput(props: QuestionComponentProps) {
   const { question, setAnswer } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
       <Text style={styles.description}>{question.description}</Text>
       <TextInput
-        style={styles.example}
-        placeholder={question.example}
+        style={styles.input}
         onChangeText={t => setAnswer(question, t)}
       />
     </View>

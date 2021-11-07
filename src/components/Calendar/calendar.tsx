@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Pressable, View, Text } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
-import { QuestionComponentProps } from '../types/types';
+import { QuestionComponentProps } from 'types/types';
 
 const styles = StyleSheet.create({
   container: {
