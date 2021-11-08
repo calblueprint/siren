@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
     display: 'flex',
+    paddingTop: 10,
   },
 });
 

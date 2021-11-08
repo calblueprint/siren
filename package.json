@@ -29,7 +29,8 @@
     "react-native-paper": "^4.9.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.5",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "@react-native-picker/picker": "1.16.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

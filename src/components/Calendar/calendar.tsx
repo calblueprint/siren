@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   example: {
     width: '74%',
-    height: 40,
+    height: 30,
     fontSize: 12,
     lineHeight: 7,
     color: '#6A6A6A',
@@ -38,7 +38,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   exampleText: {
+    paddingLeft: 10,
     fontSize: 12,
+    color: '#6A6A6A',
+  },
+  description: {
+    width: '74%',
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#6A6A6A',
+    marginBottom: 8,
   },
 });
 
@@ -46,12 +55,14 @@ export default function Calendar(props: QuestionComponentProps) {
   const [date, setDate] = useState(new Date(1598051730000));
   const { question, setAnswer } = props;
   const [show, setShow] = useState(false);
+  const [set, setSet] = useState(false);
 
   const onChange = (event: Event, selectedDate?: Date) => {
+    setShow(false);
     const currentDate = selectedDate || date;
     setDate(currentDate);
     setAnswer(question, currentDate);
-    setShow(false);
+    setSet(true);
   };
   const showDatepicker = (): void => {
     setShow(true);
@@ -59,8 +70,17 @@ export default function Calendar(props: QuestionComponentProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
+      {question.description ? (
+        <Text style={styles.description}>{question.description}</Text>
+      ) : null}
       <Pressable style={styles.example} onPress={showDatepicker}>
-        <Text style={styles.exampleText}> {question.example} </Text>
+        {set ? (
+          <Text style={styles.exampleText}>
+            {date.toLocaleDateString('en-us')}
+          </Text>
+        ) : (
+          <Text style={styles.exampleText}> {question.example} </Text>
+        )}
       </Pressable>
       {show ? (
         <DateTimePicker

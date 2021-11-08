@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
   },
   displayText: {
     width: '74%',
-    height: 17,
     fontWeight: '600',
     fontSize: 14,
     lineHeight: 17,
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   },
   description: {
     width: '74%',
-    fontSize: 14,
+    fontSize: 12,
     lineHeight: 17,
     color: '#6A6A6A',
     marginBottom: 8,
