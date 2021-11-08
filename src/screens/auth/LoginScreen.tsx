@@ -2,21 +2,21 @@
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
 import {
-  ContentContainer,
-  TitleContainer,
-  ButtonView,
-  ButtonHeader,
-} from './styles';
-import {
   TextBold,
   TextRegular,
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from '../../../assets/fonts/Fonts';
-import { ButtonDark, TextInput } from '../../../assets/Components';
-import { PageContainer } from '../styles';
-import { login } from '../../database/auth';
+} from 'assets/fonts/Fonts';
+import { ButtonDark, TextInput } from 'assets/Components';
+import { PageContainer } from 'screens/styles';
+import { login } from 'database/auth';
+import {
+  ContentContainer,
+  TitleContainer,
+  ButtonView,
+  ButtonHeader,
+} from './styles';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');

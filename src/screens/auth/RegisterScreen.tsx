@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 import {
   TextRegular,
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from '../../../assets/fonts/Fonts';
-import { ButtonDark, TextInput } from '../../../assets/Components';
-import { PageContainer } from '../styles';
-import { register } from '../../database/auth';
+} from 'assets/fonts/Fonts';
+import { ButtonDark, TextInput } from 'assets/Components';
+import { PageContainer } from 'screens/styles';
+import { register } from 'database/auth';
+import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
 const RegisterScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');

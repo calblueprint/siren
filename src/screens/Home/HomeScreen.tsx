@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native';
-import firebase from '../../database/clientApp';
-import { TextRegular } from '../../../assets/fonts/Fonts';
-import { PageContainer } from '../styles';
-import { logout } from '../../database/auth';
-import { getClient } from '../../database/queries';
+import firebase from 'database/clientApp';
+import { TextRegular } from 'assets/fonts/Fonts';
+import { PageContainer } from 'screens/styles';
+import { logout } from 'database/auth';
+import { getClient } from 'database/queries';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;

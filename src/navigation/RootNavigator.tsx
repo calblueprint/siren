@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import firebase from '../database/clientApp';
+import HomeStack from 'components/NavBar';
+import firebase from 'database/clientApp';
 import AuthStack from './AuthStack';
-import HomeStack from './BottomTabs';
 
 const auth = firebase.auth();
 

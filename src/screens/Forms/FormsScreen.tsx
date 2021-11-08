@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextRegular } from '../../../assets/fonts/Fonts';
-import { PageContainer } from '../styles';
+import { PageContainer } from 'screens/styles';
+import { TextRegular } from 'assets/fonts/Fonts';
 
 const FormsScreen = () => {
   return (
