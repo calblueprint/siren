@@ -1,6 +1,6 @@
+import { Client } from 'types/types';
 import firebase from './clientApp';
 import 'firebase/firestore';
-import { Client } from 'types/types';
 import { setClient, getClient } from './queries';
 
 export async function register(
