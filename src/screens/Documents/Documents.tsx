@@ -2,7 +2,7 @@ import React from 'react';
 import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
 
-const Documents = () => {
+const UploadScreen = () => {
   return (
     <PageContainer>
       <TextRegular>Upload your necessary documents!</TextRegular>
@@ -10,4 +10,4 @@ const Documents = () => {
   );
 };
 
-export default Documents;
+export default UploadScreen;

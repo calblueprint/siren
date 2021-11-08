@@ -24,14 +24,31 @@ export const Fonts = {
 
 export const TextBold = styled.Text`
   font-family: public-sans-semibold;
-  font-size: 14px;
+  font-size: 18px;
 `;
 
 export const TextRegular = styled.Text`
   font-family: public-sans-regular;
-  font-size: 18px;
+  font-size: 14px;
+`;
+
+export const TextSubtitle = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 12px;
 `;
 
 export const TextBoldItalic = styled.Text`
   font-family: public-sans-boldit;
+`;
+
+export const TextRegularWhite = styled.Text`
+  font-family: public-sans-regular;
+  font-size: 14px;
+  color: white;
+`;
+
+export const TextRegularRed = styled.Text`
+  font-family: public-sans-regular;
+  font-size: 14px;
+  color: red;
 `;
