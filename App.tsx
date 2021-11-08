@@ -8,7 +8,7 @@ import AppLoading from 'expo-app-loading';
 import { Fonts } from 'assets/fonts/Fonts';
 import { Client } from 'types/types';
 import { getClient } from 'database/queries';
-import NavBar from './NavBar';
+import NavBar from 'components/NavBar';
 
 const styles = StyleSheet.create({
   container: {
