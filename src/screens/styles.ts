@@ -2,10 +2,8 @@
 import styled from 'styled-components/native';
 
 export const PageContainer = styled.View`
-  display: flex;
+  margin: 5%;
+  flex: 1;
   align-items: center;
-  background-color: white;
-  width: 100%;
-  height: 100%;
-  padding-horizontal: 12%;
+  justify-content: center;
 `;

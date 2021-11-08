@@ -8,9 +8,21 @@ module.exports = function(api) {
         "path": ".env",
         "blacklist": null,
         "whitelist": null,
-        "safe": false,
-        "allowUndefined": true
-      }]
+        "safe": true,
+      }],
+      ['module-resolver', {
+        root: ['./src'],
+        extensions: ['.js', '.ts', '.tsx', '.json'],
+        alias: {
+          "src": "./",
+          "assets": "./assets",
+          "components": "./src/components",
+          "database": "./src/database",
+          "navigation": "./src/navigation",
+          "screens": "./src/screens",
+          "types": "./src/types"
+        }
+      }],
     ]
   };
 };

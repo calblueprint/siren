@@ -3,9 +3,9 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { Fonts } from './assets/fonts/Fonts';
-import { Client } from './src/types/types';
-import { getClient } from './src/database/queries';
+import { Fonts } from 'assets/fonts/Fonts';
+import { Client } from 'types/types';
+import { getClient } from 'database/queries';
 import RootNavigator from './src/navigation/RootNavigator';
 
 const styles = StyleSheet.create({

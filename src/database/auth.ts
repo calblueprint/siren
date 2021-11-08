@@ -1,5 +1,5 @@
 import firebase from './clientApp';
-import 'database/firestore';
+import 'firebase/firestore';
 import { Client } from 'types/types';
 import { setClient, getClient } from './queries';
 
