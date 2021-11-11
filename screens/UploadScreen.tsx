@@ -43,12 +43,14 @@ const styles = StyleSheet.create({
   },
 });
 
+// states to act as pseudo-navigators
 enum CameraStatus {
   INACTIVE, // inactive camera
   ACTIVE, // open camera
   PREVIEW, // viewing taken picture
 }
 
+// photo type
 type Photo = {
   uri: string;
   height: number;
@@ -62,15 +64,18 @@ export default function UploadScreen() {
   );
   const [photo, setPhoto] = useState<Photo | undefined>(undefined);
 
+  // opens camera & lets user take photo
   const startCamera = async () => {
     const { status } = await Camera.requestPermissionsAsync();
     if (status === 'granted') {
+      // navigates to camera screen
       setCameraState(CameraStatus.ACTIVE);
     } else {
       // TODO: access denied -> go back?
     }
   };
 
+  // takes picture through camera, sets photo as Photo state
   const takePicture = async () => {
     if (!camera) {
       return;
@@ -80,6 +85,7 @@ export default function UploadScreen() {
     setCameraState(CameraStatus.PREVIEW);
   };
 
+  // renders camera preview (displaying photo prop)
   const CameraPreview = ({ photo }: any) => (
     <View style={styles.previewContainer}>
       <ImageBackground
@@ -89,6 +95,7 @@ export default function UploadScreen() {
     </View>
   );
 
+  // pseudo navigation (renders different things based on state of CameraStatus)
   switch (cameraState) {
     case CameraStatus.ACTIVE:
       return (
