@@ -5,22 +5,30 @@ import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
 
 const ScheduleScreen = () => {
-  const [calendlyLink, setCalendlyLink] = useState<string>('');
+  const [calendlyLinks, setCalendlyLinks] = useState<string[]>();
   useEffect(() => {
     // get calendly link of attourney or attournies (round robin all attourneys for given case type)
-    setCalendlyLink(
-      'https://calendly.com/team-siren/round-robin-meeting-w-siren',
-    );
+    setCalendlyLinks([
+      'https://calendly.com/liphoebe/criminal-record',
+      'https://calendly.com/liphoebe/daca',
+      'https://calendly.com/liphoebe/citizenship',
+    ]);
   });
 
-  const openCalendlyOnBrowser = async () => {
-    await WebBrowser.openBrowserAsync(calendlyLink);
+  const openCalendlyOnBrowser = async (link: string) => {
+    await WebBrowser.openBrowserAsync(link);
   };
 
   return (
     <PageContainer>
       <TextRegular>Schedule an appointment with your attorney!</TextRegular>
-      <Button title="Open Calendly" onPress={openCalendlyOnBrowser} />
+      {calendlyLinks?.map(link => (
+        <Button
+          title="Open Calendly"
+          onPress={() => openCalendlyOnBrowser(link)}
+          key={link}
+        />
+      ))}
     </PageContainer>
   );
 };
