@@ -1,13 +1,17 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-import { Button } from 'react-native-paper';
+import { StyleSheet, ScrollView, View } from 'react-native';
+import { Appbar } from 'react-native-paper';
 import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
+import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
+import { ButtonDarkBlue } from 'assets/Components';
 import { Question, Client } from 'types/types';
 import LargeInput from 'components/LargeInput/largeInput';
 import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
+import Radio from 'components/Radio/radio';
+import { ButtonHeader, ButtonView } from './styles';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,6 +43,7 @@ export default function GeneralQuestionManager() {
       smallInput: SmallInput,
       dropdown: Dropdown,
       calendar: Calendar,
+      radio: Radio,
     };
     const QuestionComponent = answerComponents[question.answerType];
     return (
@@ -80,9 +85,12 @@ export default function GeneralQuestionManager() {
           setCurrentQuestions(allQuestions.slice(13, 17));
           break;
         case 4:
-          setCurrentQuestions(allQuestions.slice(17, 20));
+          setCurrentQuestions(allQuestions.slice(17, 18));
           break;
         case 5:
+          setCurrentQuestions(allQuestions.slice(18, 24));
+          break;
+        case 6:
           sendAnswersToFirebase();
           break;
         default:
@@ -93,11 +101,22 @@ export default function GeneralQuestionManager() {
 
   return (
     <ScrollView style={styles.container}>
-      {currentQuestions.map(question => getQuestionComponent(question))}
-      <Button onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
-        Previous Screen
-      </Button>
-      <Button onPress={() => setScreen(screen + 1)}> Next Screen </Button>
+      <ButtonHeader onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
+        <Appbar.BackAction
+          size={18}
+          style={{ margin: 0 }}
+          onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}
+        />
+        <TextSubtitle>Go Back</TextSubtitle>
+      </ButtonHeader>
+      <View>
+        {currentQuestions.map(question => getQuestionComponent(question))}
+      </View>
+      <ButtonView>
+        <ButtonDarkBlue onPress={() => setScreen(screen + 1)}>
+          <TextRegularWhite>Next</TextRegularWhite>
+        </ButtonDarkBlue>
+      </ButtonView>
     </ScrollView>
   );
 }

@@ -42,7 +42,9 @@ export default function SmallInput(props: QuestionComponentProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
-      <Text style={styles.description}>{question.description}</Text>
+      {question.description.length > 0 ? (
+        <Text style={styles.description}>{question.description}</Text>
+      ) : null}
       <TextInput
         style={styles.example}
         placeholder={question.example}

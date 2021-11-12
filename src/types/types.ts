@@ -21,6 +21,7 @@ export enum AnswerType {
   SmallInput = 'smallInput',
   Dropdown = 'dropdown',
   Calendar = 'calendar',
+  Radio = 'radio',
 }
 
 export type Client = {

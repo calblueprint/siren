@@ -50,7 +50,7 @@ export default function Dropdown(props: QuestionComponentProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
-      {question.description ? (
+      {question.description.length > 0 ? (
         <Text style={styles.description}>{question.description}</Text>
       ) : null}
       <View style={styles.pickerView}>

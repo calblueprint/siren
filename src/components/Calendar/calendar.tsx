@@ -70,7 +70,7 @@ export default function Calendar(props: QuestionComponentProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
-      {question.description ? (
+      {question.description.length > 0 ? (
         <Text style={styles.description}>{question.description}</Text>
       ) : null}
       <Pressable style={styles.example} onPress={showDatepicker}>

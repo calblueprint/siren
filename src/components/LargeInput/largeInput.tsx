@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '74%',
-    height: 100,
     fontSize: 12,
     lineHeight: 14,
     color: '#6A6A6A',
@@ -34,6 +33,7 @@ const styles = StyleSheet.create({
     borderColor: '#2B2B2B',
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
+    textAlignVertical: 'top',
   },
 });
 
@@ -42,10 +42,13 @@ export default function LargeInput(props: QuestionComponentProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
-      <Text style={styles.description}>{question.description}</Text>
+      {question.description.length > 0 ? (
+        <Text style={styles.description}>{question.description}</Text>
+      ) : null}
       <TextInput
         style={styles.input}
         onChangeText={t => setAnswer(question, t)}
+        multiline
       />
     </View>
   );
