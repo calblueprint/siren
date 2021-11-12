@@ -21,7 +21,7 @@ const BottomTabs = () => {
         name="Home"
         component={HomeScreen}
         options={{
-          tabBarLabel: <TextRegular style={{ fontSize: 15 }}>Home</TextRegular>,
+          tabBarLabel: <TextRegular style={{ fontSize: 13 }}>Home</TextRegular>,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
@@ -36,7 +36,7 @@ const BottomTabs = () => {
         component={FormsScreen}
         options={{
           tabBarLabel: (
-            <TextRegular style={{ fontSize: 15 }}>Forms</TextRegular>
+            <TextRegular style={{ fontSize: 13 }}>Forms</TextRegular>
           ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -52,7 +52,7 @@ const BottomTabs = () => {
         component={UploadScreen}
         options={{
           tabBarLabel: (
-            <TextRegular style={{ fontSize: 15 }}>Upload</TextRegular>
+            <TextRegular style={{ fontSize: 13 }}>Upload</TextRegular>
           ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -68,7 +68,7 @@ const BottomTabs = () => {
         component={ScheduleScreen}
         options={{
           tabBarLabel: (
-            <TextRegular style={{ fontSize: 15 }}>Schedule</TextRegular>
+            <TextRegular style={{ fontSize: 13 }}>Schedule</TextRegular>
           ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
