@@ -6,6 +6,7 @@ import UploadScreen from 'screens/Documents/Documents';
 import FormsScreen from 'screens/Forms/FormsScreen';
 import ScheduleScreen from 'screens/Schedule/ScheduleScreen';
 import { Colors } from 'assets/Colors';
+import { TextRegular } from 'assets/fonts/Fonts';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -20,6 +21,7 @@ const BottomTabs = () => {
         name="Home"
         component={HomeScreen}
         options={{
+          tabBarLabel: <TextRegular style={{ fontSize: 15 }}>Home</TextRegular>,
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="home-outline"
@@ -33,6 +35,9 @@ const BottomTabs = () => {
         name="Forms"
         component={FormsScreen}
         options={{
+          tabBarLabel: (
+            <TextRegular style={{ fontSize: 15 }}>Forms</TextRegular>
+          ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="note-text-outline"
@@ -46,6 +51,9 @@ const BottomTabs = () => {
         name="Upload"
         component={UploadScreen}
         options={{
+          tabBarLabel: (
+            <TextRegular style={{ fontSize: 15 }}>Upload</TextRegular>
+          ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="file-upload-outline"
@@ -59,7 +67,9 @@ const BottomTabs = () => {
         name="Schedule"
         component={ScheduleScreen}
         options={{
-          tabBarAccessibilityLabel: 'Schedule',
+          tabBarLabel: (
+            <TextRegular style={{ fontSize: 15 }}>Schedule</TextRegular>
+          ),
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
               name="calendar-month-outline"
