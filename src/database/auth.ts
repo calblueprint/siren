@@ -17,6 +17,7 @@ export async function register(
         id: user.uid,
         fullName,
         createdAt: new Date(),
+        answers: new Map(),
       };
       await setClient(client);
     }
