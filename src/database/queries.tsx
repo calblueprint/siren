@@ -1,11 +1,20 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
-import { Client, Case, Document, Question } from 'types/types';
+import {
+  Appointment,
+  CalendlyLink,
+  Case,
+  Client,
+  Document,
+  Question,
+} from 'types/types';
 import firebase from 'database/clientApp';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
 const questionCollection = database.collection('questions');
+const appointmentCollection = database.collection('appointments');
+const calendlyLinkCollection = database.collection('calendlyLinks');
 
 export const getClient = async (clientId: string): Promise<Client> => {
   try {
@@ -221,5 +230,32 @@ export const deleteQuestion = async (question: Question) => {
     console.warn(e);
     throw e;
     // TODO: Add error handling.
+  }
+};
+
+export const getAllAppointmentsForClient = async (
+  client: Client,
+): Promise<Appointment[]> => {
+  try {
+    const ref = await appointmentCollection
+      .where('clientEmail', '==', client.email)
+      .where('cancelled', '==', 'false')
+      .get();
+    return ref.docs.map(doc => doc.data() as Appointment); // TODO: are all fields converted correctly?
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling
+  }
+};
+
+export const getAllCalendlyLinks = async (): Promise<CalendlyLink[]> => {
+  try {
+    const ref = await calendlyLinkCollection.get();
+    return ref.docs.map(doc => doc.data() as CalendlyLink);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling
   }
 };
