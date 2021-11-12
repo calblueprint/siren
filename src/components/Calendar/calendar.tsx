@@ -55,14 +55,14 @@ export default function Calendar(props: QuestionComponentProps) {
   const [date, setDate] = useState(new Date(1598051730000));
   const { question, setAnswer } = props;
   const [show, setShow] = useState(false);
-  const [set, setSet] = useState(false);
+  const [isSet, setisSet] = useState(false);
 
   const onChange = (event: Event, selectedDate?: Date) => {
     setShow(false);
     const currentDate = selectedDate || date;
     setDate(currentDate);
     setAnswer(question, currentDate);
-    setSet(true);
+    setisSet(true);
   };
   const showDatepicker = (): void => {
     setShow(true);
@@ -74,7 +74,7 @@ export default function Calendar(props: QuestionComponentProps) {
         <Text style={styles.description}>{question.description}</Text>
       ) : null}
       <Pressable style={styles.example} onPress={showDatepicker}>
-        {set ? (
+        {isSet ? (
           <Text style={styles.exampleText}>
             {date.toLocaleDateString('en-us')}
           </Text>

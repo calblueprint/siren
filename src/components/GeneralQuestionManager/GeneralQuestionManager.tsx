@@ -23,6 +23,20 @@ const styles = StyleSheet.create({
   },
 });
 
+/*
+GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
+form. 
+
+Here's the way it works:
+0. We poll Firestore for all "general questions" and save it into allQuestions
+1. There's a hardcoded screen number, and the Manager will display certain questions based on the screen number.
+2. Based on the screen number, currentQuestions holds all the questions that should be displayed.
+3. The Manager will dynamically render the Question Component based on its AnswerType (i.e smallInput, calendar, etc)
+4. We pass a setAnswer function down in props to all the Question Components so we can save the user's answers
+   in the Manager's state.
+5. TODO: if answer exists, fill it out (answer retention feature)
+6. At the last screen, the Manager will send the currentAnswers map to Firebase. TODO: based on current user
+*/
 export default function GeneralQuestionManager() {
   const [screen, setScreen] = useState(0);
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
