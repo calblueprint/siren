@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { Document } from '../types/types';
+import { setDocument } from '../firebase/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -84,7 +86,13 @@ export default function UploadScreen() {
   };
 
   const uploadPicture = async () => {
-    setDocument(photo?.uri);
+    const thisPhoto: Document = {
+      id: '', // set this to some id
+      url: photo.uri,
+      type: '', // check what this should be
+      createdAt: new Date(),
+    };
+    setDocument('clientId', 'caseId', thisPhoto); // replace clientId and caseId
   };
 
   const CameraPreview = ({ p }: any) => (
@@ -93,7 +101,7 @@ export default function UploadScreen() {
         source={{ uri: p && p.uri }}
         style={styles.previewImage}
       />
-      <Button title="Keep Scan" onPress={} />
+      <Button title="Keep Scan" onPress={uploadPicture} />
     </View>
   );
 
