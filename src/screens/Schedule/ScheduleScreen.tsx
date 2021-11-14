@@ -11,9 +11,9 @@ import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
 
-// 1. only render links for cases approved for client
-// 2. display client's upcoming appointments
-// 3. refresh appointment page upon focus
+// only display links for the client's approved cases
+// display client's upcoming appointments
+// TO DO: refresh appointment page upon focus
 
 const ScheduleScreen = () => {
   const [calendlyLinks, setCalendlyLinks] = useState<string[]>();
@@ -23,21 +23,23 @@ const ScheduleScreen = () => {
     async function loadLinksAndAppointments() {
       const client = await getCurrentClient();
       if (client !== undefined) {
-        // fetch case types approved for client
+        // fetch the client's approved case types
         const cases = await getAllCases(client.id);
         const clientCaseTypes: CaseType[] = cases.map(c => c.type);
 
         // fetch all calendly links
         const allCalendlyLinks = await getAllCalendlyLinks();
 
-        // filter links to only include those for the client's cases
+        // filter links to only include those for the client's approved cases
         const filteredLinks = allCalendlyLinks
           .filter(cl => clientCaseTypes.includes(cl.type))
           .map(cl => cl.link);
 
         setCalendlyLinks(filteredLinks);
 
+        // fetch all uncancelled appointments for client
         const appts = await getAllAppointmentsForClient(client);
+        // TO DO: filter out past appointments
         setAppointments(appts);
       }
     }
