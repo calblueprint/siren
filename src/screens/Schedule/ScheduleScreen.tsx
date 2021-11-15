@@ -5,7 +5,7 @@ import {
   getAllCalendlyLinks,
   getAllCases,
 } from 'database/queries';
-import { Appointment, CaseType } from 'types/types';
+import { Appointment, CalendlyLink, CaseType } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
 import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
@@ -16,7 +16,7 @@ import { PageContainer } from 'screens/styles';
 // TO DO: refresh appointment page upon focus
 
 const ScheduleScreen = () => {
-  const [calendlyLinks, setCalendlyLinks] = useState<string[]>();
+  const [calendlyLinks, setCalendlyLinks] = useState<CalendlyLink[]>();
   const [appointments, setAppointments] = useState<Appointment[]>();
 
   useEffect(() => {
@@ -31,9 +31,9 @@ const ScheduleScreen = () => {
         const allCalendlyLinks = await getAllCalendlyLinks();
 
         // filter links to only include those for the client's approved cases
-        const filteredLinks = allCalendlyLinks
-          .filter(cl => clientCaseTypes.includes(cl.type))
-          .map(cl => cl.link);
+        const filteredLinks = allCalendlyLinks.filter(cl =>
+          clientCaseTypes.includes(cl.type),
+        );
 
         setCalendlyLinks(filteredLinks);
 
@@ -54,11 +54,11 @@ const ScheduleScreen = () => {
     <PageContainer>
       <TextRegular>Schedule an appointment with your attorney.</TextRegular>
       <TextRegular>Schedule New</TextRegular>
-      {calendlyLinks?.map(link => (
+      {calendlyLinks?.map(cl => (
         <Button
-          title="Open Calendly"
-          onPress={() => openCalendlyInBrowser(link)}
-          key={link}
+          title={cl.type}
+          onPress={() => openCalendlyInBrowser(cl.link)}
+          key={cl.link}
         />
       ))}
       <TextRegular>Upcoming</TextRegular>
