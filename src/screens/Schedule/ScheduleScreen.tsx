@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { getCurrentClient } from 'database/auth';
 import {
-  getAllAppointmentsForClient,
+  getAllUpcomingAppointmentsForClient,
   getAllCalendlyLinks,
   getAllCases,
 } from 'database/queries';
@@ -16,6 +17,7 @@ import { PageContainer } from 'screens/styles';
 // TO DO: refresh appointment page upon focus
 
 const ScheduleScreen = () => {
+  const isFocused = useIsFocused();
   const [calendlyLinks, setCalendlyLinks] = useState<CalendlyLink[]>();
   const [appointments, setAppointments] = useState<Appointment[]>();
 
@@ -38,20 +40,21 @@ const ScheduleScreen = () => {
         setCalendlyLinks(filteredLinks);
 
         // fetch all uncancelled appointments for client
-        const appts = await getAllAppointmentsForClient(client);
-        // TO DO: filter out past appointments
+        const appts = await getAllUpcomingAppointmentsForClient(client);
         setAppointments(appts);
       }
     }
     loadLinksAndAppointments();
-  }, []);
+  }, [isFocused]);
 
   const openCalendlyInBrowser = async (link: string) => {
-    await WebBrowser.openBrowserAsync(link);
+    // await WebBrowser.openBrowserAsync(link);
+    await WebBrowser.openAuthSessionAsync(link, '');
   };
 
   return (
     <PageContainer>
+      <TextRegular>{`isFocused=${isFocused}`}</TextRegular>
       <TextRegular>Schedule an appointment with your attorney.</TextRegular>
       <TextRegular>Schedule New</TextRegular>
       {calendlyLinks?.map(cl => (
@@ -63,7 +66,7 @@ const ScheduleScreen = () => {
       ))}
       <TextRegular>Upcoming</TextRegular>
       {appointments?.map(appointment => (
-        <TextRegular key={appointment.startTime + appointment.cancelled}>
+        <TextRegular key={appointment.startTime.toString()}>
           {`Case Type: ${appointment.caseType}`}
           {`Start Time: ${appointment.startTime}`}
         </TextRegular>

@@ -233,15 +233,47 @@ export const deleteQuestion = async (question: Question) => {
   }
 };
 
-export const getAllAppointmentsForClient = async (
+export const getAllUpcomingAppointmentsForClient = async (
   client: Client,
 ): Promise<Appointment[]> => {
   try {
     const ref = await appointmentCollection
       .where('clientEmail', '==', client.email)
-      .where('cancelled', '==', 'false')
       .get();
-    return ref.docs.map(doc => doc.data() as Appointment); // TODO: are all fields converted correctly?
+
+    // generate list of Appointment objects
+    const appointments: Appointment[] = ref.docs.map(doc => {
+      const data = doc.data();
+      const date = new Date(data.startTime);
+      const a: Appointment = {
+        id: data.caseType + date.toString(),
+        caseType: data.caseType,
+        client: data.client,
+        clientEmail: data.clientEmail,
+        startTime: date,
+      };
+      return a;
+    });
+    console.log(appointments);
+
+    // remove cancelled appointments, which have duplicate entries in Firebase
+    // remove past appointments
+    const activeMap = new Map<string, Appointment>();
+    const now = new Date();
+    appointments.forEach(a => {
+      if (a.startTime >= now) {
+        if (activeMap.has(a.id)) {
+          activeMap.delete(a.id);
+        } else {
+          activeMap.set(a.id, a);
+        }
+      }
+    });
+
+    // return upcoming appointments sorted by start time
+    return Array.from(activeMap.values()).sort((a, b) => {
+      return a.startTime < b.startTime ? -1 : 1;
+    });
   } catch (e) {
     console.warn(e);
     throw e;

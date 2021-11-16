@@ -64,9 +64,9 @@ export type Question = {
 };
 
 export type Appointment = {
-  cancelled: boolean;
+  id: string;
   caseType: CaseType;
   client: string; // is this needed?
   clientEmail: string;
-  startTime: string;
+  startTime: Date;
 };
