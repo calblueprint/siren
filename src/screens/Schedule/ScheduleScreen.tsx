@@ -48,13 +48,12 @@ const ScheduleScreen = () => {
   }, [isFocused]);
 
   const openCalendlyInBrowser = async (link: string) => {
-    // await WebBrowser.openBrowserAsync(link);
-    await WebBrowser.openAuthSessionAsync(link, '');
+    await WebBrowser.openBrowserAsync(link);
   };
 
   return (
     <PageContainer>
-      <TextRegular>{`isFocused=${isFocused}`}</TextRegular>
+      {/* <TextRegular>{`isFocused=${isFocused}`}</TextRegular> */}
       <TextRegular>Schedule an appointment with your attorney.</TextRegular>
       <TextRegular>Schedule New</TextRegular>
       {calendlyLinks?.map(cl => (
