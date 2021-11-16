@@ -1,6 +1,5 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
@@ -11,17 +10,12 @@ import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
-import { ButtonHeader, ButtonView } from './styles';
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-    display: 'flex',
-    paddingTop: 10,
-  },
-});
+import {
+  ButtonHeader,
+  ButtonView,
+  ScrollPageContainer,
+  QuestionView,
+} from './styles';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -114,7 +108,7 @@ export default function GeneralQuestionManager() {
   }, [screen, allQuestions]);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollPageContainer>
       <ButtonHeader onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
         <Appbar.BackAction
           size={18}
@@ -123,14 +117,14 @@ export default function GeneralQuestionManager() {
         />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      <View>
+      <QuestionView>
         {currentQuestions.map(question => getQuestionComponent(question))}
-      </View>
+      </QuestionView>
       <ButtonView>
         <ButtonDarkBlue onPress={() => setScreen(screen + 1)}>
           <TextRegularWhite>Next</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
-    </ScrollView>
+    </ScrollPageContainer>
   );
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TextInput } from 'react-native-paper';
 import { QuestionComponentProps } from 'types/types';
+import { TextInput } from 'assets/Components';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,14 +26,6 @@ const styles = StyleSheet.create({
   },
   example: {
     width: '74%',
-    height: 30,
-    fontSize: 12,
-    lineHeight: 7,
-    color: '#6A6A6A',
-    borderWidth: 1,
-    borderColor: '#2B2B2B',
-    borderRadius: 8,
-    backgroundColor: '#FFFFFF',
   },
 });
 

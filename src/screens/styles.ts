@@ -9,6 +9,6 @@ export const PageContainer = styled.View`
 `;
 
 export const ScrollPageContainer = styled.ScrollView`
-  margin: 5%;
+  margin-vertical: 20px;
   flex: 1;
 `;

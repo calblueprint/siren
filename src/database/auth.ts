@@ -22,7 +22,7 @@ export async function register(
       await setClient(client);
     }
   } catch (err) {
-    console.log('Error registrating');
+    console.log(err);
   }
 }
 
