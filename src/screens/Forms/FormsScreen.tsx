@@ -3,7 +3,7 @@ import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQue
 import { ScrollPageContainer } from 'screens/styles';
 import DacaRenewalQuestionManager from 'components/DacaRenewalQuestionManager/DacaRenewalQuestionManager';
 import { Client, Dictionary } from 'types/types';
-import { getCurrentClient } from 'database/auth';
+import { getClient } from 'database/queries';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -12,17 +12,14 @@ const FormsScreen = () => {
   const [additionalScreenType, setAdditionalScreenType] = useState('');
   const [existingAnswers, setExistingAnswers] = useState(new Map());
 
-  // const loadClient = async (): Promise<void> => {
-  //   const client: Client | undefined = await getCurrentClient();
-  //   if (client === undefined) {
-  //     return;
-  //   }
-  //   setExistingAnswers(client.answers);
-  // };
+  const loadClient = async (): Promise<void> => {
+    const client: Client = await getClient('sample');
+    setExistingAnswers(client.answers);
+  };
 
-  // useEffect(() => {
-  //   loadClient();
-  // });
+  useEffect(() => {
+    loadClient();
+  }, []);
 
   const setAdditionalScreen = (visitReason: string): void => {
     setAdditionalScreenType(visitReason);
@@ -44,7 +41,7 @@ const FormsScreen = () => {
       );
     }
     const additionalScreenComponents: Dictionary = {
-      'DACA Renewal': DacaRenewalQuestionManager,
+      'DACA renewal': DacaRenewalQuestionManager,
       // TODO: citizenship etc...
     };
     if (!(additionalScreenType in additionalScreenComponents)) {

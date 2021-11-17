@@ -66,7 +66,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         key={question.displayText}
         question={question}
         setAnswer={setAnswer}
-        answer={
+        existingAnswer={
           question.key in existingAnswers
             ? existingAnswers.get('general')?.get(question.key)
             : null
@@ -111,8 +111,8 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           setCurrentQuestions(allQuestions.slice(18, 24));
           break;
         case 6:
-          setNextScreen(currentAnswers.get('visitReason'));
           sendAnswersToFirebase();
+          setNextScreen(currentAnswers.get('visitReason'));
           break;
         default:
           setCurrentQuestions(allQuestions.slice(0, 5));
