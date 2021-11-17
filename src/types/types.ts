@@ -60,6 +60,12 @@ export type Question = {
 export type QuestionComponentProps = {
   question: Question;
   setAnswer: (question: Question, input: any) => void;
+  existingAnswer?: any;
+};
+
+export type QuestionManagerProps = {
+  setNextScreen: (...args: string[]) => void;
+  existingAnswers: Map<string, Map<string, any>>;
 };
 
 export type Dictionary = {

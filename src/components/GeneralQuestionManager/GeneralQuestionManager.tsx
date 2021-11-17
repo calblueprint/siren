@@ -5,7 +5,7 @@ import { Appbar } from 'react-native-paper';
 import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
-import { Question, Client } from 'types/types';
+import { Question, Client, QuestionManagerProps } from 'types/types';
 import LargeInput from 'components/LargeInput/largeInput';
 import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
@@ -37,11 +37,12 @@ Here's the way it works:
 5. TODO: if answer exists, fill it out (answer retention feature)
 6. At the last screen, the Manager will send the currentAnswers map to Firebase. TODO: based on current user
 */
-export default function GeneralQuestionManager() {
+export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const [screen, setScreen] = useState(0);
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [currentQuestions, setCurrentQuestions] = useState([] as Question[]);
   const [currentAnswers, setCurrentAnswers] = useState(new Map());
+  const { setNextScreen, existingAnswers } = props;
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -65,6 +66,11 @@ export default function GeneralQuestionManager() {
         key={question.displayText}
         question={question}
         setAnswer={setAnswer}
+        answer={
+          question.key in existingAnswers
+            ? existingAnswers.get('general')?.get(question.key)
+            : null
+        }
       />
     );
   };
@@ -105,6 +111,7 @@ export default function GeneralQuestionManager() {
           setCurrentQuestions(allQuestions.slice(18, 24));
           break;
         case 6:
+          setNextScreen(currentAnswers.get('visitReason'));
           sendAnswersToFirebase();
           break;
         default:

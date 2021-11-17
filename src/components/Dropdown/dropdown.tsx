@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Dropdown(props: QuestionComponentProps) {
-  const { question, setAnswer } = props;
-  const [value, setValue] = useState(null);
+  const { question, setAnswer, existingAnswer } = props;
+  const [value, setValue] = useState(existingAnswer);
   const onChange = (val: any): void => {
     setValue(val);
     setAnswer(question, val);

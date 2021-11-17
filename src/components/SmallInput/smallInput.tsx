@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 });
 
 export default function SmallInput(props: QuestionComponentProps) {
-  const { question, setAnswer } = props;
+  const { question, setAnswer, existingAnswer } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
@@ -47,7 +47,7 @@ export default function SmallInput(props: QuestionComponentProps) {
       ) : null}
       <TextInput
         style={styles.example}
-        placeholder={question.example}
+        placeholder={existingAnswer || question.example}
         onChangeText={t => setAnswer(question, t)}
       />
     </View>
