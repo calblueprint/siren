@@ -3,7 +3,8 @@ import styled from 'styled-components/native';
 
 export const ButtonLight = styled.TouchableOpacity`
   text-align: center;
-  padding: 0.4em 1em;
+  align-items: center;
+  padding: 10px;
   border-width: 1px;
   border-radius: 5px;
 `;
