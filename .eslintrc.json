@@ -46,6 +46,7 @@
         "tsx": "never"
       }
     ],
+    "import/no-duplicates": "off",
     "react/jsx-props-no-spreading": "off",
     "object-curly-newline": "off",
     "no-restricted-imports": [
