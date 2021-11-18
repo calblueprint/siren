@@ -2,15 +2,24 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
+import { getAllQuestionsOfType, setCase, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
-import { Question, Client, QuestionManagerProps } from 'types/types';
+import {
+  Question,
+  Client,
+  QuestionManagerProps,
+  Case,
+  CaseType,
+  CaseStatus,
+} from 'types/types';
 import LargeInput from 'components/LargeInput/largeInput';
 import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
+import { getCurrentClient } from 'database/auth';
+import { firestoreAutoId } from 'database/helpers';
 import { ButtonHeader, ButtonView } from './styles';
 
 const styles = StyleSheet.create({
@@ -57,12 +66,21 @@ export default function DacaRenewalQuestionManager(
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client = await getClient('sample');
+    const client: Client | undefined = await getCurrentClient();
+    if (!client) {
+      return;
+    }
     if (!Object.prototype.hasOwnProperty.call(client, 'answers')) {
       client.answers = new Map();
     }
     client.answers.set('dacaRenewal', currentAnswers);
     await setClient(client);
+    const clientCase: Case = {
+      id: firestoreAutoId(),
+      status: CaseStatus.SubmitDoc,
+      type: CaseType.DacaRenewal,
+    };
+    await setCase(client.id, clientCase);
   };
 
   useEffect(() => {

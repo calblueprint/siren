@@ -5,7 +5,7 @@ export enum CaseStatus {
 }
 
 export enum CaseType {
-  Daca = 'daca',
+  DacaRenewal = 'dacaRenewal',
   Citizenship = 'citizenship',
   CriminalRecord = 'criminalRecord',
 }

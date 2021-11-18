@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
-import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
+import { getAllQuestionsOfType, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
 import { Question, Client, QuestionManagerProps } from 'types/types';
@@ -11,6 +11,7 @@ import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
+import { getCurrentClient } from 'database/auth';
 import { ButtonHeader, ButtonView } from './styles';
 
 const styles = StyleSheet.create({
@@ -67,16 +68,17 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
-          question.key in existingAnswers
-            ? existingAnswers.get('general')?.get(question.key)
-            : null
+          existingAnswers.get('general')?.get(question.key) || null
         }
       />
     );
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client = await getClient('sample');
+    const client: Client | undefined = await getCurrentClient();
+    if (!client) {
+      return;
+    }
     if (!Object.prototype.hasOwnProperty.call(client, 'answers')) {
       client.answers = new Map();
     }
@@ -118,7 +120,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           setCurrentQuestions(allQuestions.slice(0, 5));
       }
     }
-  }, [screen, allQuestions]);
+  }, [screen, allQuestions, existingAnswers]);
 
   return (
     <ScrollView style={styles.container}>

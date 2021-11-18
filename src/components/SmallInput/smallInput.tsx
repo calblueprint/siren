@@ -47,8 +47,9 @@ export default function SmallInput(props: QuestionComponentProps) {
       ) : null}
       <TextInput
         style={styles.example}
-        placeholder={existingAnswer || question.example}
+        placeholder={question.example}
         onChangeText={t => setAnswer(question, t)}
+        value={existingAnswer || null}
       />
     </View>
   );

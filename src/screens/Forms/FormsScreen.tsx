@@ -3,7 +3,7 @@ import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQue
 import { ScrollPageContainer } from 'screens/styles';
 import DacaRenewalQuestionManager from 'components/DacaRenewalQuestionManager/DacaRenewalQuestionManager';
 import { Client, Dictionary } from 'types/types';
-import { getClient } from 'database/queries';
+import { getCurrentClient } from 'database/auth';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -13,8 +13,10 @@ const FormsScreen = () => {
   const [existingAnswers, setExistingAnswers] = useState(new Map());
 
   const loadClient = async (): Promise<void> => {
-    const client: Client = await getClient('sample');
-    setExistingAnswers(client.answers);
+    const client: Client | undefined = await getCurrentClient();
+    if (client) {
+      setExistingAnswers(client.answers);
+    }
   };
 
   useEffect(() => {

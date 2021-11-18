@@ -48,8 +48,9 @@ export default function LargeInput(props: QuestionComponentProps) {
       <TextInput
         style={styles.input}
         onChangeText={t => setAnswer(question, t)}
-        placeholder={existingAnswer || question.example}
+        placeholder={question.example}
         multiline
+        value={existingAnswer || null}
       />
     </View>
   );
