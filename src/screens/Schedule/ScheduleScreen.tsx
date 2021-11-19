@@ -6,7 +6,7 @@ import {
   getAllCalendlyLinks,
   getAllCases,
 } from 'database/queries';
-import { Appointment, CalendlyLink, CaseType } from 'types/types';
+import { Appointment, CalendlyLink, CaseStatus, CaseType } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
 import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
@@ -27,7 +27,9 @@ const ScheduleScreen = () => {
       if (client !== undefined) {
         // fetch the client's approved case types
         const cases = await getAllCases(client.id);
-        const clientCaseTypes: CaseType[] = cases.map(c => c.type);
+        const clientCaseTypes: CaseType[] = cases
+          .filter(c => c.status === CaseStatus.SchedApt)
+          .map(c => c.type);
 
         // fetch all calendly links
         const allCalendlyLinks = await getAllCalendlyLinks();
