@@ -17,11 +17,11 @@ export enum QuestionType {
 }
 
 export enum AnswerType {
-  LField = 'lField',
-  SField = 'sField',
+  LargeInput = 'largeInput',
+  SmallInput = 'smallInput',
   Dropdown = 'dropdown',
-  Radio = 'radio',
   Calendar = 'calendar',
+  Radio = 'radio',
 }
 
 export type Client = {
@@ -29,7 +29,7 @@ export type Client = {
   email: string;
   fullName: string;
   createdAt: Date;
-  answers?: Map<string, Map<string, string>>;
+  answers: Map<string, Map<string, any>>;
 };
 
 export type Case = {
@@ -61,6 +61,15 @@ export type Question = {
   active: boolean;
   answerType: AnswerType;
   answerOptions?: string[];
+};
+
+export type QuestionComponentProps = {
+  question: Question;
+  setAnswer: (question: Question, input: any) => void;
+};
+
+export type Dictionary = {
+  [key: string]: any;
 };
 
 export type Appointment = {

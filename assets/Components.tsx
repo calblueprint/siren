@@ -18,6 +18,14 @@ export const ButtonDark = styled.TouchableOpacity`
   background: black;
 `;
 
+export const ButtonDarkBlue = styled.TouchableOpacity`
+  text-align: center;
+  padding: 4px 4px
+  border-width: 1px;
+  border-radius: 5px;
+  background: #000028;
+`;
+
 export const TextInput = styled.TextInput`
   margin-vertical: 10px;
   border: 1px solid black;
