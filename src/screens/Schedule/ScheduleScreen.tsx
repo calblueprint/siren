@@ -50,7 +50,8 @@ const ScheduleScreen = () => {
   }, [isFocused]);
 
   const openCalendlyInBrowser = async (link: string) => {
-    await WebBrowser.openBrowserAsync(link);
+    // await WebBrowser.openBrowserAsync(link);
+    await WebBrowser.openAuthSessionAsync(link, '');
   };
 
   return (

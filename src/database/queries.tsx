@@ -254,7 +254,6 @@ export const getAllUpcomingAppointmentsForClient = async (
       };
       return a;
     });
-    console.log(appointments);
 
     // remove cancelled appointments, which have duplicate entries in Firebase
     // remove past appointments
