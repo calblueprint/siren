@@ -52,17 +52,13 @@ const ScheduleScreen = () => {
 
   const openCalendlyInBrowser = async (link: string) => {
     if (Platform.OS === 'ios') {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      WebBrowser.openBrowserAsync(link).then(_ => {
-        console.log('ios');
-        setDetectBrowserClose(!detectBrowserClose);
-      });
+      await WebBrowser.openBrowserAsync(link);
+      setDetectBrowserClose(!detectBrowserClose);
+      console.log('ios');
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      WebBrowser.openAuthSessionAsync(link, '').then(_ => {
-        console.log('android');
-        setDetectBrowserClose(!detectBrowserClose);
-      });
+      await WebBrowser.openAuthSessionAsync(link, '');
+      setDetectBrowserClose(!detectBrowserClose);
+      console.log('android');
     }
   };
 
