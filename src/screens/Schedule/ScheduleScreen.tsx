@@ -8,7 +8,7 @@ import {
 } from 'database/queries';
 import { Appointment, CalendlyLink, CaseStatus, CaseType } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
-import { Button } from 'react-native';
+import { Button, Platform } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
 
@@ -18,6 +18,7 @@ import { PageContainer } from 'screens/styles';
 
 const ScheduleScreen = () => {
   const isFocused = useIsFocused();
+  const [detectBrowserClose, setDetectBrowserClose] = useState<boolean>();
   const [calendlyLinks, setCalendlyLinks] = useState<CalendlyLink[]>();
   const [appointments, setAppointments] = useState<Appointment[]>();
 
@@ -47,11 +48,22 @@ const ScheduleScreen = () => {
       }
     }
     loadLinksAndAppointments();
-  }, [isFocused]);
+  }, [isFocused, detectBrowserClose]);
 
   const openCalendlyInBrowser = async (link: string) => {
-    // await WebBrowser.openBrowserAsync(link);
-    await WebBrowser.openAuthSessionAsync(link, '');
+    if (Platform.OS === 'ios') {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      WebBrowser.openBrowserAsync(link).then(_ => {
+        console.log('ios');
+        setDetectBrowserClose(!detectBrowserClose);
+      });
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      WebBrowser.openAuthSessionAsync(link, '').then(_ => {
+        console.log('android');
+        setDetectBrowserClose(!detectBrowserClose);
+      });
+    }
   };
 
   return (
