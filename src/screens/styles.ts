@@ -7,3 +7,8 @@ export const PageContainer = styled.View`
   align-items: center;
   justify-content: center;
 `;
+
+export const ScrollPageContainer = styled.ScrollView`
+  margin-vertical: 20px;
+  flex: 1;
+`;

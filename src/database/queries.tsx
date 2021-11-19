@@ -5,10 +5,12 @@ import {
   CalendlyLink,
   Case,
   Client,
+  Dictionary,
   Document,
   Question,
 } from 'types/types';
 import firebase from 'database/clientApp';
+import { objectToMap, mapToObject } from 'database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -19,7 +21,9 @@ const calendlyLinkCollection = database.collection('calendlyLinks');
 export const getClient = async (clientId: string): Promise<Client> => {
   try {
     const doc = await clientCollection.doc(clientId).get();
-    return doc.data() as Client;
+    const client = doc.data() as Client;
+    client.answers = objectToMap(client.answers);
+    return client;
   } catch (e) {
     console.warn(e);
     throw e;
@@ -40,7 +44,9 @@ export const getAllClients = async (): Promise<Client[]> => {
 
 export const setClient = async (client: Client) => {
   try {
-    await clientCollection.doc(client.id).set(client);
+    const copy = { ...client } as Dictionary;
+    copy.answers = mapToObject(client.answers);
+    await clientCollection.doc(copy.id).set(copy);
   } catch (e) {
     console.warn(e);
     throw e;
@@ -205,6 +211,22 @@ export const getQuestion = async (questionId: string): Promise<Question> => {
 export const getAllQuestions = async (): Promise<Question[]> => {
   try {
     const ref = await questionCollection.get();
+    return ref.docs.map(doc => doc.data() as Question);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling
+  }
+};
+
+export const getAllQuestionsOfType = async (
+  type: string,
+): Promise<Question[]> => {
+  try {
+    const ref = await questionCollection
+      .where('questionType', '==', type)
+      .orderBy('order')
+      .get();
     return ref.docs.map(doc => doc.data() as Question);
   } catch (e) {
     console.warn(e);
