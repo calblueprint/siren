@@ -9,7 +9,7 @@ export const PageContainer = styled.View`
 `;
 
 // non-centered
-export const ScrollContainer = styled.View`
+export const ScrollPageContainer = styled.ScrollView`
   margin: 5%;
   flex: 1;
   overflow: scroll;

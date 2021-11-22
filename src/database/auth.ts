@@ -18,11 +18,12 @@ export async function register(
         email,
         fullName,
         createdAt: new Date(),
+        answers: new Map(),
       };
       await setClient(client);
     }
   } catch (err) {
-    console.log('Error registrating');
+    console.log(err);
   }
 }
 
