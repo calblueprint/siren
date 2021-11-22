@@ -13,5 +13,4 @@ export const ScrollContainer = styled.View`
   margin: 5%;
   flex: 1;
   overflow: scroll;
-  height: 100%;
 `;
