@@ -18,7 +18,6 @@ export const SwitchContainer = styled.View`
   flex-direction: row;
   justify-content: space-around;
   background-color: ${Colors.paleBlue};
-  background-opacity: 0.25;
   margin: 20px;
   border-radius: 10px;
   border: 5px solid ${Colors.paleBlue};
