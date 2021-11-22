@@ -3,21 +3,26 @@ import styled from 'styled-components/native';
 import { Colors } from 'assets/Colors';
 
 export const SwitchButton = styled.TouchableHighlight`
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 6px 25px;
+  padding: 6px;
   border-radius: 10px;
+  width: 50%;
   margin: 0px 2px;
 `;
 
 export const SwitchContainer = styled.View`
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   background-color: ${Colors.paleBlue};
   background-opacity: 0.25;
   margin: 20px;
   border-radius: 10px;
   border: 5px solid ${Colors.paleBlue};
+  align-items: center;
 `;
 
 export const ScheduleButton = styled.TouchableHighlight`
