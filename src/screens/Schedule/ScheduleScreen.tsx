@@ -9,7 +9,7 @@ import {
 import { Appointment, CalendlyLink, CaseType } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
 import { TextRegular, TextTitle, TextSubtitle } from 'assets/fonts/Fonts';
-import { ScrollContainer } from 'screens/styles';
+import { ScrollPageContainer } from 'screens/styles';
 import {
   SwitchButton,
   SwitchContainer,
@@ -159,7 +159,7 @@ const ScheduleScreen = () => {
   // check if calendlyLinks is empty
 
   return (
-    <ScrollContainer>
+    <ScrollPageContainer>
       <TextTitle>Schedule an appointment with your attorney.</TextTitle>
       <TextRegular>{getSwitchDescription()}</TextRegular>
       <SwitchContainer>
@@ -167,7 +167,7 @@ const ScheduleScreen = () => {
         <Switch title="Schedule New" pageNum={1} />
       </SwitchContainer>
       {switchPage === 0 ? getUpcomingBody() : getScheduleBody()}
-    </ScrollContainer>
+    </ScrollPageContainer>
   );
 };
 
