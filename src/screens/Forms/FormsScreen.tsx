@@ -50,6 +50,7 @@ const FormsScreen = () => {
       // TODO: citizenship etc...
     };
     if (!(additionalScreenType in additionalScreenComponents)) {
+      // TODO: add error screen
       return null;
     }
     const AdditionalScreenComponent =
