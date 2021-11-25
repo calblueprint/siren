@@ -10,6 +10,7 @@ import { getCurrentClient } from 'database/auth';
 const FormsScreen = () => {
   const [showAdditionalScreen, setShowAdditionalScreen] = useState(false);
   const [additionalScreenType, setAdditionalScreenType] = useState('');
+  const [generalScreenNumber, setGeneralScreenNumber] = useState(0);
   const [existingAnswers, setExistingAnswers] = useState(new Map());
 
   const loadClient = async (): Promise<void> => {
@@ -26,6 +27,7 @@ const FormsScreen = () => {
   const setAdditionalScreen = (visitReason: string): void => {
     setAdditionalScreenType(visitReason);
     setShowAdditionalScreen(true);
+    setGeneralScreenNumber(5);
   };
 
   const setGeneralScreen = (): void => {
@@ -39,6 +41,7 @@ const FormsScreen = () => {
         <GeneralQuestionManager
           setNextScreen={setAdditionalScreen}
           existingAnswers={existingAnswers}
+          managerSpecificProps={{ screen: generalScreenNumber }}
         />
       );
     }

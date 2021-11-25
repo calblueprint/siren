@@ -35,15 +35,15 @@ Here's the way it works:
 3. The Manager will dynamically render the Question Component based on its AnswerType (i.e smallInput, calendar, etc)
 4. We pass a setAnswer function down in props to all the Question Components so we can save the user's answers
    in the Manager's state.
-5. TODO: if answer exists, fill it out (answer retention feature)
-6. At the last screen, the Manager will send the currentAnswers map to Firebase. TODO: based on current user
+5. If answer exists, prefill it out
+6. At the last screen, the Manager will send the currentAnswers map to Firebase. 
 */
 export default function GeneralQuestionManager(props: QuestionManagerProps) {
-  const [screen, setScreen] = useState(0);
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [currentQuestions, setCurrentQuestions] = useState([] as Question[]);
   const [currentAnswers, setCurrentAnswers] = useState(new Map());
-  const { setNextScreen, existingAnswers } = props;
+  const { setNextScreen, existingAnswers, managerSpecificProps } = props;
+  const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -68,7 +68,9 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
-          existingAnswers.get('general')?.get(question.key) || null
+          currentAnswers.has(question.key)
+            ? currentAnswers.get(question.key)
+            : existingAnswers.get('general')?.get(question.key) || null
         }
       />
     );

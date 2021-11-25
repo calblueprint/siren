@@ -66,6 +66,7 @@ export type QuestionComponentProps = {
 export type QuestionManagerProps = {
   setNextScreen: (...args: string[]) => void;
   existingAnswers: Map<string, Map<string, any>>;
+  managerSpecificProps?: Dictionary; // add any specific extra props you need in here
 };
 
 export type Dictionary = {
