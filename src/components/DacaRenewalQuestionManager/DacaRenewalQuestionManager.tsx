@@ -37,7 +37,7 @@ export default function DacaRenewalQuestionManager(
 ) {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [currentAnswers, setCurrentAnswers] = useState(new Map());
-  const { setNextScreen } = props;
+  const { setPreviousScreen, setNextScreen, existingAnswers } = props;
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -61,6 +61,11 @@ export default function DacaRenewalQuestionManager(
         key={question.displayText}
         question={question}
         setAnswer={setAnswer}
+        existingAnswer={
+          currentAnswers.has(question.key)
+            ? currentAnswers.get(question.key)
+            : existingAnswers.get('general')?.get(question.key) || null
+        }
       />
     );
   };
@@ -83,17 +88,24 @@ export default function DacaRenewalQuestionManager(
     await setCase(client.id, clientCase);
   };
 
+  const goToNextScreen = () => {
+    sendAnswersToFirebase();
+    setNextScreen();
+  };
+
   useEffect(() => {
     loadQuestions();
   }, []);
 
   return (
     <ScrollView style={styles.container}>
-      <ButtonHeader onPress={() => setNextScreen()}>
+      <ButtonHeader
+        onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
+      >
         <Appbar.BackAction
           size={18}
           style={{ margin: 0 }}
-          onPress={() => setNextScreen()}
+          onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
         />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
@@ -101,7 +113,7 @@ export default function DacaRenewalQuestionManager(
         {allQuestions.map(question => getQuestionComponent(question))}
       </View>
       <ButtonView>
-        <ButtonDarkBlue onPress={() => sendAnswersToFirebase()}>
+        <ButtonDarkBlue onPress={() => goToNextScreen()}>
           <TextRegularWhite>Submit</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
