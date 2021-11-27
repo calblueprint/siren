@@ -8,7 +8,12 @@ import {
 } from 'database/queries';
 import { Appointment, CalendlyLink, CaseType } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
-import { TextRegular, TextTitle, TextSubtitle } from 'assets/fonts/Fonts';
+import {
+  TextRegular,
+  TextTitle,
+  TextSubtitle,
+  TextBold,
+} from 'assets/fonts/Fonts';
 import { ScrollPageContainer } from 'screens/styles';
 import {
   SwitchButton,
@@ -99,22 +104,25 @@ const ScheduleScreen = () => {
     if (appointments === undefined || appointments?.length === 0) {
       // if no upcoming appointments
       return (
-        <TextRegular>
-          You have no upcoming appointments at this time. Check{' '}
-          <b>Schedule New</b> for any approved consultations.
-        </TextRegular>
+        <>
+          <TextRegular>
+            You have no upcoming appointments at this time. Check
+          </TextRegular>
+          <TextBold>Schedule New</TextBold>
+          <TextRegular> for any approved consultations.</TextRegular>
+        </>
       );
     }
     return (
       <>
-        {appointments?.map(appointment => (
-          <ApptContainer key={appointment.startTime + appointment.cancelled}>
+        {appointments?.map((appointment, key) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ApptContainer key={key}>
             <TextSubtitle>{appointment.caseType}</TextSubtitle>
             <br />
-            <TextRegular>
-              You have an appointment scheduled for{' '}
-              <b>{getDateString(appointment.startTime)}</b>.
-            </TextRegular>
+            <TextRegular>You have an appointment scheduled for</TextRegular>
+            <TextBold>{getDateString(appointment.startTime)}</TextBold>
+            <TextRegular>.</TextRegular>
           </ApptContainer>
         ))}
         <></> {/* Need to do this otherwise will bleed onto next screen */}
@@ -126,10 +134,13 @@ const ScheduleScreen = () => {
     if (calendlyLinks === undefined || calendlyLinks?.length === 0) {
       // if not approved for appointments
       return (
-        <TextRegular>
-          You have not been approved for appointments in any new cases. Check{' '}
-          <b>Home</b> for any missing items.
-        </TextRegular>
+        <>
+          <TextRegular>
+            You have not been approved for appointments in any new cases. Check
+          </TextRegular>
+          <TextBold>Home</TextBold>
+          <TextRegular> for any missing items.</TextRegular>
+        </>
       );
     }
     return (
