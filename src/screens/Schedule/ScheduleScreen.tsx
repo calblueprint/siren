@@ -166,8 +166,6 @@ const ScheduleScreen = () => {
     );
   };
 
-  // check if calendlyLinks is empty
-
   return (
     <ScrollPageContainer>
       <TextTitle>Schedule an appointment with your attorney.</TextTitle>
