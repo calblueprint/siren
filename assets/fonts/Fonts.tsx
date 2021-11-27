@@ -42,6 +42,7 @@ export const TextSubtitle = styled.Text`
   font-family: public-sans-semibold;
   font-size: 16px;
   text-align: center;
+  margin-bottom: 10px;
 `;
 
 export const TextBoldItalic = styled.Text`

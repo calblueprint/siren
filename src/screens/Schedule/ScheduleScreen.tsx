@@ -119,7 +119,6 @@ const ScheduleScreen = () => {
           // eslint-disable-next-line react/no-array-index-key
           <ApptContainer key={key}>
             <TextSubtitle>{appointment.caseType}</TextSubtitle>
-            <br />
             <TextRegular>You have an appointment scheduled for</TextRegular>
             <TextBold>{getDateString(appointment.startTime)}</TextBold>
             <TextRegular>.</TextRegular>
