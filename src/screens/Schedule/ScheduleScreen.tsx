@@ -113,6 +113,7 @@ const ScheduleScreen = () => {
         </>
       );
     }
+    // need bottom <></> otherwise bleeds onto next screen
     return (
       <>
         {appointments?.map((appointment, key) => (
@@ -124,7 +125,7 @@ const ScheduleScreen = () => {
             <TextRegular>.</TextRegular>
           </ApptContainer>
         ))}
-        <></> {/* Need to do this otherwise will bleed onto next screen */}
+        <></>
       </>
     );
   };
@@ -137,8 +138,8 @@ const ScheduleScreen = () => {
           <TextRegular>
             You have not been approved for appointments in any new cases. Check
           </TextRegular>
-          <TextBold>Home</TextBold>
-          <TextRegular> for any missing items.</TextRegular>
+          <TextBold>Home </TextBold>
+          <TextRegular>for any missing items.</TextRegular>
         </>
       );
     }
