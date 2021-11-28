@@ -35,11 +35,6 @@ export const ScheduleButton = styled.TouchableHighlight`
   margin: 10px 0px;
 `;
 
-export const ScheduleButtonContent = styled.View`
-  display: inline;
-  white-space: nowrap;
-`;
-
 export const ScheduleContainer = styled.View`
   width: 100%;
   display: flex;
@@ -53,9 +48,4 @@ export const ApptContainer = styled.View`
   padding: 20px 10px;
   border-radius: 5px;
   margin: 10px 0px;
-`;
-
-export const TextContainer = styled.View`
-  white-space: nowrap;
-  display: inline-block;
 `;

@@ -20,12 +20,11 @@ import {
   SwitchContainer,
   ScheduleButton,
   ScheduleContainer,
-  ScheduleButtonContent,
   ApptContainer,
-  TextContainer,
 } from 'screens/Schedule/styles';
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View } from 'react-native';
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
@@ -106,13 +105,13 @@ const ScheduleScreen = () => {
     if (appointments === undefined || appointments?.length === 0) {
       // if no upcoming appointments
       return (
-        <TextContainer>
+        <View>
           <TextRegular>
             You have no upcoming appointments at this time. Check
+            <TextRegularBold> Schedule New</TextRegularBold> for any approved
+            consultations.
           </TextRegular>
-          <TextRegularBold> Schedule New</TextRegularBold>
-          <TextRegular> for any approved consultations.</TextRegular>
-        </TextContainer>
+        </View>
       );
     }
     // need bottom <></> otherwise bleeds onto next screen
@@ -122,13 +121,11 @@ const ScheduleScreen = () => {
           // eslint-disable-next-line react/no-array-index-key
           <ApptContainer key={key}>
             <TextSubtitle>{appointment.caseType}</TextSubtitle>
-            <TextContainer>
-              <TextRegular>You have an appointment scheduled for </TextRegular>
-              <TextRegularBold>
-                {getDateString(appointment.startTime)}
-              </TextRegularBold>
-              <TextRegular>.</TextRegular>
-            </TextContainer>
+            <TextRegular>You have an appointment scheduled for </TextRegular>
+            <TextRegularBold>
+              {getDateString(appointment.startTime)}
+            </TextRegularBold>
+            <TextRegular>.</TextRegular>
           </ApptContainer>
         ))}
         <></>
@@ -140,13 +137,12 @@ const ScheduleScreen = () => {
     if (calendlyLinks === undefined || calendlyLinks?.length === 0) {
       // if not approved for appointments
       return (
-        <TextContainer>
+        <View>
           <TextRegular>
-            You have not been approved for appointments in any new cases. Check
+            You have not been approved for appointments in any new cases. Check{' '}
+            <TextRegularBold>Home</TextRegularBold> for any missing items.
           </TextRegular>
-          <TextRegularBold>Home</TextRegularBold>
-          <TextRegular>for any missing items.</TextRegular>
-        </TextContainer>
+        </View>
       );
     }
     return (
@@ -158,14 +154,12 @@ const ScheduleScreen = () => {
               onPress={() => openCalendlyInBrowser(cl.link)}
               key={cl.link}
             >
-              <ScheduleButtonContent>
-                <TextSubtitle>{cl.type} </TextSubtitle>
-                <MaterialCommunityIcons
-                  name="open-in-new"
-                  color={Colors.lightGray}
-                  size={26}
-                />
-              </ScheduleButtonContent>
+              <TextSubtitle>{cl.type} </TextSubtitle>
+              <MaterialCommunityIcons
+                name="open-in-new"
+                color={Colors.lightGray}
+                size={26}
+              />
             </ScheduleButton>
           ))}
         </ScheduleContainer>
