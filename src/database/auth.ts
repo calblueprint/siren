@@ -15,6 +15,7 @@ export async function register(
     if (user !== null) {
       const client: Client = {
         id: user.uid,
+        email,
         fullName,
         createdAt: new Date(),
         answers: new Map(),
@@ -22,7 +23,7 @@ export async function register(
       await setClient(client);
     }
   } catch (err) {
-    console.log('Error registrating');
+    console.log(err);
   }
 }
 
@@ -42,6 +43,7 @@ export async function logout() {
   }
 }
 
+// TO DO: save current client in app state with ContextProvider
 export async function getCurrentClient(): Promise<Client | undefined> {
   const uid = firebase.auth().currentUser?.uid;
   if (uid !== undefined) {

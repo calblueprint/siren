@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { Colors } from 'assets/Colors';
 
 export const ButtonHeader = styled.TouchableOpacity`
   display: flex;
@@ -13,9 +14,19 @@ export const ButtonHeader = styled.TouchableOpacity`
 `;
 
 export const ButtonView = styled.View`
-  padding-top: 20%;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
+`;
+
+export const ScrollPageContainer = styled.ScrollView`
+  background-color: ${Colors.white};
+  display: flex
+  padding-vertical: 20px;
+  flex: 1;
+`;
+
+export const QuestionView = styled.View`
+  margin: 2px;
 `;

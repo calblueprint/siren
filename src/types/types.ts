@@ -26,6 +26,7 @@ export enum AnswerType {
 
 export type Client = {
   id: string;
+  email: string;
   fullName: string;
   createdAt: Date;
   answers: Map<string, Map<string, any>>;
@@ -35,6 +36,11 @@ export type Case = {
   id: string;
   status: CaseStatus;
   type: CaseType;
+};
+
+export type CalendlyLink = {
+  type: CaseType;
+  link: string;
 };
 
 export type Document = {
@@ -72,4 +78,12 @@ export type QuestionManagerProps = {
 
 export type Dictionary = {
   [key: string]: any;
+};
+
+export type Appointment = {
+  cancelled: boolean;
+  caseType: CaseType;
+  client: string; // is this needed?
+  clientEmail: string;
+  startTime: string;
 };

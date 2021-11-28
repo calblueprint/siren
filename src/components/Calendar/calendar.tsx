@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   },
   calendar: {
     width: '74%',
-    height: 216,
     borderWidth: 1,
     borderColor: '#2B2B2B',
     borderRadius: 8,

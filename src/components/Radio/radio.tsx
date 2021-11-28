@@ -29,12 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    // backgroundColor: '#ffffff',
-    // minHeight: 48,
-    // paddingStart: 8,
-    // paddingEnd: 8,
-    // borderRadius: 4,
-    // marginBottom: 4,
+    backgroundColor: '#ffffff',
   },
   radioContainer: {
     display: 'flex',
@@ -53,14 +48,13 @@ export default function Radio(props: QuestionComponentProps) {
   };
   const getRadioComponent = (option: any): any => {
     return (
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonContainer} key={option}>
         <RadioButton
-          key={option}
           value={option}
           status={value === option ? 'checked' : 'unchecked'}
           onPress={() => onChange(option)}
         />
-        <TextRegular>{option}</TextRegular>
+        <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
       </View>
     );
   };

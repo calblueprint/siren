@@ -3,14 +3,16 @@ import styled from 'styled-components/native';
 
 export const ButtonLight = styled.TouchableOpacity`
   text-align: center;
-  padding: 4px 4px
+  align-items: center;
+  padding: 10px;
   border-width: 1px;
   border-radius: 5px;
 `;
 
 export const ButtonDark = styled.TouchableOpacity`
   text-align: center;
-  padding: 4px 4px
+  align-items: center;
+  padding: 10px;
   border-width: 1px;
   border-radius: 5px;
   background: black;
