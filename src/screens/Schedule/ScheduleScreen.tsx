@@ -12,9 +12,9 @@ import {
   TextRegular,
   TextTitle,
   TextSubtitle,
-  TextBold,
+  TextRegularBold,
 } from 'assets/fonts/Fonts';
-import { ScrollPageContainer } from 'screens/styles';
+import { InnerPageContainer, ScrollPageContainer } from 'screens/styles';
 import {
   SwitchButton,
   SwitchContainer,
@@ -22,6 +22,7 @@ import {
   ScheduleContainer,
   ScheduleButtonContent,
   ApptContainer,
+  TextContainer,
 } from 'screens/Schedule/styles';
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -71,6 +72,7 @@ const ScheduleScreen = () => {
     return (
       <SwitchButton
         onPress={() => setSwitchPage(props.pageNum)}
+        underlayColor={Colors.lightBlue}
         style={{
           backgroundColor: isActive ? Colors.lightBlue : undefined,
         }}
@@ -104,13 +106,13 @@ const ScheduleScreen = () => {
     if (appointments === undefined || appointments?.length === 0) {
       // if no upcoming appointments
       return (
-        <>
+        <TextContainer>
           <TextRegular>
             You have no upcoming appointments at this time. Check
           </TextRegular>
-          <TextBold>Schedule New</TextBold>
+          <TextRegularBold> Schedule New</TextRegularBold>
           <TextRegular> for any approved consultations.</TextRegular>
-        </>
+        </TextContainer>
       );
     }
     // need bottom <></> otherwise bleeds onto next screen
@@ -120,9 +122,13 @@ const ScheduleScreen = () => {
           // eslint-disable-next-line react/no-array-index-key
           <ApptContainer key={key}>
             <TextSubtitle>{appointment.caseType}</TextSubtitle>
-            <TextRegular>You have an appointment scheduled for</TextRegular>
-            <TextBold>{getDateString(appointment.startTime)}</TextBold>
-            <TextRegular>.</TextRegular>
+            <TextContainer>
+              <TextRegular>You have an appointment scheduled for </TextRegular>
+              <TextRegularBold>
+                {getDateString(appointment.startTime)}
+              </TextRegularBold>
+              <TextRegular>.</TextRegular>
+            </TextContainer>
           </ApptContainer>
         ))}
         <></>
@@ -134,13 +140,13 @@ const ScheduleScreen = () => {
     if (calendlyLinks === undefined || calendlyLinks?.length === 0) {
       // if not approved for appointments
       return (
-        <>
+        <TextContainer>
           <TextRegular>
             You have not been approved for appointments in any new cases. Check
           </TextRegular>
-          <TextBold>Home </TextBold>
+          <TextRegularBold>Home</TextRegularBold>
           <TextRegular>for any missing items.</TextRegular>
-        </>
+        </TextContainer>
       );
     }
     return (
@@ -169,13 +175,15 @@ const ScheduleScreen = () => {
 
   return (
     <ScrollPageContainer>
-      <TextTitle>Schedule an appointment with your attorney.</TextTitle>
-      <TextRegular>{getSwitchDescription()}</TextRegular>
-      <SwitchContainer>
-        <Switch title="Upcoming" pageNum={0} />
-        <Switch title="Schedule New" pageNum={1} />
-      </SwitchContainer>
-      {switchPage === 0 ? getUpcomingBody() : getScheduleBody()}
+      <InnerPageContainer>
+        <TextTitle>Schedule an appointment with your attorney.</TextTitle>
+        <TextRegular>{getSwitchDescription()}</TextRegular>
+        <SwitchContainer>
+          <Switch title="Upcoming" pageNum={0} />
+          <Switch title="Schedule New" pageNum={1} />
+        </SwitchContainer>
+        {switchPage === 0 ? getUpcomingBody() : getScheduleBody()}
+      </InnerPageContainer>
     </ScrollPageContainer>
   );
 };

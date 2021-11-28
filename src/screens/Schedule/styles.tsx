@@ -54,3 +54,8 @@ export const ApptContainer = styled.View`
   border-radius: 5px;
   margin: 10px 0px;
 `;
+
+export const TextContainer = styled.View`
+  white-space: nowrap;
+  display: inline-block;
+`;

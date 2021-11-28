@@ -38,6 +38,12 @@ export const TextRegular = styled.Text`
   font-size: 14px;
 `;
 
+export const TextRegularBold = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 14px;
+  display: inline-block;
+`;
+
 export const TextSubtitle = styled.Text`
   font-family: public-sans-semibold;
   font-size: 16px;
