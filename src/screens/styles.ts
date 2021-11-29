@@ -8,7 +8,11 @@ export const PageContainer = styled.View`
   justify-content: center;
 `;
 
+// non-centered
 export const ScrollPageContainer = styled.ScrollView`
-  margin-vertical: 20px;
-  flex: 1;
+  overflow: scroll;
+`;
+
+export const InnerPageContainer = styled.View`
+  margin: 5%;
 `;
