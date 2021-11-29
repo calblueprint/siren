@@ -21,6 +21,7 @@ import {
   ScheduleButton,
   ScheduleContainer,
   ApptContainer,
+  TextContainer,
 } from 'screens/Schedule/styles';
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -101,8 +102,15 @@ const ScheduleScreen = () => {
     return dateString;
   };
 
+  // convert camelCase to Title Case
+  const makeTitleCase = (str: string) => {
+    let result = str.replace(/([A-Z])/g, ' $1');
+    result = result.charAt(0).toUpperCase() + result.slice(1);
+    return result;
+  };
+
   const getUpcomingBody = () => {
-    if (appointments === undefined || appointments?.length === 0) {
+    if (appointments === undefined || appointments.length === 0) {
       // if no upcoming appointments
       return (
         <View>
@@ -114,10 +122,9 @@ const ScheduleScreen = () => {
         </View>
       );
     }
-    // need bottom <></> otherwise bleeds onto next screen
     return (
       <>
-        {appointments?.map((appointment, key) => (
+        {appointments.map((appointment, key) => (
           // eslint-disable-next-line react/no-array-index-key
           <ApptContainer key={key}>
             <TextSubtitle>{appointment.caseType}</TextSubtitle>
@@ -128,13 +135,12 @@ const ScheduleScreen = () => {
             <TextRegular>.</TextRegular>
           </ApptContainer>
         ))}
-        <></>
       </>
     );
   };
 
   const getScheduleBody = () => {
-    if (calendlyLinks === undefined || calendlyLinks?.length === 0) {
+    if (calendlyLinks === undefined || calendlyLinks.length === 0) {
       // if not approved for appointments
       return (
         <View>
@@ -149,17 +155,19 @@ const ScheduleScreen = () => {
       <>
         <TextRegular>You can now schedule appointments for:</TextRegular>
         <ScheduleContainer>
-          {calendlyLinks?.map(cl => (
+          {calendlyLinks.map(cl => (
             <ScheduleButton
               onPress={() => openCalendlyInBrowser(cl.link)}
               key={cl.link}
             >
-              <TextSubtitle>{cl.type} </TextSubtitle>
-              <MaterialCommunityIcons
-                name="open-in-new"
-                color={Colors.lightGray}
-                size={26}
-              />
+              <TextContainer>
+                <TextSubtitle>{makeTitleCase(cl.type)} </TextSubtitle>
+                <MaterialCommunityIcons
+                  name="open-in-new"
+                  color={Colors.lightGray}
+                  size={26}
+                />
+              </TextContainer>
             </ScheduleButton>
           ))}
         </ScheduleContainer>
