@@ -12,7 +12,7 @@ import {
   ButtonView,
 } from './styles';
 
-const FinalIntakeScreen = () => {
+const FinalIntakeScreen = ({ navigation }: any) => {
   return (
     <PageContainer>
       <ContentContainer>
@@ -28,7 +28,7 @@ const FinalIntakeScreen = () => {
         <ButtonView>
           <ButtonLight
             onPress={() => {
-              <HomeScreen />;
+              navigation.navigate('Home');
             }}
           >
             <TextRegular>Return Home</TextRegular>

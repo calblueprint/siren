@@ -11,12 +11,7 @@ import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
 import { getCurrentClient } from 'database/auth';
-import {
-  ButtonHeader,
-  ButtonView,
-  ScrollPageContainer,
-  QuestionView,
-} from './styles';
+import { ButtonHeader, ButtonView, QuestionView } from './styles';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -119,14 +114,18 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   }, [screen, allQuestions, existingAnswers]);
 
   return (
-    <ScrollPageContainer>
+    <>
       <ButtonHeader onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
-        <Appbar.BackAction
-          size={18}
-          style={{ margin: 0 }}
-          onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}
-        />
-        <TextSubtitle>Go Back</TextSubtitle>
+        {screen !== 0 ? (
+          <>
+            <Appbar.BackAction
+              size={18}
+              style={{ margin: 0 }}
+              onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}
+            />
+            <TextSubtitle>Go Back</TextSubtitle>
+          </>
+        ) : null}
       </ButtonHeader>
       <QuestionView>
         {currentQuestions.map(question => getQuestionComponent(question))}
@@ -136,6 +135,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           <TextRegularWhite>Next</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
-    </ScrollPageContainer>
+    </>
   );
 }

@@ -11,6 +11,8 @@ export const PageContainer = styled.View`
 // non-centered
 export const ScrollPageContainer = styled.ScrollView`
   overflow: scroll;
+  flex: 1;
+  height: 100%;
 `;
 
 export const InnerPageContainer = styled.View`

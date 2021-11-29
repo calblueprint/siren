@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQuestionManager';
-import { ScrollPageContainer } from 'screens/styles';
+import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import DacaRenewalQuestionManager from 'components/DacaRenewalQuestionManager/DacaRenewalQuestionManager';
 import { Client, Dictionary } from 'types/types';
 import { getCurrentClient } from 'database/auth';
-import FinalIntakeScreen from 'components/FinalIntakeScreen/FinalIntakeScreen';
+import FinalIntakeScreen from 'screens/Forms/FinalIntakeScreen';
 
 // TODO: integrate user auth, retention of answers.
 
-const FormsScreen = () => {
+const FormsScreen = ({ navigation }: any) => {
   const [showAdditionalScreen, setShowAdditionalScreen] = useState(false);
   const [showFinalScreen, setShowFinalScreen] = useState(false);
   const [showGeneralScreen, setShowGeneralScreen] = useState(true);
@@ -54,11 +54,15 @@ const FormsScreen = () => {
   const getCurrentScreen = () => {
     if (showGeneralScreen) {
       return (
-        <GeneralQuestionManager
-          setNextScreen={setAdditionalScreen}
-          existingAnswers={existingAnswers}
-          managerSpecificProps={{ screen: generalScreenNumber }}
-        />
+        <ScrollPageContainer>
+          <InnerPageContainer>
+            <GeneralQuestionManager
+              setNextScreen={setAdditionalScreen}
+              existingAnswers={existingAnswers}
+              managerSpecificProps={{ screen: generalScreenNumber }}
+            />
+          </InnerPageContainer>
+        </ScrollPageContainer>
       );
     }
     if (showFinalScreen) {
@@ -87,7 +91,7 @@ const FormsScreen = () => {
     return null;
   };
 
-  return <ScrollPageContainer>{getCurrentScreen()}</ScrollPageContainer>;
+  return getCurrentScreen();
 };
 
 export default FormsScreen;
