@@ -41,6 +41,7 @@ const FormsScreen = ({ navigation }: any) => {
     setShowFinalScreen(true);
     setShowAdditionalScreen(false);
     setShowGeneralScreen(false);
+    // navigation.navigate(...)
   };
 
   const setGeneralScreen = (): void => {
@@ -64,9 +65,6 @@ const FormsScreen = ({ navigation }: any) => {
           </InnerPageContainer>
         </ScrollPageContainer>
       );
-    }
-    if (showFinalScreen) {
-      return <FinalIntakeScreen />;
     }
 
     if (showAdditionalScreen) {
