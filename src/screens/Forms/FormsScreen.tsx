@@ -1,12 +1,16 @@
 import React from 'react';
 import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQuestionManager';
-import { ScrollPageContainer } from 'screens/styles';
+import UploadScreen from 'screens/Upload/UploadScreen';
+import { ScrollPageContainer, PageContainer } from 'screens/styles';
 
 const FormsScreen = () => {
   return (
-    <ScrollPageContainer>
-      <GeneralQuestionManager />
-    </ScrollPageContainer>
+    <PageContainer>
+      <UploadScreen />
+    </PageContainer>
+    // <ScrollPageContainer>
+    //   <GeneralQuestionManager />
+    // </ScrollPageContainer>
   );
 };
 
