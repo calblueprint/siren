@@ -5,7 +5,7 @@ import { PageContainer } from 'screens/styles';
 import { logout } from 'database/auth';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
-import firebase from 'firebase';
+import firebase from 'database/clientApp';
 import ProgressTracker from './ProgressTracker';
 
 const HomeScreen = ({ navigation }: any) => {

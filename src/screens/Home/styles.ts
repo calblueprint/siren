@@ -4,8 +4,8 @@ import styled from 'styled-components/native';
 export const TitleContainer = styled.View`
   display: flex;
   align-items: center;
-  top: 22;
-  margin-bottom: 12;
+  top: 22px;
+  margin-bottom: 12px;
 `;
 
 export const TrackerContainer = styled.View`
@@ -20,6 +20,6 @@ export const MainContainer = styled.View`
   height: 190px;
   border-width: 1px;
   border-color: #CFD3D7;
-  border-radius: 8
-  margin-bottom: 16
+  border-radius: 8px
+  margin-bottom: 16px
 `;
