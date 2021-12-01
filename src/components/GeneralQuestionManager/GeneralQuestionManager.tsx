@@ -11,7 +11,7 @@ import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
 import { getCurrentClient } from 'database/auth';
-import { ButtonHeader, ButtonView, QuestionView } from './styles';
+import { ButtonHeader, ButtonView } from './styles';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -127,9 +127,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           </>
         ) : null}
       </ButtonHeader>
-      <QuestionView>
-        {currentQuestions.map(question => getQuestionComponent(question))}
-      </QuestionView>
+      {currentQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
         <ButtonDarkBlue onPress={() => setScreen(screen + 1)}>
           <TextRegularWhite>Next</TextRegularWhite>

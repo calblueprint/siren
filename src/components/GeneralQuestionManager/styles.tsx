@@ -26,7 +26,3 @@ export const ScrollPageContainer = styled.ScrollView`
   padding-vertical: 20px;
   flex: 1;
 `;
-
-export const QuestionView = styled.View`
-  margin: 2px;
-`;

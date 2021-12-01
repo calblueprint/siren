@@ -13,7 +13,6 @@ export const ButtonHeader = styled.TouchableOpacity`
 `;
 
 export const ButtonView = styled.View`
-  padding-top: 20%;
   width: 100%;
   display: flex;
   flex-direction: row;

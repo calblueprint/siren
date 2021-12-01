@@ -18,4 +18,5 @@ export const ScrollPageContainer = styled.ScrollView`
 
 export const InnerPageContainer = styled.View`
   margin: 5%;
+  padding-bottom: 20px;
 `;

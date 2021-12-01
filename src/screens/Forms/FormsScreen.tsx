@@ -79,11 +79,15 @@ const FormsScreen = ({ navigation }: any) => {
       const AdditionalScreenComponent =
         additionalScreenComponents[additionalScreenType];
       return (
-        <AdditionalScreenComponent
-          setPreviousScreen={setGeneralScreen}
-          setNextScreen={setFinalScreen}
-          existingAnswers={existingAnswers}
-        />
+        <ScrollPageContainer>
+          <InnerPageContainer>
+            <AdditionalScreenComponent
+              setPreviousScreen={setGeneralScreen}
+              setNextScreen={setFinalScreen}
+              existingAnswers={existingAnswers}
+            />
+          </InnerPageContainer>
+        </ScrollPageContainer>
       );
     }
     return null;

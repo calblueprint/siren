@@ -1,6 +1,5 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
 import { Appbar } from 'react-native-paper';
 import { getAllQuestionsOfType, setCase, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
@@ -21,16 +20,6 @@ import Radio from 'components/Radio/radio';
 import { getCurrentClient } from 'database/auth';
 import { firestoreAutoId } from 'database/helpers';
 import { ButtonHeader, ButtonView } from './styles';
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#fff',
-    display: 'flex',
-    paddingTop: 10,
-  },
-});
 
 export default function DacaRenewalQuestionManager(
   props: QuestionManagerProps,
@@ -98,7 +87,7 @@ export default function DacaRenewalQuestionManager(
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <>
       <ButtonHeader
         onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
       >
@@ -109,14 +98,12 @@ export default function DacaRenewalQuestionManager(
         />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      <View>
-        {allQuestions.map(question => getQuestionComponent(question))}
-      </View>
+      {allQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
         <ButtonDarkBlue onPress={() => goToNextScreen()}>
           <TextRegularWhite>Submit</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
-    </ScrollView>
+    </>
   );
 }
