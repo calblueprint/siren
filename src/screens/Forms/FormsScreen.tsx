@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQuestionManager';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
-import DacaRenewalQuestionManager from 'components/DacaRenewalQuestionManager/DacaRenewalQuestionManager';
+import DacaRenewalQuestionManager from 'components/AdditionalQuestionManager/AdditionalQuestionManager';
 import { Client, Dictionary } from 'types/types';
 import { getCurrentClient } from 'database/auth';
 import FinalIntakeScreen from 'screens/Forms/FinalIntakeScreen';

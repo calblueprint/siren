@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
-import DocContainer from 'components/DocContainer';
+import DocContainer from 'components/DocContainer/DocContainer';
 
 const UploadScreen = () => {
   return (
