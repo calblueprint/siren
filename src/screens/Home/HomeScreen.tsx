@@ -5,11 +5,12 @@ import { PageContainer } from 'screens/styles';
 import { logout } from 'database/auth';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
+import firebase from 'firebase';
 import ProgressTracker from './ProgressTracker';
 
 const HomeScreen = ({ navigation }: any) => {
-  // const uid = firebase.auth().currentUser?.uid;
-  const uid = 'sample';
+  const uid = firebase.auth().currentUser?.uid;
+  // const uid = 'sample'; use for sample testing multiple cases
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 
