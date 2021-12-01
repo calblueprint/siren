@@ -1,15 +1,30 @@
 {
   "compilerOptions": {
+    "noImplicitAny": false,
     "allowJs": false,
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*"],
-      "assets/*": ["assets/*"],
-      "components/*": ["src/components/*"],
-      "database/*": ["src/database/*"],
-      "navigation/*": ["src/navigation/*"],
-      "screens/*": ["src/screens/*"],
-      "types/*": ["src/types/*"]
+      "*": [
+        "src/*"
+      ],
+      "assets/*": [
+        "assets/*"
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "database/*": [
+        "src/database/*"
+      ],
+      "navigation/*": [
+        "src/navigation/*"
+      ],
+      "screens/*": [
+        "src/screens/*"
+      ],
+      "types/*": [
+        "src/types/*"
+      ]
     },
     "esModuleInterop": true,
     "jsx": "react-native",
