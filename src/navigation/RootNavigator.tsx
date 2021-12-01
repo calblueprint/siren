@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import HomeStack from 'components/NavBar';
+import HomeStack from 'navigation/HomeStack';
 import firebase from 'database/clientApp';
 import AuthStack from './AuthStack';
 
