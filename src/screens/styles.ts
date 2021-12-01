@@ -13,6 +13,7 @@ export const ScrollPageContainer = styled.ScrollView`
   overflow: scroll;
   flex: 1;
   height: 100%;
+  padding-top: 20px;
 `;
 
 export const InnerPageContainer = styled.View`

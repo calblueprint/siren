@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { PageContainer } from 'screens/styles';
-import HomeScreen from 'screens/Home/HomeScreen';
 import UploadScreen from 'screens/Documents/Documents';
 import { TextRegular, TextBold, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDark, ButtonLight } from 'assets/Components';
