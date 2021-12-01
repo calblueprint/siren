@@ -21,7 +21,9 @@ import {
   ScheduleButton,
   ScheduleContainer,
   ApptContainer,
-  TextContainer,
+  AppointmentSubtitle,
+  AppointmentTextContainer,
+  ScheduleTextContainer,
 } from 'screens/Schedule/styles';
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -127,12 +129,14 @@ const ScheduleScreen = () => {
         {appointments.map((appointment, key) => (
           // eslint-disable-next-line react/no-array-index-key
           <ApptContainer key={key}>
-            <TextSubtitle>{appointment.caseType}</TextSubtitle>
-            <TextRegular>You have an appointment scheduled for </TextRegular>
-            <TextRegularBold>
-              {getDateString(appointment.startTime)}
-            </TextRegularBold>
-            <TextRegular>.</TextRegular>
+            <AppointmentSubtitle>{appointment.caseType}</AppointmentSubtitle>
+            <AppointmentTextContainer>
+              <TextRegular>You have an appointment scheduled for </TextRegular>
+              <TextRegularBold>
+                {getDateString(appointment.startTime)}
+              </TextRegularBold>
+              <TextRegular>.</TextRegular>
+            </AppointmentTextContainer>
           </ApptContainer>
         ))}
       </>
@@ -160,14 +164,14 @@ const ScheduleScreen = () => {
               onPress={() => openCalendlyInBrowser(cl.link)}
               key={cl.link}
             >
-              <TextContainer>
+              <ScheduleTextContainer>
                 <TextSubtitle>{makeTitleCase(cl.type)} </TextSubtitle>
                 <MaterialCommunityIcons
                   name="open-in-new"
                   color={Colors.lightGray}
                   size={26}
                 />
-              </TextContainer>
+              </ScheduleTextContainer>
             </ScheduleButton>
           ))}
         </ScheduleContainer>

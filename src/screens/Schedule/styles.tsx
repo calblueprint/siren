@@ -45,12 +45,28 @@ export const ApptContainer = styled.View`
   border: 1px solid ${Colors.lightGray};
   display: flex;
   justify-content: center;
-  padding: 20px 10px;
+  padding: 15px 10px;
   border-radius: 5px;
   margin: 10px 0px;
 `;
 
-export const TextContainer = styled.View`
-  white-space: nowrap;
-  display: inline-block;
+export const AppointmentSubtitle = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
+
+export const AppointmentTextContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+`;
+
+export const ScheduleTextContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 `;
