@@ -10,7 +10,7 @@ import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
-  // const uid = 'sample'; use for sample testing multiple cases
+  // const uid = 'sample'; // use to test multiple cases
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 

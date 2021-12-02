@@ -1,12 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { getCurrentClient } from 'database/auth';
 import {
-  getAllAppointmentsForClient,
+  getAllUpcomingAppointmentsForClient,
   getAllCalendlyLinks,
   getAllCases,
 } from 'database/queries';
-import { Appointment, CalendlyLink, CaseType } from 'types/types';
+import { Appointment, CalendlyLink, CaseStatus, CaseType } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
 import {
   TextRegular,
@@ -27,16 +28,41 @@ import {
 } from 'screens/Schedule/styles';
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
 // TO DO: refresh appointment page upon focus
 
 const ScheduleScreen = () => {
+  const isFocused = useIsFocused();
+  const [detectBrowserClose, setDetectBrowserClose] = useState<boolean>();
   const [calendlyLinks, setCalendlyLinks] = useState<CalendlyLink[]>();
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [switchPage, setSwitchPage] = React.useState(0);
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  const daysOfWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
 
   useEffect(() => {
     async function loadLinksAndAppointments() {
@@ -44,7 +70,9 @@ const ScheduleScreen = () => {
       if (client !== undefined) {
         // fetch the client's approved case types
         const cases = await getAllCases(client.id);
-        const clientCaseTypes: CaseType[] = cases.map(c => c.type);
+        const clientCaseTypes: CaseType[] = cases
+          .filter(c => c.status === CaseStatus.SchedApt)
+          .map(c => c.type);
 
         // fetch all calendly links
         const allCalendlyLinks = await getAllCalendlyLinks();
@@ -57,16 +85,24 @@ const ScheduleScreen = () => {
         setCalendlyLinks(filteredLinks);
 
         // fetch all uncancelled appointments for client
-        const appts = await getAllAppointmentsForClient(client);
-        // TO DO: filter out past appointments
+        const appts = await getAllUpcomingAppointmentsForClient(client);
+        console.log(appts);
         setAppointments(appts);
       }
     }
     loadLinksAndAppointments();
-  }, []);
+  }, [isFocused, detectBrowserClose]);
 
   const openCalendlyInBrowser = async (link: string) => {
-    await WebBrowser.openBrowserAsync(link);
+    if (Platform.OS === 'ios') {
+      await WebBrowser.openBrowserAsync(link);
+      setDetectBrowserClose(!detectBrowserClose);
+      console.log('ios');
+    } else {
+      await WebBrowser.openAuthSessionAsync(link, '');
+      setDetectBrowserClose(!detectBrowserClose);
+      console.log('android');
+    }
   };
 
   const Switch = (props: { pageNum: number; title: string }) => {
@@ -95,13 +131,19 @@ const ScheduleScreen = () => {
       // schedule new
       return 'View any upcoming appointments you have with your attorney here. Reschedule or cancel your appointment through the confirmation email you received from Calendly.';
     }
-    return 'Schedule appointments with attorney(s) for newly approved case(s) here.';
+    return 'Schedule appointments with attorney(s) for newly approved case(s) here. Clicking the button for a specific case will take you to Calendly to choose from your attorney’s availabilities.';
   };
 
-  // convert datestring (appointment.startTime) and convert to readable string
-  const getDateString = (dateString: string) => {
-    // TODO: how do I best do this?
-    return dateString;
+  // convert Date object (appointment.startTime) into a readable string
+  const getDateString = (date: Date) => {
+    const localeTimeString: string = date.toLocaleTimeString();
+    const time: string =
+      localeTimeString.substring(0, localeTimeString.lastIndexOf(':')) +
+      localeTimeString.substring(localeTimeString.lastIndexOf(':') + 3);
+
+    return `${daysOfWeek[date.getDay()]}, ${
+      months[date.getMonth()]
+    } ${date.getDate()} at ${time}`;
   };
 
   // convert camelCase to Title Case

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Colors } from 'assets/Colors';
 import { TextBold, TextRegular } from 'assets/fonts/Fonts';
@@ -23,10 +23,10 @@ function setType(type: string) {
 
 function setStep(status: string) {
   // TO DO: Refactor into dictionary
-  if (status === 'intakeSub') {
+  if (status === 'submitForm') {
     return 0;
   }
-  if (status === 'uploadDoc') {
+  if (status === 'submitDoc') {
     return 1;
   }
   if (status === 'underRev') {
@@ -44,6 +44,7 @@ function setStep(status: string) {
 const ProgressTracker = (props: TrackerProps) => {
   const { status } = props;
   const { type } = props;
+  const spaces = ' '.repeat(500); // needed to break up step labels into 2 lines
 
   return (
     <MainContainer>
@@ -64,7 +65,7 @@ const ProgressTracker = (props: TrackerProps) => {
           completedLabelColor={Colors.brandGray}
         >
           <ProgressStep
-            label={<Text> Intake {'\n'} Submitted </Text>}
+            label={`Intake ${spaces} Submitted`}
             removeBtnRow
             scrollable={false}
           >
@@ -75,7 +76,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Upload {'\n'} Documents </Text>}
+            label={`Upload ${spaces} Documents`}
             removeBtnRow
             scrollable={false}
           >
@@ -87,7 +88,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Under {'\n'} Review </Text>}
+            label={`Under ${spaces} Review`}
             removeBtnRow
             scrollable={false}
           >
@@ -96,7 +97,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Case {'\n'} Approved </Text>}
+            label={`Case ${spaces} Approved`}
             removeBtnRow
             scrollable={false}
           >
@@ -105,7 +106,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Appointment {'\n'} Scheduled </Text>}
+            label={`Appointment ${spaces} Scheduled`}
             removeBtnRow
             scrollable={false}
           >
