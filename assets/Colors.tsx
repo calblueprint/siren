@@ -9,4 +9,5 @@ export const Colors = {
   brandGray: '#6A6A6A',
   lightGray: '#87929B',
   white: '#FFFFFF',
+  borderGrey: '#CFD3D7',
 };
