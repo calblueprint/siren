@@ -1,0 +1,96 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Tiffany\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @jkdrangel/react-native-switch-selector
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Users\Tiffany\AppData\Local\Programs\Python\Python37-32;C:\Users\Tiffany\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Program Files\dotnet\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\Tiffany\AppData\Roaming\npm;C:\Users\Tiffany\AppData\Local\Microsoft\WindowsApps;C:\Users\Tiffany\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Tiffany\AppData\Local\atom\bin;C:\Users\Tiffany\AppData\Local\Programs\Python\Python37-32;";C:\Program Files\nodejs\";C:\Users\Tiffany\AppData\Local\Programs\Python\Python37-32\Scripts;C:\Users\Tiffany\AppData\Local\GitHubDesktop\bin;C:\Users\Tiffany\AppData\Local\Microsoft\WindowsApps;C:\Users\Tiffany\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2020.3.1\bin;
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  12.18.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@jkdrangel%2freact-native-switch-selector: Not found
+      at Request.params.callback [as _callback] (C:\Users\Tiffany\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:67029:18)
+      at Request.self.callback (C:\Users\Tiffany\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (C:\Users\Tiffany\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141855:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (C:\Users\Tiffany\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141777:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1220:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject",
+      "postinstall": "rm -rf node_modules/expo/node_modules/react-native-safe-area-context"
+    },
+    "dependencies": {
+      "@expo/vector-icons": "^12.0.5",
+      "@react-native-community/masked-view": "^0.1.11",
+      "@react-navigation/material-bottom-tabs": "^6.0.8",
+      "@react-navigation/native": "^6.0.4",
+      "@react-navigation/stack": "^6.0.11",
+      "eslint-import-resolver-typescript": "^2.5.0",
+      "expo": "~42.0.0",
+      "expo-app-loading": "1.1.2",
+      "expo-font": "~9.2.1",
+      "expo-status-bar": "~1.0.4",
+      "expo-web-browser": "~9.2.0",
+      "firebase": "8.2.3",
+      "react": "16.13.1",
+      "react-dom": "16.13.1",
+      "react-firebase-hooks": "^3.0.4",
+      "react-hook-form": "^7.18.0",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+      "react-native-dotenv": "^3.2.0",
+      "react-native-gesture-handler": "^1.10.3",
+      "react-native-paper": "^4.9.2",
+      "react-native-reanimated": "^2.2.3",
+      "react-native-safe-area-context": "^3.3.2",
+      "react-native-screens": "^3.8.0",
+      "react-native-switch-selector": "^2.1.4",
+      "react-native-vector-icons": "^8.1.0",
+      "react-native-web": "^0.17.5",
+      "styled-components": "^5.3.3"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.9.0",
+      "@types/react": "~16.9.35",
+      "@types/react-native": "~0.63.2",
+      "@types/styled-components": "^5.1.6",
+      "@typescript-eslint/eslint-plugin": "^4.32.0",
+      "@typescript-eslint/parser": "^4.32.0",
+      "babel-plugin-module-resolver": "^4.1.0",
+      "eslint": "^7.32.0",
+      "eslint-config-airbnb": "^18.2.1",
+      "eslint-config-prettier": "^8.3.0",
+      "eslint-import-resolver-babel-module": "^5.3.1",
+      "eslint-plugin-import": "^2.24.2",
+      "eslint-plugin-jsx-a11y": "^6.4.1",
+      "eslint-plugin-prettier": "^4.0.0",
+      "eslint-plugin-react": "^7.26.1",
+      "eslint-plugin-react-hooks": "^4.2.0",
+      "prettier": "^2.4.1",
+      "typescript": "~4.0.0"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

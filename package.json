@@ -36,6 +36,7 @@
     "react-native-reanimated": "^2.2.3",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
+    "react-native-switch-selector": "^2.1.4",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "^0.17.5",
     "styled-components": "^5.3.3"
