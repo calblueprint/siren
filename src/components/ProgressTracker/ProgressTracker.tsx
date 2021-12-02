@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Colors } from 'assets/Colors';
 import { TextBold, TextRegular } from 'assets/fonts/Fonts';
@@ -23,10 +23,10 @@ function setType(type: string) {
 
 function setStep(status: string) {
   // TO DO: Refactor into dictionary
-  if (status === 'intakeSub') {
+  if (status === 'submitForm') {
     return 0;
   }
-  if (status === 'uploadDoc') {
+  if (status === 'submitDoc') {
     return 1;
   }
   if (status === 'underRev') {
@@ -64,7 +64,7 @@ const ProgressTracker = (props: TrackerProps) => {
           completedLabelColor={Colors.brandGray}
         >
           <ProgressStep
-            label={<Text> Intake {'\n'} Submitted </Text>}
+            label="Intake      Submitted"
             removeBtnRow
             scrollable={false}
           >
@@ -75,7 +75,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Upload {'\n'} Documents </Text>}
+            label="Upload     Documents"
             removeBtnRow
             scrollable={false}
           >
@@ -87,7 +87,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Under {'\n'} Review </Text>}
+            label="Under          Review"
             removeBtnRow
             scrollable={false}
           >
@@ -96,7 +96,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Case {'\n'} Approved </Text>}
+            label="Case        Approved"
             removeBtnRow
             scrollable={false}
           >
@@ -105,7 +105,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={<Text> Appointment {'\n'} Scheduled </Text>}
+            label="Appointment Scheduled"
             removeBtnRow
             scrollable={false}
           >
