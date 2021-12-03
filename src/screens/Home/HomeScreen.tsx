@@ -10,7 +10,7 @@ import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
-  // const uid = 'sample'; use for sample testing multiple cases
+  // const uid = 'sample'; // use to test multiple cases
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 
@@ -32,13 +32,17 @@ const HomeScreen = ({ navigation }: any) => {
     <PageContainer>
       <TextRegular>Welcome {name}!</TextRegular>
       <TextRegular>Your UID is: {uid}</TextRegular>
-      {/* {Object.keys(cases).map((id: any) => (
+      {Object.keys(cases).map((id: any) => (
         <ProgressTracker
           key={id}
           type={cases[id].type}
           status={cases[id].status}
         />
-      ))} */}
+      ))}
+      <Button
+        title="Switch Screens"
+        onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
+      />
       <Button title="Logout" onPress={logout} />
     </PageContainer>
   );

@@ -9,7 +9,7 @@ import { Colors } from 'assets/Colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTabs = () => {
+const TabsStack = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -72,4 +72,5 @@ const BottomTabs = () => {
     </Tab.Navigator>
   );
 };
-export default BottomTabs;
+
+export default TabsStack;

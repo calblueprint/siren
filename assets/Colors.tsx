@@ -3,10 +3,11 @@ export const Colors = {
   navbarPink: '#F3C8CC',
   brandBlue: '#0F2536',
   lightBlue: '#9FC5E5',
+  paleBlue: '#E7F0F8',
   brandRed: '#C92C3C',
   textBlack: '#2B2B2B',
   brandGray: '#6A6A6A',
-  lightGray: '#E7E7E7',
+  lightGray: '#87929B',
   white: '#FFFFFF',
   borderGrey: '#CFD3D7',
 };

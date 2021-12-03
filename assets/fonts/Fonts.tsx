@@ -22,6 +22,12 @@ export const Fonts = {
   'public-sans-thinit': require('./PublicSans-ThinItalic.otf'),
 };
 
+export const TextTitle = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 22px;
+  margin: 10px 0px;
+`;
+
 export const TextBold = styled.Text`
   font-family: public-sans-semibold;
   font-size: 18px;
@@ -32,9 +38,16 @@ export const TextRegular = styled.Text`
   font-size: 14px;
 `;
 
+export const TextRegularBold = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 14px;
+`;
+
 export const TextSubtitle = styled.Text`
   font-family: public-sans-semibold;
-  font-size: 12px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
 `;
 
 export const TextBoldItalic = styled.Text`
