@@ -8,6 +8,7 @@ export enum CaseType {
   Daca = 'daca',
   Citizenship = 'citizenship',
   CriminalRecord = 'criminalRecord',
+  DacaRenewal = 'dacaRenewal',
 }
 
 export enum QuestionType {
@@ -78,4 +79,12 @@ export type Appointment = {
   client: string; // is this needed?
   clientEmail: string;
   startTime: Date;
+};
+
+export type DocumentType = {
+  caseType: string;
+  driveLic: string;
+  greenCard: string;
+  poReport: string;
+  // remaining types
 };

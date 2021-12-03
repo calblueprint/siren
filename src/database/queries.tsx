@@ -4,6 +4,7 @@ import {
   Appointment,
   CalendlyLink,
   Case,
+  CaseType,
   Client,
   Dictionary,
   Document,
@@ -312,3 +313,25 @@ export const getAllCalendlyLinks = async (): Promise<CalendlyLink[]> => {
     // TODO: Add error handling
   }
 };
+
+export const getDocList = async (caseType: CaseType): Promise<CaseType[]> => {
+  try {
+    const doc = await database.collection(`documentList`).doc(caseType).get();
+    return doc.data()?.documents as CaseType[];
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+/* export const getDocList = async (
+  caseType: CaseType,
+): Promise<DocumentType[]> => {
+  try {
+    const ref = await docTestCollection.where('caseType', '==', caseType).get();
+    return ref.docs.map(doc => doc.data() as DocumentType);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+}; */
