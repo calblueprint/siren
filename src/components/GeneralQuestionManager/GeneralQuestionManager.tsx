@@ -1,21 +1,17 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import { getAllQuestionsOfType, getClient, setClient } from 'database/queries';
+import { getAllQuestionsOfType, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
-import { Question, Client } from 'types/types';
+import { Question, Client, QuestionManagerProps } from 'types/types';
 import LargeInput from 'components/LargeInput/largeInput';
 import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
-import {
-  ButtonHeader,
-  ButtonView,
-  ScrollPageContainer,
-  QuestionView,
-} from './styles';
+import { getCurrentClient } from 'database/auth';
+import { ButtonHeader, ButtonView } from './styles';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -28,14 +24,17 @@ Here's the way it works:
 3. The Manager will dynamically render the Question Component based on its AnswerType (i.e smallInput, calendar, etc)
 4. We pass a setAnswer function down in props to all the Question Components so we can save the user's answers
    in the Manager's state.
-5. TODO: if answer exists, fill it out (answer retention feature)
-6. At the last screen, the Manager will send the currentAnswers map to Firebase. TODO: based on current user
+5. If answer exists, prefill it out
+6. At the last screen, the Manager will send the currentAnswers map to Firebase. 
 */
-export default function GeneralQuestionManager() {
-  const [screen, setScreen] = useState(0);
+export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [currentQuestions, setCurrentQuestions] = useState([] as Question[]);
-  const [currentAnswers, setCurrentAnswers] = useState(new Map());
+  const { setNextScreen, existingAnswers, managerSpecificProps } = props;
+  const [currentAnswers, setCurrentAnswers] = useState(
+    existingAnswers.get('general') || new Map(),
+  );
+  const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -59,12 +58,20 @@ export default function GeneralQuestionManager() {
         key={question.displayText}
         question={question}
         setAnswer={setAnswer}
+        existingAnswer={
+          currentAnswers.has(question.key)
+            ? currentAnswers.get(question.key)
+            : null
+        }
       />
     );
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client = await getClient('sample');
+    const client: Client | undefined = await getCurrentClient();
+    if (!client) {
+      return;
+    }
     if (!Object.prototype.hasOwnProperty.call(client, 'answers')) {
       client.answers = new Map();
     }
@@ -100,31 +107,34 @@ export default function GeneralQuestionManager() {
           break;
         case 6:
           sendAnswersToFirebase();
+          setNextScreen(currentAnswers.get('visitReason'));
           break;
         default:
           setCurrentQuestions(allQuestions.slice(0, 5));
       }
     }
-  }, [screen, allQuestions]);
+  }, [screen, allQuestions, existingAnswers]);
 
   return (
-    <ScrollPageContainer>
+    <>
       <ButtonHeader onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
-        <Appbar.BackAction
-          size={18}
-          style={{ margin: 0 }}
-          onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}
-        />
-        <TextSubtitle>Go Back</TextSubtitle>
+        {screen !== 0 ? (
+          <>
+            <Appbar.BackAction
+              size={18}
+              style={{ margin: 0 }}
+              onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}
+            />
+            <TextSubtitle>Go Back</TextSubtitle>
+          </>
+        ) : null}
       </ButtonHeader>
-      <QuestionView>
-        {currentQuestions.map(question => getQuestionComponent(question))}
-      </QuestionView>
+      {currentQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
         <ButtonDarkBlue onPress={() => setScreen(screen + 1)}>
           <TextRegularWhite>Next</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
-    </ScrollPageContainer>
+    </>
   );
 }

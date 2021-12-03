@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 });
 
 export default function LargeInput(props: QuestionComponentProps) {
-  const { question, setAnswer } = props;
+  const { question, setAnswer, existingAnswer } = props;
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
@@ -48,7 +48,9 @@ export default function LargeInput(props: QuestionComponentProps) {
       <TextInput
         style={styles.input}
         onChangeText={t => setAnswer(question, t)}
+        placeholder={question.example}
         multiline
+        defaultValue={existingAnswer || ''}
       />
     </View>
   );

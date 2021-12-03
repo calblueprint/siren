@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Calendar(props: QuestionComponentProps) {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const { question, setAnswer } = props;
+  const { question, setAnswer, existingAnswer } = props;
+  const [date, setDate] = useState(existingAnswer || new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
 
