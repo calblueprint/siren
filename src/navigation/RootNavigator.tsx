@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import HomeStack from 'navigation/TabStack';
+import TabsStack from 'navigation/TabsStack';
+import AuthStack from 'navigation/AuthStack';
+import MiscStack from 'navigation/MiscStack';
 import firebase from 'database/clientApp';
-import AuthStack from './AuthStack';
 
 const auth = firebase.auth();
+const Stack = createStackNavigator();
 
 export const styles = StyleSheet.create({
   loading: {
@@ -43,7 +46,28 @@ export default function RootNavigator() {
 
   return (
     <NavigationContainer>
-      {user ? <HomeStack /> : <AuthStack />}
+      <Stack.Navigator>
+        {user ? (
+          <>
+            <Stack.Screen
+              name="TabsStack"
+              component={TabsStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="MiscStack"
+              component={MiscStack}
+              options={{ headerShown: false }}
+            />
+          </>
+        ) : (
+          <Stack.Screen
+            name="AuthStack"
+            component={AuthStack}
+            options={{ headerShown: false }}
+          />
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

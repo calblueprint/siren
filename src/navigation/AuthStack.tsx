@@ -6,7 +6,7 @@ import WelcomeScreen from 'screens/Welcome/WelcomeScreen';
 
 const Stack = createStackNavigator();
 
-export default function AuthStack() {
+const AuthStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -26,4 +26,6 @@ export default function AuthStack() {
       />
     </Stack.Navigator>
   );
-}
+};
+
+export default AuthStack;

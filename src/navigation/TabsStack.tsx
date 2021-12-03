@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import HomeStack from 'navigation/HomeStack';
+import HomeScreen from 'screens/Home/HomeScreen';
 import UploadScreen from 'screens/Documents/Documents';
 import FormsScreen from 'screens/Forms/FormsScreen';
 import ScheduleScreen from 'screens/Schedule/ScheduleScreen';
@@ -9,7 +9,7 @@ import { Colors } from 'assets/Colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const BottomTabs = () => {
+const TabsStack = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -18,7 +18,7 @@ const BottomTabs = () => {
     >
       <Tab.Screen
         name="Home"
-        component={HomeStack}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons
@@ -72,4 +72,5 @@ const BottomTabs = () => {
     </Tab.Navigator>
   );
 };
-export default BottomTabs;
+
+export default TabsStack;

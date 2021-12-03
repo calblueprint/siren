@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }: any) => {
         ))}
         <Button
           title="Switch Screens"
-          onPress={() => navigation.navigate('TestScreen')}
+          onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
         />
         <Button title="Logout" onPress={logout} />
       </PageContainer>
