@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
-import { PageContainer } from 'screens/styles';
+import { ScrollPageContainer, PageContainer } from 'screens/styles';
 import { logout } from 'database/auth';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
@@ -39,6 +39,10 @@ const HomeScreen = ({ navigation }: any) => {
           status={cases[id].status}
         />
       ))}
+      <Button
+        title="Switch Screens"
+        onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
+      />
       <Button title="Logout" onPress={logout} />
     </PageContainer>
   );
