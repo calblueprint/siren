@@ -29,24 +29,22 @@ const HomeScreen = ({ navigation }: any) => {
   }, []);
 
   return (
-    <ScrollPageContainer>
-      <PageContainer>
-        <TextRegular>Welcome {name}!</TextRegular>
-        <TextRegular>Your UID is: {uid}</TextRegular>
-        {Object.keys(cases).map((id: any) => (
-          <ProgressTracker
-            key={id}
-            type={cases[id].type}
-            status={cases[id].status}
-          />
-        ))}
-        <Button
-          title="Switch Screens"
-          onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
+    <PageContainer>
+      <TextRegular>Welcome {name}!</TextRegular>
+      <TextRegular>Your UID is: {uid}</TextRegular>
+      {Object.keys(cases).map((id: any) => (
+        <ProgressTracker
+          key={id}
+          type={cases[id].type}
+          status={cases[id].status}
         />
-        <Button title="Logout" onPress={logout} />
-      </PageContainer>
-    </ScrollPageContainer>
+      ))}
+      <Button
+        title="Switch Screens"
+        onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
+      />
+      <Button title="Logout" onPress={logout} />
+    </PageContainer>
   );
 };
 
