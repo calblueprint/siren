@@ -20,6 +20,8 @@ export const ButtonDark = styled.TouchableOpacity`
 
 export const ButtonDarkBlue = styled.TouchableOpacity`
   text-align: center;
+  align-items: center; 
+  width: 175px;
   padding: 4px 4px
   border-width: 1px;
   border-radius: 5px;

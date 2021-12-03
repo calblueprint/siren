@@ -5,7 +5,7 @@ export enum CaseStatus {
 }
 
 export enum CaseType {
-  Daca = 'daca',
+  DacaRenewal = 'dacaRenewal',
   Citizenship = 'citizenship',
   CriminalRecord = 'criminalRecord',
   DacaRenewal = 'dacaRenewal',
@@ -67,6 +67,14 @@ export type Question = {
 export type QuestionComponentProps = {
   question: Question;
   setAnswer: (question: Question, input: any) => void;
+  existingAnswer?: any;
+};
+
+export type QuestionManagerProps = {
+  setNextScreen: (...args: string[]) => void;
+  setPreviousScreen?: (...args: string[]) => void;
+  existingAnswers: Map<string, Map<string, any>>;
+  managerSpecificProps?: Dictionary; // add any specific extra props you need in here
 };
 
 export type Dictionary = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Pressable, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { QuestionComponentProps } from 'types/types';
 
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     color: '#6A6A6A',
     marginBottom: 8,
   },
-  pickerView: {
+  iOSView: {
     width: '74%',
     color: '#2B2B2B',
     borderWidth: 1,
@@ -34,16 +34,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     opacity: 1,
   },
-  example: {
+  androidView: {
+    width: '74%',
+    height: 30,
+    color: '#2B2B2B',
+    borderWidth: 1,
+    borderColor: '#2B2B2B',
+    borderRadius: 8,
+    justifyContent: 'center',
+    opacity: 1,
+  },
+  iOSTouch: {
     width: '74%',
     height: 30,
     fontSize: 12,
     lineHeight: 7,
     color: '#6A6A6A',
-    borderWidth: 1,
-    borderColor: '#2B2B2B',
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
   },
   exampleText: {
@@ -54,8 +61,8 @@ const styles = StyleSheet.create({
 });
 
 export default function Dropdown(props: QuestionComponentProps) {
-  const { question, setAnswer } = props;
-  const [value, setValue] = useState('');
+  const { question, setAnswer, existingAnswer } = props;
+  const [value, setValue] = useState(existingAnswer);
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
@@ -71,31 +78,51 @@ export default function Dropdown(props: QuestionComponentProps) {
     setShow(true);
   };
 
+  const platform = () => {
+    if (Platform.OS === 'ios') {
+      return (
+        <View style={styles.iOSView}>
+          <Pressable style={styles.iOSTouch} onPress={showPicker}>
+            {isSet ? (
+              <Text style={styles.exampleText}>{value}</Text>
+            ) : (
+              <Text style={styles.exampleText}> {value} </Text>
+            )}
+          </Pressable>
+          {show ? (
+            <View>
+              <Picker selectedValue={value} onValueChange={onChange}>
+                {question.answerOptions
+                  ? question.answerOptions.map(option => (
+                      <Picker.Item key={option} label={option} value={option} />
+                    ))
+                  : null}
+              </Picker>
+            </View>
+          ) : null}
+        </View>
+      );
+    }
+    return (
+      <View style={styles.androidView}>
+        <Picker selectedValue={value} onValueChange={onChange}>
+          {question.answerOptions
+            ? question.answerOptions.map(option => (
+                <Picker.Item key={option} label={option} value={option} />
+              ))
+            : null}
+        </Picker>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.displayText}>{question.displayText}</Text>
       {question.description.length > 0 ? (
         <Text style={styles.description}>{question.description}</Text>
       ) : null}
-
-      <Pressable style={styles.example} onPress={showPicker}>
-        {isSet ? (
-          <Text style={styles.exampleText}>{value}</Text>
-        ) : (
-          <Text style={styles.exampleText}> {question.example} </Text>
-        )}
-      </Pressable>
-      {show ? (
-        <View style={styles.pickerView}>
-          <Picker selectedValue={value} onValueChange={onChange}>
-            {question.answerOptions
-              ? question.answerOptions.map(option => (
-                  <Picker.Item key={option} label={option} value={option} />
-                ))
-              : null}
-          </Picker>
-        </View>
-      ) : null}
+      {platform()}
     </View>
   );
 }

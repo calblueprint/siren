@@ -27,7 +27,7 @@ export const Container = styled.View`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: ${Colors.borderGrey};
+  border: ${Colors.lightGray};
   padding-left: 19px;
   padding-right: 22px;
 `;
