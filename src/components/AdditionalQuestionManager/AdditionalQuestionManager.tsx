@@ -11,6 +11,7 @@ import {
   Case,
   CaseType,
   CaseStatus,
+  Dictionary,
 } from 'types/types';
 import LargeInput from 'components/LargeInput/largeInput';
 import SmallInput from 'components/SmallInput/smallInput';
@@ -21,19 +22,26 @@ import { getCurrentClient } from 'database/auth';
 import { firestoreAutoId } from 'database/helpers';
 import { ButtonHeader, ButtonView } from './styles';
 
-export default function DacaRenewalQuestionManager(
-  props: QuestionManagerProps,
-) {
+export default function AdditionalQuestionManager(props: QuestionManagerProps) {
+  const visitReasonDictionary: Dictionary = { 'DACA renewal': 'dacaRenewal' };
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
-  const [currentAnswers, setCurrentAnswers] = useState(new Map());
-  const { setPreviousScreen, setNextScreen, existingAnswers } = props;
+  const {
+    setPreviousScreen,
+    setNextScreen,
+    existingAnswers,
+    managerSpecificProps,
+  } = props;
+  const visitReason = visitReasonDictionary[managerSpecificProps?.visitReason];
+  const [currentAnswers, setCurrentAnswers] = useState(
+    existingAnswers?.get(visitReason) || new Map(),
+  );
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
   };
 
   const loadQuestions = async (): Promise<void> => {
-    const qs: Question[] = await getAllQuestionsOfType('dacaRenewal');
+    const qs: Question[] = await getAllQuestionsOfType(visitReason);
     setAllQuestions(qs);
   };
   const getQuestionComponent = (question: Question) => {
@@ -53,7 +61,7 @@ export default function DacaRenewalQuestionManager(
         existingAnswer={
           currentAnswers.has(question.key)
             ? currentAnswers.get(question.key)
-            : existingAnswers.get('general')?.get(question.key) || null
+            : null
         }
       />
     );
@@ -67,12 +75,13 @@ export default function DacaRenewalQuestionManager(
     if (!Object.prototype.hasOwnProperty.call(client, 'answers')) {
       client.answers = new Map();
     }
-    client.answers.set('dacaRenewal', currentAnswers);
+    client.answers.set(visitReason, currentAnswers);
     await setClient(client);
+    // TODO: case type from visitReason
     const clientCase: Case = {
       id: firestoreAutoId(),
       status: CaseStatus.SubmitDoc,
-      type: CaseType.DacaRenewal,
+      type: visitReason as CaseType,
     };
     await setCase(client.id, clientCase);
   };

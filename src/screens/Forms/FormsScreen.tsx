@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQuestionManager';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
-import DacaRenewalQuestionManager from 'components/AdditionalQuestionManager/AdditionalQuestionManager';
-import { Client, Dictionary } from 'types/types';
+import { Client } from 'types/types';
 import { getCurrentClient } from 'database/auth';
 import FinalIntakeScreen from 'screens/Forms/FinalIntakeScreen';
+import AdditionalQuestionManager from 'components/AdditionalQuestionManager/AdditionalQuestionManager';
 
 // TODO: integrate user auth, retention of answers.
 
 const FormsScreen = ({ navigation }: any) => {
   const [showAdditionalScreen, setShowAdditionalScreen] = useState(false);
   const [showFinalScreen, setShowFinalScreen] = useState(false);
-  const [showGeneralScreen, setShowGeneralScreen] = useState(true);
+  const [showGeneralScreen, setShowGeneralScreen] = useState(false);
   const [additionalScreenType, setAdditionalScreenType] = useState('');
   const [generalScreenNumber, setGeneralScreenNumber] = useState(0);
   const [existingAnswers, setExistingAnswers] = useState(new Map());
@@ -21,6 +21,10 @@ const FormsScreen = ({ navigation }: any) => {
     if (client) {
       setExistingAnswers(client.answers);
     }
+    // show general screen if everything is false
+    setShowGeneralScreen(
+      !showGeneralScreen && !showAdditionalScreen && !showFinalScreen,
+    );
   };
 
   useEffect(() => {
@@ -68,23 +72,14 @@ const FormsScreen = ({ navigation }: any) => {
     }
 
     if (showAdditionalScreen) {
-      const additionalScreenComponents: Dictionary = {
-        'DACA renewal': DacaRenewalQuestionManager,
-        // TODO: citizenship etc...
-      };
-      if (!(additionalScreenType in additionalScreenComponents)) {
-        // TODO: add error screen
-        return null;
-      }
-      const AdditionalScreenComponent =
-        additionalScreenComponents[additionalScreenType];
       return (
         <ScrollPageContainer>
           <InnerPageContainer>
-            <AdditionalScreenComponent
+            <AdditionalQuestionManager
               setPreviousScreen={setGeneralScreen}
               setNextScreen={setFinalScreen}
               existingAnswers={existingAnswers}
+              managerSpecificProps={{ visitReason: additionalScreenType }}
             />
           </InnerPageContainer>
         </ScrollPageContainer>

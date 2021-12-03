@@ -30,8 +30,10 @@ Here's the way it works:
 export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const [currentQuestions, setCurrentQuestions] = useState([] as Question[]);
-  const [currentAnswers, setCurrentAnswers] = useState(new Map());
   const { setNextScreen, existingAnswers, managerSpecificProps } = props;
+  const [currentAnswers, setCurrentAnswers] = useState(
+    existingAnswers.get('general') || new Map(),
+  );
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
 
   const setAnswer = (question: Question, input: any): void => {
@@ -59,7 +61,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         existingAnswer={
           currentAnswers.has(question.key)
             ? currentAnswers.get(question.key)
-            : existingAnswers.get('general')?.get(question.key) || null
+            : null
         }
       />
     );
