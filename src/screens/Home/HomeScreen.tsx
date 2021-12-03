@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
-import { PageContainer } from 'screens/styles';
+import { ScrollPageContainer, PageContainer } from 'screens/styles';
 import { logout } from 'database/auth';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
@@ -29,18 +29,24 @@ const HomeScreen = ({ navigation }: any) => {
   }, []);
 
   return (
-    <PageContainer>
-      <TextRegular>Welcome {name}!</TextRegular>
-      <TextRegular>Your UID is: {uid}</TextRegular>
-      {Object.keys(cases).map((id: any) => (
-        <ProgressTracker
-          key={id}
-          type={cases[id].type}
-          status={cases[id].status}
+    <ScrollPageContainer>
+      <PageContainer>
+        <TextRegular>Welcome {name}!</TextRegular>
+        <TextRegular>Your UID is: {uid}</TextRegular>
+        {Object.keys(cases).map((id: any) => (
+          <ProgressTracker
+            key={id}
+            type={cases[id].type}
+            status={cases[id].status}
+          />
+        ))}
+        <Button
+          title="Switch Screens"
+          onPress={() => navigation.navigate('TestScreen')}
         />
-      ))}
-      <Button title="Logout" onPress={logout} />
-    </PageContainer>
+        <Button title="Logout" onPress={logout} />
+      </PageContainer>
+    </ScrollPageContainer>
   );
 };
 
