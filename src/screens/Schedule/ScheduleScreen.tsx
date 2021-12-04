@@ -132,9 +132,9 @@ const ScheduleScreen = () => {
   const getSwitchDescription = () => {
     if (switchPage === 0) {
       // schedule new
-      return 'View any upcoming appointments you have with your attorney here. Reschedule or cancel your appointment through the confirmation email you received from Calendly.';
+      return 'View any upcoming appointments you have with your attorney here.';
     }
-    return 'Schedule appointments with attorney(s) for newly approved case(s) here. Clicking the button for a specific case will take you to Calendly to choose from your attorney’s availabilities.';
+    return 'Schedule appointments with attorney(s) for newly approved case(s) here.';
   };
 
   // convert Date object (appointment.startTime) into a readable string
