@@ -9,7 +9,7 @@ export const ContentContainer = styled.View`
 `;
 
 export const TitleContainer = styled.View`
-  margin-bottom: 30;
+  margin-bottom: 30px;
   text-align: center;
 `;
 
