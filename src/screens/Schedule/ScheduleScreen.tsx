@@ -69,6 +69,9 @@ const ScheduleScreen = () => {
         const appts = await getAllUpcomingAppointmentsForClient(client);
         console.log(appts);
         setAppointments(appts);
+        if (appts.length !== 0) {
+          setSwitchPage(1);
+        }
       }
     }
     loadLinksAndAppointments();
@@ -110,9 +113,9 @@ const ScheduleScreen = () => {
   const getSwitchDescription = () => {
     if (switchPage === 0) {
       // schedule new
-      return 'View any upcoming appointments you have with your attorney here. Reschedule or cancel your appointment through the confirmation email you received from Calendly.';
+      return 'View any upcoming appointments you have with your attorney here.';
     }
-    return 'Schedule appointments with attorney(s) for newly approved case(s) here. Clicking the button for a specific case will take you to Calendly to choose from your attorney’s availabilities.';
+    return 'Schedule appointments with attorney(s) for newly approved case(s) here.';
   };
 
   const getUpcomingBody = () => {
@@ -189,10 +192,10 @@ const ScheduleScreen = () => {
         <TextTitle>Schedule an appointment with your attorney.</TextTitle>
         <TextRegular>{getSwitchDescription()}</TextRegular>
         <SwitchContainer>
-          <Switch title="Upcoming" pageNum={0} />
-          <Switch title="Schedule New" pageNum={1} />
+          <Switch title="Schedule New" pageNum={0} />
+          <Switch title="Upcoming" pageNum={1} />
         </SwitchContainer>
-        {switchPage === 0 ? getUpcomingBody() : getScheduleBody()}
+        {switchPage === 0 ? getScheduleBody() : getUpcomingBody()}
       </InnerPageContainer>
     </ScrollPageContainer>
   );
