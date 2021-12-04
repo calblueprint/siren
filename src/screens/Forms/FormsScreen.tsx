@@ -5,6 +5,7 @@ import { Client } from 'types/types';
 import { getCurrentClient } from 'database/auth';
 import FinalIntakeScreen from 'screens/Forms/FinalIntakeScreen';
 import AdditionalQuestionManager from 'components/AdditionalQuestionManager/AdditionalQuestionManager';
+import CameraScreen from 'screens/Upload/CameraScreen';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -88,7 +89,7 @@ const FormsScreen = ({ navigation }: any) => {
     return null;
   };
 
-  return getCurrentScreen();
+  return <CameraScreen />;
 };
 
 export default FormsScreen;
