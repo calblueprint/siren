@@ -36,7 +36,7 @@ import {
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
-// TO DO: refresh appointment page upon focus
+// refresh appointment page upon focus
 
 const ScheduleScreen = () => {
   const isFocused = useIsFocused();
@@ -67,7 +67,6 @@ const ScheduleScreen = () => {
 
         // fetch all uncancelled appointments for client
         const appts = await getAllUpcomingAppointmentsForClient(client);
-        console.log(appts);
         setAppointments(appts);
         if (appts.length !== 0) {
           setSwitchPage(1);
@@ -81,11 +80,9 @@ const ScheduleScreen = () => {
     if (Platform.OS === 'ios') {
       await WebBrowser.openBrowserAsync(link);
       setDetectBrowserClose(!detectBrowserClose);
-      console.log('ios');
     } else {
       await WebBrowser.openAuthSessionAsync(link, '');
       setDetectBrowserClose(!detectBrowserClose);
-      console.log('android');
     }
   };
 
