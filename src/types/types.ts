@@ -8,7 +8,6 @@ export enum CaseType {
   DacaRenewal = 'dacaRenewal',
   Citizenship = 'citizenship',
   CriminalRecord = 'criminalRecord',
-  DacaRenewal = 'dacaRenewal',
 }
 
 export enum QuestionType {

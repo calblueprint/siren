@@ -32,7 +32,7 @@ const HomeScreen = ({ navigation }: any) => {
     <PageContainer>
       <TextRegular>Welcome {name}!</TextRegular>
       <TextRegular>Your UID is: {uid}</TextRegular>
-      {Object.keys(cases).map((id: any) => (
+      {/* {Object.keys(cases).map((id: any) => (
         <ProgressTracker
           key={id}
           type={cases[id].type}
@@ -42,7 +42,7 @@ const HomeScreen = ({ navigation }: any) => {
       <Button
         title="Switch Screens"
         onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
-      />
+      /> */}
       <Button title="Logout" onPress={logout} />
     </PageContainer>
   );

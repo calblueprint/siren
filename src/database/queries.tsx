@@ -323,15 +323,3 @@ export const getDocList = async (caseType: CaseType): Promise<CaseType[]> => {
     throw e;
   }
 };
-
-/* export const getDocList = async (
-  caseType: CaseType,
-): Promise<DocumentType[]> => {
-  try {
-    const ref = await docTestCollection.where('caseType', '==', caseType).get();
-    return ref.docs.map(doc => doc.data() as DocumentType);
-  } catch (e) {
-    console.warn(e);
-    throw e;
-  }
-}; */

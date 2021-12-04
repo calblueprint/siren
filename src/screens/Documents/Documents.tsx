@@ -20,7 +20,10 @@ const UploadScreen = () => {
         setCaseTypes(clientCaseTypes);
 
         const clientDocs = await Promise.all(
-          clientCaseTypes.map(c => getDocList(c)),
+          clientCaseTypes.map(c => {
+            console.log(getDocList(c));
+            return getDocList(c);
+          }),
         );
         setReqDocs(clientDocs);
       }
@@ -28,6 +31,9 @@ const UploadScreen = () => {
     loadClientDocs();
   }, []);
 
+  console.log(caseTypes);
+  console.log(reqDocs);
+  console.log(getDocList(CaseType.DacaRenewal));
   return (
     <PageContainer>
       <TextRegular>Upload your necessary documents!</TextRegular>
