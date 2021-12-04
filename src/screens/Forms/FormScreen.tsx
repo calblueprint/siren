@@ -58,6 +58,9 @@ const FormsScreen = ({ navigation }: any) => {
               setNextScreen={setAdditionalScreen}
               existingAnswers={existingAnswers}
               managerSpecificProps={{ screen: generalScreenNumber }}
+              goBack={() =>
+                navigation.navigate('TabsStack', { screen: 'Forms' })
+              }
             />
           </InnerPageContainer>
         </ScrollPageContainer>
