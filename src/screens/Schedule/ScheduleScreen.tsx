@@ -88,6 +88,9 @@ const ScheduleScreen = () => {
         const appts = await getAllUpcomingAppointmentsForClient(client);
         console.log(appts);
         setAppointments(appts);
+        if (appts.length === 0) {
+          setSwitchPage(1);
+        }
       }
     }
     loadLinksAndAppointments();
