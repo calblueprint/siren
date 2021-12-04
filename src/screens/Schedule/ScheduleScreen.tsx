@@ -29,10 +29,14 @@ import {
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform, View } from 'react-native';
+import {
+  convertCamelToTitleCase,
+  convertDateObjectToString,
+} from 'utils/utils';
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
-// TO DO: refresh appointment page upon focus
+// refresh appointment page upon focus
 
 const ScheduleScreen = () => {
   const isFocused = useIsFocused();
@@ -40,29 +44,6 @@ const ScheduleScreen = () => {
   const [calendlyLinks, setCalendlyLinks] = useState<CalendlyLink[]>();
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [switchPage, setSwitchPage] = React.useState(0);
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const daysOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-  ];
 
   useEffect(() => {
     async function loadLinksAndAppointments() {
@@ -86,8 +67,10 @@ const ScheduleScreen = () => {
 
         // fetch all uncancelled appointments for client
         const appts = await getAllUpcomingAppointmentsForClient(client);
-        console.log(appts);
         setAppointments(appts);
+        if (appts.length !== 0) {
+          setSwitchPage(1);
+        }
       }
     }
     loadLinksAndAppointments();
@@ -97,11 +80,9 @@ const ScheduleScreen = () => {
     if (Platform.OS === 'ios') {
       await WebBrowser.openBrowserAsync(link);
       setDetectBrowserClose(!detectBrowserClose);
-      console.log('ios');
     } else {
       await WebBrowser.openAuthSessionAsync(link, '');
       setDetectBrowserClose(!detectBrowserClose);
-      console.log('android');
     }
   };
 
@@ -129,28 +110,9 @@ const ScheduleScreen = () => {
   const getSwitchDescription = () => {
     if (switchPage === 0) {
       // schedule new
-      return 'View any upcoming appointments you have with your attorney here. Reschedule or cancel your appointment through the confirmation email you received from Calendly.';
+      return 'View any upcoming appointments you have with your attorney here.';
     }
-    return 'Schedule appointments with attorney(s) for newly approved case(s) here. Clicking the button for a specific case will take you to Calendly to choose from your attorney’s availabilities.';
-  };
-
-  // convert Date object (appointment.startTime) into a readable string
-  const getDateString = (date: Date) => {
-    const localeTimeString: string = date.toLocaleTimeString();
-    const time: string =
-      localeTimeString.substring(0, localeTimeString.lastIndexOf(':')) +
-      localeTimeString.substring(localeTimeString.lastIndexOf(':') + 3);
-
-    return `${daysOfWeek[date.getDay()]}, ${
-      months[date.getMonth()]
-    } ${date.getDate()} at ${time}`;
-  };
-
-  // convert camelCase to Title Case
-  const makeTitleCase = (str: string) => {
-    let result = str.replace(/([A-Z])/g, ' $1');
-    result = result.charAt(0).toUpperCase() + result.slice(1);
-    return result;
+    return 'Schedule appointments with attorney(s) for newly approved case(s) here.';
   };
 
   const getUpcomingBody = () => {
@@ -175,7 +137,7 @@ const ScheduleScreen = () => {
             <AppointmentTextContainer>
               <TextRegular>You have an appointment scheduled for </TextRegular>
               <TextRegularBold>
-                {getDateString(appointment.startTime)}
+                {convertDateObjectToString(appointment.startTime)}
               </TextRegularBold>
               <TextRegular>.</TextRegular>
             </AppointmentTextContainer>
@@ -207,7 +169,7 @@ const ScheduleScreen = () => {
               key={cl.link}
             >
               <ScheduleTextContainer>
-                <TextSubtitle>{makeTitleCase(cl.type)} </TextSubtitle>
+                <TextSubtitle>{convertCamelToTitleCase(cl.type)} </TextSubtitle>
                 <MaterialCommunityIcons
                   name="open-in-new"
                   color={Colors.lightGray}
@@ -227,10 +189,10 @@ const ScheduleScreen = () => {
         <TextTitle>Schedule an appointment with your attorney.</TextTitle>
         <TextRegular>{getSwitchDescription()}</TextRegular>
         <SwitchContainer>
-          <Switch title="Upcoming" pageNum={0} />
-          <Switch title="Schedule New" pageNum={1} />
+          <Switch title="Schedule New" pageNum={0} />
+          <Switch title="Upcoming" pageNum={1} />
         </SwitchContainer>
-        {switchPage === 0 ? getUpcomingBody() : getScheduleBody()}
+        {switchPage === 0 ? getScheduleBody() : getUpcomingBody()}
       </InnerPageContainer>
     </ScrollPageContainer>
   );

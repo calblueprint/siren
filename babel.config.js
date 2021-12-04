@@ -20,7 +20,8 @@ module.exports = function(api) {
           "database": "./src/database",
           "navigation": "./src/navigation",
           "screens": "./src/screens",
-          "types": "./src/types"
+          "types": "./src/types",
+          "utils": "./src/utils"
         }
       }],
     ]
