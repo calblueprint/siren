@@ -18,6 +18,7 @@ const clientCollection = database.collection('clients');
 const questionCollection = database.collection('questions');
 const appointmentCollection = database.collection('appointments');
 const calendlyLinkCollection = database.collection('calendlyLinks');
+const docListCollection = database.collection('documentList');
 
 export const getClient = async (clientId: string): Promise<Client> => {
   try {
@@ -314,10 +315,10 @@ export const getAllCalendlyLinks = async (): Promise<CalendlyLink[]> => {
   }
 };
 
-export const getDocList = async (caseType: CaseType): Promise<CaseType[]> => {
+export const getDocList = async (caseType: CaseType): Promise<string[]> => {
   try {
-    const doc = await database.collection(`documentList`).doc(caseType).get();
-    return doc.data()?.documents as CaseType[];
+    const doc = await docListCollection.doc(caseType).get();
+    return doc.data()?.documents as string[];
   } catch (e) {
     console.warn(e);
     throw e;

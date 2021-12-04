@@ -38,11 +38,11 @@ const HomeScreen = ({ navigation }: any) => {
           type={cases[id].type}
           status={cases[id].status}
         />
-      ))}
+      ))} */}
       <Button
         title="Switch Screens"
         onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
-      /> */}
+      />
       <Button title="Logout" onPress={logout} />
     </PageContainer>
   );

@@ -7,8 +7,8 @@ import { getCurrentClient } from 'database/auth';
 import { CaseType } from 'types/types';
 
 const UploadScreen = () => {
-  const [caseTypes, setCaseTypes] = useState<CaseType[]>(); // container headers
-  const [reqDocs, setReqDocs] = useState<CaseType[][]>(); // container docs
+  const [caseTypes, setCaseTypes] = useState<CaseType[]>([]); // container headers
+  const [reqDocs, setReqDocs] = useState<string[][]>([]); // container docs
 
   useEffect(() => {
     async function loadClientDocs() {
@@ -16,8 +16,9 @@ const UploadScreen = () => {
       if (client !== undefined) {
         // get all client case types
         const cases = await getAllCases(client.id);
-        const clientCaseTypes: CaseType[] = cases.map(c => c.type);
-        setCaseTypes(clientCaseTypes);
+        let clientCaseTypes: CaseType[] = cases.map(c => c.type);
+        clientCaseTypes = [...new Set(clientCaseTypes)];
+        clientCaseTypes = Array.from(clientCaseTypes);
 
         const clientDocs = await Promise.all(
           clientCaseTypes.map(c => {
@@ -26,6 +27,7 @@ const UploadScreen = () => {
           }),
         );
         setReqDocs(clientDocs);
+        setCaseTypes(Array.from(clientCaseTypes));
       }
     }
     loadClientDocs();
@@ -33,16 +35,15 @@ const UploadScreen = () => {
 
   console.log(caseTypes);
   console.log(reqDocs);
-  console.log(getDocList(CaseType.DacaRenewal));
   return (
     <PageContainer>
       <TextRegular>Upload your necessary documents!</TextRegular>
-      {caseTypes?.map(ct => (
+      {caseTypes?.map((ct, i) => (
         <DocContainer
           key={ct}
           caseType={ct}
           uploadStatus={false}
-          docList={reqDocs![caseTypes.indexOf(ct)]}
+          docList={reqDocs[i]}
         />
       ))}
     </PageContainer>

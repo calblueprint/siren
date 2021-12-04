@@ -10,7 +10,7 @@ import { Container, Header } from './styles';
 interface ContainerProps {
   caseType: CaseType;
   uploadStatus: boolean; // based on all submissions
-  docList: CaseType[];
+  docList: string[];
 }
 
 const DocContainer = ({ caseType, uploadStatus, docList }: ContainerProps) => {
