@@ -115,19 +115,19 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     }
   }, [screen, allQuestions, existingAnswers]);
 
+  const goBack = () => {
+    if (screen > 0) {
+      setScreen(screen - 1);
+    } else {
+      props.goBack();
+    }
+  };
+
   return (
     <>
-      <ButtonHeader onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
-        {screen !== 0 ? (
-          <>
-            <Appbar.BackAction
-              size={18}
-              style={{ margin: 0 }}
-              onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}
-            />
-            <TextSubtitle>Go Back</TextSubtitle>
-          </>
-        ) : null}
+      <ButtonHeader onPress={goBack}>
+        <Appbar.BackAction size={18} style={{ margin: 0 }} onPress={goBack} />
+        <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
       {currentQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
