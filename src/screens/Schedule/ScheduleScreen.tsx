@@ -29,6 +29,7 @@ import {
 import { Colors } from 'assets/Colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Platform, View } from 'react-native';
+import { convertCamelToTitleCase } from 'utils/utils';
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
@@ -146,13 +147,6 @@ const ScheduleScreen = () => {
     } ${date.getDate()} at ${time}`;
   };
 
-  // convert camelCase to Title Case
-  const makeTitleCase = (str: string) => {
-    let result = str.replace(/([A-Z])/g, ' $1');
-    result = result.charAt(0).toUpperCase() + result.slice(1);
-    return result;
-  };
-
   const getUpcomingBody = () => {
     if (appointments === undefined || appointments.length === 0) {
       // if no upcoming appointments
@@ -207,7 +201,7 @@ const ScheduleScreen = () => {
               key={cl.link}
             >
               <ScheduleTextContainer>
-                <TextSubtitle>{makeTitleCase(cl.type)} </TextSubtitle>
+                <TextSubtitle>{convertCamelToTitleCase(cl.type)} </TextSubtitle>
                 <MaterialCommunityIcons
                   name="open-in-new"
                   color={Colors.lightGray}
