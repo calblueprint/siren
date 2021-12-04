@@ -11,7 +11,7 @@ import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
 import { getCurrentClient } from 'database/auth';
-import { ButtonHeader, ButtonView } from './styles';
+import { ButtonHeader, ButtonView, Container } from './styles';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -116,7 +116,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   }, [screen, allQuestions, existingAnswers]);
 
   return (
-    <>
+    <Container>
       <ButtonHeader onPress={() => (screen > 0 ? setScreen(screen - 1) : null)}>
         {screen !== 0 ? (
           <>
@@ -135,6 +135,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           <TextRegularWhite>Next</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
-    </>
+    </Container>
   );
 }

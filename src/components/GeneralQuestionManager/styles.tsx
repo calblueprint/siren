@@ -20,9 +20,6 @@ export const ButtonView = styled.View`
   justify-content: center;
 `;
 
-export const ScrollPageContainer = styled.ScrollView`
-  background-color: ${Colors.white};
-  display: flex
-  padding-vertical: 20px;
-  flex: 1;
+export const Container = styled.ScrollView`
+  padding: 0px 20px;
 `;
