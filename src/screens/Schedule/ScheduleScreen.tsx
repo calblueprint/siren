@@ -88,7 +88,7 @@ const ScheduleScreen = () => {
         const appts = await getAllUpcomingAppointmentsForClient(client);
         console.log(appts);
         setAppointments(appts);
-        if (appts.length === 0) {
+        if (appts.length !== 0) {
           setSwitchPage(1);
         }
       }
@@ -230,10 +230,10 @@ const ScheduleScreen = () => {
         <TextTitle>Schedule an appointment with your attorney.</TextTitle>
         <TextRegular>{getSwitchDescription()}</TextRegular>
         <SwitchContainer>
-          <Switch title="Upcoming" pageNum={0} />
-          <Switch title="Schedule New" pageNum={1} />
+          <Switch title="Schedule New" pageNum={0} />
+          <Switch title="Upcoming" pageNum={1} />
         </SwitchContainer>
-        {switchPage === 0 ? getUpcomingBody() : getScheduleBody()}
+        {switchPage === 0 ? getScheduleBody() : getUpcomingBody()}
       </InnerPageContainer>
     </ScrollPageContainer>
   );
