@@ -21,11 +21,9 @@ const UploadScreen = () => {
         clientCaseTypes = Array.from(clientCaseTypes);
 
         const clientDocs = await Promise.all(
-          clientCaseTypes.map(c => {
-            console.log(getDocList(c));
-            return getDocList(c);
-          }),
+          clientCaseTypes.map(c => getDocList(c)),
         );
+
         setReqDocs(clientDocs);
         setCaseTypes(Array.from(clientCaseTypes));
       }
@@ -33,8 +31,6 @@ const UploadScreen = () => {
     loadClientDocs();
   }, []);
 
-  console.log(caseTypes);
-  console.log(reqDocs);
   return (
     <PageContainer>
       <TextRegular>Upload your necessary documents!</TextRegular>

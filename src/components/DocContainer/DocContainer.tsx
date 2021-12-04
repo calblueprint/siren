@@ -5,6 +5,7 @@ import DocHolder, {
 } from 'components/DocContainer/DocHolder';
 import { TextBold } from 'assets/fonts/Fonts';
 import { CaseType } from 'types/types';
+import { convertCamelToTitleCase } from 'utils/utils';
 import { Container, Header } from './styles';
 
 interface ContainerProps {
@@ -18,7 +19,7 @@ const DocContainer = ({ caseType, uploadStatus, docList }: ContainerProps) => {
     <Container>
       <Header>
         {uploadStatus ? Submitted : Missing}
-        <TextBold> {caseType}</TextBold>
+        <TextBold> {convertCamelToTitleCase(caseType)}</TextBold>
       </Header>
       {docList.map(name => (
         <DocHolder key={name} title={name} submitted={uploadStatus} />
