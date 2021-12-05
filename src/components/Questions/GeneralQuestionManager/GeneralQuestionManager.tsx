@@ -5,13 +5,17 @@ import { getAllQuestionsOfType, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
 import { Question, Client, QuestionManagerProps } from 'types/types';
-import LargeInput from 'components/LargeInput/largeInput';
-import SmallInput from 'components/SmallInput/smallInput';
-import Dropdown from 'components/Dropdown/dropdown';
-import Calendar from 'components/Calendar/calendar';
-import Radio from 'components/Radio/radio';
+import LargeInput from 'components/Inputs/LargeInput/LargeInput';
+import SmallInput from 'components/Inputs/SmallInput/SmallInput';
+import Dropdown from 'components/Inputs/Dropdown/Dropdown';
+import Calendar from 'components/Inputs/Calendar/Calendar';
+import Radio from 'components/Inputs/Radio/Radio';
 import { getCurrentClient } from 'database/auth';
-import { ButtonHeader, ButtonView, Container } from './styles';
+import {
+  ButtonHeader,
+  ButtonView,
+  Container,
+} from 'components/Questions/styles';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake

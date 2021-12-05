@@ -5,12 +5,10 @@ import { QuestionComponentProps } from 'types/types';
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
-    alignItems: 'center',
+    width: '100%',
     marginBottom: 24,
   },
   displayText: {
-    width: '74%',
     height: 17,
     fontSize: 14,
     lineHeight: 17,
@@ -19,13 +17,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   calendar: {
-    width: '74%',
     borderWidth: 1,
     borderColor: '#2B2B2B',
     borderRadius: 8,
   },
   example: {
-    width: '74%',
     height: 30,
     fontSize: 12,
     lineHeight: 7,
@@ -42,7 +38,6 @@ const styles = StyleSheet.create({
     color: '#6A6A6A',
   },
   description: {
-    width: '74%',
     fontSize: 12,
     lineHeight: 17,
     color: '#6A6A6A',

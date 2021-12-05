@@ -1,62 +1,26 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Pressable, Platform } from 'react-native';
+import { StyleSheet, View, Pressable, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { QuestionComponentProps } from 'types/types';
+import { TextRegularBold, TextRegular } from 'assets/fonts/Fonts';
+import { TextContainer, TextDescription } from 'components/Inputs/styles';
+import { PlatformContainer } from 'components/Inputs/Dropdown/styles';
+import { Colors } from 'assets/Colors';
 
+// TODO: please style these remaining components - I can't because I can't test on iOS
 const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  displayText: {
-    width: '74%',
-    height: 17,
-    fontWeight: '600',
-    fontSize: 14,
-    lineHeight: 17,
-    color: '#2B2B2B',
-    marginBottom: 8,
-  },
-  description: {
-    width: '74%',
-    fontSize: 12,
-    lineHeight: 17,
-    color: '#6A6A6A',
-    marginBottom: 8,
-  },
-  iOSView: {
-    width: '74%',
-    color: '#2B2B2B',
-    borderWidth: 1,
-    borderColor: '#2B2B2B',
-    borderRadius: 8,
-    justifyContent: 'center',
-    opacity: 1,
-  },
-  androidView: {
-    width: '74%',
-    height: 30,
-    color: '#2B2B2B',
-    borderWidth: 1,
-    borderColor: '#2B2B2B',
-    borderRadius: 8,
-    justifyContent: 'center',
-    opacity: 1,
-  },
   iOSTouch: {
-    width: '74%',
     height: 30,
     fontSize: 12,
     lineHeight: 7,
-    color: '#6A6A6A',
+    color: Colors.brandGray,
     borderRadius: 8,
     justifyContent: 'center',
   },
   exampleText: {
-    paddingLeft: 10,
+    padding: '0px 10px',
     fontSize: 12,
-    color: '#6A6A6A',
+    color: Colors.brandGray,
   },
 });
 
@@ -78,15 +42,15 @@ export default function Dropdown(props: QuestionComponentProps) {
     setShow(true);
   };
 
-  const platform = () => {
+  const getPlatform = () => {
     if (Platform.OS === 'ios') {
       return (
-        <View style={styles.iOSView}>
+        <PlatformContainer>
           <Pressable style={styles.iOSTouch} onPress={showPicker}>
             {isSet ? (
-              <Text style={styles.exampleText}>{value}</Text>
+              <TextRegular style={styles.exampleText}>{value}</TextRegular>
             ) : (
-              <Text style={styles.exampleText}> {value} </Text>
+              <TextRegular style={styles.exampleText}> {value} </TextRegular>
             )}
           </Pressable>
           {show ? (
@@ -100,11 +64,11 @@ export default function Dropdown(props: QuestionComponentProps) {
               </Picker>
             </View>
           ) : null}
-        </View>
+        </PlatformContainer>
       );
     }
     return (
-      <View style={styles.androidView}>
+      <PlatformContainer style={{ height: 30 }}>
         <Picker selectedValue={value} onValueChange={onChange}>
           {question.answerOptions
             ? question.answerOptions.map(option => (
@@ -112,17 +76,17 @@ export default function Dropdown(props: QuestionComponentProps) {
               ))
             : null}
         </Picker>
-      </View>
+      </PlatformContainer>
     );
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.displayText}>{question.displayText}</Text>
+    <TextContainer>
+      <TextRegularBold>{question.displayText}</TextRegularBold>
       {question.description.length > 0 ? (
-        <Text style={styles.description}>{question.description}</Text>
+        <TextDescription>{question.description}</TextDescription>
       ) : null}
-      {platform()}
-    </View>
+      {getPlatform()}
+    </TextContainer>
   );
 }

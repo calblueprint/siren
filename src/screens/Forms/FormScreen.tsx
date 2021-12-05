@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import GeneralQuestionManager from 'components/GeneralQuestionManager/GeneralQuestionManager';
+import GeneralQuestionManager from 'components/Questions/GeneralQuestionManager/GeneralQuestionManager';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { Client } from 'types/types';
 import { getCurrentClient } from 'database/auth';
-import AdditionalQuestionManager from 'components/AdditionalQuestionManager/AdditionalQuestionManager';
+import AdditionalQuestionManager from 'components/Questions/AdditionalQuestionManager/AdditionalQuestionManager';
 
 // TODO: integrate user auth, retention of answers.
 

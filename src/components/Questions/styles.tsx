@@ -6,10 +6,8 @@ export const ButtonHeader = styled.TouchableOpacity`
   align-items: center;
   width: 100%;
   height: 50px;
-  justify-content: flex-start;
+  z-index: 1;
   margin-left: -10px;
-  z-index: 100;
-  padding-horizontal: 12%;
 `;
 
 export const ButtonView = styled.View`
@@ -17,4 +15,8 @@ export const ButtonView = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: center;
+`;
+
+export const Container = styled.ScrollView`
+  padding: 0px 20px;
 `;
