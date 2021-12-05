@@ -4,28 +4,24 @@ import DocHolder, {
   Submitted,
 } from 'components/DocContainer/DocHolder';
 import { TextBold } from 'assets/fonts/Fonts';
+import { CaseType } from 'types/types';
+import { convertCamelToTitleCase } from 'utils/utils';
 import { Container, Header } from './styles';
 
 interface ContainerProps {
-  caseType: string;
+  caseType: CaseType;
   uploadStatus: boolean; // based on all submissions
+  docList: string[];
 }
 
-const docs = [
-  'First DACA Application',
-  'Employment Authorization',
-  '2020 Tax Return',
-  'Employment Document',
-];
-
-const DocContainer = ({ caseType, uploadStatus }: ContainerProps) => {
+const DocContainer = ({ caseType, uploadStatus, docList }: ContainerProps) => {
   return (
     <Container>
       <Header>
         {uploadStatus ? Submitted : Missing}
-        <TextBold> {caseType}</TextBold>
+        <TextBold> {convertCamelToTitleCase(caseType)}</TextBold>
       </Header>
-      {docs.map(name => (
+      {docList.map(name => (
         <DocHolder key={name} title={name} submitted={uploadStatus} />
       ))}
     </Container>
