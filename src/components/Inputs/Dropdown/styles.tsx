@@ -14,4 +14,5 @@ export const PlatformContainer = styled.View`
   border-radius: 8px;
   justify-content: center;
   opacity: 1;
+  margin-bottom: 24px;
 `;
