@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { PageContainer } from 'screens/styles';
-import UploadScreen from 'screens/Documents/Documents';
 import { TextRegular, TextBold, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDark, ButtonLight } from 'assets/Components';
 import {
@@ -27,7 +26,7 @@ const FinalIntakeScreen = ({ navigation }: any) => {
         <ButtonView>
           <ButtonLight
             onPress={() => {
-              navigation.navigate('Home');
+              navigation.navigate('TabsStack', { screen: 'Home' });
             }}
           >
             <TextRegular>Return Home</TextRegular>
@@ -36,7 +35,7 @@ const FinalIntakeScreen = ({ navigation }: any) => {
         <ButtonView>
           <ButtonDark
             onPress={() => {
-              <UploadScreen />;
+              navigation.navigate('TabsStack', { screen: 'Upload' });
             }}
           >
             <TextRegularWhite>Upload</TextRegularWhite>

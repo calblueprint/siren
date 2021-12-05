@@ -74,6 +74,7 @@ export type QuestionManagerProps = {
   setPreviousScreen?: (...args: string[]) => void;
   existingAnswers: Map<string, Map<string, any>>;
   managerSpecificProps?: Dictionary; // add any specific extra props you need in here
+  goBack?: any;
 };
 
 export type Dictionary = {
