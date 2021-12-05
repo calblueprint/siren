@@ -7,7 +7,6 @@ import {
   TextContainer,
   TextDescription,
   TextExample,
-  Container,
 } from 'components/Inputs/styles';
 import { PlatformContainer } from 'components/Inputs/Dropdown/styles';
 import { Colors } from 'assets/Colors';
