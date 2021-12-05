@@ -9,8 +9,11 @@ import {
   View,
   LogBox,
   Platform,
+  ImageBackground,
+  TouchableHighlight,
 } from 'react-native';
 import { firestoreAutoId } from 'database/helpers';
+import { AntDesign } from '@expo/vector-icons';
 
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
@@ -61,36 +64,41 @@ const CameraScreen = ({ navigation, route }: any) => {
     return null;
   };
 
-  // const maybeRenderImage = () => {
-  //   if (!image) {
-  //     return null;
-  //   }
-  //   return (
-  //     // <View
-  //     //   style={{
-  //     //     marginTop: 30,
-  //     //     width: 250,
-  //     //     borderRadius: 3,
-  //     //     elevation: 2,
-  //     //   }}
-  //     // >
-  //     <View
-  //       style={{
-  //         borderTopRightRadius: 3,
-  //         borderTopLeftRadius: 3,
-  //         shadowColor: 'rgba(0,0,0,1)',
-  //         shadowOpacity: 0.2,
-  //         shadowOffset: { width: 4, height: 4 },
-  //         shadowRadius: 5,
-  //         overflow: 'hidden',
-  //       }}
-  //     >
-  //       <Image source={{ uri: image }} style={{ width: 250, height: 250 }} />
-  //     </View>
-  //   );
+  const renderCurrentPictures = () => {
+    if (imageUris.length === 0) {
+      return null;
+    }
+    return (
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        {imageUris.map(uri => (
+          <ImageBackground
+            key={uri}
+            source={{ uri }}
+            style={{ height: 150, width: 75 }}
+          >
+            <TouchableHighlight
+              onPress={() =>
+                setImageUris(prevImageUris =>
+                  prevImageUris.filter(u => u !== uri),
+                )
+              }
+            >
+              <AntDesign name="closecircleo" size={16} color="black" />
+            </TouchableHighlight>
+          </ImageBackground>
+        ))}
+      </View>
+    );
+  };
 
-  //   /* </View> */
-  // };
   const uploadImageAsync = async (uri: string) => {
     // Why are we using XMLHttpRequest? See:
     // https://github.com/expo/expo/issues/2402#issuecomment-443726662
@@ -121,11 +129,8 @@ const CameraScreen = ({ navigation, route }: any) => {
   const uploadImages = async () => {
     try {
       setUploading(true);
-      await Promise.all(
-        imageUris.map(async uri => {
-          await uploadImageAsync(uri);
-        }),
-      );
+      imageUris.map(async uri => uploadImageAsync(uri));
+      navigation.navigate('TabsStack', { screen: 'Home' });
     } catch (e) {
       console.log(e);
       alert('Upload failed, sorry :(');
@@ -145,28 +150,18 @@ const CameraScreen = ({ navigation, route }: any) => {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {/* {!!image && (
-        <Text
-          style={{
-            fontSize: 20,
-            marginBottom: 20,
-            textAlign: 'center',
-            marginHorizontal: 15,
-          }}
-        >
-          Example: Upload ImagePicker result
-        </Text>
-      )} */}
+      {renderCurrentPictures()}
+
+      {imageUris.length > 0 ? (
+        <Button onPress={uploadImages} title="Upload" />
+      ) : null}
 
       <Button
         onPress={() => navigation.navigate('Image')}
-        title="Pick an image from camera roll"
+        title="Pick images from camera roll"
       />
 
       <Button onPress={takePhoto} title="Take a photo" />
-      {imageUris.length > 0 ? (
-        <Button onPress={uploadImages} title="Done" />
-      ) : null}
 
       {/* {maybeRenderImage()} */}
       {maybeRenderUploadingOverlay()}

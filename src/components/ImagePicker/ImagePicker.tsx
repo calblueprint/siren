@@ -11,7 +11,6 @@ import { Asset, MediaType } from 'expo-media-library';
 
 const ImagePicker = ({ navigation, route }: any) => {
   const onSuccess = (data: Asset[]) => {
-    Alert.alert('Done', `${data.length}Images selected`);
     navigation.navigate({
       name: 'Camera',
       params: { uris: data.map(asset => asset.uri) },
@@ -43,7 +42,7 @@ const ImagePicker = ({ navigation, route }: any) => {
       initialLoad: 100,
       assetsType: [MediaType.photo],
       minSelection: 1,
-      maxSelection: 3,
+      maxSelection: 10,
       portraitCols: 4,
       landscapeCols: 4,
     }),
