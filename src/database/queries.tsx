@@ -4,6 +4,7 @@ import {
   Appointment,
   CalendlyLink,
   Case,
+  CaseType,
   Client,
   Dictionary,
   Document,
@@ -17,6 +18,7 @@ const clientCollection = database.collection('clients');
 const questionCollection = database.collection('questions');
 const appointmentCollection = database.collection('appointments');
 const calendlyLinkCollection = database.collection('calendlyLinks');
+const docListCollection = database.collection('documentList');
 
 export const getClient = async (clientId: string): Promise<Client> => {
   try {
@@ -310,5 +312,15 @@ export const getAllCalendlyLinks = async (): Promise<CalendlyLink[]> => {
     console.warn(e);
     throw e;
     // TODO: Add error handling
+  }
+};
+
+export const getDocList = async (caseType: CaseType): Promise<string[]> => {
+  try {
+    const doc = await docListCollection.doc(caseType).get();
+    return doc.data()?.documents as string[];
+  } catch (e) {
+    console.warn(e);
+    throw e;
   }
 };

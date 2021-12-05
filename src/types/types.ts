@@ -88,3 +88,11 @@ export type Appointment = {
   clientEmail: string;
   startTime: Date;
 };
+
+export type DocumentType = {
+  caseType: string;
+  driveLic: string;
+  greenCard: string;
+  poReport: string;
+  // remaining types
+};
