@@ -1,7 +1,7 @@
 import { Client } from 'types/types';
 import firebase from './clientApp';
 import 'firebase/firestore';
-import { setClient, getClient } from './queries';
+import { setClient } from './queries';
 
 export async function register(
   email: string,
@@ -41,13 +41,4 @@ export async function logout() {
   } catch (err) {
     console.log('Error logging out');
   }
-}
-
-export async function getCurrentClient(): Promise<Client> {
-  const uid = firebase.auth().currentUser?.uid;
-  if (uid !== undefined) {
-    const client = await getClient(uid);
-    return client;
-  }
-  throw new Error('could not fetch current client from firebase');
 }
