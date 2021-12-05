@@ -1,3 +1,5 @@
+import { Client } from 'types/types';
+
 const months = [
   'January',
   'February',
@@ -23,14 +25,14 @@ const daysOfWeek = [
 ];
 
 // convert camelCase to Title Case
-export const convertCamelToTitleCase = (str: string) => {
+export const convertCamelToTitleCase = (str: string): string => {
   let result = str.replace(/([A-Z])/g, ' $1');
   result = result.charAt(0).toUpperCase() + result.slice(1);
   return result;
 };
 
 // convert a Date object into a readable string
-export const convertDateObjectToString = (date: Date) => {
+export const convertDateObjectToString = (date: Date): string => {
   const localeTimeString: string = date.toLocaleTimeString();
   const time: string =
     localeTimeString.substring(0, localeTimeString.lastIndexOf(':')) +
@@ -39,4 +41,14 @@ export const convertDateObjectToString = (date: Date) => {
   return `${daysOfWeek[date.getDay()]}, ${
     months[date.getMonth()]
   } ${date.getDate()} at ${time}`;
+};
+
+export const getEmptyClient = (): Client => {
+  return {
+    id: '',
+    email: '',
+    fullName: '',
+    createdAt: new Date(),
+    answers: new Map(),
+  };
 };

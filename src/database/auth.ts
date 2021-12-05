@@ -43,12 +43,11 @@ export async function logout() {
   }
 }
 
-// TO DO: save logged in client in app state with ContextProvider
-export async function getCurrentClient(): Promise<Client | undefined> {
+export async function getCurrentClient(): Promise<Client> {
   const uid = firebase.auth().currentUser?.uid;
   if (uid !== undefined) {
     const client = await getClient(uid);
     return client;
   }
-  return undefined;
+  throw new Error('could not fetch current client from firebase');
 }

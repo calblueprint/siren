@@ -17,6 +17,7 @@ module.exports = function(api) {
           "src": "./",
           "assets": "./assets",
           "components": "./src/components",
+          "context": "./src/context",
           "database": "./src/database",
           "navigation": "./src/navigation",
           "screens": "./src/screens",

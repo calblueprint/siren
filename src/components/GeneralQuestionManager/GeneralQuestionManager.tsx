@@ -10,9 +10,8 @@ import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
-import { getCurrentClient } from 'database/auth';
+import { ClientContext } from 'context/ContextProvider';
 import { ButtonHeader, ButtonView } from './styles';
-
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
 form. 
@@ -35,6 +34,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     existingAnswers.get('general') || new Map(),
   );
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
+  const { state } = React.useContext(ClientContext);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -68,7 +68,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client | undefined = await getCurrentClient();
+    const client: Client = state;
     if (!client) {
       return;
     }

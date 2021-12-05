@@ -7,6 +7,9 @@ import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
 import FormsStack from 'navigation/FormsStack';
 import firebase from 'database/clientApp';
+import { ClientContext } from 'context/ContextProvider';
+import { getCurrentClient } from 'database/auth';
+import { getEmptyClient } from 'utils/utils';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -22,11 +25,21 @@ export const styles = StyleSheet.create({
 export default function RootNavigator() {
   const [user, setUser] = useState<firebase.User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { update } = React.useContext(ClientContext);
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged(async authenticatedUser => {
       try {
-        await (authenticatedUser ? setUser(authenticatedUser) : setUser(null));
+        if (authenticatedUser) {
+          console.log('logged in');
+          await setUser(authenticatedUser);
+          const client = await getCurrentClient();
+          update(client); // update app context
+        } else {
+          console.log('logged out');
+          await setUser(null);
+          update(getEmptyClient()); // update app context
+        }
         setIsLoading(false);
       } catch (error) {
         console.log(error);

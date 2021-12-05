@@ -6,6 +6,7 @@ import AppLoading from 'expo-app-loading';
 import { Fonts } from 'assets/fonts/Fonts';
 import { Client } from 'types/types';
 import { getClient } from 'database/queries';
+import { ClientProvider } from 'context/ContextProvider';
 import RootNavigator from './src/navigation/RootNavigator';
 
 const styles = StyleSheet.create({
@@ -32,8 +33,10 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <RootNavigator />
-    </View>
+    <ClientProvider>
+      <View style={styles.container}>
+        <RootNavigator />
+      </View>
+    </ClientProvider>
   );
 }

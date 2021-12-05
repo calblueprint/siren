@@ -18,8 +18,8 @@ import SmallInput from 'components/SmallInput/smallInput';
 import Dropdown from 'components/Dropdown/dropdown';
 import Calendar from 'components/Calendar/calendar';
 import Radio from 'components/Radio/radio';
-import { getCurrentClient } from 'database/auth';
 import { firestoreAutoId } from 'database/helpers';
+import { ClientContext } from 'context/ContextProvider';
 import { ButtonHeader, ButtonView } from './styles';
 
 export default function AdditionalQuestionManager(props: QuestionManagerProps) {
@@ -35,6 +35,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   const [currentAnswers, setCurrentAnswers] = useState(
     existingAnswers?.get(visitReason) || new Map(),
   );
+  const { state } = React.useContext(ClientContext);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -68,7 +69,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client | undefined = await getCurrentClient();
+    const client: Client = state;
     if (!client) {
       return;
     }
