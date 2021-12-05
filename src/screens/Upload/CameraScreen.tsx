@@ -15,10 +15,18 @@ import { firestoreAutoId } from 'database/helpers';
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
-const CameraScreen = ({ navigation }: any) => {
+const CameraScreen = ({ navigation, route }: any) => {
   const [imageUris, setImageUris] = useState([] as string[]);
   const [uploading, setUploading] = useState(false);
   const storage = firebase.storage();
+
+  useEffect(() => {
+    if (route.params?.uris) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+      setImageUris(route.params.uris);
+    }
+  }, [route.params?.uris]);
 
   useEffect(() => {
     const requestAccess = async () => {
@@ -151,9 +159,7 @@ const CameraScreen = ({ navigation }: any) => {
       )} */}
 
       <Button
-        onPress={navigation.navigate('ImagePicker', {
-          setImageUris,
-        })}
+        onPress={() => navigation.navigate('Image')}
         title="Pick an image from camera roll"
       />
 

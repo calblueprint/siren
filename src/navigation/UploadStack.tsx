@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import ImagePicker from 'components/ImagePicker/ImagePicker';
-import CameraScreen from './CameraScreen';
+import CameraScreen from 'screens/Upload/CameraScreen';
 
 const Stack = createStackNavigator();
 
@@ -9,12 +9,12 @@ const UploadStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="CameraScreen"
+        name="Camera"
         component={CameraScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="ImagePicker"
+        name="Image"
         component={ImagePicker}
         options={{ headerShown: false }}
       />

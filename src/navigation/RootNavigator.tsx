@@ -7,6 +7,7 @@ import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
 import FormsStack from 'navigation/FormsStack';
 import firebase from 'database/clientApp';
+import UploadStack from 'navigation/UploadStack';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -63,6 +64,11 @@ export default function RootNavigator() {
             <Stack.Screen
               name="FormsStack"
               component={FormsStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="UploadStack"
+              component={UploadStack}
               options={{ headerShown: false }}
             />
           </>
