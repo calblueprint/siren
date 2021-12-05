@@ -30,3 +30,9 @@ export const TextDescription = styled.Text`
   color: ${Colors.brandGray};
   margin: 5px 0px;
 `;
+
+export const TextExample = styled.Text`
+  padding: 0px 10px;
+  font-size: 12px;
+  color: ${Colors.brandGray};
+`;

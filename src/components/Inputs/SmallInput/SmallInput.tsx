@@ -10,13 +10,18 @@ import {
 
 export default function SmallInput(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
+
+  const getDescription = () => {
+    return question.description.length > 0 ? (
+      <TextDescription>{question.description}</TextDescription>
+    ) : null;
+  };
+
   return (
     <InputContainer>
       <TextContainer>
         <TextRegularBold>{question.displayText}</TextRegularBold>
-        {question.description.length > 0 ? (
-          <TextDescription>{question.description}</TextDescription>
-        ) : null}
+        {getDescription()}
       </TextContainer>
       <TextInput
         placeholder={question.example}

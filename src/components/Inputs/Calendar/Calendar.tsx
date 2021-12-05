@@ -1,47 +1,31 @@
 import React, { useState } from 'react';
-import { StyleSheet, Pressable, View, Text } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 import { QuestionComponentProps } from 'types/types';
+import { TextRegularBold } from 'assets/fonts/Fonts';
+import {
+  TextContainer,
+  TextDescription,
+  TextExample,
+} from 'components/Inputs/styles';
+import { Colors } from 'assets/Colors';
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    marginBottom: 24,
-  },
-  displayText: {
-    height: 17,
-    fontSize: 14,
-    lineHeight: 17,
-    fontWeight: '600',
-    color: '#2B2B2B',
-    marginBottom: 8,
-  },
   calendar: {
     borderWidth: 1,
-    borderColor: '#2B2B2B',
+    borderColor: Colors.textBlack,
     borderRadius: 8,
   },
   example: {
     height: 30,
     fontSize: 12,
     lineHeight: 7,
-    color: '#6A6A6A',
+    color: Colors.brandGray,
     borderWidth: 1,
-    borderColor: '#2B2B2B',
+    borderColor: Colors.textBlack,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: Colors.white,
     justifyContent: 'center',
-  },
-  exampleText: {
-    paddingLeft: 10,
-    fontSize: 12,
-    color: '#6A6A6A',
-  },
-  description: {
-    fontSize: 12,
-    lineHeight: 17,
-    color: '#6A6A6A',
-    marginBottom: 8,
   },
 });
 
@@ -58,23 +42,27 @@ export default function Calendar(props: QuestionComponentProps) {
     setAnswer(question, currentDate);
     setisSet(true);
   };
+
   const showDatepicker = (): void => {
     setShow(true);
   };
+
+  const getExampleText = () => {
+    return isSet ? date.toLocaleDateString('en-us') : ` ${question.example} `;
+  };
+
+  const getDescription = () => {
+    return question.description.length > 0 ? (
+      <TextDescription>{question.description}</TextDescription>
+    ) : null;
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.displayText}>{question.displayText}</Text>
-      {question.description.length > 0 ? (
-        <Text style={styles.description}>{question.description}</Text>
-      ) : null}
+    <TextContainer style={{ marginBottom: 24 }}>
+      <TextRegularBold>{question.displayText}</TextRegularBold>
+      {getDescription()}
       <Pressable style={styles.example} onPress={showDatepicker}>
-        {isSet ? (
-          <Text style={styles.exampleText}>
-            {date.toLocaleDateString('en-us')}
-          </Text>
-        ) : (
-          <Text style={styles.exampleText}> {question.example} </Text>
-        )}
+        <TextExample>{getExampleText()}</TextExample>
       </Pressable>
       {show ? (
         <DateTimePicker
@@ -87,6 +75,6 @@ export default function Calendar(props: QuestionComponentProps) {
           onChange={onChange}
         />
       ) : null}
-    </View>
+    </TextContainer>
   );
 }

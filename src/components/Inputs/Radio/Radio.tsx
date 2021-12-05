@@ -30,12 +30,16 @@ export default function Radio(props: QuestionComponentProps) {
     );
   };
 
+  const getDescription = () => {
+    return question.description.length > 0 ? (
+      <TextDescription>{question.description}</TextDescription>
+    ) : null;
+  };
+
   return (
     <TextContainer>
       <TextRegularBold>{question.displayText}</TextRegularBold>
-      {question.description.length > 0 ? (
-        <TextDescription>{question.description}</TextDescription>
-      ) : null}
+      {getDescription()}
       <RadioContainer>
         {question.answerOptions
           ? question.answerOptions.map(option => getRadioComponent(option))
