@@ -38,7 +38,7 @@ const UploadScreen = () => {
         <DocContainer
           key={ct}
           caseType={ct}
-          uploadStatus={false}
+          uploadStatus={false} // TO DO: use client's doc status
           docList={reqDocs[i]}
         />
       ))}
