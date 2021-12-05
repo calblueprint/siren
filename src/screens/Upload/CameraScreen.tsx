@@ -4,10 +4,8 @@ import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Button,
-  Image,
   StatusBar,
   StyleSheet,
-  Text,
   View,
   LogBox,
   Platform,
@@ -17,8 +15,8 @@ import { firestoreAutoId } from 'database/helpers';
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
-const CameraScreen = () => {
-  const [image, setImage] = useState(null);
+const CameraScreen = ({ navigation }: any) => {
+  const [imageUris, setImageUris] = useState([] as string[]);
   const [uploading, setUploading] = useState(false);
   const storage = firebase.storage();
 
@@ -55,36 +53,36 @@ const CameraScreen = () => {
     return null;
   };
 
-  const maybeRenderImage = () => {
-    if (!image) {
-      return null;
-    }
-    return (
-      // <View
-      //   style={{
-      //     marginTop: 30,
-      //     width: 250,
-      //     borderRadius: 3,
-      //     elevation: 2,
-      //   }}
-      // >
-      <View
-        style={{
-          borderTopRightRadius: 3,
-          borderTopLeftRadius: 3,
-          shadowColor: 'rgba(0,0,0,1)',
-          shadowOpacity: 0.2,
-          shadowOffset: { width: 4, height: 4 },
-          shadowRadius: 5,
-          overflow: 'hidden',
-        }}
-      >
-        <Image source={{ uri: image }} style={{ width: 250, height: 250 }} />
-      </View>
-    );
+  // const maybeRenderImage = () => {
+  //   if (!image) {
+  //     return null;
+  //   }
+  //   return (
+  //     // <View
+  //     //   style={{
+  //     //     marginTop: 30,
+  //     //     width: 250,
+  //     //     borderRadius: 3,
+  //     //     elevation: 2,
+  //     //   }}
+  //     // >
+  //     <View
+  //       style={{
+  //         borderTopRightRadius: 3,
+  //         borderTopLeftRadius: 3,
+  //         shadowColor: 'rgba(0,0,0,1)',
+  //         shadowOpacity: 0.2,
+  //         shadowOffset: { width: 4, height: 4 },
+  //         shadowRadius: 5,
+  //         overflow: 'hidden',
+  //       }}
+  //     >
+  //       <Image source={{ uri: image }} style={{ width: 250, height: 250 }} />
+  //     </View>
+  //   );
 
-    /* </View> */
-  };
+  //   /* </View> */
+  // };
   const uploadImageAsync = async (uri: string) => {
     // Why are we using XMLHttpRequest? See:
     // https://github.com/expo/expo/issues/2402#issuecomment-443726662
@@ -112,16 +110,14 @@ const CameraScreen = () => {
 
     return childRef.getDownloadURL();
   };
-  const handleImagePicked = async (
-    pickerResult: ImagePicker.ImagePickerResult,
-  ) => {
+  const uploadImages = async () => {
     try {
       setUploading(true);
-
-      if (!pickerResult.cancelled) {
-        const uploadUrl = await uploadImageAsync(pickerResult.uri);
-        setImage(uploadUrl);
-      }
+      await Promise.all(
+        imageUris.map(async uri => {
+          await uploadImageAsync(uri);
+        }),
+      );
     } catch (e) {
       console.log(e);
       alert('Upload failed, sorry :(');
@@ -133,26 +129,15 @@ const CameraScreen = () => {
   const takePhoto = async () => {
     const pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
-      aspect: [4, 3],
     });
-
-    handleImagePicked(pickerResult);
-  };
-
-  const pickImage = async () => {
-    const pickerResult = await ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [4, 3],
-    });
-
-    console.log({ pickerResult });
-
-    handleImagePicked(pickerResult);
+    if (!pickerResult.cancelled) {
+      setImageUris(prevImageUris => [...prevImageUris, pickerResult.uri]);
+    }
   };
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      {!!image && (
+      {/* {!!image && (
         <Text
           style={{
             fontSize: 20,
@@ -163,13 +148,21 @@ const CameraScreen = () => {
         >
           Example: Upload ImagePicker result
         </Text>
-      )}
+      )} */}
 
-      <Button onPress={pickImage} title="Pick an image from camera roll" />
+      <Button
+        onPress={navigation.navigate('ImagePicker', {
+          setImageUris,
+        })}
+        title="Pick an image from camera roll"
+      />
 
       <Button onPress={takePhoto} title="Take a photo" />
+      {imageUris.length > 0 ? (
+        <Button onPress={uploadImages} title="Done" />
+      ) : null}
 
-      {maybeRenderImage()}
+      {/* {maybeRenderImage()} */}
       {maybeRenderUploadingOverlay()}
 
       <StatusBar barStyle="default" />

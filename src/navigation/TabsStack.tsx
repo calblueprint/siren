@@ -6,6 +6,7 @@ import UploadScreen from 'screens/Documents/Documents';
 import FormsScreen from 'screens/Forms/FormsScreen';
 import ScheduleScreen from 'screens/Schedule/ScheduleScreen';
 import { Colors } from 'assets/Colors';
+import UploadStack from './UploadStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
