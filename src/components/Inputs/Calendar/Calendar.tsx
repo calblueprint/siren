@@ -59,8 +59,10 @@ export default function Calendar(props: QuestionComponentProps) {
 
   return (
     <TextContainer style={{ marginBottom: 24 }}>
-      <TextRegularBold>{question.displayText}</TextRegularBold>
-      {getDescription()}
+      <TextContainer>
+        <TextRegularBold>{question.displayText}</TextRegularBold>
+        {getDescription()}
+      </TextContainer>
       <Pressable style={styles.example} onPress={showDatepicker}>
         <TextExample>{getExampleText()}</TextExample>
       </Pressable>
