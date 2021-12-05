@@ -28,6 +28,12 @@ export const TextTitle = styled.Text`
   margin: 10px 0px;
 `;
 
+export const TextSubtitle = styled.Text`
+  font-family: public-sans-semibold;
+  font-size: 16px;
+  text-align: center;
+`;
+
 export const TextBold = styled.Text`
   font-family: public-sans-semibold;
   font-size: 18px;
@@ -41,13 +47,6 @@ export const TextRegular = styled.Text`
 export const TextRegularBold = styled.Text`
   font-family: public-sans-semibold;
   font-size: 14px;
-`;
-
-export const TextSubtitle = styled.Text`
-  font-family: public-sans-semibold;
-  font-size: 16px;
-  text-align: center;
-  margin-bottom: 10px;
 `;
 
 export const TextBoldItalic = styled.Text`
