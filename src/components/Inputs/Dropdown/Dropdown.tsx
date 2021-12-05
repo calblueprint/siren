@@ -41,7 +41,7 @@ export default function Dropdown(props: QuestionComponentProps) {
   };
 
   const getExampleText = () => {
-    return isSet ? value : 'Select';
+    return isSet ? value : ` ${value} `;
   };
 
   const getDescription = () => {
