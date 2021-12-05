@@ -25,7 +25,7 @@ const UploadScreen = () => {
         );
 
         setReqDocs(clientDocs);
-        setCaseTypes(Array.from(clientCaseTypes));
+        setCaseTypes(clientCaseTypes);
       }
     }
     loadClientDocs();
