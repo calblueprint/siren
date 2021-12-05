@@ -2,11 +2,8 @@ import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
 import React, { useEffect, useState } from 'react';
 import {
-  ActivityIndicator,
   Button,
   StatusBar,
-  StyleSheet,
-  View,
   LogBox,
   Platform,
   ImageBackground,
@@ -14,13 +11,13 @@ import {
 } from 'react-native';
 import { firestoreAutoId } from 'database/helpers';
 import { AntDesign } from '@expo/vector-icons';
+import { PicturesContainer, PageContainer } from './styles';
 
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const CameraScreen = ({ navigation, route }: any) => {
   const [imageUris, setImageUris] = useState([] as string[]);
-  const [uploading, setUploading] = useState(false);
   const storage = firebase.storage();
 
   useEffect(() => {
@@ -44,40 +41,12 @@ const CameraScreen = ({ navigation, route }: any) => {
     requestAccess();
   }, []);
 
-  const maybeRenderUploadingOverlay = () => {
-    if (uploading) {
-      return (
-        <View
-          style={[
-            StyleSheet.absoluteFill,
-            {
-              backgroundColor: 'rgba(0,0,0,0.4)',
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-          ]}
-        >
-          <ActivityIndicator color="#fff" animating size="large" />
-        </View>
-      );
-    }
-    return null;
-  };
-
   const renderCurrentPictures = () => {
     if (imageUris.length === 0) {
       return null;
     }
     return (
-      <View
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
+      <PicturesContainer>
         {imageUris.map(uri => (
           <ImageBackground
             key={uri}
@@ -95,7 +64,7 @@ const CameraScreen = ({ navigation, route }: any) => {
             </TouchableHighlight>
           </ImageBackground>
         ))}
-      </View>
+      </PicturesContainer>
     );
   };
 
@@ -128,14 +97,11 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
   const uploadImages = async () => {
     try {
-      setUploading(true);
       imageUris.map(async uri => uploadImageAsync(uri));
       navigation.navigate('TabsStack', { screen: 'Home' });
     } catch (e) {
       console.log(e);
       alert('Upload failed, sorry :(');
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -149,7 +115,7 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <PageContainer>
       {renderCurrentPictures()}
 
       {imageUris.length > 0 ? (
@@ -163,11 +129,8 @@ const CameraScreen = ({ navigation, route }: any) => {
 
       <Button onPress={takePhoto} title="Take a photo" />
 
-      {/* {maybeRenderImage()} */}
-      {maybeRenderUploadingOverlay()}
-
       <StatusBar barStyle="default" />
-    </View>
+    </PageContainer>
   );
 };
 

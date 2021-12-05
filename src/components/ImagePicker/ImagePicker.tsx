@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
 import { AssetsSelector } from 'expo-images-picker';
 import { Ionicons } from '@expo/vector-icons';
 import { Asset, MediaType } from 'expo-media-library';
+import PageContainer from './styles';
 
 // IOS users , make sure u can use the images uri to upload , if your getting invalid file path or u cant work with asset-library://
 // Use = > getImageMetaData: true which will be little slower but give u also the absolute path of the Asset. just console loge the result to see the localUri
 
 // See => https://docs.expo.dev/versions/latest/sdk/media-library/#assetinfo
 
-const ImagePicker = ({ navigation, route }: any) => {
+const ImagePicker = ({ navigation }: any) => {
   const onSuccess = (data: Asset[]) => {
     navigation.navigate({
       name: 'Camera',
@@ -17,11 +17,6 @@ const ImagePicker = ({ navigation, route }: any) => {
       merge: true,
     });
   };
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-  });
 
   const widgetErrors = useMemo(
     () => ({
@@ -48,16 +43,6 @@ const ImagePicker = ({ navigation, route }: any) => {
     }),
     [],
   );
-
-  // const widgetResize = useMemo(
-  //   () => ({
-  //     width: 50,
-  //     compress: 0.7,
-  //     base64: false,
-  //     saveTo: 'jpeg',
-  //   }),
-  //   [],
-  // );
 
   const widgetNavigator = useMemo(
     () => ({
@@ -102,15 +87,14 @@ const ImagePicker = ({ navigation, route }: any) => {
   );
 
   return (
-    <View style={styles.container}>
+    <PageContainer>
       <AssetsSelector
         Settings={widgetSettings}
         Errors={widgetErrors}
         Styles={widgetStyles}
         Navigator={widgetNavigator}
-        // Resize={widgetResize} know how to use first , perform slower results.
       />
-    </View>
+    </PageContainer>
   );
 };
 
