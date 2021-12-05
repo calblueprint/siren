@@ -5,6 +5,7 @@ import { StyleSheet, ActivityIndicator, View } from 'react-native';
 import TabsStack from 'navigation/TabsStack';
 import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
+import FormsStack from 'navigation/FormsStack';
 import firebase from 'database/clientApp';
 
 const auth = firebase.auth();
@@ -57,6 +58,11 @@ export default function RootNavigator() {
             <Stack.Screen
               name="MiscStack"
               component={MiscStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="FormsStack"
+              component={FormsStack}
               options={{ headerShown: false }}
             />
           </>
