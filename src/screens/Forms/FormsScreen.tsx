@@ -10,7 +10,7 @@ const FormsScreen = ({ navigation }: any) => {
       <InnerPageContainer>
         <Button
           title="Go to form"
-          onPress={() => navigation.navigate('TabsStack', { screen: 'Form' })}
+          onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
         />
       </InnerPageContainer>
     </ScrollPageContainer>
