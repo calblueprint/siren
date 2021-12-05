@@ -93,10 +93,12 @@ export default function Dropdown(props: QuestionComponentProps) {
   };
 
   return (
-    <TextContainer>
-      <TextRegularBold>{question.displayText}</TextRegularBold>
-      {getDescription()}
+    <>
+      <TextContainer>
+        <TextRegularBold>{question.displayText}</TextRegularBold>
+        {getDescription()}
+      </TextContainer>
       {getPlatform()}
-    </TextContainer>
+    </>
   );
 }

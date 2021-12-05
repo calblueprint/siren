@@ -14,7 +14,7 @@ export const TextInput = styled.TextInput`
 `;
 
 export const TextContainer = styled.View`
-  margin-bottom: 8px;
+  margin: 8px 0px;
   width: 100%;
 `;
 

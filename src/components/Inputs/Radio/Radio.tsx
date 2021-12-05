@@ -17,19 +17,6 @@ export default function Radio(props: QuestionComponentProps) {
     setAnswer(question, val);
   };
 
-  const getRadioComponent = (option: any): any => {
-    return (
-      <ButtonContainer>
-        <RadioButton
-          value={option}
-          status={value === option ? 'checked' : 'unchecked'}
-          onPress={() => onChange(option)}
-        />
-        <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
-      </ButtonContainer>
-    );
-  };
-
   const getDescription = () => {
     return question.description.length > 0 ? (
       <TextDescription>{question.description}</TextDescription>
@@ -41,9 +28,17 @@ export default function Radio(props: QuestionComponentProps) {
       <TextRegularBold>{question.displayText}</TextRegularBold>
       {getDescription()}
       <RadioContainer>
-        {question.answerOptions
-          ? question.answerOptions.map(option => getRadioComponent(option))
-          : null}
+        {question.answerOptions?.map((option, key) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ButtonContainer key={key}>
+            <RadioButton
+              value={option}
+              status={value === option ? 'checked' : 'unchecked'}
+              onPress={() => onChange(option)}
+            />
+            <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
+          </ButtonContainer>
+        ))}
       </RadioContainer>
     </TextContainer>
   );
