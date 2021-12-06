@@ -32,10 +32,10 @@ function setStep(status: string) {
   if (status === 'underRev') {
     return 2;
   }
-  if (status === 'consultApr') {
+  if (status === 'schedApt') {
     return 3;
   }
-  if (status === 'schedApt') {
+  if (status === 'aptSched') {
     return 4;
   }
   return null;
@@ -97,7 +97,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Case ${spaces} Approved`}
+            label={`Schedule ${spaces} Appointment`}
             removeBtnRow
             scrollable={false}
           >
@@ -106,7 +106,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Appointment ${spaces} Scheduled`}
+            label={`Appointment ${spaces} Attended`}
             removeBtnRow
             scrollable={false}
           >
