@@ -6,7 +6,7 @@ import { getDocList, getAllCases } from 'database/queries';
 import { getCurrentClient } from 'database/auth';
 import { CaseType } from 'types/types';
 
-const UploadScreen = () => {
+const UploadScreen = ({ navigation }: any) => {
   const [caseTypes, setCaseTypes] = useState<CaseType[]>([]); // container headers
   const [reqDocs, setReqDocs] = useState<string[][]>([]); // container docs
 

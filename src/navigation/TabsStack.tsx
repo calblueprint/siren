@@ -2,10 +2,10 @@ import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import HomeScreen from 'screens/Home/HomeScreen';
-import UploadScreen from 'screens/Documents/Documents';
 import FormsScreen from 'screens/Forms/FormsScreen';
 import ScheduleScreen from 'screens/Schedule/ScheduleScreen';
 import { Colors } from 'assets/Colors';
+import UploadStack from './UploadStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -45,7 +45,7 @@ const TabsStack = () => {
       />
       <Tab.Screen
         name="Upload"
-        component={UploadScreen}
+        component={UploadStack}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="upload" color={color} size={26} />

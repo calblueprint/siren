@@ -8,17 +8,25 @@ import {
   Platform,
   ImageBackground,
   TouchableHighlight,
+  View,
 } from 'react-native';
 import { firestoreAutoId } from 'database/helpers';
 import { AntDesign } from '@expo/vector-icons';
-import { PicturesContainer, PageContainer } from './styles';
+import { ActivityIndicator, Appbar } from 'react-native-paper';
+import { TextSubtitle } from 'assets/fonts/Fonts';
+import { setDocument } from 'database/queries';
+import { PicturesContainer, PageContainer, ButtonHeader } from './styles';
 
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const CameraScreen = ({ navigation, route }: any) => {
   const [imageUris, setImageUris] = useState([] as string[]);
+  const [uploading, setUploading] = useState(false);
   const storage = firebase.storage();
+  const clientCase = route.params?.clientCase;
+  const clientId = route.params?.clientId;
+  const docName = route.params?.name;
 
   useEffect(() => {
     if (route.params?.uris) {
@@ -40,6 +48,17 @@ const CameraScreen = ({ navigation, route }: any) => {
     };
     requestAccess();
   }, []);
+
+  const maybeRenderUploadingOverlay = () => {
+    if (uploading) {
+      return (
+        <View>
+          <ActivityIndicator color="#808080" animating size="large" />
+        </View>
+      );
+    }
+    return null;
+  };
 
   const renderCurrentPictures = () => {
     if (imageUris.length === 0) {
@@ -71,6 +90,7 @@ const CameraScreen = ({ navigation, route }: any) => {
   const uploadImageAsync = async (uri: string) => {
     // Why are we using XMLHttpRequest? See:
     // https://github.com/expo/expo/issues/2402#issuecomment-443726662
+    // TODO: make uploading faster by separating the storage put and the firestore set.
     const blob: Blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = () => {
@@ -92,13 +112,20 @@ const CameraScreen = ({ navigation, route }: any) => {
     // We're done with the blob, close and release it
     // DOESNT WORK WITH TYPESCRIPT MIGHT BE MEMORY LEAK IDK?
     // blob.close();
-
-    return childRef.getDownloadURL();
+    const downloadUrl = await childRef.getDownloadURL();
+    await setDocument(clientId, clientCase.id, {
+      id: firestoreAutoId(),
+      url: downloadUrl,
+      type: docName,
+      createdAt: new Date(),
+    });
   };
   const uploadImages = async () => {
     try {
-      imageUris.map(async uri => uploadImageAsync(uri));
-      navigation.navigate('TabsStack', { screen: 'Home' });
+      setUploading(true);
+      await Promise.all(imageUris.map(async uri => uploadImageAsync(uri)));
+      setUploading(false);
+      navigation.navigate('Documents');
     } catch (e) {
       console.log(e);
       alert('Upload failed, sorry :(');
@@ -116,19 +143,24 @@ const CameraScreen = ({ navigation, route }: any) => {
 
   return (
     <PageContainer>
+      <ButtonHeader onPress={() => navigation.navigate('Documents')}>
+        <Appbar.BackAction
+          size={18}
+          style={{ margin: 0 }}
+          onPress={() => navigation.navigate('Documents')}
+        />
+        <TextSubtitle>Go Back</TextSubtitle>
+      </ButtonHeader>
+      {maybeRenderUploadingOverlay()}
       {renderCurrentPictures()}
-
       {imageUris.length > 0 ? (
         <Button onPress={uploadImages} title="Upload" />
       ) : null}
-
       <Button
         onPress={() => navigation.navigate('Image')}
         title="Pick images from camera roll"
       />
-
       <Button onPress={takePhoto} title="Take a photo" />
-
       <StatusBar barStyle="default" />
     </PageContainer>
   );

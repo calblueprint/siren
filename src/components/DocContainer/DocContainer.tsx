@@ -1,28 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DocHolder, {
   Missing,
   Submitted,
 } from 'components/DocContainer/DocHolder';
 import { TextBold } from 'assets/fonts/Fonts';
-import { CaseType } from 'types/types';
+import { Case, Document } from 'types/types';
 import { convertCamelToTitleCase } from 'utils/utils';
+import { getAllDocuments } from 'database/queries';
+import { useIsFocused } from '@react-navigation/native';
 import { Container, Header } from './styles';
 
 interface ContainerProps {
-  caseType: CaseType;
-  uploadStatus: boolean; // based on all submissions
+  clientCase: Case;
+  clientId: string;
   docList: string[];
+  navigation: any;
 }
 
-const DocContainer = ({ caseType, uploadStatus, docList }: ContainerProps) => {
+const DocContainer = ({
+  clientCase,
+  clientId,
+  docList,
+  navigation,
+}: ContainerProps) => {
+  const [documents, setDocuments] = useState([] as Document[]);
+  const populateDocuments = async () => {
+    const currDocuments = await getAllDocuments(clientId, clientCase.id);
+    setDocuments(currDocuments);
+  };
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    populateDocuments();
+  }, [isFocused]);
   return (
     <Container>
       <Header>
-        {uploadStatus ? Submitted : Missing}
-        <TextBold> {convertCamelToTitleCase(caseType)}</TextBold>
+        {new Set(documents.map(doc => doc.type)).size === docList.length
+          ? Submitted
+          : Missing}
+        <TextBold> {convertCamelToTitleCase(clientCase.type)}</TextBold>
       </Header>
       {docList.map(name => (
-        <DocHolder key={name} title={name} submitted={uploadStatus} />
+        <DocHolder
+          onClick={() =>
+            // TODO change onClick based on submit type (i.e trash/reupload if already submitted)
+            navigation.navigate({
+              name: 'Camera',
+              params: { clientCase, clientId, name },
+              merge: true,
+            })
+          }
+          key={name}
+          title={name}
+          submitted={documents.map(doc => doc.type).includes(name)}
+        />
       ))}
     </Container>
   );
