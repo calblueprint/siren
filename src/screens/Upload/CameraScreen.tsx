@@ -143,11 +143,11 @@ const CameraScreen = ({ navigation, route }: any) => {
 
   return (
     <PageContainer>
-      <ButtonHeader onPress={() => navigation.navigate('Documents')}>
+      <ButtonHeader onPress={() => navigation.goBack()}>
         <Appbar.BackAction
           size={18}
           style={{ margin: 0 }}
-          onPress={() => navigation.navigate('Documents')}
+          onPress={() => navigation.goBack()}
         />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>

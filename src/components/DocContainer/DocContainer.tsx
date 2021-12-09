@@ -47,7 +47,6 @@ const DocContainer = ({
             navigation.navigate({
               name: 'Camera',
               params: { clientCase, clientId, name },
-              merge: true,
             })
           }
           key={name}
