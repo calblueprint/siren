@@ -24,14 +24,19 @@ const DocContainer = ({
   navigation,
 }: ContainerProps) => {
   const [documents, setDocuments] = useState([] as Document[]);
+
   const populateDocuments = async () => {
     const currDocuments = await getAllDocuments(clientId, clientCase.id);
     setDocuments(currDocuments);
   };
+
   const isFocused = useIsFocused();
   useEffect(() => {
     populateDocuments();
   }, [isFocused]);
+
+  console.log(documents);
+
   return (
     <Container>
       <Header>

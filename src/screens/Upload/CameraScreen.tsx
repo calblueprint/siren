@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
 import React, { useEffect, useState } from 'react';
