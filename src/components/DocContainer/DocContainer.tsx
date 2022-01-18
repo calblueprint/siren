@@ -35,8 +35,6 @@ const DocContainer = ({
     populateDocuments();
   }, [isFocused]);
 
-  console.log(documents);
-
   return (
     <Container>
       <Header>
