@@ -10,7 +10,7 @@ import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
-import { getCurrentClient } from 'database/auth';
+import { ClientContext } from 'context/ContextProvider';
 import {
   ButtonHeader,
   ButtonView,
@@ -39,6 +39,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     existingAnswers.get('general') || new Map(),
   );
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
+  const { state } = React.useContext(ClientContext);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -72,7 +73,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client | undefined = await getCurrentClient();
+    const client: Client = state;
     if (!client) {
       return;
     }

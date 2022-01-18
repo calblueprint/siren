@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PageContainer } from 'screens/styles';
 import DocContainer from 'components/DocContainer/DocContainer';
 import { getDocList, getAllCases } from 'database/queries';
-import { getCurrentClient } from 'database/auth';
+import { ClientContext } from 'context/ContextProvider';
 import { CaseType, Case } from 'types/types';
 import { useIsFocused } from '@react-navigation/native';
 
@@ -11,10 +11,11 @@ const UploadScreen = ({ navigation }: any) => {
   const [reqDocs, setReqDocs] = useState<string[][]>([]); // container docs
   const [clientId, setClientId] = useState('');
   const isFocused = useIsFocused();
+  const { state } = React.useContext(ClientContext);
 
   useEffect(() => {
     async function loadClientDocs() {
-      const client = await getCurrentClient();
+      const client = state;
       if (client !== undefined) {
         // get all client case types
         setClientId(client.id);

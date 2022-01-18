@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import GeneralQuestionManager from 'components/Questions/GeneralQuestionManager/GeneralQuestionManager';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { Client } from 'types/types';
-import { getCurrentClient } from 'database/auth';
+import { ClientContext } from 'context/ContextProvider';
 import AdditionalQuestionManager from 'components/Questions/AdditionalQuestionManager/AdditionalQuestionManager';
-
-// TODO: integrate user auth, retention of answers.
 
 const FormsScreen = ({ navigation }: any) => {
   const [showAdditionalScreen, setShowAdditionalScreen] = useState(false);
@@ -13,9 +11,10 @@ const FormsScreen = ({ navigation }: any) => {
   const [additionalScreenType, setAdditionalScreenType] = useState('');
   const [generalScreenNumber, setGeneralScreenNumber] = useState(0);
   const [existingAnswers, setExistingAnswers] = useState(new Map());
+  const { state } = React.useContext(ClientContext);
 
   const loadClient = async (): Promise<void> => {
-    const client: Client | undefined = await getCurrentClient();
+    const client: Client = state;
     if (client) {
       setExistingAnswers(client.answers);
     }

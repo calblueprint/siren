@@ -1,7 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { getCurrentClient } from 'database/auth';
 import {
   getAllUpcomingAppointmentsForClient,
   getAllCalendlyLinks,
@@ -33,6 +32,7 @@ import {
   convertCamelToTitleCase,
   convertDateObjectToString,
 } from 'utils/utils';
+import { ClientContext } from 'context/ContextProvider';
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
@@ -44,10 +44,11 @@ const ScheduleScreen = () => {
   const [calendlyLinks, setCalendlyLinks] = useState<CalendlyLink[]>();
   const [appointments, setAppointments] = useState<Appointment[]>();
   const [switchPage, setSwitchPage] = React.useState(0);
+  const { state } = React.useContext(ClientContext);
 
   useEffect(() => {
     async function loadLinksAndAppointments() {
-      const client = await getCurrentClient();
+      const client = state;
       if (client !== undefined) {
         // fetch the client's approved case types
         const cases = await getAllCases(client.id);
