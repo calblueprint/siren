@@ -25,6 +25,9 @@ export const Submitted = (
   <AntDesign name="checkcircle" style={{ color: Colors.brandBlue }} />
 );
 
+// TO DO: Use deleteDocument to handle ActionButton changes
+// Current implementation !support deletion from main page
+
 const DocHolder = ({ onClick, title, submitted }: DocProps) => {
   return (
     <DocSelect onPress={onClick}>

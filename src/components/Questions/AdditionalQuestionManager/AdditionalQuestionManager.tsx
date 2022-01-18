@@ -13,14 +13,18 @@ import {
   CaseStatus,
   Dictionary,
 } from 'types/types';
-import LargeInput from 'components/LargeInput/largeInput';
-import SmallInput from 'components/SmallInput/smallInput';
-import Dropdown from 'components/Dropdown/dropdown';
-import Calendar from 'components/Calendar/calendar';
-import Radio from 'components/Radio/radio';
-import { firestoreAutoId } from 'database/helpers';
+import LargeInput from 'components/Inputs/LargeInput/LargeInput';
+import SmallInput from 'components/Inputs/SmallInput/SmallInput';
+import Dropdown from 'components/Inputs/Dropdown/Dropdown';
+import Calendar from 'components/Inputs/Calendar/Calendar';
+import Radio from 'components/Inputs/Radio/Radio';
 import { ClientContext } from 'context/ContextProvider';
-import { ButtonHeader, ButtonView } from './styles';
+import { firestoreAutoId } from 'database/helpers';
+import {
+  ButtonHeader,
+  ButtonView,
+  Container,
+} from 'components/Questions/styles';
 
 export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   const visitReasonDictionary: Dictionary = { 'DACA renewal': 'dacaRenewal' };
@@ -97,7 +101,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   }, []);
 
   return (
-    <>
+    <Container>
       <ButtonHeader
         onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
       >
@@ -114,6 +118,6 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
           <TextRegularWhite>Submit</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
-    </>
+    </Container>
   );
 }

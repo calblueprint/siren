@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
@@ -11,6 +12,7 @@ import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
   // const uid = 'sample'; // use to test multiple cases
+  const isFocused = useIsFocused();
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 
@@ -26,7 +28,7 @@ const HomeScreen = ({ navigation }: any) => {
       }
     }
     getUserInfo();
-  }, []);
+  }, [isFocused]);
 
   return (
     <PageContainer>

@@ -11,6 +11,7 @@ import { ClientContext } from 'context/ContextProvider';
 import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
+import UploadStack from './UploadStack';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -84,6 +85,11 @@ export default function RootNavigator() {
             <Stack.Screen
               name="FormsStack"
               component={FormsStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="UploadStack"
+              component={UploadStack}
               options={{ headerShown: false }}
             />
           </>

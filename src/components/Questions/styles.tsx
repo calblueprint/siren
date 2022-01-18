@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import { Colors } from 'assets/Colors';
 
 export const ButtonHeader = styled.TouchableOpacity`
   display: flex;
@@ -7,10 +6,8 @@ export const ButtonHeader = styled.TouchableOpacity`
   align-items: center;
   width: 100%;
   height: 50px;
-  justify-content: flex-start;
+  z-index: 1;
   margin-left: -10px;
-  z-index: 100;
-  padding-horizontal: 12%;
 `;
 
 export const ButtonView = styled.View`
@@ -20,9 +17,6 @@ export const ButtonView = styled.View`
   justify-content: center;
 `;
 
-export const ScrollPageContainer = styled.ScrollView`
-  background-color: ${Colors.white};
-  display: flex
-  padding-vertical: 20px;
-  flex: 1;
+export const Container = styled.ScrollView`
+  padding: 0px 20px;
 `;
