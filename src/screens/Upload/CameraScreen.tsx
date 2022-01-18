@@ -144,12 +144,10 @@ const CameraScreen = ({ navigation, route }: any) => {
 
   return (
     <PageContainer>
-      <ButtonHeader onPress={() => navigation.goBack()}>
-        <Appbar.BackAction
-          size={18}
-          style={{ margin: 0 }}
-          onPress={() => navigation.goBack()}
-        />
+      <ButtonHeader
+        onPress={() => navigation.navigate('TabsStack', { screen: 'Upload' })}
+      >
+        <Appbar.BackAction size={18} style={{ margin: 0 }} />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
       {maybeRenderUploadingOverlay()}

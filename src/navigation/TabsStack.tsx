@@ -5,7 +5,7 @@ import HomeScreen from 'screens/Home/HomeScreen';
 import FormsScreen from 'screens/Forms/FormsScreen';
 import ScheduleScreen from 'screens/Schedule/ScheduleScreen';
 import { Colors } from 'assets/Colors';
-import UploadStack from './UploadStack';
+import UploadScreen from 'screens/Upload/UploadScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -45,7 +45,7 @@ const TabsStack = () => {
       />
       <Tab.Screen
         name="Upload"
-        component={UploadStack}
+        component={UploadScreen}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="upload" color={color} size={26} />
