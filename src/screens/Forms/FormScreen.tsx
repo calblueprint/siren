@@ -4,6 +4,7 @@ import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { Client } from 'types/types';
 import { ClientContext } from 'context/ContextProvider';
 import AdditionalQuestionManager from 'components/Questions/AdditionalQuestionManager/AdditionalQuestionManager';
+import { getCaseTypeFromKey } from 'database/queries';
 
 const FormsScreen = ({ navigation }: any) => {
   const [showAdditionalScreen, setShowAdditionalScreen] = useState(false);
@@ -28,10 +29,12 @@ const FormsScreen = ({ navigation }: any) => {
 
   const setAdditionalScreen = (visitReason: string): void => {
     loadClient();
-    setAdditionalScreenType(visitReason);
-    setShowAdditionalScreen(true);
-    setShowGeneralScreen(false);
-    setGeneralScreenNumber(5);
+    getCaseTypeFromKey(visitReason).then(caseType => {
+      setAdditionalScreenType(caseType);
+      setShowAdditionalScreen(true);
+      setShowGeneralScreen(false);
+      setGeneralScreenNumber(5);
+    });
   };
 
   const setFinalScreen = (): void => {
@@ -74,7 +77,7 @@ const FormsScreen = ({ navigation }: any) => {
               setPreviousScreen={setGeneralScreen}
               setNextScreen={setFinalScreen}
               existingAnswers={existingAnswers}
-              managerSpecificProps={{ visitReason: additionalScreenType }}
+              managerSpecificProps={{ caseType: additionalScreenType }}
             />
           </InnerPageContainer>
         </ScrollPageContainer>

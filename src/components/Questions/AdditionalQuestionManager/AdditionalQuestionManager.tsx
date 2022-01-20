@@ -9,9 +9,7 @@ import {
   Client,
   QuestionManagerProps,
   Case,
-  CaseType,
   CaseStatus,
-  Dictionary,
 } from 'types/types';
 import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
@@ -27,7 +25,6 @@ import {
 } from 'components/Questions/styles';
 
 export default function AdditionalQuestionManager(props: QuestionManagerProps) {
-  const visitReasonDictionary: Dictionary = { 'DACA renewal': 'dacaRenewal' };
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const {
     setPreviousScreen,
@@ -35,9 +32,9 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     existingAnswers,
     managerSpecificProps,
   } = props;
-  const visitReason = visitReasonDictionary[managerSpecificProps?.visitReason];
+  const caseType = managerSpecificProps?.caseType;
   const [currentAnswers, setCurrentAnswers] = useState(
-    existingAnswers?.get(visitReason) || new Map(),
+    existingAnswers?.get(caseType) || new Map(),
   );
   const { state } = React.useContext(ClientContext);
 
@@ -46,7 +43,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   };
 
   const loadQuestions = async (): Promise<void> => {
-    const qs: Question[] = await getAllQuestionsOfType(visitReason);
+    const qs: Question[] = await getAllQuestionsOfType(caseType);
     setAllQuestions(qs);
   };
   const getQuestionComponent = (question: Question) => {
@@ -80,13 +77,13 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     if (!Object.prototype.hasOwnProperty.call(client, 'answers')) {
       client.answers = new Map();
     }
-    client.answers.set(visitReason, currentAnswers);
+    client.answers.set(caseType, currentAnswers);
     await setClient(client);
     // TODO: case type from visitReason
     const clientCase: Case = {
       id: firestoreAutoId(),
       status: CaseStatus.SubmitDoc,
-      type: visitReason as CaseType,
+      type: caseType,
     };
     await setCase(client.id, clientCase);
   };

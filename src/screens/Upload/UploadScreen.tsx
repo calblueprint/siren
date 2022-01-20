@@ -3,7 +3,7 @@ import { PageContainer } from 'screens/styles';
 import DocContainer from 'components/DocContainer/DocContainer';
 import { getDocList, getAllCases } from 'database/queries';
 import { ClientContext } from 'context/ContextProvider';
-import { CaseType, Case } from 'types/types';
+import { Case } from 'types/types';
 import { useIsFocused } from '@react-navigation/native';
 
 const UploadScreen = ({ navigation }: any) => {
@@ -20,7 +20,7 @@ const UploadScreen = ({ navigation }: any) => {
         // get all client case types
         setClientId(client.id);
         const cases = await getAllCases(client.id);
-        const clientCaseTypes: CaseType[] = cases.map(c => c.type);
+        const clientCaseTypes: string[] = cases.map(c => c.type);
 
         const clientDocs = await Promise.all(
           clientCaseTypes.map(c => getDocList(c)),

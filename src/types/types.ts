@@ -3,13 +3,6 @@ export enum CaseStatus {
   SubmitDoc = 'submitDoc',
   SchedApt = 'schedApt',
 }
-
-export enum CaseType {
-  DacaRenewal = 'dacaRenewal',
-  Citizenship = 'citizenship',
-  CriminalRecord = 'criminalRecord',
-}
-
 export enum QuestionType {
   General = 'general',
   Daca = 'daca',
@@ -35,11 +28,11 @@ export type Client = {
 export type Case = {
   id: string;
   status: CaseStatus;
-  type: CaseType;
+  type: string;
 };
 
 export type CalendlyLink = {
-  type: CaseType;
+  type: string;
   link: string;
 };
 
@@ -83,7 +76,7 @@ export type Dictionary = {
 
 export type Appointment = {
   id: string;
-  caseType: CaseType;
+  caseType: string;
   client: string; // is this needed?
   clientEmail: string;
   startTime: Date;
