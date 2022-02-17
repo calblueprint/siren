@@ -218,6 +218,7 @@ export const getAllQuestionsOfType = async (
   try {
     const ref = await database
       .collection(`caseTypes/${caseType}/questions`)
+      .orderBy('order')
       .get();
     return ref.docs.map(doc => doc.data() as Question);
   } catch (e) {
@@ -320,6 +321,7 @@ export const getCalendlyLink = async (
 
 export const getDocList = async (caseType: string): Promise<string[]> => {
   try {
+    console.log(caseType);
     const doc = await database.collection('caseTypes').doc(caseType).get();
     return doc.data()?.documentList as string[];
   } catch (e) {
@@ -336,7 +338,7 @@ export const getCaseTypeFromKey = async (
       .collection('caseTypes')
       .where('key', '==', visitReason)
       .get();
-    return ref.docs[0].data()?.key;
+    return ref.docs[0].id;
   } catch (e) {
     console.warn(e);
     throw e;

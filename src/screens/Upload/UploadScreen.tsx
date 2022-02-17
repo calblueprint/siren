@@ -36,7 +36,8 @@ const UploadScreen = ({ navigation }: any) => {
     const currCaseTypes = new Set();
     const docContainers = [];
     for (let i = 0; i < clientCases.length; i += 1) {
-      if (currCaseTypes.has(clientCases[i].type) === false) {
+      if (currCaseTypes.has(clientCases[i].type) === false && reqDocs[i]) {
+        // if case not in set AND doc list for that case exists
         docContainers.push(
           <DocContainer
             key={i}
