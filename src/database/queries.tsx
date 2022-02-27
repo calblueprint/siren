@@ -321,7 +321,6 @@ export const getCalendlyLink = async (
 
 export const getDocList = async (caseType: string): Promise<string[]> => {
   try {
-    console.log(caseType);
     const doc = await database.collection('caseTypes').doc(caseType).get();
     return doc.data()?.documentList as string[];
   } catch (e) {
