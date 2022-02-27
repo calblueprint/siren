@@ -126,7 +126,7 @@ const CameraScreen = ({ navigation, route }: any) => {
       setUploading(true);
       await Promise.all(imageUris.map(async uri => uploadImageAsync(uri)));
       setUploading(false);
-      navigation.navigate('Documents');
+      navigation.goBack();
     } catch (e) {
       console.log(e);
       alert('Upload failed, sorry :(');

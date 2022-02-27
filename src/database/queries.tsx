@@ -4,7 +4,6 @@ import {
   Appointment,
   CalendlyLink,
   Case,
-  CaseType,
   Client,
   Dictionary,
   Document,
@@ -15,10 +14,7 @@ import { objectToMap, mapToObject } from 'database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
-const questionCollection = database.collection('questions');
 const appointmentCollection = database.collection('appointments');
-const calendlyLinkCollection = database.collection('calendlyLinks');
-const docListCollection = database.collection('documentList');
 
 export const getClient = async (clientId: string): Promise<Client> => {
   try {
@@ -199,9 +195,15 @@ export const deleteDocument = async (
   }
 };
 
-export const getQuestion = async (questionId: string): Promise<Question> => {
+export const getQuestion = async (
+  questionId: string,
+  caseType: string,
+): Promise<Question> => {
   try {
-    const doc = await questionCollection.doc(questionId).get();
+    const doc = await database
+      .collection(`caseTypes/${caseType}/questions`)
+      .doc(questionId)
+      .get();
     return doc.data() as Question;
   } catch (e) {
     console.warn(e);
@@ -210,23 +212,12 @@ export const getQuestion = async (questionId: string): Promise<Question> => {
   }
 };
 
-export const getAllQuestions = async (): Promise<Question[]> => {
-  try {
-    const ref = await questionCollection.get();
-    return ref.docs.map(doc => doc.data() as Question);
-  } catch (e) {
-    console.warn(e);
-    throw e;
-    // TODO: Add error handling
-  }
-};
-
 export const getAllQuestionsOfType = async (
-  type: string,
+  caseType: string,
 ): Promise<Question[]> => {
   try {
-    const ref = await questionCollection
-      .where('questionType', '==', type)
+    const ref = await database
+      .collection(`caseTypes/${caseType}/questions`)
       .orderBy('order')
       .get();
     return ref.docs.map(doc => doc.data() as Question);
@@ -237,9 +228,16 @@ export const getAllQuestionsOfType = async (
   }
 };
 
+/*
+questionType could be seen as a legacy field from when we needed it for
+root level question collection, could refactor this function to make it take a caseType: string instead
+*/
 export const setQuestion = async (question: Question) => {
   try {
-    await questionCollection.doc(question.id).set(question);
+    await database
+      .collection(`caseTypes/${question.questionType}/questions`)
+      .doc(question.id)
+      .set(question);
   } catch (e) {
     console.warn(e);
     throw e;
@@ -249,7 +247,10 @@ export const setQuestion = async (question: Question) => {
 
 export const deleteQuestion = async (question: Question) => {
   try {
-    await questionCollection.doc(question.id).delete();
+    await database
+      .collection(`caseTypes/${question.questionType}/questions`)
+      .doc(question.id)
+      .delete();
   } catch (e) {
     console.warn(e);
     throw e;
@@ -304,10 +305,13 @@ export const getAllUpcomingAppointmentsForClient = async (
   }
 };
 
-export const getAllCalendlyLinks = async (): Promise<CalendlyLink[]> => {
+export const getCalendlyLink = async (
+  caseType: string,
+): Promise<CalendlyLink> => {
   try {
-    const ref = await calendlyLinkCollection.get();
-    return ref.docs.map(doc => doc.data() as CalendlyLink);
+    const doc = await database.collection('caseTypes').doc(caseType).get();
+    const ret = { type: caseType, link: doc.data()?.calendlyLink as string };
+    return ret as CalendlyLink;
   } catch (e) {
     console.warn(e);
     throw e;
@@ -315,10 +319,25 @@ export const getAllCalendlyLinks = async (): Promise<CalendlyLink[]> => {
   }
 };
 
-export const getDocList = async (caseType: CaseType): Promise<string[]> => {
+export const getDocList = async (caseType: string): Promise<string[]> => {
   try {
-    const doc = await docListCollection.doc(caseType).get();
-    return doc.data()?.documents as string[];
+    const doc = await database.collection('caseTypes').doc(caseType).get();
+    return doc.data()?.documentList as string[];
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const getCaseTypeFromKey = async (
+  visitReason: string,
+): Promise<string> => {
+  try {
+    const ref = await database
+      .collection('caseTypes')
+      .where('key', '==', visitReason)
+      .get();
+    return ref.docs[0].id;
   } catch (e) {
     console.warn(e);
     throw e;

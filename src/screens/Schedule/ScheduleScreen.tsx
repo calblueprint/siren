@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import {
   getAllUpcomingAppointmentsForClient,
-  getAllCalendlyLinks,
+  getCalendlyLink,
   getAllCases,
 } from 'database/queries';
-import { Appointment, CalendlyLink, CaseStatus, CaseType } from 'types/types';
+import { Appointment, CalendlyLink, CaseStatus } from 'types/types';
 import * as WebBrowser from 'expo-web-browser';
 import {
   TextRegular,
@@ -52,19 +52,14 @@ const ScheduleScreen = () => {
       if (client !== undefined) {
         // fetch the client's approved case types
         const cases = await getAllCases(client.id);
-        const clientCaseTypes: CaseType[] = cases
+        const clientCaseTypes: string[] = cases
           .filter(c => c.status === CaseStatus.SchedApt)
           .map(c => c.type);
 
         // fetch all calendly links
-        const allCalendlyLinks = await getAllCalendlyLinks();
-
-        // filter links to only include those for the client's approved cases
-        const filteredLinks = allCalendlyLinks.filter(cl =>
-          clientCaseTypes.includes(cl.type),
-        );
-
-        setCalendlyLinks(filteredLinks);
+        Promise.all(
+          clientCaseTypes.map(caseType => getCalendlyLink(caseType)),
+        ).then(links => setCalendlyLinks(links));
 
         // fetch all uncancelled appointments for client
         const appts = await getAllUpcomingAppointmentsForClient(client);
