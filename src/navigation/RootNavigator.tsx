@@ -73,6 +73,11 @@ export default function RootNavigator() {
         {user ? (
           <>
             <Stack.Screen
+              name="HeaderStack"
+              component={TabsStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
               name="TabsStack"
               component={TabsStack}
               options={{ headerShown: false }}
