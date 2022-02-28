@@ -1,11 +1,9 @@
 /* eslint-disable react/style-prop-object */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Fonts } from 'assets/fonts/Fonts';
-import { Client } from 'types/types';
-import { getClient } from 'database/queries';
 import { ClientProvider } from 'context/ContextProvider';
 import RootNavigator from './src/navigation/RootNavigator';
 
