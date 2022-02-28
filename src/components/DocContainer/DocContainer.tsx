@@ -48,7 +48,7 @@ const DocContainer = ({
           onClick={() =>
             // TODO change onClick based on submit type (i.e trash/reupload if already submitted)
             navigation.navigate('UploadStack', {
-              name: 'Camera',
+              screen: 'Camera',
               params: { clientCase, clientId, name },
             })
           }
