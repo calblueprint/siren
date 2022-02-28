@@ -18,15 +18,6 @@ const styles = StyleSheet.create({
 });
 
 export default function App() {
-  const logData = async (): Promise<void> => {
-    const client: Client = await getClient('sample');
-    // eslint-disable-next-line no-console
-    console.log(client.id);
-  };
-  useEffect(() => {
-    logData();
-  }, []);
-
   const [fontsLoaded] = useFonts(Fonts);
   if (!fontsLoaded) {
     return <AppLoading />;
