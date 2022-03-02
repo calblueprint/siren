@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { PageContainer } from 'screens/styles';
+import { Image } from 'react-native';
 import { TextRegular, TextBold, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDark, ButtonLight } from 'assets/Components';
 import {
@@ -8,19 +9,25 @@ import {
   TitleContainer,
   ButtonContainer,
   ButtonView,
+  ImageStyles,
 } from './styles';
+// import SirenLogo from '../../images/siren_logo.png';
+
+const sirenLogo = require('../../images/siren_logo.png');
 
 const WelcomeScreen = ({ navigation }: any) => {
   return (
     <PageContainer>
       <ContentContainer>
+        <Image style={ImageStyles.logo} source={sirenLogo} />
         <TitleContainer>
-          <TextBold>Welcome to SIREN!</TextBold>
+          <TextBold>Welcome to the SIREN App!</TextBold>
         </TitleContainer>
         <TextRegular>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac nunc
-          sed tortor mollis pellentesque. Nam nisi sapien, tristique nec erat
-          sed, suscipit vehicula augue.
+          This app is a digital aid to the legal processes SIREN will be
+          handling for you. You can submit intake forms, keep track of your
+          cases, upload documents, and schedule appointments with your attorney
+          here!
         </TextRegular>
       </ContentContainer>
       <ButtonContainer>

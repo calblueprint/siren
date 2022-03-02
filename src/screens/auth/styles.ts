@@ -17,7 +17,6 @@ export const TitleContainer = styled.View`
 export const ButtonView = styled.View`
   width: 70%;
   position: absolute;
-  padding-horizontal: 12%;
   bottom: 10%;
 `;
 
@@ -31,6 +30,6 @@ export const ButtonHeader = styled.TouchableOpacity`
   justify-content: flex-start;
   margin-left: -10px;
   z-index: 1;
-  padding-horizontal: 12%;
   top: 10%;
+  left: 0px;
 `;
