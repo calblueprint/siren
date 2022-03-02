@@ -12,6 +12,7 @@ import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
 import UploadStack from './UploadStack';
+import { Header, LogoTitle } from 'components/Header/Header';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -73,29 +74,40 @@ export default function RootNavigator() {
         {user ? (
           <>
             <Stack.Screen
-              name="HeaderStack"
-              component={TabsStack}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
               name="TabsStack"
               component={TabsStack}
-              options={{ headerShown: false }}
+              options={{
+                header: () => {
+                  return <Header />;
+              }
+              }}
             />
             <Stack.Screen
               name="MiscStack"
               component={MiscStack}
-              options={{ headerShown: false }}
+              options={{
+                header: () => {
+                  return <Header />;
+              }
+              }}
             />
             <Stack.Screen
               name="FormsStack"
               component={FormsStack}
-              options={{ headerShown: false }}
+              options={{
+                header: () => {
+                  return <Header />;
+              }
+              }}
             />
             <Stack.Screen
               name="UploadStack"
               component={UploadStack}
-              options={{ headerShown: false }}
+              options={{
+                header: () => {
+                  return <Header />;
+              }
+              }}
             />
           </>
         ) : (
