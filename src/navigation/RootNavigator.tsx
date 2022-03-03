@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import HeaderStack from 'navigation/HeaderStack';
 import TabsStack from 'navigation/TabsStack';
 import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
@@ -12,7 +13,7 @@ import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
 import UploadStack from './UploadStack';
-import { Header, LogoTitle } from 'components/Header/Header';
+import { Header } from 'components/Header/Header';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -68,6 +69,9 @@ export default function RootNavigator() {
     );
   }
 
+  // tried to pass the navigation into Header, but did not work
+  // const navigation = useNavigation();
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -81,6 +85,11 @@ export default function RootNavigator() {
                   return <Header />;
               }
               }}
+            />
+            {/* Not sure if this part will help with integrating the HeaderStack */}
+            <Stack.Screen
+              name="HeaderStack"
+              component={HeaderStack}
             />
             <Stack.Screen
               name="MiscStack"
