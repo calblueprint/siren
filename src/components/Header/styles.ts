@@ -15,15 +15,4 @@ const HeaderContainer = styled.View`
     border-bottom-right-radius: 5px;
 `;
 
-const NoUserContainer = styled.View`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 12px;
-    background: ${Colors.lightGray};
-    height: 96px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-`;
-
 export default HeaderContainer;
