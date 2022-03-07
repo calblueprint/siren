@@ -27,7 +27,7 @@ export const ButtonHeader = styled.TouchableOpacity`
 export const AddPageContainer = styled.TouchableOpacity`
   border-width: 1;
   border-style: dashed;
-  border-radius: 5;
+  border-radius: 5px;
   border-color: black;
   width: 100px;
   height: 132px;
