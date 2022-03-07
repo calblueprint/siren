@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import HeaderStack from 'navigation/HeaderStack';
+import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
 import TabsStack from 'navigation/TabsStack';
 import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
@@ -13,7 +12,9 @@ import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
 import UploadStack from './UploadStack';
-import { Header } from 'components/Header/Header';
+import { LogoTitle } from 'components/Header/Header';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Colors } from 'assets/Colors';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -69,9 +70,6 @@ export default function RootNavigator() {
     );
   }
 
-  // tried to pass the navigation into Header, but did not work
-  // const navigation = useNavigation();
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -80,43 +78,186 @@ export default function RootNavigator() {
             <Stack.Screen
               name="TabsStack"
               component={TabsStack}
-              options={{
-                header: () => {
-                  return <Header />;
-              }
-              }}
-            />
-            {/* Not sure if this part will help with integrating the HeaderStack */}
-            <Stack.Screen
-              name="HeaderStack"
-              component={HeaderStack}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: {
+                  backgroundColor: '#CFD3D7',
+                  height: 96,
+                  borderBottomLeftRadius: 5,
+                  borderBottomRightRadius: 5,
+                },
+                headerLeft: () => (
+                  <MaterialCommunityIcons
+                    name="cog"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      left: '8.21%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+                headerRight: () => (
+                  <MaterialCommunityIcons
+                    name="bell"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      right: '8.28%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+              })}
             />
             <Stack.Screen
               name="MiscStack"
               component={MiscStack}
-              options={{
-                header: () => {
-                  return <Header />;
-              }
-              }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: {
+                  backgroundColor: '#CFD3D7',
+                  height: 96,
+                  borderBottomLeftRadius: 5,
+                  borderBottomRightRadius: 5,
+                },
+                headerLeft: () => (
+                  <MaterialCommunityIcons
+                    name="cog"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      left: '8.21%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+                headerRight: () => (
+                  <MaterialCommunityIcons
+                    name="bell"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      right: '8.28%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+              })}
             />
             <Stack.Screen
               name="FormsStack"
               component={FormsStack}
-              options={{
-                header: () => {
-                  return <Header />;
-              }
-              }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: {
+                  backgroundColor: '#CFD3D7',
+                  height: 96,
+                  borderBottomLeftRadius: 5,
+                  borderBottomRightRadius: 5,
+                },
+                headerLeft: () => (
+                  <MaterialCommunityIcons
+                    name="cog"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      left: '8.21%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+                headerRight: () => (
+                  <MaterialCommunityIcons
+                    name="bell"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      right: '8.28%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+              })}
             />
             <Stack.Screen
               name="UploadStack"
               component={UploadStack}
-              options={{
-                header: () => {
-                  return <Header />;
-              }
-              }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: {
+                  backgroundColor: '#CFD3D7',
+                  height: 96,
+                  borderBottomLeftRadius: 5,
+                  borderBottomRightRadius: 5,
+                },
+                headerLeft: () => (
+                  <MaterialCommunityIcons
+                    name="cog"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      left: '8.21%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+                headerRight: () => (
+                  <MaterialCommunityIcons
+                    name="bell"
+                    color={Colors.brandBlue}
+                    size={20}
+                    style={{
+                      position: 'absolute',
+                      right: '8.28%',
+                      bottom: '19.79%',
+                    }}
+                    onPress={() =>
+                      navigation.navigate('MiscStack', { screen: 'Test' })
+                    }
+                  />
+                ),
+              })}
             />
           </>
         ) : (
