@@ -60,6 +60,10 @@ const CameraScreen = ({ navigation, route }: any) => {
         if (status !== 'granted') {
           alert('Sorry, we need camera roll permissions to make this work!');
         }
+        const result = await ImagePicker.requestCameraPermissionsAsync();
+        if (result.status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
       }
     };
     requestAccess();
