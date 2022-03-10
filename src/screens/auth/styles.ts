@@ -12,12 +12,14 @@ export const ContentContainer = styled.View`
 export const TitleContainer = styled.View`
   margin-bottom: 30px;
   text-align: center;
+  background-color: #F2F2F2;
+  height: 20px;
+  z-index: 1;
 `;
 
 export const ButtonView = styled.View`
   width: 70%;
   position: absolute;
-  padding-horizontal: 12%;
   bottom: 10%;
 `;
 
@@ -31,6 +33,6 @@ export const ButtonHeader = styled.TouchableOpacity`
   justify-content: flex-start;
   margin-left: -10px;
   z-index: 1;
-  padding-horizontal: 12%;
   top: 10%;
+  left: 0px;
 `;
