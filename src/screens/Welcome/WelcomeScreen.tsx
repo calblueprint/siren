@@ -11,7 +11,6 @@ import {
   ButtonView,
   ImageStyles,
 } from './styles';
-// import SirenLogo from '../../images/siren_logo.png';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
