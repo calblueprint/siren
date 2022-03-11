@@ -86,7 +86,12 @@ export default function RootNavigator() {
                   return <LogoTitle />;
                 },
                 headerTitleAlign: 'center',
-                headerStyle: {},
+                headerStyle: {
+                  backgroundColor: Colors.lighterGray,
+                  height: 96,
+                  borderBottomLeftRadius: 5,
+                  borderBottomRightRadius: 5,
+                },
                 headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
                   <NotificationsBell navigation={navigation} />
