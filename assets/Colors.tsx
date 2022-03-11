@@ -10,4 +10,5 @@ export const Colors = {
   lightGray: '#87929B',
   white: '#FFFFFF',
   borderGrey: '#CFD3D7',
+  lighterGray: '#CFD3D7',
 };

@@ -12,8 +12,11 @@ import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
 import UploadStack from './UploadStack';
-import { LogoTitle } from 'components/Header/Header';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import {
+  LogoTitle,
+  NotificationsBell,
+  SettingsCog,
+} from 'components/Header/Header';
 import { Colors } from 'assets/Colors';
 
 const auth = firebase.auth();
@@ -83,41 +86,10 @@ export default function RootNavigator() {
                   return <LogoTitle />;
                 },
                 headerTitleAlign: 'center',
-                headerStyle: {
-                  backgroundColor: '#CFD3D7',
-                  height: 96,
-                  borderBottomLeftRadius: 5,
-                  borderBottomRightRadius: 5,
-                },
-                headerLeft: () => (
-                  <MaterialCommunityIcons
-                    name="cog"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      left: '8.21%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
-                ),
+                headerStyle: {},
+                headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
-                  <MaterialCommunityIcons
-                    name="bell"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      right: '8.28%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
+                  <NotificationsBell navigation={navigation} />
                 ),
               })}
             />
@@ -130,40 +102,14 @@ export default function RootNavigator() {
                 },
                 headerTitleAlign: 'center',
                 headerStyle: {
-                  backgroundColor: '#CFD3D7',
+                  backgroundColor: Colors.lighterGray,
                   height: 96,
                   borderBottomLeftRadius: 5,
                   borderBottomRightRadius: 5,
                 },
-                headerLeft: () => (
-                  <MaterialCommunityIcons
-                    name="cog"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      left: '8.21%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
-                ),
+                headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
-                  <MaterialCommunityIcons
-                    name="bell"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      right: '8.28%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
+                  <NotificationsBell navigation={navigation} />
                 ),
               })}
             />
@@ -176,40 +122,14 @@ export default function RootNavigator() {
                 },
                 headerTitleAlign: 'center',
                 headerStyle: {
-                  backgroundColor: '#CFD3D7',
+                  backgroundColor: Colors.lighterGray,
                   height: 96,
                   borderBottomLeftRadius: 5,
                   borderBottomRightRadius: 5,
                 },
-                headerLeft: () => (
-                  <MaterialCommunityIcons
-                    name="cog"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      left: '8.21%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
-                ),
+                headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
-                  <MaterialCommunityIcons
-                    name="bell"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      right: '8.28%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
+                  <NotificationsBell navigation={navigation} />
                 ),
               })}
             />
@@ -222,40 +142,14 @@ export default function RootNavigator() {
                 },
                 headerTitleAlign: 'center',
                 headerStyle: {
-                  backgroundColor: '#CFD3D7',
+                  backgroundColor: Colors.lighterGray,
                   height: 96,
                   borderBottomLeftRadius: 5,
                   borderBottomRightRadius: 5,
                 },
-                headerLeft: () => (
-                  <MaterialCommunityIcons
-                    name="cog"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      left: '8.21%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
-                ),
+                headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
-                  <MaterialCommunityIcons
-                    name="bell"
-                    color={Colors.brandBlue}
-                    size={20}
-                    style={{
-                      position: 'absolute',
-                      right: '8.28%',
-                      bottom: '19.79%',
-                    }}
-                    onPress={() =>
-                      navigation.navigate('MiscStack', { screen: 'Test' })
-                    }
-                  />
+                  <NotificationsBell navigation={navigation} />
                 ),
               })}
             />
