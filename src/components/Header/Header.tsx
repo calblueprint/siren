@@ -1,3 +1,4 @@
+import React from 'react';
 import { Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import MaterialCommunityIcons from '@expo/vector-icons/build/MaterialCommunityIcons';

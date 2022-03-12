@@ -17,7 +17,7 @@ import {
   NotificationsBell,
   SettingsCog,
 } from 'components/Header/Header';
-import { Colors } from 'assets/Colors';
+import { logo } from 'components/Header/styles';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -86,12 +86,7 @@ export default function RootNavigator() {
                   return <LogoTitle />;
                 },
                 headerTitleAlign: 'center',
-                headerStyle: {
-                  backgroundColor: Colors.lighterGray,
-                  height: 96,
-                  borderBottomLeftRadius: 5,
-                  borderBottomRightRadius: 5,
-                },
+                headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
                   <NotificationsBell navigation={navigation} />
@@ -106,12 +101,7 @@ export default function RootNavigator() {
                   return <LogoTitle />;
                 },
                 headerTitleAlign: 'center',
-                headerStyle: {
-                  backgroundColor: Colors.lighterGray,
-                  height: 96,
-                  borderBottomLeftRadius: 5,
-                  borderBottomRightRadius: 5,
-                },
+                headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
                   <NotificationsBell navigation={navigation} />
@@ -126,12 +116,7 @@ export default function RootNavigator() {
                   return <LogoTitle />;
                 },
                 headerTitleAlign: 'center',
-                headerStyle: {
-                  backgroundColor: Colors.lighterGray,
-                  height: 96,
-                  borderBottomLeftRadius: 5,
-                  borderBottomRightRadius: 5,
-                },
+                headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
                   <NotificationsBell navigation={navigation} />
@@ -146,12 +131,7 @@ export default function RootNavigator() {
                   return <LogoTitle />;
                 },
                 headerTitleAlign: 'center',
-                headerStyle: {
-                  backgroundColor: Colors.lighterGray,
-                  height: 96,
-                  borderBottomLeftRadius: 5,
-                  borderBottomRightRadius: 5,
-                },
+                headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
                 headerRight: () => (
                   <NotificationsBell navigation={navigation} />
