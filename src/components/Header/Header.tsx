@@ -14,7 +14,7 @@ export const LogoTitle = () => {
         height: 37,
         width: 79,
       }}
-      source={require('/images/siren-logo.png')}
+      source={require('/images/siren_logo.png')}
     />
   );
 };

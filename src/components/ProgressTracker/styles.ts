@@ -20,7 +20,7 @@ export const MainContainer = styled.View`
   width: 100%;
   height: 190px;
   border-width: 1px;
-  border-color: ${Colors.borderGrey};
+  border-color: ${Colors.borderGray};
   border-radius: 8px;
   margin-bottom: 16px;
 `;
