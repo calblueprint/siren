@@ -23,9 +23,9 @@ export default function App() {
     // eslint-disable-next-line no-console
     console.log(client.id);
   };
-  useEffect(() => {
-    logData();
-  }, []);
+  // useEffect(() => {
+  //   logData();
+  // }, []);
 
   const [fontsLoaded] = useFonts(Fonts);
   if (!fontsLoaded) {
