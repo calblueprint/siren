@@ -27,7 +27,8 @@
     "strict": true,
     "typeRoots": [
       "./src/types/types"
-    ]
+    ],
+    "noImplicitAny": false
   },
   "extends": "expo/tsconfig.base"
 }
