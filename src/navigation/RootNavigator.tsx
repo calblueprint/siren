@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
+import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
 import TabsStack from 'navigation/TabsStack';
 import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
@@ -12,6 +12,12 @@ import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
 import UploadStack from './UploadStack';
+import {
+  LogoTitle,
+  NotificationsBell,
+  SettingsCog,
+} from 'components/Header/Header';
+import { logo } from 'components/Header/styles';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -75,22 +81,62 @@ export default function RootNavigator() {
             <Stack.Screen
               name="TabsStack"
               component={TabsStack}
-              options={{ headerShown: false }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: logo.container,
+                headerLeft: () => <SettingsCog navigation={navigation} />,
+                headerRight: () => (
+                  <NotificationsBell navigation={navigation} />
+                ),
+              })}
             />
             <Stack.Screen
               name="MiscStack"
               component={MiscStack}
-              options={{ headerShown: false }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: logo.container,
+                headerLeft: () => <SettingsCog navigation={navigation} />,
+                headerRight: () => (
+                  <NotificationsBell navigation={navigation} />
+                ),
+              })}
             />
             <Stack.Screen
               name="FormsStack"
               component={FormsStack}
-              options={{ headerShown: false }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: logo.container,
+                headerLeft: () => <SettingsCog navigation={navigation} />,
+                headerRight: () => (
+                  <NotificationsBell navigation={navigation} />
+                ),
+              })}
             />
             <Stack.Screen
               name="UploadStack"
               component={UploadStack}
-              options={{ headerShown: false }}
+              options={({ navigation }) => ({
+                headerTitle: () => {
+                  return <LogoTitle />;
+                },
+                headerTitleAlign: 'center',
+                headerStyle: logo.container,
+                headerLeft: () => <SettingsCog navigation={navigation} />,
+                headerRight: () => (
+                  <NotificationsBell navigation={navigation} />
+                ),
+              })}
             />
           </>
         ) : (
