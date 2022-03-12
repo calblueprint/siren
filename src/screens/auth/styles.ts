@@ -12,6 +12,9 @@ export const ContentContainer = styled.View`
 export const TitleContainer = styled.View`
   margin-bottom: 30px;
   text-align: center;
+  background-color: #F2F2F2;
+  height: 20px;
+  z-index: 1;
 `;
 
 export const ButtonView = styled.View`
