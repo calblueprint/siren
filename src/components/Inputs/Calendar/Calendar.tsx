@@ -39,7 +39,7 @@ export default function Calendar(props: QuestionComponentProps) {
     setShow(false);
     const currentDate = selectedDate || date;
     setDate(currentDate);
-    setAnswer(question, currentDate);
+    setAnswer(question, currentDate.toLocaleDateString('en-us'));
     setisSet(true);
   };
 
