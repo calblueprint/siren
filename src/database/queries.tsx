@@ -4,13 +4,14 @@ import {
   Appointment,
   CalendlyLink,
   Case,
+  CaseStatus,
   Client,
   Dictionary,
   Document,
   Question,
 } from 'types/types';
 import firebase from 'database/clientApp';
-import { objectToMap, mapToObject } from 'database/helpers';
+import { objectToMap, mapToObject, firestoreAutoId } from 'database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -338,6 +339,32 @@ export const getCaseTypeFromKey = async (
       .where('key', '==', visitReason)
       .get();
     return ref.docs[0].id;
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const setCaseAndNumCases = async (
+  clientId: string,
+  caseType: string,
+) => {
+  try {
+    await database.runTransaction(async t => {
+      const clientCase: Case = {
+        id: firestoreAutoId(),
+        status: CaseStatus.SubmitDoc,
+        type: caseType,
+        identifier: '',
+      };
+      const ref = database.collection('caseTypes').doc(clientCase.type);
+      const doc = await t.get(ref);
+      const newNumCases = doc.data()?.numCases + 1;
+      const identifier = doc.data()?.identifier;
+      clientCase.identifier = `${identifier}-${newNumCases}`;
+      t.update(ref, { numCases: newNumCases });
+      await setCase(clientId, clientCase);
+    });
   } catch (e) {
     console.warn(e);
     throw e;
