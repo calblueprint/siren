@@ -357,7 +357,7 @@ export const setCaseAndNumCases = async (
         type: caseType,
         identifier: '',
       };
-      const ref = database.collection('caseTypes').doc(clientCase.type);
+      const ref = database.collection('caseTypes').doc('general'); // store total number of cases under general
       const doc = await t.get(ref);
       const newNumCases = doc.data()?.numCases + 1;
       const identifier = doc.data()?.identifier;
