@@ -350,6 +350,7 @@ export const setCaseAndNumCases = async (
   caseType: string,
 ) => {
   try {
+    // need to make these operations atomic (transaction) to avoid concurrent writes
     await database.runTransaction(async t => {
       const clientCase: Case = {
         id: firestoreAutoId(),
@@ -357,12 +358,14 @@ export const setCaseAndNumCases = async (
         type: caseType,
         identifier: '',
       };
-      const ref = database.collection('caseTypes').doc('general'); // store total number of cases under general
-      const doc = await t.get(ref);
-      const newNumCases = doc.data()?.numCases + 1;
-      const identifier = doc.data()?.identifier;
+      const generalRef = database.collection('caseTypes').doc('general'); // store total number of cases under general
+      const caseTypeRef = database.collection('caseTypes').doc(caseType);
+      const generalDoc = await t.get(generalRef);
+      const caseTypeDoc = await t.get(caseTypeRef);
+      const newNumCases = generalDoc.data()?.numCases + 1;
+      const identifier = caseTypeDoc.data()?.identifier;
       clientCase.identifier = `${identifier}-${newNumCases}`;
-      t.update(ref, { numCases: newNumCases });
+      t.update(generalRef, { numCases: newNumCases });
       await setCase(clientId, clientCase);
     });
   } catch (e) {
