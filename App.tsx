@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { Fonts } from 'assets/fonts/Fonts';
-import { ClientProvider, useTranslation } from 'context/ContextProvider';
+import { ClientProvider, LanguageProvider } from 'context/ContextProvider';
 import RootNavigator from './src/navigation/RootNavigator';
 
 const styles = StyleSheet.create({
@@ -23,10 +23,12 @@ export default function App() {
   }
 
   return (
-    <ClientProvider>
-      <View style={styles.container}>
-        <RootNavigator />
-      </View>
-    </ClientProvider>
+    <LanguageProvider>
+      <ClientProvider>
+        <View style={styles.container}>
+          <RootNavigator />
+        </View>
+      </ClientProvider>
+    </LanguageProvider>
   );
 }
