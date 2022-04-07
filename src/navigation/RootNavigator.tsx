@@ -7,7 +7,7 @@ import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
 import FormsStack from 'navigation/FormsStack';
 import firebase from 'database/clientApp';
-import { ClientContext } from 'context/ContextProvider';
+import { ClientContext, LanguageContext } from 'context/ContextProvider';
 import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';

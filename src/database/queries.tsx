@@ -343,3 +343,16 @@ export const getCaseTypeFromKey = async (
     throw e;
   }
 };
+
+export const getText = async (clientId: string): Promise<Client> => {
+  try {
+    const doc = await clientCollection.doc(clientId).get();
+    const client = doc.data() as Client;
+    client.answers = objectToMap(client.answers);
+    return client;
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling.
+  }
+};
