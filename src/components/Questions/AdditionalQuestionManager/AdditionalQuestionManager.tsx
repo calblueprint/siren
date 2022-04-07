@@ -1,23 +1,20 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import { getAllQuestionsOfType, setCase, setClient } from 'database/queries';
+import {
+  getAllQuestionsOfType,
+  setCaseAndNumCases,
+  setClient,
+} from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
-import {
-  Question,
-  Client,
-  QuestionManagerProps,
-  Case,
-  CaseStatus,
-} from 'types/types';
+import { Question, Client, QuestionManagerProps } from 'types/types';
 import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
 import { ClientContext } from 'context/ContextProvider';
-import { firestoreAutoId } from 'database/helpers';
 import {
   ButtonHeader,
   ButtonView,
@@ -79,13 +76,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     }
     client.answers.set(caseType, currentAnswers);
     await setClient(client);
-    // TODO: case type from visitReason
-    const clientCase: Case = {
-      id: firestoreAutoId(),
-      status: CaseStatus.SubmitDoc,
-      type: caseType,
-    };
-    await setCase(client.id, clientCase);
+    await setCaseAndNumCases(client.id, caseType);
   };
 
   const goToNextScreen = () => {
