@@ -2,15 +2,13 @@
 import React, { useState } from 'react';
 import { PageContainer } from 'screens/styles';
 import { Image } from 'react-native';
-import { TextRegular, TextBold, TextRegularWhite } from 'assets/fonts/Fonts';
-import { ButtonDark, ButtonLight } from 'assets/Components';
+import { TextRegular, TextRegularWhite } from 'assets/fonts/Fonts';
+import { ButtonDark } from 'assets/Components';
 import { TextRegularRed } from 'assets/fonts/Fonts';
 import { RadioButton } from 'react-native-paper';
-import { TextContainer, TextDescription } from 'components/Inputs/styles';
 import {
   RadioContainer,
   ContentContainer,
-  TitleContainer,
   ButtonContainer,
   ButtonView,
   ImageStyles,
@@ -21,11 +19,12 @@ const sirenLogo = require('../../images/siren_logo.png');
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
-function Radio() {
+function Radio({ changeLang }: any) {
   const [value, setValue] = useState('English');
 
   const onChange = (val: any): void => {
     setValue(val);
+    changeLang(val);
   };
 
   return (
@@ -47,6 +46,12 @@ function Radio() {
 }
 
 const LanguageScreen = ({ navigation }: any) => {
+  const [language, setLanguage] = useState('English');
+
+  const handleRadio = (val: any): void => {
+    setLanguage(val);
+  };
+
   return (
     <PageContainer>
       <ContentContainer>
@@ -55,11 +60,15 @@ const LanguageScreen = ({ navigation }: any) => {
           Please select your language preference
           <TextRegularRed>*</TextRegularRed>
         </TextRegular>
-        <Radio />
+        <Radio changeLang={handleRadio} />
       </ContentContainer>
       <ButtonContainer2>
         <ButtonView>
-          <ButtonDark onPress={() => navigation.navigate('Welcome')}>
+          <ButtonDark
+            onPress={() =>
+              navigation.navigate('Welcome', { languageParam: language })
+            }
+          >
             <TextRegularWhite>Continue</TextRegularWhite>
           </ButtonDark>
         </ButtonView>
