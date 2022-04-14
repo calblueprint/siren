@@ -12,6 +12,8 @@ import { PageContainer } from 'screens/styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 // eslint-disable-next-line no-restricted-imports
 import firebase from '../../database/clientApp';
+// eslint-disable-next-line no-restricted-imports
+import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -20,6 +22,7 @@ const SettingsScreen = ({ navigation }: any) => {
   const [currentPassword, setCurrentPassword] = useState('');
   const db = firebase.firestore();
   const clientCollection = db.collection('clients');
+  const { userLanguageChange } = React.useContext(LanguageContext);
 
   const updateLanguage = async (lang: string) => {
     try {
@@ -27,6 +30,15 @@ const SettingsScreen = ({ navigation }: any) => {
       const userDoc = clientCollection.doc(user?.uid);
       const newFields = { language: lang };
       await userDoc.update(newFields);
+      if (lang === 'Español') {
+        userLanguageChange('es');
+      }
+      if (lang === 'Tiếng Việt') {
+        userLanguageChange('vie');
+      }
+      if (lang === 'English') {
+        userLanguageChange('en');
+      }
     } catch (err) {
       console.log('Error in updating language preference');
     }
@@ -104,6 +116,9 @@ const SettingsScreen = ({ navigation }: any) => {
     <PageContainer>
       {getBackHeader()}
       <ContentContainer>
+        <TextRegular>
+          <Text tid="welcome" />
+        </TextRegular>
         <TextRegular>Change Email</TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}

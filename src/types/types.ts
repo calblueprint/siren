@@ -30,6 +30,7 @@ export type Case = {
   id: string;
   status: CaseStatus;
   type: string;
+  identifier: string;
 };
 
 export type CalendlyLink = {

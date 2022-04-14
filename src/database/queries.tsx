@@ -4,13 +4,14 @@ import {
   Appointment,
   CalendlyLink,
   Case,
+  CaseStatus,
   Client,
   Dictionary,
   Document,
   Question,
 } from 'types/types';
 import firebase from 'database/clientApp';
-import { objectToMap, mapToObject } from 'database/helpers';
+import { objectToMap, mapToObject, firestoreAutoId } from 'database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -338,6 +339,35 @@ export const getCaseTypeFromKey = async (
       .where('key', '==', visitReason)
       .get();
     return ref.docs[0].id;
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const setCaseAndNumCases = async (
+  clientId: string,
+  caseType: string,
+) => {
+  try {
+    // need to make these operations atomic (transaction) to avoid concurrent writes
+    await database.runTransaction(async t => {
+      const clientCase: Case = {
+        id: firestoreAutoId(),
+        status: CaseStatus.SubmitDoc,
+        type: caseType,
+        identifier: '',
+      };
+      const generalRef = database.collection('caseTypes').doc('general'); // store total number of cases under general
+      const caseTypeRef = database.collection('caseTypes').doc(caseType);
+      const generalDoc = await t.get(generalRef);
+      const caseTypeDoc = await t.get(caseTypeRef);
+      const newNumCases = generalDoc.data()?.numCases + 1;
+      const identifier = caseTypeDoc.data()?.identifier;
+      clientCase.identifier = `${identifier}-${newNumCases}`;
+      t.update(generalRef, { numCases: newNumCases });
+      await setCase(clientId, clientCase);
+    });
   } catch (e) {
     console.warn(e);
     throw e;

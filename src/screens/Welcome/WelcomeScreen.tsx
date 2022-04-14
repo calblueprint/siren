@@ -13,6 +13,8 @@ import {
   ButtonView,
   ImageStyles,
 } from './styles';
+// eslint-disable-next-line no-restricted-imports
+import { Text } from '../../context/ContextProvider';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
@@ -31,8 +33,6 @@ const WelcomeScreen = ({ route, navigation }: any) => {
           cases, upload documents, and schedule appointments with your attorney
           here!
         </TextRegular>
-
-        <TextRegular>{languageParam}</TextRegular>
       </ContentContainer>
       <ButtonContainer>
         <ButtonView>

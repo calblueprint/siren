@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Button } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
@@ -8,6 +8,9 @@ import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
+import { LanguageContext } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
+import { Text } from '../../context/ContextProvider';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
@@ -16,10 +19,13 @@ const HomeScreen = ({ navigation }: any) => {
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 
+  // language dictionary
+  const { dictionary } = useContext(LanguageContext);
+
   useEffect(() => {
     async function getUserInfo() {
       if (uid === undefined) {
-        navigation.navigate('Welcome');
+        navigation.navigate('Language');
       } else {
         const client = await getClient(uid);
         setName(client.fullName);
@@ -32,7 +38,9 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <PageContainer>
-      <TextRegular>Welcome {name}!</TextRegular>
+      <TextRegular>
+        <Text tid="welcome" /> {name}!
+      </TextRegular>
       <TextRegular>Your UID is: {uid}</TextRegular>
       {Object.keys(cases).map((id: any) => (
         <ProgressTracker

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { PageContainer } from 'screens/styles';
 import { Image } from 'react-native';
 import { TextRegular, TextRegularWhite } from 'assets/fonts/Fonts';
@@ -14,17 +14,19 @@ import {
   ImageStyles,
   ButtonContainer2,
 } from './styles';
+// eslint-disable-next-line no-restricted-imports
+import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
-function Radio({ changeLang }: any) {
+function Radio({ handleRadioFunc }: any) {
   const [value, setValue] = useState('English');
 
   const onChange = (val: any): void => {
     setValue(val);
-    changeLang(val);
+    handleRadioFunc(val);
   };
 
   return (
@@ -47,9 +49,19 @@ function Radio({ changeLang }: any) {
 
 const LanguageScreen = ({ navigation }: any) => {
   const [language, setLanguage] = useState('English');
+  const { userLanguageChange } = useContext(LanguageContext);
 
   const handleRadio = (val: any): void => {
     setLanguage(val);
+    if (val === 'Español') {
+      userLanguageChange('es');
+    }
+    if (val === 'Tiếng Việt') {
+      userLanguageChange('vie');
+    }
+    if (val === 'English') {
+      userLanguageChange('en');
+    }
   };
 
   return (
@@ -60,7 +72,10 @@ const LanguageScreen = ({ navigation }: any) => {
           Please select your language preference
           <TextRegularRed>*</TextRegularRed>
         </TextRegular>
-        <Radio changeLang={handleRadio} />
+        <TextRegular>
+          <Text tid="welcome" />
+        </TextRegular>
+        <Radio handleRadioFunc={handleRadio} />
       </ContentContainer>
       <ButtonContainer2>
         <ButtonView>
