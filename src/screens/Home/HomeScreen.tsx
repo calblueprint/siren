@@ -9,7 +9,7 @@ import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 import { LanguageContext } from 'context/ContextProvider';
-import { Text } from '../../multilingual';
+import { Text } from '../../context/ContextProvider';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
@@ -37,9 +37,7 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <PageContainer>
-      <TextRegular>
-        <Text tid="welcome" /> {name}!
-      </TextRegular>
+      <TextRegular>Welcome {name}!</TextRegular>
       <TextRegular>Your UID is: {uid}</TextRegular>
       {Object.keys(cases).map((id: any) => (
         <ProgressTracker

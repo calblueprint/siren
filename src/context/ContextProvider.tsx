@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Client } from 'types/types';
 import { getEmptyClient } from 'utils/utils';
 import { languageOptions, dictionaryList } from '../multilingual';
@@ -32,8 +32,14 @@ export const LanguageContext = React.createContext({
 
 //define the Context Provider, which provides the language context to app
 export function LanguageProvider({ children }) {
-  const defaultLanguage = window.localStorage.getItem('rcml-lang');
-  const [userLanguage, setUserLanguage] = useState(defaultLanguage || 'en');
+  let defaultLanguage;
+  if (window.localStorage) {
+    defaultLanguage = window.localStorage.getItem('rcml-lang');
+  } else {
+    defaultLanguage = 'en';
+  }
+  // const defaultLanguage = window.localStorage.getItem('rcml-lang');
+  const [userLanguage, setUserLanguage] = useState(defaultLanguage);
 
   const provider = {
     userLanguage,
@@ -50,4 +56,11 @@ export function LanguageProvider({ children }) {
       {children}
     </LanguageContext.Provider>
   );
+}
+
+// get text according to id & current language
+export function Text(tid): string {
+  const languageContext = useContext(LanguageContext);
+
+  return languageContext.dictionary[tid];
 }

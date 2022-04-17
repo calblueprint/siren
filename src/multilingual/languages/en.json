@@ -1,4 +1,6 @@
 {
     "hello": "hello world",
-    "welcome" : "Welcome"
+    "welcome" : "Welcome",
+    "Your UID is:" : "Your UID is:",
+    "Switch Screens" : "Switch Screens"
 }
