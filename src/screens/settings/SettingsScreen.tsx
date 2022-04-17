@@ -9,11 +9,46 @@ import {
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
 import { PageContainer } from 'screens/styles';
-import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import { RadioButton } from 'react-native-paper';
+import {
+  RadioContainer,
+  ButtonContainer,
+  ContentContainer,
+  ButtonView,
+  ButtonHeader,
+} from './styles';
 // eslint-disable-next-line no-restricted-imports
 import firebase from '../../database/clientApp';
 // eslint-disable-next-line no-restricted-imports
 import { LanguageContext, Text } from '../../context/ContextProvider';
+
+const languageOptions = ['English', 'Español', 'Tiếng Việt'];
+
+function Radio({ handleRadioFunc }: any) {
+  const [value, setValue] = useState('English');
+
+  const onChange = (val: string): void => {
+    setValue(val);
+    handleRadioFunc(val);
+  };
+
+  return (
+    <RadioContainer>
+      {languageOptions.map((option, key) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <ButtonContainer key={key}>
+          <RadioButton.Android
+            color="black"
+            value={option}
+            status={value === option ? 'checked' : 'unchecked'}
+            onPress={() => onChange(option)}
+          />
+          <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
+        </ButtonContainer>
+      ))}
+    </RadioContainer>
+  );
+}
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -26,17 +61,18 @@ const SettingsScreen = ({ navigation }: any) => {
 
   const updateLanguage = async (lang: string) => {
     try {
+      const lowercaseLang = lang.toLowerCase();
       const user = firebase.auth().currentUser;
       const userDoc = clientCollection.doc(user?.uid);
-      const newFields = { language: lang };
+      const newFields = { language: lowercaseLang };
       await userDoc.update(newFields);
-      if (lang === 'Español') {
+      if (lowercaseLang === 'Español') {
         userLanguageChange('es');
       }
-      if (lang === 'Tiếng Việt') {
+      if (lowercaseLang === 'Tiếng Việt') {
         userLanguageChange('vie');
       }
-      if (lang === 'English') {
+      if (lowercaseLang === 'English') {
         userLanguageChange('en');
       }
     } catch (err) {
@@ -112,13 +148,14 @@ const SettingsScreen = ({ navigation }: any) => {
     </ButtonHeader>
   );
 
+  const handleRadio = (val: string): void => {
+    setLanguage(val);
+  };
+
   return (
     <PageContainer>
       {getBackHeader()}
       <ContentContainer>
-        <TextRegular>
-          <Text tid="welcome" />
-        </TextRegular>
         <TextRegular>Change Email</TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
@@ -140,10 +177,7 @@ const SettingsScreen = ({ navigation }: any) => {
           secureTextEntry
         />
         <TextRegular>Change your language preference</TextRegular>
-        <TextInput
-          onChangeText={text => setLanguage(text)}
-          placeholder="ex. english"
-        />
+        <Radio handleRadioFunc={handleRadio} />
       </ContentContainer>
 
       <ButtonView>

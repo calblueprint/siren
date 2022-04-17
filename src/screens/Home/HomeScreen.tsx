@@ -8,7 +8,7 @@ import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
-import { LanguageContext } from 'context/ContextProvider';
+// import { LanguageContext } from 'context/ContextProvider';
 // eslint-disable-next-line no-restricted-imports
 import { Text } from '../../context/ContextProvider';
 
@@ -19,8 +19,8 @@ const HomeScreen = ({ navigation }: any) => {
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 
-  // language dictionary
-  const { dictionary } = useContext(LanguageContext);
+  // // language dictionary
+  // const { dictionary } = useContext(LanguageContext);
 
   useEffect(() => {
     async function getUserInfo() {

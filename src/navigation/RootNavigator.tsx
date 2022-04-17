@@ -54,10 +54,8 @@ export default function RootNavigator() {
           update(client); // update app context
           const db = firebase.firestore();
           const clientCollection = db.collection('clients');
-          // console.log(user?.uid);
           const userDoc = clientCollection.doc(user?.uid);
           const docSnap = await userDoc.get();
-          // console.log(docSnap);
           const currLang = docSnap.get('language');
           if (currLang === 'Español') {
             userLanguageChange('es');

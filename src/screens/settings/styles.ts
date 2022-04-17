@@ -17,6 +17,20 @@ export const TitleContainer = styled.View`
   z-index: 1;
 `;
 
+export const RadioContainer = styled.View`
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+`;
+
+export const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 // export const ButtonView = styled.View`
 //   width: 70%;
 //   position: absolute;
@@ -37,7 +51,7 @@ export const ButtonHeader = styled.TouchableOpacity`
   left: 0px;
 `;
 
-export const ButtonContainer = styled.View`
+export const ButtonContainer2 = styled.View`
   position: absolute;
   display: flex;
   flex-direction: row;
