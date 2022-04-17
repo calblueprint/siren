@@ -21,7 +21,9 @@ export const getClient = async (clientId: string): Promise<Client> => {
   try {
     const doc = await clientCollection.doc(clientId).get();
     const client = doc.data() as Client;
-    client.answers = objectToMap(client.answers);
+    if (client && client.answers) {
+      client.answers = objectToMap(client.answers);
+    }
     return client;
   } catch (e) {
     console.warn(e);
