@@ -72,9 +72,6 @@ const LanguageScreen = ({ navigation }: any) => {
           Please select your language preference
           <TextRegularRed>*</TextRegularRed>
         </TextRegular>
-        <TextRegular>
-          <Text tid="welcome" />
-        </TextRegular>
         <Radio handleRadioFunc={handleRadio} />
       </ContentContainer>
       <ButtonContainer2>

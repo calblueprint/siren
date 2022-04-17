@@ -18,16 +18,23 @@ import {
   ButtonHeader,
 } from './styles';
 
-const LoginScreen = ({ navigation }: any) => {
+const LoginScreen = ({ route, navigation }: any) => {
+  const { language } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Welcome')}>
+    <ButtonHeader
+      onPress={() =>
+        navigation.navigate('Welcome', { languageParam: language })
+      }
+    >
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Welcome')}
+        onPress={() =>
+          navigation.navigate('Welcome', { languageParam: language })
+        }
       />
       <TextSubtitle>Go Back</TextSubtitle>
     </ButtonHeader>
