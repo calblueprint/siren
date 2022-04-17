@@ -11,13 +11,13 @@ import { ClientContext, LanguageContext } from 'context/ContextProvider';
 import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
-import UploadStack from './UploadStack';
 import {
   LogoTitle,
   NotificationsBell,
   SettingsCog,
 } from 'components/Header/Header';
 import { logo } from 'components/Header/styles';
+import UploadStack from './UploadStack';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();
@@ -43,6 +43,7 @@ export default function RootNavigator() {
   const [user, setUser] = useState<firebase.User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { update } = React.useContext(ClientContext);
+  const { userLanguageChange } = React.useContext(LanguageContext);
 
   useEffect(() => {
     const unsubscribeAuth = auth.onAuthStateChanged(async authenticatedUser => {
@@ -51,6 +52,22 @@ export default function RootNavigator() {
           await setUser(authenticatedUser);
           const client = await getCurrentClient();
           update(client); // update app context
+          const db = firebase.firestore();
+          const clientCollection = db.collection('clients');
+          // console.log(user?.uid);
+          const userDoc = clientCollection.doc(user?.uid);
+          const docSnap = await userDoc.get();
+          // console.log(docSnap);
+          const currLang = docSnap.get('language');
+          if (currLang === 'Español') {
+            userLanguageChange('es');
+          }
+          if (currLang === 'Tiếng Việt') {
+            userLanguageChange('vie');
+          }
+          if (currLang === 'English') {
+            userLanguageChange('en');
+          }
         } else {
           await setUser(null);
           update(getEmptyClient()); // update app context

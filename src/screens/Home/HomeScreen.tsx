@@ -9,6 +9,7 @@ import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 import { LanguageContext } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
 import { Text } from '../../context/ContextProvider';
 
 const HomeScreen = ({ navigation }: any) => {
@@ -18,13 +19,13 @@ const HomeScreen = ({ navigation }: any) => {
   const [name, setName] = useState('');
   const [cases, setCases] = useState([] as Case[]);
 
-  //language dictionary
+  // language dictionary
   const { dictionary } = useContext(LanguageContext);
 
   useEffect(() => {
     async function getUserInfo() {
       if (uid === undefined) {
-        navigation.navigate('Welcome');
+        navigation.navigate('Language');
       } else {
         const client = await getClient(uid);
         setName(client.fullName);

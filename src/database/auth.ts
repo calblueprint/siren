@@ -7,6 +7,7 @@ export async function register(
   email: string,
   password: string,
   fullName: string,
+  language: string,
 ) {
   try {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
@@ -19,6 +20,7 @@ export async function register(
         fullName,
         createdAt: new Date(),
         answers: new Map(),
+        language,
       };
       await setClient(client);
     }

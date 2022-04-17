@@ -1,7 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Client } from 'types/types';
 import { getEmptyClient } from 'utils/utils';
-import { languageOptions, dictionaryList } from '../multilingual';
+import { languageOptions, dictionaryList } from '../multilingual/languages';
 
 // general function for creating a context
 const createContext = <A extends {} | null>(defaultValue: A) => {
@@ -24,35 +24,27 @@ export const ClientProvider = provider; // used in App.tsx
 export const ClientContext = context; // used by client context consumers
 
 // Lanuage Context //
-//create the language context with default selected language
+// create the language context with default selected language
 export const LanguageContext = React.createContext({
   userLanguage: 'en',
   dictionary: dictionaryList.en,
+  userLanguageChange: lang => {},
 });
 
-//define the Context Provider, which provides the language context to app
+// define the Context Provider, which provides the language context to app
 export function LanguageProvider({ children }) {
-  let defaultLanguage;
-  if (window.localStorage) {
-    defaultLanguage = window.localStorage.getItem('rcml-lang');
-  } else {
-    defaultLanguage = 'en';
-  }
-  // const defaultLanguage = window.localStorage.getItem('rcml-lang');
-  const [userLanguage, setUserLanguage] = useState(defaultLanguage);
+  const [userLanguage, setUserLanguage] = useState('en');
 
-  const provider = {
+  const langProvider = {
     userLanguage,
     dictionary: dictionaryList[userLanguage],
-    userLanguageChange: selected => {
-      const newLanguage = languageOptions[selected] ? selected : 'en';
+    userLanguageChange: newLanguage => {
       setUserLanguage(newLanguage);
-      window.localStorage.setItem('rcml-lang', newLanguage);
     },
   };
 
   return (
-    <LanguageContext.Provider value={provider}>
+    <LanguageContext.Provider value={langProvider}>
       {children}
     </LanguageContext.Provider>
   );

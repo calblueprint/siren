@@ -23,6 +23,7 @@ export type Client = {
   fullName: string;
   createdAt: Date;
   answers: Map<string, Map<string, any>>;
+  language: string;
 };
 
 export type Case = {

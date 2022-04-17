@@ -12,20 +12,20 @@ import { PageContainer } from 'screens/styles';
 import { register } from 'database/auth';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
-const RegisterScreen = ({ navigation }: any) => {
+const RegisterScreen = ({ route, navigation }: any) => {
+  const { language } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [fullName, setFullName] = useState('');
-  const [language, setLanguage] = useState('');
 
-  const onRegister = (e: string, p: string, n: string) => {
-    if (email === '' || password === '' || fullName === '' || language === '') {
+  const onRegister = (e: string, p: string, n: string, lang: string) => {
+    if (email === '' || password === '' || fullName === '' || lang === '') {
       console.log('please fill in all inputs');
     } else if (password !== passwordRepeat) {
       console.log('passwords do not match');
     } else {
-      register(e, p, n);
+      register(e, p, n, lang);
     }
   };
 
@@ -69,13 +69,11 @@ const RegisterScreen = ({ navigation }: any) => {
           onChangeText={text => setPasswordRepeat(text)}
           secureTextEntry
         />
-        <TextRegular>
-          Language preference <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput onChangeText={text => setLanguage(text)} />
       </ContentContainer>
       <ButtonView>
-        <ButtonDark onPress={() => onRegister(email, password, fullName)}>
+        <ButtonDark
+          onPress={() => onRegister(email, password, fullName, language)}
+        >
           <TextRegularWhite>Get started!</TextRegularWhite>
         </ButtonDark>
       </ButtonView>
