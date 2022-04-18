@@ -25,19 +25,14 @@ const WelcomeScreen = ({ route, navigation }: any) => {
       <ContentContainer>
         <Image style={ImageStyles.logo} source={sirenLogo} />
         <TitleContainer>
-          <TextBold>Welcome to the SIREN App!</TextBold>
+          <TextBold>{Text('Welcome to the SIREN App!')}</TextBold>
         </TitleContainer>
-        <TextRegular>
-          This app is a digital aid to the legal processes SIREN will be
-          handling for you. You can submit intake forms, keep track of your
-          cases, upload documents, and schedule appointments with your attorney
-          here!
-        </TextRegular>
+        <TextRegular>{Text('this app is a digital aid')}</TextRegular>
       </ContentContainer>
       <ButtonContainer>
         <ButtonView>
           <ButtonLight onPress={() => navigation.navigate('Login')}>
-            <TextRegular>Log in</TextRegular>
+            <TextRegular>{Text('Log in')}</TextRegular>
           </ButtonLight>
         </ButtonView>
         <ButtonView>
@@ -46,7 +41,7 @@ const WelcomeScreen = ({ route, navigation }: any) => {
               navigation.navigate('Register', { language: languageParam })
             }
           >
-            <TextRegularWhite>Register</TextRegularWhite>
+            <TextRegularWhite>{Text('Register')}</TextRegularWhite>
           </ButtonDark>
         </ButtonView>
       </ButtonContainer>

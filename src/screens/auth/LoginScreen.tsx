@@ -17,6 +17,7 @@ import {
   ButtonView,
   ButtonHeader,
 } from './styles';
+import { Text } from 'context/ContextProvider';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -29,7 +30,7 @@ const LoginScreen = ({ navigation }: any) => {
         style={{ margin: 0 }}
         onPress={() => navigation.navigate('Welcome')}
       />
-      <TextSubtitle>Go Back</TextSubtitle>
+      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
   );
 
@@ -38,23 +39,23 @@ const LoginScreen = ({ navigation }: any) => {
       {getBackHeader()}
       <ContentContainer>
         <TitleContainer>
-          <TextBold>Log into SIREN</TextBold>
+          <TextBold>{Text('Log into SIREN')}</TextBold>
         </TitleContainer>
         <TextRegular>
-          Email <TextRegularRed>*</TextRegularRed>
+          {Text('Email')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder="ex. example@example.com"
+          placeholder={Text('ex. example@example.com')}
         />
         <TextRegular>
-          Password <TextRegularRed>*</TextRegularRed>
+          {Text('Password')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
       </ContentContainer>
       <ButtonView>
         <ButtonDark onPress={() => login(email, password)}>
-          <TextRegularWhite>Log in</TextRegularWhite>
+          <TextRegularWhite>{Text('Log in')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>
     </PageContainer>

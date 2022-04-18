@@ -38,7 +38,9 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <PageContainer>
-      <TextRegular>Welcome {name}!</TextRegular>
+      <TextRegular>
+        {Text('welcome')} {name}!
+      </TextRegular>
       <TextRegular>Your UID is: {uid}</TextRegular>
       {Object.keys(cases).map((id: any) => (
         <ProgressTracker

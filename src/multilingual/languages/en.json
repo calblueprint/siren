@@ -2,5 +2,18 @@
     "hello": "hello world",
     "welcome" : "Welcome",
     "Your UID is:" : "Your UID is:",
-    "Switch Screens" : "Switch Screens"
+    "Switch Screens" : "Switch Screens",
+    "Welcome to the SIREN App!" : "Welcome to the SIREN App!",
+    "this app is a digital aid" : "This app is a digital aid to the legal processes SIREN will be handling for you. You can submit intake forms, keep track of your cases, upload documents, and schedule appointments with your attorney here!",
+    "Log in" : "Log in",
+    "Register" : "Register",
+    "Log into SIREN" : "Log into SIREN",
+    "Email" : "Email",
+    "ex. example@example.com" : "ex. example@example.com",
+    "Password" : "Password",
+    "Go Back" : "Go Back",
+    "Name" : "Name",
+    "ex. Noah Alexander Hernandez" : "ex. Noah Alexander Hernandez",
+    "Re-enter Password" : "Re-enter Password",
+    "Get started!" : "Get started!"
 }

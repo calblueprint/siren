@@ -11,6 +11,7 @@ import { ButtonDark, TextInput } from 'assets/Components';
 import { PageContainer } from 'screens/styles';
 import { register } from 'database/auth';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import { Text } from 'context/ContextProvider';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const { language } = route.params;
@@ -36,7 +37,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
         style={{ margin: 0 }}
         onPress={() => navigation.navigate('Welcome')}
       />
-      <TextSubtitle>Go Back</TextSubtitle>
+      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
   );
 
@@ -45,25 +46,25 @@ const RegisterScreen = ({ route, navigation }: any) => {
       {getBackHeader()}
       <ContentContainer>
         <TextRegular>
-          Name <TextRegularRed>*</TextRegularRed>
+          {Text('Name')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setFullName(text)}
-          placeholder="ex. Noah Alexander Hernandez"
+          placeholder={Text('ex. Noah Alexander Hernandez')}
         />
         <TextRegular>
-          Email <TextRegularRed>*</TextRegularRed>
+          {Text('Email')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder="ex. example@example.com"
+          placeholder={Text('ex. example@example.com')}
         />
         <TextRegular>
-          Password <TextRegularRed>*</TextRegularRed>
+          {Text('Password')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
         <TextRegular>
-          Re-enter Password <TextRegularRed>*</TextRegularRed>
+          {Text('Re-enter Password')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setPasswordRepeat(text)}
@@ -74,7 +75,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
         <ButtonDark
           onPress={() => onRegister(email, password, fullName, language)}
         >
-          <TextRegularWhite>Get started!</TextRegularWhite>
+          <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>
     </PageContainer>
