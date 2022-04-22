@@ -37,3 +37,17 @@ export const ImageStyles = StyleSheet.create({
     alignSelf: `center`,
   },
 });
+
+export const ButtonHeader = styled.TouchableOpacity`
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  justify-content: flex-start;
+  margin-left: -10px;
+  z-index: 1;
+  top: 10%;
+  left: 0px;
+`;

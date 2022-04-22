@@ -24,7 +24,7 @@ const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 function Radio({ handleRadioFunc }: any) {
   const [value, setValue] = useState('English');
 
-  const onChange = (val: any): void => {
+  const onChange = (val: string): void => {
     setValue(val);
     handleRadioFunc(val);
   };
@@ -51,7 +51,7 @@ const LanguageScreen = ({ navigation }: any) => {
   const [language, setLanguage] = useState('English');
   const { userLanguageChange } = useContext(LanguageContext);
 
-  const handleRadio = (val: any): void => {
+  const handleRadio = (val: string): void => {
     setLanguage(val);
     if (val === 'Español') {
       userLanguageChange('es');

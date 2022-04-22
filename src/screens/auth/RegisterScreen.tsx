@@ -31,11 +31,17 @@ const RegisterScreen = ({ route, navigation }: any) => {
   };
 
   const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Welcome')}>
+    <ButtonHeader
+      onPress={() =>
+        navigation.navigate('Welcome', { languageParam: language })
+      }
+    >
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Welcome')}
+        onPress={() =>
+          navigation.navigate('Welcome', { languageParam: language })
+        }
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>

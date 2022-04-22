@@ -9,6 +9,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+package-lock.json
+tsconfig.json
+yarn.lock
 
 # local env files
 .env*
