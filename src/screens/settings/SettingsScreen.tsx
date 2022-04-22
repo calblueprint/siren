@@ -6,9 +6,9 @@ import {
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from 'assets/fonts/Fonts';
-import { ButtonDark, TextInput } from 'assets/Components';
-import { PageContainer } from 'screens/styles';
+} from '../../../assets/fonts/Fonts';
+import { ButtonDark, TextInput } from '../../../assets/Components';
+import { PageContainer } from '../../screens/styles';
 import { RadioButton } from 'react-native-paper';
 import {
   RadioContainer,
