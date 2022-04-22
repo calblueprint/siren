@@ -41,7 +41,9 @@ const HomeScreen = ({ navigation }: any) => {
       <TextRegular>
         {Text('welcome')} {name}!
       </TextRegular>
-      <TextRegular>Your UID is: {uid}</TextRegular>
+      <TextRegular>
+        {Text('Your UID is:')} {uid}
+      </TextRegular>
       {Object.keys(cases).map((id: any) => (
         <ProgressTracker
           key={id}
@@ -53,7 +55,7 @@ const HomeScreen = ({ navigation }: any) => {
         title={Text('Switch Screens')}
         onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
       />
-      <Button title="Logout" onPress={logout} />
+      <Button title={Text('Logout')} onPress={logout} />
     </PageContainer>
   );
 };

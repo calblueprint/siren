@@ -31,6 +31,7 @@ import {
   ButtonDarkBlue,
   ButtonDarkBlueBottom,
 } from './styles';
+import { Text } from 'context/ContextProvider';
 
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
@@ -58,11 +59,11 @@ const CameraScreen = ({ navigation, route }: any) => {
         const { status } =
           await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          alert(Text('Sorry, we need camera roll permissions'));
         }
         const result = await ImagePicker.requestCameraPermissionsAsync();
         if (result.status !== 'granted') {
-          alert('Sorry, we need camera roll permissions to make this work!');
+          alert(Text('Sorry, we need camera roll permissions'));
         }
       }
     };
@@ -110,7 +111,7 @@ const CameraScreen = ({ navigation, route }: any) => {
           : null}
         <AddPageContainer onPress={() => setModalVisible(true)}>
           <AntDesign name="plus" size={16} color="black" />
-          <TextRegular>Add page(s)</TextRegular>
+          <TextRegular>{Text('Add page(s)')}</TextRegular>
         </AddPageContainer>
       </PicturesContainer>
     );
@@ -157,7 +158,7 @@ const CameraScreen = ({ navigation, route }: any) => {
       navigation.goBack();
     } catch (e) {
       console.log(e);
-      alert('Upload failed, sorry :(');
+      alert(Text('Upload failed'));
     }
   };
 
@@ -172,7 +173,7 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   const getPageDescription = () => {
-    return `Tap on the button below to upload the pages of your document.\nIf your document has more than 1 page, please make sure to upload all the pages.`;
+    return Text('Tap on the button below to upload');
   };
 
   return (
@@ -181,9 +182,9 @@ const CameraScreen = ({ navigation, route }: any) => {
         onPress={() => navigation.navigate('TabsStack', { screen: 'Upload' })}
       >
         <Appbar.BackAction size={18} style={{ margin: 0 }} />
-        <TextSubtitle>Go Back</TextSubtitle>
+        <TextSubtitle>{Text('Go Back')}</TextSubtitle>
       </ButtonHeader>
-      <TextTitle>Previous DACA Application</TextTitle>
+      <TextTitle>{Text('Previous DACA Application')}</TextTitle>
       {/* TODO New mem sprint task: Add tutorial for adding pages */}
       <TextRegular>{getPageDescription()}</TextRegular>
       {maybeRenderUploadingOverlay()}
@@ -195,7 +196,9 @@ const CameraScreen = ({ navigation, route }: any) => {
         onBackdropPress={() => setModalVisible(false)}
       >
         <ModalContainer>
-          <TextRegular>Select how to upload your document pages</TextRegular>
+          <TextRegular>
+            {Text('Select how to upload your document pages')}
+          </TextRegular>
           <ModalButtonContainer>
             <ButtonDarkBlue
               onPress={() => {
@@ -203,17 +206,17 @@ const CameraScreen = ({ navigation, route }: any) => {
                 setModalVisible(false);
               }}
             >
-              <TextRegularWhite>Select photos</TextRegularWhite>
+              <TextRegularWhite>{Text('Select photos')}</TextRegularWhite>
             </ButtonDarkBlue>
             <ButtonDarkBlue onPress={takePhoto}>
-              <TextRegularWhite>Take photos</TextRegularWhite>
+              <TextRegularWhite>{Text('Take photos')}</TextRegularWhite>
             </ButtonDarkBlue>
           </ModalButtonContainer>
         </ModalContainer>
       </Modal>
       {imageUris.length > 0 ? (
         <ButtonDarkBlueBottom onPress={uploadImages}>
-          <TextRegularWhite>Done</TextRegularWhite>
+          <TextRegularWhite>{Text('Done')}</TextRegularWhite>
         </ButtonDarkBlueBottom>
       ) : null}
 

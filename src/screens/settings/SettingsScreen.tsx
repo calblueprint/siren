@@ -108,7 +108,7 @@ const SettingsScreen = ({ navigation }: any) => {
         style={{ margin: 0 }}
         onPress={() => navigation.navigate('Home')}
       />
-      <TextSubtitle>Go Back</TextSubtitle>
+      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
   );
 
@@ -116,33 +116,34 @@ const SettingsScreen = ({ navigation }: any) => {
     <PageContainer>
       {getBackHeader()}
       <ContentContainer>
-        <TextRegular>
-          <Text tid="welcome" />
-        </TextRegular>
-        <TextRegular>Change Email</TextRegular>
+        <TextRegular>{Text('welcome')}</TextRegular>
+        <TextRegular>{Text('Change Email')}</TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder="ex. example@example.com"
+          placeholder={Text('ex. example@example.com')}
         />
         <TextRegular>Change Password</TextRegular>
         <TextInput
           onChangeText={text => setPassword(text)}
-          placeholder="ex. password123"
+          placeholder={Text('ex. password123')}
           secureTextEntry
         />
         <TextRegular>
-          Current Password{' \n'}
-          <TextRegularRed>Required if Changing Password</TextRegularRed>
+          {Text('Current Password')}
+          {' \n'}
+          <TextRegularRed>
+            {Text('Required if Changing Password')}
+          </TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setCurrentPassword(text)}
-          placeholder="ex. password123"
+          placeholder={Text('ex. password123')}
           secureTextEntry
         />
-        <TextRegular>Change your language preference</TextRegular>
+        <TextRegular>{Text('Change your language preference')}</TextRegular>
         <TextInput
           onChangeText={text => setLanguage(text)}
-          placeholder="ex. english"
+          placeholder={Text('ex. english')}
         />
       </ContentContainer>
 
@@ -150,7 +151,7 @@ const SettingsScreen = ({ navigation }: any) => {
         <ButtonDark
           onPress={() => update(currentPassword, language, email, password)}
         >
-          <TextRegularWhite>Update</TextRegularWhite>
+          <TextRegularWhite>{Text('Update')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>
     </PageContainer>

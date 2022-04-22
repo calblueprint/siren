@@ -9,17 +9,17 @@ import {
   ButtonContainer,
   ButtonView,
 } from './styles';
+import { Text } from 'context/ContextProvider';
 
 const FinalIntakeScreen = ({ navigation }: any) => {
   return (
     <PageContainer>
       <ContentContainer>
         <TitleContainer>
-          <TextBold>Your intake form has been successfully submitted!</TextBold>
+          <TextBold>{Text('successfully submitted intake')}</TextBold>
         </TitleContainer>
         <TextRegular>
-          Please go upload your legal documents needed to properly assess your
-          case. If you do not have your documents on hand at this time...
+          {Text('Please go upload your legal documents')}
         </TextRegular>
       </ContentContainer>
       <ButtonContainer>
@@ -29,7 +29,7 @@ const FinalIntakeScreen = ({ navigation }: any) => {
               navigation.navigate('TabsStack', { screen: 'Home' });
             }}
           >
-            <TextRegular>Return Home</TextRegular>
+            <TextRegular>{Text('Return Home')}</TextRegular>
           </ButtonLight>
         </ButtonView>
         <ButtonView>
@@ -38,7 +38,7 @@ const FinalIntakeScreen = ({ navigation }: any) => {
               navigation.navigate('TabsStack', { screen: 'Upload' });
             }}
           >
-            <TextRegularWhite>Upload</TextRegularWhite>
+            <TextRegularWhite>{Text('Upload')}</TextRegularWhite>
           </ButtonDark>
         </ButtonView>
       </ButtonContainer>
