@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { Button } from 'react-native';
+import { Button, ScrollView } from 'react-native';
 import { TextRegular } from 'assets/fonts/Fonts';
 import { PageContainer } from 'screens/styles';
 import { logout } from 'database/auth';
@@ -34,6 +34,7 @@ const HomeScreen = ({ navigation }: any) => {
     <PageContainer>
       <TextRegular>Welcome {name}!</TextRegular>
       <TextRegular>Your UID is: {uid}</TextRegular>
+      <ScrollView>
       {Object.keys(cases).map((id: any) => (
         <ProgressTracker
           key={id}
@@ -41,6 +42,7 @@ const HomeScreen = ({ navigation }: any) => {
           status={cases[id].status}
         />
       ))}
+      </ScrollView>
       <Button
         title="Switch Screens"
         onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
