@@ -44,7 +44,6 @@ function setStep(status: string) {
 const ProgressTracker = (props: TrackerProps) => {
   const { status } = props;
   const { type } = props;
-  const spaces = ' '.repeat(500); // needed to break up step labels into 2 lines
 
   return (
     <MainContainer>
@@ -65,7 +64,7 @@ const ProgressTracker = (props: TrackerProps) => {
           completedLabelColor={Colors.brandGray}
         >
           <ProgressStep
-            label={`Intake ${spaces} submitted`}
+            label={`Intake`}
             removeBtnRow
             scrollable={false}
           >
@@ -76,7 +75,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Upload ${spaces} docs`}
+            label={`Upload`}
             removeBtnRow
             scrollable={false}
           >
@@ -87,7 +86,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Under ${spaces} review`}
+            label={`Under`}
             removeBtnRow
             scrollable={false}
           >
@@ -96,7 +95,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Schedule ${spaces} appt`}
+            label={`Schedule`}
             removeBtnRow
             scrollable={false}
           >
@@ -105,7 +104,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Appt ${spaces} attended`}
+            label={`Attended`}
             removeBtnRow
             scrollable={false}
           >
