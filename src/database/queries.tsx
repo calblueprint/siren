@@ -9,9 +9,9 @@ import {
   Dictionary,
   Document,
   Question,
-} from 'types/types';
-import firebase from 'database/clientApp';
-import { objectToMap, mapToObject, firestoreAutoId } from 'database/helpers';
+} from '../types/types';
+import firebase from '../database/clientApp';
+import { objectToMap, mapToObject, firestoreAutoId } from '../database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');

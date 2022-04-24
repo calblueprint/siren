@@ -67,13 +67,13 @@ const SettingsScreen = ({ navigation }: any) => {
       const newFields = { language: lowercaseLang };
       await userDoc.update(newFields);
       if (lowercaseLang === 'Español') {
-        userLanguageChange('es');
+        userLanguageChange('ES');
       }
       if (lowercaseLang === 'Tiếng Việt') {
-        userLanguageChange('vie');
+        userLanguageChange('VIE');
       }
       if (lowercaseLang === 'English') {
-        userLanguageChange('en');
+        userLanguageChange('EN');
       }
     } catch (err) {
       console.log('Error in updating language preference');

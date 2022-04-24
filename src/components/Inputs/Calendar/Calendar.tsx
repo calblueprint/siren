@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
-import { QuestionComponentProps } from 'types/types';
-import { TextRegularBold } from 'assets/fonts/Fonts';
+import { QuestionComponentProps } from '../../../types/types';
+import { TextRegularBold } from '../../../../assets/fonts/Fonts';
 import {
   TextContainer,
   TextDescription,
   TextExample,
-} from 'components/Inputs/styles';
-import { Colors } from 'assets/Colors';
+} from '../../../components/Inputs/styles';
+import { Colors } from '../../../../assets/Colors';
+import { LanguageContext } from '../../../context/ContextProvider';
 
 const styles = StyleSheet.create({
   calendar: {
@@ -34,6 +35,7 @@ export default function Calendar(props: QuestionComponentProps) {
   const [date, setDate] = useState(existingAnswer || new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
+  const { userLanguage } = React.useContext(LanguageContext);
 
   const onChange = (event: Event, selectedDate?: Date) => {
     setShow(false);
@@ -60,7 +62,7 @@ export default function Calendar(props: QuestionComponentProps) {
   return (
     <TextContainer style={{ marginBottom: 24 }}>
       <TextContainer>
-        <TextRegularBold>{question.displayText}</TextRegularBold>
+        <TextRegularBold>{question.displayText + userLanguage}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       <Pressable style={styles.example} onPress={showDatepicker}>

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Pressable, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { QuestionComponentProps } from 'types/types';
-import { TextRegularBold } from 'assets/fonts/Fonts';
+import { QuestionComponentProps } from '../../../types/types';
+import { TextRegularBold } from '../../../../assets/fonts/Fonts';
 import {
   TextContainer,
   TextDescription,
   TextExample,
-} from 'components/Inputs/styles';
-import { PlatformContainer } from 'components/Inputs/Dropdown/styles';
-import { Colors } from 'assets/Colors';
+} from '../../../components/Inputs/styles';
+import { PlatformContainer } from '../../../components/Inputs/Dropdown/styles';
+import { Colors } from '../../../../assets/Colors';
+import { LanguageContext } from '../../../context/ContextProvider';
 
 const styles = StyleSheet.create({
   iOSTouch: {
@@ -28,6 +29,8 @@ export default function Dropdown(props: QuestionComponentProps) {
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
+  const { userLanguage } = React.useContext(LanguageContext);
+
   const onChange = (val: any): void => {
     setShow(false);
     setValue(val);
@@ -95,7 +98,7 @@ export default function Dropdown(props: QuestionComponentProps) {
   return (
     <>
       <TextContainer>
-        <TextRegularBold>{question.displayText}</TextRegularBold>
+        <TextRegularBold>{question.displayText + userLanguage}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       {getPlatform()}
