@@ -47,15 +47,15 @@ export type Document = {
 
 export type Question = {
   id: string;
-  displayText: string;
-  description: string;
-  example: string;
+  displayText: Map<string, string>; // string;
+  description: Map<string, string>; // string;
+  example: Map<string, string>; // string;
   questionType: QuestionType;
   key: string;
   order: number;
   active: boolean;
   answerType: AnswerType;
-  answerOptions?: string[];
+  answerOptions?: Map<string, string[]>; // string[];
 };
 
 export type QuestionComponentProps = {

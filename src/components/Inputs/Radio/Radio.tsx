@@ -23,17 +23,21 @@ export default function Radio(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    return question.description.get(userLanguage).length > 0 ? (
+      <TextDescription>
+        {question.description.get(userLanguage)}
+      </TextDescription>
     ) : null;
   };
 
   return (
     <TextContainer>
-      <TextRegularBold>{question.displayText + userLanguage}</TextRegularBold>
+      <TextRegularBold>
+        {question.displayText.get(userLanguage)}
+      </TextRegularBold>
       {getDescription()}
       <RadioContainer>
-        {question.answerOptions?.map((option, key) => (
+        {question.answerOptions.get(userLanguage)?.map((option, key) => (
           // eslint-disable-next-line react/no-array-index-key
           <ButtonContainer key={key}>
             <RadioButton

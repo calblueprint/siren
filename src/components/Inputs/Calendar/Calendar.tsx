@@ -50,19 +50,26 @@ export default function Calendar(props: QuestionComponentProps) {
   };
 
   const getExampleText = () => {
-    return isSet ? date.toLocaleDateString('en-us') : ` ${question.example} `;
+    return isSet
+      ? date.toLocaleDateString('en-us')
+      : ` ${question.example.get(userLanguage)} `;
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    // return question.description.length > 0 ? (
+    return question.description.get(userLanguage).length > 0 ? (
+      <TextDescription>
+        {question.description.get(userLanguage)}
+      </TextDescription>
     ) : null;
   };
 
   return (
     <TextContainer style={{ marginBottom: 24 }}>
       <TextContainer>
-        <TextRegularBold>{question.displayText + userLanguage}</TextRegularBold>
+        <TextRegularBold>
+          {question.displayText.get(userLanguage)}
+        </TextRegularBold>
         {getDescription()}
       </TextContainer>
       <Pressable style={styles.example} onPress={showDatepicker}>

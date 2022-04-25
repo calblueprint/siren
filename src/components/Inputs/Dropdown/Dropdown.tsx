@@ -48,8 +48,10 @@ export default function Dropdown(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    return question.description.get(userLanguage).length > 0 ? (
+      <TextDescription>
+        {question.description.get(userLanguage)}
+      </TextDescription>
     ) : null;
   };
 
@@ -63,14 +65,16 @@ export default function Dropdown(props: QuestionComponentProps) {
           {show ? (
             <View>
               <Picker selectedValue={value} onValueChange={onChange}>
-                {question.answerOptions
-                  ? question.answerOptions.map(option => (
-                      <Picker.Item
-                        key={option}
-                        label={option}
-                        value={!option ? '' : option}
-                      />
-                    ))
+                {question.answerOptions.get(userLanguage)
+                  ? question.answerOptions
+                      .get(userLanguage)
+                      .map(option => (
+                        <Picker.Item
+                          key={option}
+                          label={option}
+                          value={!option ? '' : option}
+                        />
+                      ))
                   : null}
               </Picker>
             </View>
@@ -81,14 +85,16 @@ export default function Dropdown(props: QuestionComponentProps) {
     return (
       <PlatformContainer style={{ height: 30 }}>
         <Picker selectedValue={value} onValueChange={onChange}>
-          {question.answerOptions
-            ? question.answerOptions.map(option => (
-                <Picker.Item
-                  key={option}
-                  label={option}
-                  value={!option ? '' : option}
-                />
-              ))
+          {question.answerOptions.get(userLanguage)
+            ? question.answerOptions
+                .get(userLanguage)
+                .map(option => (
+                  <Picker.Item
+                    key={option}
+                    label={option}
+                    value={!option ? '' : option}
+                  />
+                ))
             : null}
         </Picker>
       </PlatformContainer>
@@ -98,7 +104,9 @@ export default function Dropdown(props: QuestionComponentProps) {
   return (
     <>
       <TextContainer>
-        <TextRegularBold>{question.displayText + userLanguage}</TextRegularBold>
+        <TextRegularBold>
+          {question.displayText.get(userLanguage)}
+        </TextRegularBold>
         {getDescription()}
       </TextContainer>
       {getPlatform()}
