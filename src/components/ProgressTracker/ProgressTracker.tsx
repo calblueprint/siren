@@ -86,7 +86,7 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Under`}
+            label={`In review`}
             removeBtnRow
             scrollable={false}
           >
