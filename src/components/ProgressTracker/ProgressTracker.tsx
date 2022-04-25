@@ -12,7 +12,7 @@ interface TrackerProps {
 
 function setType(type: string) {
   // TO DO: add additional case types. maybe refactor into dictionary
-  if (type === 'daca') {
+  if (type === 'dacaRenewal') {
     return 'DACA Renewal';
   }
   if (type === 'general') {
@@ -44,7 +44,6 @@ function setStep(status: string) {
 const ProgressTracker = (props: TrackerProps) => {
   const { status } = props;
   const { type } = props;
-  const spaces = ' '.repeat(500); // needed to break up step labels into 2 lines
 
   return (
     <MainContainer>
@@ -65,7 +64,7 @@ const ProgressTracker = (props: TrackerProps) => {
           completedLabelColor={Colors.brandGray}
         >
           <ProgressStep
-            label={`Intake ${spaces} Submitted`}
+            label={`Intake`}
             removeBtnRow
             scrollable={false}
           >
@@ -76,42 +75,41 @@ const ProgressTracker = (props: TrackerProps) => {
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Upload ${spaces} Documents`}
+            label={`Upload`}
             removeBtnRow
             scrollable={false}
           >
             <View style={{ alignItems: 'center' }}>
               <TextRegular>
-                Please upload your legal documents for your case to be properly
-                assessed.
+                Please upload your legal documents so your case can be properly assessed.
               </TextRegular>
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Under ${spaces} Review`}
+            label={`In review`}
             removeBtnRow
             scrollable={false}
           >
             <View style={{ alignItems: 'center' }}>
-              <TextRegular>Your case is under review.</TextRegular>
+              <TextRegular>Your case is now under review. You will be notified of its status soon.</TextRegular>
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Schedule ${spaces} Appointment`}
+            label={`Schedule`}
             removeBtnRow
             scrollable={false}
           >
             <View style={{ alignItems: 'center' }}>
-              <TextRegular>Your case has been approved!</TextRegular>
+              <TextRegular>Your case has been approved and you can now schedule an appointment!</TextRegular>
             </View>
           </ProgressStep>
           <ProgressStep
-            label={`Appointment ${spaces} Attended`}
+            label={`Attended`}
             removeBtnRow
             scrollable={false}
           >
             <View style={{ alignItems: 'center' }}>
-              <TextRegular>Your appointment has been scheduled!</TextRegular>
+              <TextRegular>You have met with your attorney! Wait to hear back from them with any updates.</TextRegular>
             </View>
           </ProgressStep>
         </ProgressSteps>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { Button } from 'react-native';
-import { TextRegular } from 'assets/fonts/Fonts';
-import { PageContainer } from 'screens/styles';
-import { logout } from 'database/auth';
+import { ScrollView } from 'react-native';
+import { TextTitle } from 'assets/fonts/Fonts';
+import {  NameContainer, PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
 import firebase from 'firebase';
@@ -32,8 +31,10 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <PageContainer>
-      <TextRegular>Welcome {name}!</TextRegular>
-      <TextRegular>Your UID is: {uid}</TextRegular>
+      <NameContainer>
+      <TextTitle>Hi {name}!</TextTitle>
+      </NameContainer>
+      <ScrollView>
       {Object.keys(cases).map((id: any) => (
         <ProgressTracker
           key={id}
@@ -41,11 +42,7 @@ const HomeScreen = ({ navigation }: any) => {
           status={cases[id].status}
         />
       ))}
-      <Button
-        title="Switch Screens"
-        onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
-      />
-      <Button title="Logout" onPress={logout} />
+      </ScrollView>
     </PageContainer>
   );
 };
