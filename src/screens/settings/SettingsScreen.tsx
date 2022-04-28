@@ -149,7 +149,15 @@ const SettingsScreen = ({ navigation }: any) => {
   );
 
   const handleRadio = (val: string): void => {
-    setLanguage(val);
+    if (val === 'Español') {
+      userLanguageChange('ES');
+    }
+    if (val === 'Tiếng Việt') {
+      userLanguageChange('VIE');
+    }
+    if (val === 'English') {
+      userLanguageChange('EN');
+    }
   };
 
   return (
