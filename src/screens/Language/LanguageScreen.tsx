@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext } from 'react';
-import { PageContainer } from 'screens/styles';
+import { PageContainer } from '../../screens/styles';
 import { Image } from 'react-native';
-import { TextRegular, TextRegularWhite } from 'assets/fonts/Fonts';
-import { ButtonDark } from 'assets/Components';
-import { TextRegularRed } from 'assets/fonts/Fonts';
+import { TextRegular, TextRegularWhite } from '../../../assets/fonts/Fonts';
+import { ButtonDark } from '../../../assets/Components';
+import { TextRegularRed } from '../../../assets/fonts/Fonts';
 import { RadioButton } from 'react-native-paper';
 import {
   RadioContainer,
@@ -54,13 +54,13 @@ const LanguageScreen = ({ navigation }: any) => {
   const handleRadio = (val: string): void => {
     setLanguage(val);
     if (val === 'Español') {
-      userLanguageChange('es');
+      userLanguageChange('ES');
     }
     if (val === 'Tiếng Việt') {
-      userLanguageChange('vie');
+      userLanguageChange('VIE');
     }
     if (val === 'English') {
-      userLanguageChange('en');
+      userLanguageChange('EN');
     }
   };
 
