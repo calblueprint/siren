@@ -376,15 +376,6 @@ export const setCaseAndNumCases = async (
   }
 };
 
-// export const getStatus = async () => {
-//   try {
-//     const status =
-//   } catch (e) {
-//     console.warn(e);
-//     throw e;
-//   }
-// };
-
 export const setStatus = async (
   clientId: string,
   caseId: string,
@@ -392,9 +383,26 @@ export const setStatus = async (
 ) => {
   try {
     await database
-      .collection(`clients/${clientId}/cases/${caseId}`)
+      .collection(`clients/${clientId}/cases`)
       .doc(caseId)
       .update({ status: clientStatus });
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const getStatus = async (
+  clientId: string,
+  caseId: string,
+): Promise<string> => {
+  try {
+    const ref = await database
+      .collection(`clients/${clientId}/cases`)
+      .doc(caseId)
+      .get()
+      .then(doc => doc.get('status'));
+    return ref;
   } catch (e) {
     console.warn(e);
     throw e;

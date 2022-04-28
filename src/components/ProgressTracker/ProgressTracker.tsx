@@ -3,10 +3,11 @@ import { View } from 'react-native';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Colors } from 'assets/Colors';
 import { TextBold, TextRegular } from 'assets/fonts/Fonts';
+import { convertCamelToTitleCase } from 'utils/utils';
 import { TitleContainer, MainContainer } from './styles';
 
 interface TrackerProps {
-  type: string | undefined;
+  type: string;
   status: string;
 }
 
@@ -26,7 +27,7 @@ const ProgressTracker = (props: TrackerProps) => {
   return (
     <MainContainer>
       <TitleContainer>
-        <TextBold>{type || null}</TextBold>
+        <TextBold>{convertCamelToTitleCase(type)}</TextBold>
       </TitleContainer>
       <ProgressSteps
         activeStep={statusDict[status]}

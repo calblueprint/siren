@@ -4,9 +4,9 @@ import DocHolder, {
   Submitted,
 } from 'components/DocContainer/DocHolder';
 import { TextBold } from 'assets/fonts/Fonts';
-import { Case, Document } from 'types/types';
+import { Case, CaseStatus, Document } from 'types/types';
 import { convertCamelToTitleCase } from 'utils/utils';
-import { getAllDocuments } from 'database/queries';
+import { getAllDocuments, getStatus, setStatus } from 'database/queries';
 import { useIsFocused } from '@react-navigation/native';
 import { Container, Header } from './styles';
 
@@ -35,12 +35,24 @@ const DocContainer = ({
     populateDocuments();
   }, [isFocused]);
 
+  console.log(clientId, clientCase.id);
+
+  const status = getStatus(clientId, clientCase.id);
+  console.log('status', status);
+
+  const submitDocs = () => {
+    if (new Set(documents.map(doc => doc.type)).size === docList.length) {
+      setStatus(clientId, clientCase.id, CaseStatus.InReview);
+      return Submitted;
+    }
+    setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
+    return Missing;
+  };
+
   return (
     <Container>
       <Header>
-        {new Set(documents.map(doc => doc.type)).size === docList.length
-          ? Submitted
-          : Missing}
+        {submitDocs()}
         <TextBold> {convertCamelToTitleCase(clientCase.type)}</TextBold>
       </Header>
       {docList.map(name => (

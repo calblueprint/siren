@@ -46,7 +46,7 @@ const HomeScreen = ({ navigation }: any) => {
         ) : (
           <ProgressTracker
             key="id"
-            type={undefined} // yes, bad
+            type="No Cases Yet" // yes, bad
             status={CaseStatus.SubmitForm} // default case status
             // Under the hood, an official case & its status isn't !exist in Firebase until client submits intake form
           />
