@@ -37,16 +37,18 @@ const DocContainer = ({
 
   console.log(clientId, clientCase.id);
 
+  // ERROR HERE. getStatus is not working for me.
   const status = getStatus(clientId, clientCase.id);
   console.log('status', status);
 
   const submitDocs = () => {
-    if (new Set(documents.map(doc => doc.type)).size === docList.length) {
-      setStatus(clientId, clientCase.id, CaseStatus.InReview);
-      return Submitted;
+    if (new Set(documents.map(doc => doc.type)).size !== docList.length) {
+      setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
+      return Missing;
     }
-    setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
-    return Missing;
+    // want to set status to whatever it was previously ...
+    setStatus(clientId, clientCase.id, CaseStatus.InReview);
+    return Submitted;
   };
 
   return (
