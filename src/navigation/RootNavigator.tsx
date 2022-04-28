@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
+import { StyleSheet, ActivityIndicator, View } from 'react-native';
 import TabsStack from 'navigation/TabsStack';
 import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
@@ -11,13 +11,13 @@ import { ClientContext } from 'context/ContextProvider';
 import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
-import UploadStack from './UploadStack';
 import {
   LogoTitle,
   NotificationsBell,
   SettingsCog,
 } from 'components/Header/Header';
 import { logo } from 'components/Header/styles';
+import UploadStack from './UploadStack';
 
 const auth = firebase.auth();
 const Stack = createStackNavigator();

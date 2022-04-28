@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { ScrollView } from 'react-native';
 import { TextTitle } from 'assets/fonts/Fonts';
-import {  NameContainer, PageContainer } from 'screens/styles';
+import { NameContainer, PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
 import firebase from 'firebase';
@@ -32,16 +32,16 @@ const HomeScreen = ({ navigation }: any) => {
   return (
     <PageContainer>
       <NameContainer>
-      <TextTitle>Hi {name}!</TextTitle>
+        <TextTitle>Hi {name}!</TextTitle>
       </NameContainer>
       <ScrollView>
-      {Object.keys(cases).map((id: any) => (
-        <ProgressTracker
-          key={id}
-          type={cases[id].type}
-          status={cases[id].status}
-        />
-      ))}
+        {Object.keys(cases).map((id: any) => (
+          <ProgressTracker
+            key={id}
+            type={cases[id].type}
+            status={cases[id].status}
+          />
+        ))}
       </ScrollView>
     </PageContainer>
   );

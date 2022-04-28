@@ -63,53 +63,43 @@ const ProgressTracker = (props: TrackerProps) => {
           activeLabelColor={Colors.brandGray}
           completedLabelColor={Colors.brandGray}
         >
-          <ProgressStep
-            label={`Intake`}
-            removeBtnRow
-            scrollable={false}
-          >
+          <ProgressStep label="Intake" removeBtnRow scrollable={false}>
             <View style={{ alignItems: 'center' }}>
               <TextRegular>
                 Your intake form has been submitted for this case type.
               </TextRegular>
             </View>
           </ProgressStep>
-          <ProgressStep
-            label={`Upload`}
-            removeBtnRow
-            scrollable={false}
-          >
+          <ProgressStep label="Upload" removeBtnRow scrollable={false}>
             <View style={{ alignItems: 'center' }}>
               <TextRegular>
-                Please upload your legal documents so your case can be properly assessed.
+                Please upload your legal documents so your case can be properly
+                assessed.
               </TextRegular>
             </View>
           </ProgressStep>
-          <ProgressStep
-            label={`In review`}
-            removeBtnRow
-            scrollable={false}
-          >
+          <ProgressStep label="In review" removeBtnRow scrollable={false}>
             <View style={{ alignItems: 'center' }}>
-              <TextRegular>Your case is now under review. You will be notified of its status soon.</TextRegular>
+              <TextRegular>
+                Your case is now under review. You will be notified of its
+                status soon.
+              </TextRegular>
             </View>
           </ProgressStep>
-          <ProgressStep
-            label={`Schedule`}
-            removeBtnRow
-            scrollable={false}
-          >
+          <ProgressStep label="Schedule" removeBtnRow scrollable={false}>
             <View style={{ alignItems: 'center' }}>
-              <TextRegular>Your case has been approved and you can now schedule an appointment!</TextRegular>
+              <TextRegular>
+                Your case has been approved and you can now schedule an
+                appointment!
+              </TextRegular>
             </View>
           </ProgressStep>
-          <ProgressStep
-            label={`Attended`}
-            removeBtnRow
-            scrollable={false}
-          >
+          <ProgressStep label="Attended" removeBtnRow scrollable={false}>
             <View style={{ alignItems: 'center' }}>
-              <TextRegular>You have met with your attorney! Wait to hear back from them with any updates.</TextRegular>
+              <TextRegular>
+                You have met with your attorney! Wait to hear back from them
+                with any updates.
+              </TextRegular>
             </View>
           </ProgressStep>
         </ProgressSteps>
