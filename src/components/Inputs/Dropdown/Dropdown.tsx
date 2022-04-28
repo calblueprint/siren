@@ -65,6 +65,7 @@ export default function Dropdown(props: QuestionComponentProps) {
           {show ? (
             <View>
               <Picker selectedValue={value} onValueChange={onChange}>
+                {console.log(question)}
                 {question.answerOptions.get(userLanguage)
                   ? question.answerOptions
                       .get(userLanguage)

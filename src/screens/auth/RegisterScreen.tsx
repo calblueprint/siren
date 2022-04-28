@@ -6,12 +6,12 @@ import {
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from 'assets/fonts/Fonts';
-import { ButtonDark, TextInput } from 'assets/Components';
-import { PageContainer } from 'screens/styles';
-import { register } from 'database/auth';
+} from '../../../assets/fonts/Fonts';
+import { ButtonDark, TextInput } from '../../../assets/Components';
+import { PageContainer } from '../../screens/styles';
+import { register } from '../../database/auth';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
-import { Text } from 'context/ContextProvider';
+import { Text } from '../../context/ContextProvider';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const { language } = route.params;

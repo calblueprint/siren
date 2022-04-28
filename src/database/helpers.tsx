@@ -6,6 +6,12 @@ export const objectToMap = (obj: Object): Map<any, any> => {
   );
 };
 
+export const objectToAnswerOptionsMap = (obj: Object): Map<any, any> => {
+  return new Map(
+    Array.from(Object.entries(obj), ([k, v]) => [k, v as Array<String>]),
+  );
+};
+
 export const mapToObject = (map: Map<any, any>): Object => {
   return Object.fromEntries(
     Array.from(map.entries(), ([k, v]) =>

@@ -11,7 +11,12 @@ import {
   Question,
 } from '../types/types';
 import firebase from '../database/clientApp';
-import { objectToMap, mapToObject, firestoreAutoId } from '../database/helpers';
+import {
+  objectToMap,
+  mapToObject,
+  firestoreAutoId,
+  objectToAnswerOptionsMap,
+} from '../database/helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -223,7 +228,24 @@ export const getAllQuestionsOfType = async (
       .collection(`caseTypes/${caseType}/questions`)
       .orderBy('order')
       .get();
-    return ref.docs.map(doc => doc.data() as Question);
+    const questions = ref.docs.map(doc => doc.data() as Question);
+    questions.map(
+      question => (question.displayText = objectToMap(question.displayText)),
+    );
+    questions.map(
+      question => (question.description = objectToMap(question.description)),
+    );
+    questions.map(
+      question => (question.example = objectToMap(question.example)),
+    );
+    questions.map(
+      question =>
+        (question.answerOptions = objectToAnswerOptionsMap(
+          question.answerOptions,
+        )),
+    );
+    console.log(questions);
+    return questions;
   } catch (e) {
     console.warn(e);
     throw e;
