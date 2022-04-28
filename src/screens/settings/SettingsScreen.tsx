@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
+import { RadioButton } from 'react-native-paper';
 import {
   TextRegular,
   TextRegularWhite,
@@ -8,8 +9,7 @@ import {
   TextSubtitle,
 } from '../../../assets/fonts/Fonts';
 import { ButtonDark, TextInput } from '../../../assets/Components';
-import { PageContainer } from '../../screens/styles';
-import { RadioButton } from 'react-native-paper';
+import { PageContainer } from '../styles';
 import {
   RadioContainer,
   ButtonContainer,
@@ -181,10 +181,7 @@ const SettingsScreen = ({ navigation }: any) => {
           secureTextEntry
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
-        <TextInput
-          onChangeText={text => setLanguage(text)}
-          placeholder={Text('ex. english')}
-        />
+        <Radio handleRadioFunc={handleRadio} />
       </ContentContainer>
 
       <ButtonView>
