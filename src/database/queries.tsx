@@ -375,3 +375,28 @@ export const setCaseAndNumCases = async (
     throw e;
   }
 };
+
+// export const getStatus = async () => {
+//   try {
+//     const status =
+//   } catch (e) {
+//     console.warn(e);
+//     throw e;
+//   }
+// };
+
+export const setStatus = async (
+  clientId: string,
+  caseId: string,
+  clientStatus: CaseStatus,
+) => {
+  try {
+    await database
+      .collection(`clients/${clientId}/cases/${caseId}`)
+      .doc(caseId)
+      .update({ status: clientStatus });
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
