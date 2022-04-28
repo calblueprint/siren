@@ -403,6 +403,7 @@ export const getStatus = async (
       .doc(caseId)
       .get();
     return ref.data()?.status as string;
+    // also tried https://www.reddit.com/r/Firebase/comments/gyasun/how_can_we_access_a_field_within_a_document_in/
   } catch (e) {
     console.warn(e);
     throw e;
