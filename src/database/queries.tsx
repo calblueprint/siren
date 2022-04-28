@@ -392,6 +392,7 @@ export const setStatus = async (
   }
 };
 
+// cannot get this function to work, keeps returning Promise
 export const getStatus = async (
   clientId: string,
   caseId: string,
@@ -400,9 +401,8 @@ export const getStatus = async (
     const ref = await database
       .collection(`clients/${clientId}/cases`)
       .doc(caseId)
-      .get()
-      .then(doc => doc.get('status'));
-    return ref;
+      .get();
+    return ref.data()?.status as string;
   } catch (e) {
     console.warn(e);
     throw e;
