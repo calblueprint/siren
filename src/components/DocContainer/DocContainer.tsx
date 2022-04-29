@@ -24,31 +24,39 @@ const DocContainer = ({
   navigation,
 }: ContainerProps) => {
   const [documents, setDocuments] = useState([] as Document[]);
+  const [status, setStat] = useState('');
 
   const populateDocuments = async () => {
     const currDocuments = await getAllDocuments(clientId, clientCase.id);
     setDocuments(currDocuments);
   };
 
+  console.log(documents);
+
+  // console.log(docList);
+
   const isFocused = useIsFocused();
   useEffect(() => {
     populateDocuments();
   }, [isFocused]);
 
-  console.log(clientId, clientCase.id);
+  const getClientStatus = async () => {
+    const currStat = await getStatus(clientId, clientCase.id);
+    setStat(currStat);
+  };
 
-  // ERROR HERE. getStatus is not working for me.
-  const status = getStatus(clientId, clientCase.id);
-  console.log('status', status);
+  getClientStatus();
 
   const submitDocs = () => {
+    if (new Set(documents.map(doc => doc.type)).size === docList.length) {
+      setStatus(clientId, clientCase.id, CaseStatus.InReview);
+      return Submitted;
+    }
     if (new Set(documents.map(doc => doc.type)).size !== docList.length) {
       setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
       return Missing;
     }
-    // want to set status to whatever it was previously ...
-    setStatus(clientId, clientCase.id, CaseStatus.InReview);
-    return Submitted;
+    return null;
   };
 
   return (

@@ -12,6 +12,7 @@ import {
 } from 'types/types';
 import firebase from 'database/clientApp';
 import { objectToMap, mapToObject, firestoreAutoId } from 'database/helpers';
+import { register } from './auth';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -392,7 +393,6 @@ export const setStatus = async (
   }
 };
 
-// cannot get this function to work, keeps returning Promise
 export const getStatus = async (
   clientId: string,
   caseId: string,
@@ -402,8 +402,8 @@ export const getStatus = async (
       .collection(`clients/${clientId}/cases`)
       .doc(caseId)
       .get();
-    return ref.data()?.status as string;
-    // also tried https://www.reddit.com/r/Firebase/comments/gyasun/how_can_we_access_a_field_within_a_document_in/
+    const status = await ref.data()?.status;
+    return status;
   } catch (e) {
     console.warn(e);
     throw e;
