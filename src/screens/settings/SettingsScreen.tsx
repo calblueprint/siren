@@ -70,7 +70,7 @@ const SettingsScreen = ({ navigation }: any) => {
         userLanguageChange('ES');
       }
       if (lowercaseLang === 'Tiếng Việt') {
-        userLanguageChange('VIE');
+        userLanguageChange('VIET');
       }
       if (lowercaseLang === 'English') {
         userLanguageChange('EN');
@@ -153,7 +153,7 @@ const SettingsScreen = ({ navigation }: any) => {
       userLanguageChange('ES');
     }
     if (val === 'Tiếng Việt') {
-      userLanguageChange('VIE');
+      userLanguageChange('VIET');
     }
     if (val === 'English') {
       userLanguageChange('EN');

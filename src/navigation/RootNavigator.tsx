@@ -58,13 +58,13 @@ export default function RootNavigator() {
           const docSnap = await userDoc.get();
           const currLang = docSnap.get('language');
           if (currLang === 'Español') {
-            userLanguageChange('es');
+            userLanguageChange('ES');
           }
           if (currLang === 'Tiếng Việt') {
-            userLanguageChange('vie');
+            userLanguageChange('VIET');
           }
           if (currLang === 'English') {
-            userLanguageChange('en');
+            userLanguageChange('EN');
           }
         } else {
           await setUser(null);

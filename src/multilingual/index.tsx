@@ -1,13 +1,11 @@
 import EN from './languages/en.json';
 import ES from './languages/es.json';
-import VIE from './languages/vie.json';
-import { useContext } from 'react';
-import { LanguageContext } from '../context/ContextProvider';
+import VIET from './languages/viet.json';
 
-export const dictionaryList = { EN, ES, VIE };
+export const dictionaryList = { EN, ES, VIET };
 
 export const languageOptions = {
   EN: 'English',
-  ES: 'Spanish',
-  VIE: 'Vietnamese',
+  ES: 'Español',
+  VIET: 'Tiếng Việt',
 };

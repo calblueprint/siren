@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext } from 'react';
-import { PageContainer } from '../../screens/styles';
 import { Image } from 'react-native';
+import { RadioButton } from 'react-native-paper';
+import { PageContainer } from '../styles';
 import { TextRegular, TextRegularWhite } from '../../../assets/fonts/Fonts';
 import { ButtonDark } from '../../../assets/Components';
 import { TextRegularRed } from '../../../assets/fonts/Fonts';
-import { RadioButton } from 'react-native-paper';
 import {
   RadioContainer,
   ContentContainer,
@@ -57,7 +57,7 @@ const LanguageScreen = ({ navigation }: any) => {
       userLanguageChange('ES');
     }
     if (val === 'Tiếng Việt') {
-      userLanguageChange('VIE');
+      userLanguageChange('VIET');
     }
     if (val === 'English') {
       userLanguageChange('EN');
