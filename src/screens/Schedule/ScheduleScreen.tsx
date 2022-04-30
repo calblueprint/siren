@@ -56,6 +56,8 @@ const ScheduleScreen = () => {
           .filter(c => c.status === CaseStatus.SchedApt)
           .map(c => c.type);
 
+        // console.log(clientCaseTypes);
+
         // fetch all calendly links
         Promise.all(
           clientCaseTypes.map(caseType => getCalendlyLink(caseType)),
@@ -63,6 +65,8 @@ const ScheduleScreen = () => {
 
         // fetch all uncancelled appointments for client
         const appts = await getAllUpcomingAppointmentsForClient(client);
+        // console.log('appointments', appts);
+
         setAppointments(appts);
         if (appts.length !== 0) {
           setSwitchPage(1);

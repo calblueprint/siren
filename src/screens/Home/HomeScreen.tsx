@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native';
 import { TextTitle } from 'assets/fonts/Fonts';
 import { NameContainer, PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
-import { Case } from 'types/types';
+import { Case, CaseStatus } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 
@@ -35,13 +35,22 @@ const HomeScreen = ({ navigation }: any) => {
         <TextTitle>Hi {name}!</TextTitle>
       </NameContainer>
       <ScrollView>
-        {Object.keys(cases).map((id: any) => (
+        {cases.length !== 0 ? (
+          Object.keys(cases).map((id: any) => (
+            <ProgressTracker
+              key={id}
+              type={cases[id].type}
+              status={cases[id].status}
+            />
+          ))
+        ) : (
           <ProgressTracker
-            key={id}
-            type={cases[id].type}
-            status={cases[id].status}
+            key="id"
+            type="No Cases Yet" // yes, bad
+            status={CaseStatus.SubmitForm} // default case status
+            // Under the hood, an official case & its status isn't !exist in Firebase until client submits intake form
           />
-        ))}
+        )}
       </ScrollView>
     </PageContainer>
   );
