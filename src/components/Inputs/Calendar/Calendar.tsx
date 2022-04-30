@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
-import { QuestionComponentProps } from '../../../types/types';
-import { TextRegularBold } from '../../../../assets/fonts/Fonts';
+import { QuestionComponentProps } from 'types/types';
+import { TextRegularBold } from 'assets/fonts/Fonts';
 import {
   TextContainer,
   TextDescription,
   TextExample,
-} from '../../../components/Inputs/styles';
-import { Colors } from '../../../../assets/Colors';
-import { LanguageContext } from '../../../context/ContextProvider';
+} from 'components/Inputs/styles';
+import { Colors } from 'assets/Colors';
+import { LanguageContext } from 'context/ContextProvider';
 
 const styles = StyleSheet.create({
   calendar: {
