@@ -25,44 +25,51 @@ const DocContainer = ({
 }: ContainerProps) => {
   const [documents, setDocuments] = useState([] as Document[]);
   const [status, setStat] = useState('');
+  const [submitted, setSubmit] = useState(false);
 
   const populateDocuments = async () => {
     const currDocuments = await getAllDocuments(clientId, clientCase.id);
     setDocuments(currDocuments);
   };
-
-  console.log(documents);
-
-  // console.log(docList);
-
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    populateDocuments();
-  }, [isFocused]);
-
   const getClientStatus = async () => {
     const currStat = await getStatus(clientId, clientCase.id);
     setStat(currStat);
   };
 
-  getClientStatus();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    populateDocuments();
+    getClientStatus();
+  }, [isFocused]);
 
-  const submitDocs = () => {
-    if (new Set(documents.map(doc => doc.type)).size === docList.length) {
-      setStatus(clientId, clientCase.id, CaseStatus.InReview);
-      return Submitted;
-    }
-    if (new Set(documents.map(doc => doc.type)).size !== docList.length) {
-      setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
-      return Missing;
-    }
-    return null;
-  };
+  useEffect(() => {
+    const submitDocs = () => {
+      // Question: if already approved for appointment, should clients be reapproved if they delete a document?
+      if (status !== '' && documents.length !== 0) {
+        if (
+          // go back to upload stage
+          (status === CaseStatus.InReview || status === CaseStatus.SchedApt) &&
+          new Set(documents.map(doc => doc.type)).size !== docList.length
+        ) {
+          setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
+        } else if (
+          // advance to review stage
+          status === CaseStatus.SubmitDoc && // current state is upload
+          new Set(documents.map(doc => doc.type)).size === docList.length
+        ) {
+          setStatus(clientId, clientCase.id, CaseStatus.InReview);
+          setSubmit(true);
+        }
+      }
+      return null;
+    };
+    submitDocs();
+  }, [status, documents]);
 
   return (
     <Container>
       <Header>
-        {submitDocs()}
+        {submitted ? Submitted : Missing}
         <TextBold> {convertCamelToTitleCase(clientCase.type)}</TextBold>
       </Header>
       {docList.map(name => (

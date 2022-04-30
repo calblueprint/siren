@@ -12,7 +12,6 @@ import {
 } from 'types/types';
 import firebase from 'database/clientApp';
 import { objectToMap, mapToObject, firestoreAutoId } from 'database/helpers';
-import { register } from './auth';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
