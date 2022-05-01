@@ -21,8 +21,6 @@ const clientCredentials = {
   appId: NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-console.log(clientCredentials.apiKey);
-
 if (!firebase.apps.length) {
   firebase.initializeApp(clientCredentials);
 } else {

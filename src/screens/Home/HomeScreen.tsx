@@ -1,15 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { Button } from 'react-native';
-import { TextRegular } from 'assets/fonts/Fonts';
-import { PageContainer } from 'screens/styles';
-import { logout } from 'database/auth';
+import { ScrollView } from 'react-native';
+import { TextTitle } from 'assets/fonts/Fonts';
+import { NameContainer, PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
-import { Case } from 'types/types';
+import { Case, CaseStatus } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 // eslint-disable-next-line no-restricted-imports
-import { Text } from '../../context/ContextProvider';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
@@ -34,24 +32,27 @@ const HomeScreen = ({ navigation }: any) => {
 
   return (
     <PageContainer>
-      <TextRegular>
-        {Text('welcome')} {name}!
-      </TextRegular>
-      <TextRegular>
-        {Text('Your UID is:')} {uid}
-      </TextRegular>
-      {Object.keys(cases).map((id: any) => (
-        <ProgressTracker
-          key={id}
-          type={cases[id].type}
-          status={cases[id].status}
-        />
-      ))}
-      <Button
-        title={Text('Switch Screens')}
-        onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
-      />
-      <Button title={Text('Logout')} onPress={logout} />
+      <NameContainer>
+        <TextTitle>Hi {name}!</TextTitle>
+      </NameContainer>
+      <ScrollView>
+        {cases.length !== 0 ? (
+          Object.keys(cases).map((id: any) => (
+            <ProgressTracker
+              key={id}
+              type={cases[id].type}
+              status={cases[id].status}
+            />
+          ))
+        ) : (
+          <ProgressTracker
+            key="id"
+            type="No Cases Yet" // yes, bad
+            status={CaseStatus.SubmitForm} // default case status
+            // Under the hood, an official case & its status isn't !exist in Firebase until client submits intake form
+          />
+        )}
+      </ScrollView>
     </PageContainer>
   );
 };

@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Pressable, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { QuestionComponentProps } from '../../../types/types';
-import { TextRegularBold } from '../../../../assets/fonts/Fonts';
-import {
-  TextContainer,
-  TextDescription,
-  TextExample,
-} from '../../../components/Inputs/styles';
-import { PlatformContainer } from '../../../components/Inputs/Dropdown/styles';
-import { Colors } from '../../../../assets/Colors';
-import { LanguageContext } from '../../../context/ContextProvider';
+import { QuestionComponentProps } from 'types/types';
+import { TextRegularBold } from 'assets/fonts/Fonts';
+import { Colors } from 'assets/Colors';
+import { LanguageContext } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
+import { TextContainer, TextDescription, TextExample } from '../styles';
+import { PlatformContainer } from './styles';
 
 const styles = StyleSheet.create({
   iOSTouch: {

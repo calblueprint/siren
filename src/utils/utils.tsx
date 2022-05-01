@@ -48,6 +48,7 @@ export const getEmptyClient = (): Client => {
     id: '',
     email: '',
     fullName: '',
+    language: '',
     createdAt: new Date(),
     answers: new Map(),
   };

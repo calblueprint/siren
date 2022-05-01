@@ -9,14 +9,14 @@ import {
   Dictionary,
   Document,
   Question,
-} from '../types/types';
-import firebase from '../database/clientApp';
+} from 'types/types';
+import firebase from './clientApp';
 import {
   objectToMap,
   mapToObject,
   firestoreAutoId,
   objectToAnswerOptionsMap,
-} from '../database/helpers';
+} from './helpers';
 
 const database = firebase.firestore();
 const clientCollection = database.collection('clients');
@@ -392,6 +392,39 @@ export const setCaseAndNumCases = async (
       t.update(generalRef, { numCases: newNumCases });
       await setCase(clientId, clientCase);
     });
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const setStatus = async (
+  clientId: string,
+  caseId: string,
+  clientStatus: CaseStatus,
+) => {
+  try {
+    await database
+      .collection(`clients/${clientId}/cases`)
+      .doc(caseId)
+      .update({ status: clientStatus });
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const getStatus = async (
+  clientId: string,
+  caseId: string,
+): Promise<string> => {
+  try {
+    const ref = await database
+      .collection(`clients/${clientId}/cases`)
+      .doc(caseId)
+      .get();
+    const status = await ref.data()?.status;
+    return status;
   } catch (e) {
     console.warn(e);
     throw e;

@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
-import { QuestionComponentProps } from '../../../types/types';
-import { TextRegularBold, TextRegular } from '../../../../assets/fonts/Fonts';
-import {
-  ButtonContainer,
-  RadioContainer,
-} from '../../../components/Inputs/Radio/styles';
-import {
-  TextContainer,
-  TextDescription,
-} from '../../../components/Inputs/styles';
-import { LanguageContext } from '../../../context/ContextProvider';
+import { QuestionComponentProps } from 'types/types';
+import { TextRegularBold, TextRegular } from 'assets/fonts/Fonts';
+import { LanguageContext } from 'context/ContextProvider';
+import { ButtonContainer, RadioContainer } from './styles';
+// eslint-disable-next-line no-restricted-imports
+import { TextContainer, TextDescription } from '../styles';
 
 export default function Radio(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
