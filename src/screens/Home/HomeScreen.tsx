@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { ScrollView } from 'react-native';
-import { TextTitle } from 'assets/fonts/Fonts';
-import { NameContainer, PageContainer } from 'screens/styles';
+import { PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
-import { Case, CaseStatus } from 'types/types';
+import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
+import { NameContainer } from '../styles';
+import { TextTitle } from '../../../assets/fonts/Fonts';
+import { CaseStatus } from '../../types/types';
 // eslint-disable-next-line no-restricted-imports
 
 const HomeScreen = ({ navigation }: any) => {
