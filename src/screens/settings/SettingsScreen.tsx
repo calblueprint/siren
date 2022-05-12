@@ -25,8 +25,10 @@ import { LanguageContext, Text } from '../../context/ContextProvider';
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
 function Radio({ handleRadioFunc, setLanguage }: any) {
+  const [value, setValue] = useState('');
   const onChange = (val: string): void => {
     setLanguage(val);
+    setValue(val);
     handleRadioFunc(val);
   };
 
