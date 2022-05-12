@@ -13,9 +13,9 @@ import { getAllQuestionsOfType, setClient } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
 import { Question, Client, QuestionManagerProps } from 'types/types';
-import LargeInput from 'Inputs/LargeInput/LargeInput';
-import SmallInput from 'Inputs/SmallInput/SmallInput';
-import Dropdown from 'Inputs/Dropdown/Dropdown';
+import LargeInput from 'components/Inputs/LargeInput/LargeInput';
+import SmallInput from 'components/Inputs/SmallInput/SmallInput';
+import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import { LanguageContext } from 'context/ContextProvider';
 
 /*
