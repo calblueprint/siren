@@ -51,7 +51,11 @@ const WelcomeScreen = ({ route, navigation }: any) => {
       </ContentContainer>
       <ButtonContainer>
         <ButtonView>
-          <ButtonLight onPress={() => navigation.navigate('Login')}>
+          <ButtonLight
+            onPress={() =>
+              navigation.navigate('Login', { language: languageParam })
+            }
+          >
             <TextRegular>{Text('Log in')}</TextRegular>
           </ButtonLight>
         </ButtonView>
