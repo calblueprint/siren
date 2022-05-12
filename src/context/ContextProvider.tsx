@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Client } from 'types/types';
-import { getEmptyClient } from 'utils/utils';
-import { languageOptions, dictionaryList } from '../multilingual/languages';
+import { Client } from '../types/types';
+import { getEmptyClient } from '../utils/utils';
+import { languageOptions, dictionaryList } from '../multilingual/index';
 
 // general function for creating a context
 const createContext = <A extends {} | null>(defaultValue: A) => {
@@ -26,14 +26,14 @@ export const ClientContext = context; // used by client context consumers
 // Lanuage Context //
 // create the language context with default selected language
 export const LanguageContext = React.createContext({
-  userLanguage: 'en',
-  dictionary: dictionaryList.en,
+  userLanguage: 'EN',
+  dictionary: dictionaryList.EN,
   userLanguageChange: lang => {},
 });
 
 // define the Context Provider, which provides the language context to app
 export function LanguageProvider({ children }) {
-  const [userLanguage, setUserLanguage] = useState('en');
+  const [userLanguage, setUserLanguage] = useState('EN');
 
   const langProvider = {
     userLanguage,

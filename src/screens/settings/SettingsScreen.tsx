@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
+import { RadioButton } from 'react-native-paper';
 import {
   TextRegular,
   TextRegularWhite,
@@ -8,8 +9,7 @@ import {
   TextSubtitle,
 } from '../../../assets/fonts/Fonts';
 import { ButtonDark, TextInput } from '../../../assets/Components';
-import { PageContainer } from '../../screens/styles';
-import { RadioButton } from 'react-native-paper';
+import { PageContainer } from '../styles';
 import {
   RadioContainer,
   ButtonContainer,
@@ -24,10 +24,10 @@ import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
-function Radio({ handleRadioFunc }: any) {
-  const [value, setValue] = useState('English');
-
+function Radio({ handleRadioFunc, setLanguage }: any) {
+  const [value, setValue] = useState('');
   const onChange = (val: string): void => {
+    setLanguage(val);
     setValue(val);
     handleRadioFunc(val);
   };
@@ -62,18 +62,19 @@ const SettingsScreen = ({ navigation }: any) => {
   const updateLanguage = async (lang: string) => {
     try {
       const lowercaseLang = lang.toLowerCase();
+      console.log('Updated Language!');
       const user = firebase.auth().currentUser;
       const userDoc = clientCollection.doc(user?.uid);
       const newFields = { language: lowercaseLang };
       await userDoc.update(newFields);
       if (lowercaseLang === 'Español') {
-        userLanguageChange('es');
+        userLanguageChange('ES');
       }
       if (lowercaseLang === 'Tiếng Việt') {
-        userLanguageChange('vie');
+        userLanguageChange('VIET');
       }
       if (lowercaseLang === 'English') {
-        userLanguageChange('en');
+        userLanguageChange('EN');
       }
     } catch (err) {
       console.log('Error in updating language preference');
@@ -149,7 +150,15 @@ const SettingsScreen = ({ navigation }: any) => {
   );
 
   const handleRadio = (val: string): void => {
-    setLanguage(val);
+    if (val === 'Español') {
+      userLanguageChange('ES');
+    }
+    if (val === 'Tiếng Việt') {
+      userLanguageChange('VIET');
+    }
+    if (val === 'English') {
+      userLanguageChange('EN');
+    }
   };
 
   return (
@@ -181,10 +190,7 @@ const SettingsScreen = ({ navigation }: any) => {
           secureTextEntry
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
-        <TextInput
-          onChangeText={text => setLanguage(text)}
-          placeholder={Text('ex. english')}
-        />
+        <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
       </ContentContainer>
 
       <ButtonView>

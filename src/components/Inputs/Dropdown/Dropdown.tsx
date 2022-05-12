@@ -3,13 +3,11 @@ import { StyleSheet, View, Pressable, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { QuestionComponentProps } from 'types/types';
 import { TextRegularBold } from 'assets/fonts/Fonts';
-import {
-  TextContainer,
-  TextDescription,
-  TextExample,
-} from 'components/Inputs/styles';
-import { PlatformContainer } from 'components/Inputs/Dropdown/styles';
 import { Colors } from 'assets/Colors';
+import { LanguageContext } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
+import { TextContainer, TextDescription, TextExample } from '../styles';
+import { PlatformContainer } from './styles';
 
 const styles = StyleSheet.create({
   iOSTouch: {
@@ -28,6 +26,8 @@ export default function Dropdown(props: QuestionComponentProps) {
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
+  const { userLanguage } = React.useContext(LanguageContext);
+
   const onChange = (val: any): void => {
     setShow(false);
     setValue(val);
@@ -45,8 +45,10 @@ export default function Dropdown(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    return question.description.get(userLanguage).length > 0 ? (
+      <TextDescription>
+        {question.description.get(userLanguage)}
+      </TextDescription>
     ) : null;
   };
 
@@ -60,14 +62,17 @@ export default function Dropdown(props: QuestionComponentProps) {
           {show ? (
             <View>
               <Picker selectedValue={value} onValueChange={onChange}>
-                {question.answerOptions
-                  ? question.answerOptions.map(option => (
-                      <Picker.Item
-                        key={option}
-                        label={option}
-                        value={!option ? '' : option}
-                      />
-                    ))
+                {console.log(question)}
+                {question.answerOptions.get(userLanguage)
+                  ? question.answerOptions
+                      .get(userLanguage)
+                      .map(option => (
+                        <Picker.Item
+                          key={option}
+                          label={option}
+                          value={!option ? '' : option}
+                        />
+                      ))
                   : null}
               </Picker>
             </View>
@@ -78,14 +83,16 @@ export default function Dropdown(props: QuestionComponentProps) {
     return (
       <PlatformContainer style={{ height: 30 }}>
         <Picker selectedValue={value} onValueChange={onChange}>
-          {question.answerOptions
-            ? question.answerOptions.map(option => (
-                <Picker.Item
-                  key={option}
-                  label={option}
-                  value={!option ? '' : option}
-                />
-              ))
+          {question.answerOptions.get(userLanguage)
+            ? question.answerOptions
+                .get(userLanguage)
+                .map(option => (
+                  <Picker.Item
+                    key={option}
+                    label={option}
+                    value={!option ? '' : option}
+                  />
+                ))
             : null}
         </Picker>
       </PlatformContainer>
@@ -95,7 +102,9 @@ export default function Dropdown(props: QuestionComponentProps) {
   return (
     <>
       <TextContainer>
-        <TextRegularBold>{question.displayText}</TextRegularBold>
+        <TextRegularBold>
+          {question.displayText.get(userLanguage)}
+        </TextRegularBold>
         {getDescription()}
       </TextContainer>
       {getPlatform()}

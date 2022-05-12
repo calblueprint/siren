@@ -1,13 +1,6 @@
 /* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import { getAllQuestionsOfType, setClient } from 'database/queries';
-import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
-import { ButtonDarkBlue } from 'assets/Components';
-import { Question, Client, QuestionManagerProps } from 'types/types';
-import LargeInput from 'components/Inputs/LargeInput/LargeInput';
-import SmallInput from 'components/Inputs/SmallInput/SmallInput';
-import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
 import { ClientContext } from 'context/ContextProvider';
@@ -16,6 +9,14 @@ import {
   ButtonView,
   Container,
 } from 'components/Questions/styles';
+import { getAllQuestionsOfType, setClient } from 'database/queries';
+import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
+import { ButtonDarkBlue } from 'assets/Components';
+import { Question, Client, QuestionManagerProps } from 'types/types';
+import LargeInput from 'components/Inputs/LargeInput/LargeInput';
+import SmallInput from 'components/Inputs/SmallInput/SmallInput';
+import Dropdown from 'components/Inputs/Dropdown/Dropdown';
+import { LanguageContext } from 'context/ContextProvider';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -40,6 +41,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   );
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
   const { state } = React.useContext(ClientContext);
+  const { userLanguage } = React.useContext(LanguageContext);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -60,7 +62,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     const QuestionComponent = answerComponents[question.answerType];
     return (
       <QuestionComponent
-        key={question.displayText}
+        key={question.displayText.get(userLanguage)}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={

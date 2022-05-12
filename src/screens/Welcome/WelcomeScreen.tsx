@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { PageContainer } from 'screens/styles';
 import { Image } from 'react-native';
+import { RotationGestureHandler } from 'react-native-gesture-handler';
+import { TabRouter } from '@react-navigation/native';
+import { PageContainer } from '../styles';
 import {
   TextRegular,
   TextBold,
   TextRegularWhite,
   TextSubtitle,
-} from 'assets/fonts/Fonts';
-import { ButtonDark, ButtonLight } from 'assets/Components';
-import { RotationGestureHandler } from 'react-native-gesture-handler';
-import { TabRouter } from '@react-navigation/native';
+} from '../../../assets/fonts/Fonts';
+import { ButtonDark, ButtonLight } from '../../../assets/Components';
 import {
   ContentContainer,
   TitleContainer,
