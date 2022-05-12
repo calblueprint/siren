@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { Button } from 'react-native';
-import { TextRegular } from 'assets/fonts/Fonts';
-import { PageContainer } from 'screens/styles';
-import { logout } from 'database/auth';
+import { ScrollView } from 'react-native';
+import { TextTitle } from 'assets/fonts/Fonts';
+import { NameContainer, PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
-import { Case } from 'types/types';
+import { Case, CaseStatus } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 // eslint-disable-next-line no-restricted-imports

@@ -375,3 +375,36 @@ export const setCaseAndNumCases = async (
     throw e;
   }
 };
+
+export const setStatus = async (
+  clientId: string,
+  caseId: string,
+  clientStatus: CaseStatus,
+) => {
+  try {
+    await database
+      .collection(`clients/${clientId}/cases`)
+      .doc(caseId)
+      .update({ status: clientStatus });
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};
+
+export const getStatus = async (
+  clientId: string,
+  caseId: string,
+): Promise<string> => {
+  try {
+    const ref = await database
+      .collection(`clients/${clientId}/cases`)
+      .doc(caseId)
+      .get();
+    const status = await ref.data()?.status;
+    return status;
+  } catch (e) {
+    console.warn(e);
+    throw e;
+  }
+};

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
+import { StyleSheet, ActivityIndicator, View } from 'react-native';
 import TabsStack from 'navigation/TabsStack';
 import AuthStack from 'navigation/AuthStack';
 import MiscStack from 'navigation/MiscStack';
