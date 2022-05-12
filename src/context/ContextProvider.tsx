@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Client } from '../types/types';
 import { getEmptyClient } from '../utils/utils';
-import { languageOptions, dictionaryList } from '../multilingual/languages';
+import { languageOptions, dictionaryList } from '../multilingual/index';
 
 // general function for creating a context
 const createContext = <A extends {} | null>(defaultValue: A) => {
