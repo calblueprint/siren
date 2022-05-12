@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Dropdown(props: QuestionComponentProps) {
-  const { question, setAnswer, existingAnswer } = props;
+  const { question, setAnswer, existingAnswer, language } = props;
   const [value, setValue] = useState(existingAnswer);
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(false);
@@ -45,8 +45,8 @@ export default function Dropdown(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    return question.description[language].length > 0 ? (
+      <TextDescription>{question.description[language]}</TextDescription>
     ) : null;
   };
 
@@ -60,8 +60,8 @@ export default function Dropdown(props: QuestionComponentProps) {
           {show ? (
             <View>
               <Picker selectedValue={value} onValueChange={onChange}>
-                {question.answerOptions
-                  ? question.answerOptions.map(option => (
+                {question.answerOptions && question.answerOptions[language]
+                  ? question.answerOptions[language].map(option => (
                       <Picker.Item
                         key={option}
                         label={option}
@@ -78,8 +78,8 @@ export default function Dropdown(props: QuestionComponentProps) {
     return (
       <PlatformContainer style={{ height: 30 }}>
         <Picker selectedValue={value} onValueChange={onChange}>
-          {question.answerOptions
-            ? question.answerOptions.map(option => (
+          {question.answerOptions && question.answerOptions[language]
+            ? question.answerOptions[language].map(option => (
                 <Picker.Item
                   key={option}
                   label={option}
@@ -95,7 +95,7 @@ export default function Dropdown(props: QuestionComponentProps) {
   return (
     <>
       <TextContainer>
-        <TextRegularBold>{question.displayText}</TextRegularBold>
+        <TextRegularBold>{question.displayText[language]}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       {getPlatform()}

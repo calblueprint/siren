@@ -45,6 +45,12 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     setCurrentAnswers(currentAnswers.set(question.key, input));
   };
 
+  const languageMap = new Map<string, string>([
+    ['English', 'EN'],
+    ['Español', 'ES'],
+    ['Tiếng Việt', 'VIET'],
+  ]);
+
   const loadQuestions = async (): Promise<void> => {
     const qs: Question[] = await getAllQuestionsOfType('general');
     setAllQuestions(qs);
@@ -57,10 +63,14 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
       calendar: Calendar,
       radio: Radio,
     };
+    const client: Client = state;
+    const lang = languageMap[client.language]
+      ? languageMap[client.language]
+      : 'EN';
     const QuestionComponent = answerComponents[question.answerType];
     return (
       <QuestionComponent
-        key={question.displayText}
+        key={question.displayText[lang]}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
@@ -68,6 +78,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
             ? currentAnswers.get(question.key)
             : null
         }
+        language={lang}
       />
     );
   };
@@ -112,7 +123,11 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           break;
         case 6:
           sendAnswersToFirebase();
-          setNextScreen(currentAnswers.get('visitReason'));
+          setNextScreen(
+            currentAnswers.get('visitReason')
+              ? currentAnswers.get('visitReason')
+              : 'DACA renewal',
+          );
           break;
         default:
           setCurrentQuestions(allQuestions.slice(0, 5));

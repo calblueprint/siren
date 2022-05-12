@@ -9,7 +9,7 @@ import {
 import { TextContainer, TextDescription } from 'components/Inputs/styles';
 
 export default function Radio(props: QuestionComponentProps) {
-  const { question, setAnswer, existingAnswer } = props;
+  const { question, setAnswer, existingAnswer, language } = props;
   const [value, setValue] = useState(existingAnswer);
 
   const onChange = (val: any): void => {
@@ -18,17 +18,17 @@ export default function Radio(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    return question.description[language].length > 0 ? (
+      <TextDescription>{question.description[language]}</TextDescription>
     ) : null;
   };
 
   return (
     <TextContainer>
-      <TextRegularBold>{question.displayText}</TextRegularBold>
+      <TextRegularBold>{question.displayText[language]}</TextRegularBold>
       {getDescription()}
       <RadioContainer>
-        {question.answerOptions?.map((option, key) => (
+        {question.answerOptions[language]?.map((option, key) => (
           // eslint-disable-next-line react/no-array-index-key
           <ButtonContainer key={key}>
             <RadioButton

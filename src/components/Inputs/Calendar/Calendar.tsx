@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Calendar(props: QuestionComponentProps) {
-  const { question, setAnswer, existingAnswer } = props;
+  const { question, setAnswer, existingAnswer, language } = props;
   const [date, setDate] = useState(existingAnswer || new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
@@ -48,19 +48,21 @@ export default function Calendar(props: QuestionComponentProps) {
   };
 
   const getExampleText = () => {
-    return isSet ? date.toLocaleDateString('en-us') : ` ${question.example} `;
+    return isSet
+      ? date.toLocaleDateString('en-us')
+      : ` ${question.example[language]} `;
   };
 
   const getDescription = () => {
-    return question.description.length > 0 ? (
-      <TextDescription>{question.description}</TextDescription>
+    return question.description[language].length > 0 ? (
+      <TextDescription>{question.description[language]}</TextDescription>
     ) : null;
   };
 
   return (
     <TextContainer style={{ marginBottom: 24 }}>
       <TextContainer>
-        <TextRegularBold>{question.displayText}</TextRegularBold>
+        <TextRegularBold>{question.displayText[language]}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       <Pressable style={styles.example} onPress={showDatepicker}>

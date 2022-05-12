@@ -29,6 +29,7 @@ const FormsScreen = ({ navigation }: any) => {
 
   const setAdditionalScreen = (visitReason: string): void => {
     loadClient();
+    console.log(visitReason);
     getCaseTypeFromKey(visitReason).then(caseType => {
       setAdditionalScreenType(caseType);
       setShowAdditionalScreen(true);
@@ -85,7 +86,6 @@ const FormsScreen = ({ navigation }: any) => {
     }
     return null;
   };
-
   return getCurrentScreen();
 };
 

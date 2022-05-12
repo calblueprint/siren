@@ -64,6 +64,7 @@ export type QuestionComponentProps = {
   question: Question;
   setAnswer: (question: Question, input: any) => void;
   existingAnswer?: any;
+  language: string;
 };
 
 export type QuestionManagerProps = {
