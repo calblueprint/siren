@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { ScrollView } from 'react-native';
-import { TextTitle } from 'assets/fonts/Fonts';
-import { NameContainer, PageContainer } from 'screens/styles';
+import { Button } from 'react-native';
+import { PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
-import { Case, CaseStatus } from 'types/types';
+import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
 // eslint-disable-next-line no-restricted-imports
 import { Text } from '../../context/ContextProvider';
+import { TextRegular } from '../../../assets/fonts/Fonts';
+import { logout } from '../../database/auth';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
