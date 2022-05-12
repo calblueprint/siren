@@ -1,3 +1,4 @@
+import { Text } from 'context/ContextProvider';
 import React from 'react';
 import { Button } from 'react-native';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
@@ -9,7 +10,7 @@ const FormsScreen = ({ navigation }: any) => {
     <ScrollPageContainer>
       <InnerPageContainer>
         <Button
-          title="Go to form"
+          title={Text('Go to form')}
           onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
         />
       </InnerPageContainer>

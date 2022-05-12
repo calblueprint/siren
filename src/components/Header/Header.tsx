@@ -43,7 +43,7 @@ export const SettingsCog = ({ navigation }: Props) => {
         left: '8%',
         bottom: '20%',
       }}
-      onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
+      onPress={() => navigation.navigate('MiscStack', { screen: 'Settings' })}
     />
   );
 };

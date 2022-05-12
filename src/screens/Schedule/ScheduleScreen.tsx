@@ -32,7 +32,7 @@ import {
   convertCamelToTitleCase,
   convertDateObjectToString,
 } from 'utils/utils';
-import { ClientContext } from 'context/ContextProvider';
+import { ClientContext, Text } from 'context/ContextProvider';
 
 // only display links for the client's approved cases
 // display client's upcoming appointments
@@ -110,9 +110,9 @@ const ScheduleScreen = () => {
   const getSwitchDescription = () => {
     if (switchPage === 0) {
       // schedule new
-      return 'View any upcoming appointments you have with your attorney here.';
+      return Text('View any upcoming appointments');
     }
-    return 'Schedule appointments with attorney(s) for newly approved case(s) here.';
+    return Text('Schedule appointments with attorney');
   };
 
   const getUpcomingBody = () => {
@@ -121,9 +121,9 @@ const ScheduleScreen = () => {
       return (
         <View>
           <TextRegular>
-            You have no upcoming appointments at this time. Check
-            <TextRegularBold> Schedule New</TextRegularBold> for any approved
-            consultations.
+            {Text('You have no upcoming ... Check')}
+            <TextRegularBold> {Text('Schedule New')}</TextRegularBold>{' '}
+            {Text('for any approved consultations.')}
           </TextRegular>
         </View>
       );
@@ -135,7 +135,9 @@ const ScheduleScreen = () => {
           <ApptContainer key={key}>
             <AppointmentSubtitle>{appointment.caseType}</AppointmentSubtitle>
             <AppointmentTextContainer>
-              <TextRegular>You have an appointment scheduled for </TextRegular>
+              <TextRegular>
+                {Text('You have an appointment scheduled for')}{' '}
+              </TextRegular>
               <TextRegularBold>
                 {convertDateObjectToString(appointment.startTime)}
               </TextRegularBold>
@@ -153,15 +155,18 @@ const ScheduleScreen = () => {
       return (
         <View>
           <TextRegular>
-            You have not been approved for appointments in any new cases. Check{' '}
-            <TextRegularBold>Home</TextRegularBold> for any missing items.
+            {Text('You have not been approved ... Check')}{' '}
+            <TextRegularBold>{Text('Home')}</TextRegularBold>{' '}
+            {Text('for any missing items.')}
           </TextRegular>
         </View>
       );
     }
     return (
       <>
-        <TextRegular>You can now schedule appointments for:</TextRegular>
+        <TextRegular>
+          {Text('You can now schedule appointments for:')}
+        </TextRegular>
         <ScheduleContainer>
           {calendlyLinks.map(cl => (
             <ScheduleButton
@@ -186,11 +191,13 @@ const ScheduleScreen = () => {
   return (
     <ScrollPageContainer>
       <InnerPageContainer>
-        <TextTitle>Schedule an appointment with your attorney.</TextTitle>
+        <TextTitle>
+          {Text('Schedule an appointment with your attorney.')}
+        </TextTitle>
         <TextRegular>{getSwitchDescription()}</TextRegular>
         <SwitchContainer>
-          <Switch title="Schedule New" pageNum={0} />
-          <Switch title="Upcoming" pageNum={1} />
+          <Switch title={Text('Schedule New')} pageNum={0} />
+          <Switch title={Text('Upcoming')} pageNum={1} />
         </SwitchContainer>
         {switchPage === 0 ? getScheduleBody() : getUpcomingBody()}
       </InnerPageContainer>

@@ -15,11 +15,24 @@ export const TitleContainer = styled.View`
   text-align: center;
 `;
 
+export const RadioContainer = styled.View`
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+`;
 export const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ButtonContainer2 = styled.View`
   position: absolute;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   padding-horizontal: 12%;
   bottom: 10%;
@@ -37,17 +50,3 @@ export const ImageStyles = StyleSheet.create({
     alignSelf: `center`,
   },
 });
-
-export const ButtonHeader = styled.TouchableOpacity`
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100%;
-  height: 50px;
-  justify-content: flex-start;
-  margin-left: -10px;
-  z-index: 1;
-  top: 10%;
-  left: 0px;
-`;

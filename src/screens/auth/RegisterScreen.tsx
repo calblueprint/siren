@@ -11,32 +11,39 @@ import { ButtonDark, TextInput } from 'assets/Components';
 import { PageContainer } from 'screens/styles';
 import { register } from 'database/auth';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import { Text } from 'context/ContextProvider';
 
-const RegisterScreen = ({ navigation }: any) => {
+const RegisterScreen = ({ route, navigation }: any) => {
+  const { language } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [fullName, setFullName] = useState('');
-  const [language, setLanguage] = useState('');
 
-  const onRegister = (e: string, p: string, n: string) => {
-    if (email === '' || password === '' || fullName === '' || language === '') {
+  const onRegister = (e: string, p: string, n: string, lang: string) => {
+    if (email === '' || password === '' || fullName === '' || lang === '') {
       console.log('please fill in all inputs');
     } else if (password !== passwordRepeat) {
       console.log('passwords do not match');
     } else {
-      register(e, p, n);
+      register(e, p, n, lang);
     }
   };
 
   const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Welcome')}>
+    <ButtonHeader
+      onPress={() =>
+        navigation.navigate('Welcome', { languageParam: language })
+      }
+    >
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Welcome')}
+        onPress={() =>
+          navigation.navigate('Welcome', { languageParam: language })
+        }
       />
-      <TextSubtitle>Go Back</TextSubtitle>
+      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
   );
 
@@ -45,38 +52,36 @@ const RegisterScreen = ({ navigation }: any) => {
       {getBackHeader()}
       <ContentContainer>
         <TextRegular>
-          Name <TextRegularRed>*</TextRegularRed>
+          {Text('Name')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setFullName(text)}
-          placeholder="ex. Noah Alexander Hernandez"
+          placeholder={Text('ex. Noah Alexander Hernandez')}
         />
         <TextRegular>
-          Email <TextRegularRed>*</TextRegularRed>
+          {Text('Email')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder="ex. example@example.com"
+          placeholder={Text('ex. example@example.com')}
         />
         <TextRegular>
-          Password <TextRegularRed>*</TextRegularRed>
+          {Text('Password')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
         <TextRegular>
-          Re-enter Password <TextRegularRed>*</TextRegularRed>
+          {Text('Re-enter Password')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setPasswordRepeat(text)}
           secureTextEntry
         />
-        <TextRegular>
-          Language preference <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput onChangeText={text => setLanguage(text)} />
       </ContentContainer>
       <ButtonView>
-        <ButtonDark onPress={() => onRegister(email, password, fullName)}>
-          <TextRegularWhite>Get started!</TextRegularWhite>
+        <ButtonDark
+          onPress={() => onRegister(email, password, fullName, language)}
+        >
+          <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>
     </PageContainer>

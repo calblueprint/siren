@@ -21,7 +21,7 @@ export const getClient = async (clientId: string): Promise<Client> => {
   try {
     const doc = await clientCollection.doc(clientId).get();
     const client = doc.data() as Client;
-    if (client.answers) {
+    if (client && client.answers) {
       client.answers = objectToMap(client.answers);
     }
     return client;
@@ -55,21 +55,21 @@ export const setClient = async (client: Client) => {
   }
 };
 
-export const deleteClient = async (client: Client) => {
-  try {
-    const cases: Case[] = await getAllCases(client.id);
-    const promises = [];
-    for (let i = 0; i < cases.length; i += 1) {
-      promises.push(deleteCase(client.id, cases[i]));
-    }
-    await Promise.all(promises);
-    await clientCollection.doc(client.id).delete();
-  } catch (e) {
-    console.warn(e);
-    throw e;
-    // TODO: Add error handling.
-  }
-};
+// export const deleteClient = async (client: Client) => {
+//   try {
+//     const cases: Case[] = await getAllCases(client.id);
+//     const promises = [];
+//     for (let i = 0; i < cases.length; i += 1) {
+//       promises.push(deleteCase(client.id, cases[i]));
+//     }
+//     await Promise.all(promises);
+//     await clientCollection.doc(client.id).delete();
+//   } catch (e) {
+//     console.warn(e);
+//     throw e;
+//     // TODO: Add error handling.
+//   }
+// };
 
 export const getCase = async (
   clientId: string,
