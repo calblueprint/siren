@@ -24,11 +24,9 @@ import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
-function Radio({ handleRadioFunc }: any) {
-  const [value, setValue] = useState('English');
-
+function Radio({ handleRadioFunc, setLanguage }: any) {
   const onChange = (val: string): void => {
-    setValue(val);
+    setLanguage(val);
     handleRadioFunc(val);
   };
 
@@ -62,6 +60,7 @@ const SettingsScreen = ({ navigation }: any) => {
   const updateLanguage = async (lang: string) => {
     try {
       const lowercaseLang = lang.toLowerCase();
+      console.log('Updated Language!');
       const user = firebase.auth().currentUser;
       const userDoc = clientCollection.doc(user?.uid);
       const newFields = { language: lowercaseLang };
@@ -189,7 +188,7 @@ const SettingsScreen = ({ navigation }: any) => {
           secureTextEntry
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
-        <Radio handleRadioFunc={handleRadio} />
+        <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
       </ContentContainer>
 
       <ButtonView>
