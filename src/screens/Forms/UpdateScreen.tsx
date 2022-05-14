@@ -31,7 +31,9 @@ const UpdateScreen = ({ route, navigation }: any) => {
       <ScrollPageContainer>
         <InnerPageContainer>
           <AdditionalQuestionManager
-            setPreviousScreen={undefined}
+            setPreviousScreen={() =>
+              navigation.navigate('TabsStack', { screen: 'Forms' })
+            }
             setNextScreen={setFinalScreen}
             existingAnswers={existingAnswers}
             managerSpecificProps={{ caseType: additionalScreenType }}
