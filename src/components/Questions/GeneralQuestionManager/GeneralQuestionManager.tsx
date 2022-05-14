@@ -9,7 +9,11 @@ import {
   ButtonView,
   Container,
 } from 'components/Questions/styles';
-import { getAllQuestionsOfType, setClient } from 'database/queries';
+import {
+  getAllQuestionsOfType,
+  setClient,
+  getAllCases,
+} from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
 import { Question, Client, QuestionManagerProps } from 'types/types';
@@ -17,6 +21,7 @@ import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import { LanguageContext } from 'context/ContextProvider';
+import firebase from 'firebase';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -43,6 +48,15 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const { state } = React.useContext(ClientContext);
   const { userLanguage } = React.useContext(LanguageContext);
   const finalGeneralScreen = 5;
+  const uid = firebase.auth().currentUser?.uid;
+  const [cases, setCases] = useState([]);
+  const [filledCase, setFilledCase] = useState(false);
+  const caseTypes = new Map<string, string>([
+    ['I90', 'I-90'],
+    ['adjustmentOfStatus', 'Adjustment of status'],
+    ['citizenship', 'Citizenship'],
+    ['dacaRenewal', 'DACA renewal'],
+  ]);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -50,8 +64,15 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
 
   const handleNext = () => {
     if (screen === finalGeneralScreen) {
+      setFilledCase(false);
       if (currentAnswers.get('visitReason')) {
-        setScreen(screen + 1);
+        console.log(currentAnswers.get('visitReason'));
+        console.log(cases);
+        if (cases.includes(currentAnswers.get('visitReason'))) {
+          setFilledCase(true);
+        } else {
+          setScreen(screen + 1);
+        }
       }
     } else {
       setScreen(screen + 1);
@@ -61,6 +82,10 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const loadQuestions = async (): Promise<void> => {
     const qs: Question[] = await getAllQuestionsOfType('general');
     setAllQuestions(qs);
+  };
+  const loadCases = async (): Promise<void> => {
+    const clientCases = await getAllCases(uid);
+    setCases(clientCases.map(c => caseTypes.get(c.type)));
   };
   const getQuestionComponent = (question: Question) => {
     const answerComponents = {
@@ -99,6 +124,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
 
   useEffect(() => {
     loadQuestions();
+    loadCases();
   }, []);
 
   useEffect(() => {
@@ -148,6 +174,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
       {currentQuestions.map(question => getQuestionComponent(question))}
+      {filledCase ? <p>Already filled out a form for this case.</p> : null}
       <ButtonView>
         <ButtonDarkBlue onPress={() => handleNext()}>
           <TextRegularWhite>Next</TextRegularWhite>
