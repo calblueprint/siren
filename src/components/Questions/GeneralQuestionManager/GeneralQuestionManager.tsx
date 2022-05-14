@@ -42,9 +42,20 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
   const { state } = React.useContext(ClientContext);
   const { userLanguage } = React.useContext(LanguageContext);
+  const finalGeneralScreen = 5;
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
+  };
+
+  const handleNext = () => {
+    if (screen === finalGeneralScreen) {
+      if (currentAnswers.get('visitReason')) {
+        setScreen(screen + 1);
+      }
+    } else {
+      setScreen(screen + 1);
+    }
   };
 
   const loadQuestions = async (): Promise<void> => {
@@ -138,7 +149,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
       </ButtonHeader>
       {currentQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
-        <ButtonDarkBlue onPress={() => setScreen(screen + 1)}>
+        <ButtonDarkBlue onPress={() => handleNext()}>
           <TextRegularWhite>Next</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
