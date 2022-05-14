@@ -38,7 +38,10 @@ const FormsScreen = ({ navigation }: any) => {
             key={c.id}
             title={caseTypes.get(c.type)}
             onPress={() =>
-              navigation.navigate('FormsStack', { screen: 'Form' })
+              navigation.navigate('FormsStack', {
+                screen: 'Update',
+                visitReason: c.type,
+              })
             }
           />
         ))}

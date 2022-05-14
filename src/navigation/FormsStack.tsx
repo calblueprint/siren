@@ -6,7 +6,8 @@ import UpdateScreen from 'screens/Forms/UpdateScreen';
 
 const Stack = createStackNavigator();
 
-const FormsStack = () => {
+const FormsStack = ({ route }: any) => {
+  const { visitReason } = route.params;
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -23,6 +24,7 @@ const FormsStack = () => {
         name="Update"
         component={UpdateScreen}
         options={{ headerShown: false }}
+        initialParams={{ visitReason }}
       />
     </Stack.Navigator>
   );

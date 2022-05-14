@@ -54,14 +54,19 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
       radio: Radio,
     };
     const QuestionComponent = answerComponents[question.answerType];
+    console.log(currentAnswers);
+    console.log(existingAnswers.get(caseType));
     return (
       <QuestionComponent
         key={question.displayText.get(userLanguage)}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
+          // eslint-disable-next-line no-nested-ternary
           currentAnswers.has(question.key)
             ? currentAnswers.get(question.key)
+            : existingAnswers.get(caseType).has(question.key)
+            ? existingAnswers.get(caseType).get(question.key)
             : null
         }
       />
