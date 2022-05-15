@@ -244,7 +244,6 @@ export const getAllQuestionsOfType = async (
           question.answerOptions,
         )),
     );
-    console.log(questions);
     return questions;
   } catch (e) {
     console.warn(e);
@@ -362,7 +361,7 @@ export const getCaseTypeFromKey = async (
       .collection('caseTypes')
       .where('key', '==', visitReason)
       .get();
-    return ref.docs[0].id;
+    return ref.docs[0].id as string;
   } catch (e) {
     console.warn(e);
     throw e;

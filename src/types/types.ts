@@ -72,6 +72,7 @@ export type QuestionManagerProps = {
   existingAnswers: Map<string, Map<string, any>>;
   managerSpecificProps?: Dictionary; // add any specific extra props you need in here
   goBack?: any;
+  isUpdating?: boolean;
 };
 
 export type Dictionary = {

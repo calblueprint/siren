@@ -29,6 +29,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     setNextScreen,
     existingAnswers,
     managerSpecificProps,
+    isUpdating,
   } = props;
   const caseType = managerSpecificProps?.caseType;
   const [currentAnswers, setCurrentAnswers] = useState(
@@ -54,12 +55,23 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
       radio: Radio,
     };
     const QuestionComponent = answerComponents[question.answerType];
+    const existToCurrentAnswers = (): void => {
+      for (const [key, value] of existingAnswers.get(caseType)) {
+        if (!currentAnswers.has(key)) {
+          currentAnswers.set(key, value);
+        }
+      }
+    };
+    {
+      isUpdating ? existToCurrentAnswers() : null;
+    }
     return (
       <QuestionComponent
         key={question.displayText.get(userLanguage)}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
+          // eslint-disable-next-line no-nested-ternary
           currentAnswers.has(question.key)
             ? currentAnswers.get(question.key)
             : null
@@ -78,7 +90,9 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     }
     client.answers.set(caseType, currentAnswers);
     await setClient(client);
-    await setCaseAndNumCases(client.id, caseType);
+    if (!isUpdating) {
+      await setCaseAndNumCases(client.id, caseType);
+    }
   };
 
   const goToNextScreen = () => {
@@ -105,7 +119,9 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
       {allQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
         <ButtonDarkBlue onPress={() => goToNextScreen()}>
-          <TextRegularWhite>Submit</TextRegularWhite>
+          <TextRegularWhite>
+            {isUpdating ? 'Update' : 'Submit'}
+          </TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
     </Container>

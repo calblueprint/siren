@@ -6,7 +6,7 @@ import {
   TextContainer,
   TextInput,
   TextDescription,
-} from '../../../components/Inputs/styles';
+} from '../styles';
 import { LanguageContext } from '../../../context/ContextProvider';
 
 export default function SmallInput(props: QuestionComponentProps) {
@@ -20,7 +20,6 @@ export default function SmallInput(props: QuestionComponentProps) {
       </TextDescription>
     ) : null;
   };
-
   return (
     <InputContainer>
       <TextContainer>
