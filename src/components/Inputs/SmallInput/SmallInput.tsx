@@ -20,9 +20,6 @@ export default function SmallInput(props: QuestionComponentProps) {
       </TextDescription>
     ) : null;
   };
-
-  console.log(question);
-  console.log(existingAnswer);
   return (
     <InputContainer>
       <TextContainer>

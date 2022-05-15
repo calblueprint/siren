@@ -37,6 +37,7 @@ const UpdateScreen = ({ route, navigation }: any) => {
             setNextScreen={setFinalScreen}
             existingAnswers={existingAnswers}
             managerSpecificProps={{ caseType: additionalScreenType }}
+            isUpdating
           />
         </InnerPageContainer>
       </ScrollPageContainer>

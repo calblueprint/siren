@@ -13,6 +13,7 @@ import {
   getAllQuestionsOfType,
   setClient,
   getAllCases,
+  getQuestion,
 } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
@@ -46,6 +47,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   );
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
   const { state } = React.useContext(ClientContext);
+  const client: Client = state;
   const { userLanguage } = React.useContext(LanguageContext);
   const finalGeneralScreen = 5;
   const uid = firebase.auth().currentUser?.uid;
@@ -57,17 +59,27 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     ['citizenship', 'Citizenship'],
     ['dacaRenewal', 'DACA renewal'],
   ]);
+  const languages = ['EN', 'ES', 'VIET'];
+  const [visitReasons, setVisitReasons] = useState(null);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
+  };
+
+  const getVisitReason = (visitReason: string) => {
+    let index = -1;
+    languages.map(lang =>
+      visitReasons[lang].includes(visitReason)
+        ? (index = visitReasons[lang].indexOf(visitReason))
+        : null,
+    );
+    return visitReasons.EN[index];
   };
 
   const handleNext = () => {
     if (screen === finalGeneralScreen) {
       setFilledCase(false);
       if (currentAnswers.get('visitReason')) {
-        console.log(currentAnswers.get('visitReason'));
-        console.log(cases);
         if (cases.includes(currentAnswers.get('visitReason'))) {
           setFilledCase(true);
         } else {
@@ -82,6 +94,9 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const loadQuestions = async (): Promise<void> => {
     const qs: Question[] = await getAllQuestionsOfType('general');
     setAllQuestions(qs);
+    const vr = (await getQuestion('7Y1pxuiOEe7Z6eiFtkX7', 'general'))
+      .answerOptions;
+    setVisitReasons(vr);
   };
   const loadCases = async (): Promise<void> => {
     const clientCases = await getAllCases(uid);
@@ -111,7 +126,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   };
 
   const sendAnswersToFirebase = async () => {
-    const client: Client = state;
     if (!client) {
       return;
     }
@@ -151,7 +165,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           break;
         case 6:
           sendAnswersToFirebase();
-          setNextScreen(currentAnswers.get('visitReason'));
+          setNextScreen(getVisitReason(currentAnswers.get('visitReason')));
           break;
         default:
           setCurrentQuestions(allQuestions.slice(0, 5));
