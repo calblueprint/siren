@@ -77,6 +77,8 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   };
 
   const handleNext = () => {
+    console.log(currentAnswers);
+    console.log(currentAnswers.get('visitReason'));
     if (screen === finalGeneralScreen) {
       setFilledCase(false);
       if (currentAnswers.get('visitReason')) {

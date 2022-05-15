@@ -33,18 +33,22 @@ const FormsScreen = ({ navigation }: any) => {
           onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
         />
         <div>Your Cases:</div>
-        {cases.map(c => (
-          <Button
-            key={c.id}
-            title={caseTypes.get(c.type)}
-            onPress={() =>
-              navigation.navigate('FormsStack', {
-                screen: 'Update',
-                visitReason: c.type,
-              })
-            }
-          />
-        ))}
+        {cases.length !== 0 ? (
+          Object.keys(cases).map((id: any) => (
+            <Button
+              key={id}
+              title={caseTypes.get(cases[id].type)}
+              onPress={() =>
+                navigation.navigate('FormsStack', {
+                  screen: 'Update',
+                  visitReason: cases[id].type,
+                })
+              }
+            />
+          ))
+        ) : (
+          <p>No cases yet.</p>
+        )}
       </InnerPageContainer>
     </ScrollPageContainer>
   );

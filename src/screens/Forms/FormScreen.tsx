@@ -70,7 +70,6 @@ const FormsScreen = ({ navigation }: any) => {
     }
 
     if (showAdditionalScreen) {
-      console.log(additionalScreenType);
       return (
         <ScrollPageContainer>
           <InnerPageContainer>

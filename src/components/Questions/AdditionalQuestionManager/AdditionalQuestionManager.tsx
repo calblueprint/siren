@@ -62,7 +62,9 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
         }
       }
     };
-    existToCurrentAnswers();
+    {
+      isUpdating ? existToCurrentAnswers() : null;
+    }
     return (
       <QuestionComponent
         key={question.displayText.get(userLanguage)}
