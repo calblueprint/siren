@@ -176,6 +176,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   }, [screen, allQuestions, existingAnswers]);
 
   const goBack = () => {
+    setFilledCase(false);
     if (screen > 0) {
       setScreen(screen - 1);
     } else {
