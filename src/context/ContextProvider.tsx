@@ -51,7 +51,7 @@ export function LanguageProvider({ children }) {
 }
 
 // get text according to id & current language
-export function Text(tid): string {
+export function Text(tid: any): string {
   const languageContext = useContext(LanguageContext);
 
   return languageContext.dictionary[tid];

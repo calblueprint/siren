@@ -1,13 +1,14 @@
 import React from 'react';
-import { TextRegularBold } from '../../../../assets/fonts/Fonts';
+import { TextRegularBold } from 'assets/fonts/Fonts';
+import { QuestionComponentProps } from 'types/types';
+import { LanguageContext } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
 import {
   InputContainer,
   TextContainer,
   TextInput,
   TextDescription,
-} from '../../../components/Inputs/styles';
-import { QuestionComponentProps } from '../../../types/types';
-import { LanguageContext } from '../../../context/ContextProvider';
+} from '../styles';
 
 export default function LargeInput(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
