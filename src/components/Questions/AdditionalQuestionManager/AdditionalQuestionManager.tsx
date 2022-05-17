@@ -62,10 +62,8 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
         }
       });
     };
-    // eslint-disable-next-line no-lone-blocks
-    {
-      // eslint-disable-next-line no-unused-expressions
-      isUpdating ? existToCurrentAnswers() : null;
+    if (isUpdating) {
+      existToCurrentAnswers();
     }
     return (
       <QuestionComponent
