@@ -5,6 +5,7 @@ import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { getAllCases } from 'database/queries';
 import { TextTitle } from 'assets/fonts/Fonts';
 import firebase from 'firebase';
+import { Case } from 'types/types';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -17,9 +18,9 @@ const caseTypes = new Map<string, string>([
 
 const FormsScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
-  const [cases, setCases] = useState(Case[]);
+  const [cases, setCases] = useState<Case[]>([]);
   const loadCases = async (): Promise<void> => {
-    const clientCases = await getAllCases(uid);
+    const clientCases = await getAllCases(uid as string);
     setCases(clientCases);
   };
 
@@ -40,7 +41,7 @@ const FormsScreen = ({ navigation }: any) => {
           Object.keys(cases).map((id: any) => (
             <Button
               key={id}
-              title={caseTypes.get(cases[id].type)}
+              title={caseTypes.get(cases[id].type) as string}
               onPress={() =>
                 navigation.navigate('FormsStack', {
                   screen: 'Update',
