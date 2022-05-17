@@ -3,13 +3,13 @@ import React from 'react';
 import { PageContainer } from 'screens/styles';
 import { TextRegular, TextBold, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDark, ButtonLight } from 'assets/Components';
+import { Text } from 'context/ContextProvider';
 import {
   ContentContainer,
   TitleContainer,
   ButtonContainer,
   ButtonView,
 } from './styles';
-import { Text } from 'context/ContextProvider';
 
 const FinalIntakeScreen = ({ navigation }: any) => {
   return (

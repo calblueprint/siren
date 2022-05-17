@@ -1,23 +1,23 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
+import { ButtonDark, TextInput } from 'assets/Components';
 import {
   TextBold,
   TextRegular,
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from '../../../assets/fonts/Fonts';
-import { ButtonDark, TextInput } from '../../../assets/Components';
-import { PageContainer } from '../../screens/styles';
-import { login } from '../../database/auth';
+} from 'assets/fonts/Fonts';
+import { login } from 'database/auth';
+import { Text } from 'context/ContextProvider';
+import { PageContainer } from '../styles';
 import {
   ContentContainer,
   TitleContainer,
   ButtonView,
   ButtonHeader,
 } from './styles';
-import { Text } from '../../context/ContextProvider';
 
 const LoginScreen = ({ route, navigation }: any) => {
   const { language } = route.params;

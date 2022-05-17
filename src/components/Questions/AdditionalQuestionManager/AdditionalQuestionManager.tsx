@@ -56,13 +56,16 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     };
     const QuestionComponent = answerComponents[question.answerType];
     const existToCurrentAnswers = (): void => {
+      // eslint-disable-next-line no-restricted-syntax
       for (const [key, value] of existingAnswers.get(caseType)) {
         if (!currentAnswers.has(key)) {
           currentAnswers.set(key, value);
         }
       }
     };
+    // eslint-disable-next-line no-lone-blocks
     {
+      // eslint-disable-next-line no-unused-expressions
       isUpdating ? existToCurrentAnswers() : null;
     }
     return (
