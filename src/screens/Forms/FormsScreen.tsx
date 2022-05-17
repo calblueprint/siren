@@ -18,10 +18,10 @@ const caseTypes = new Map<string, string>([
 
 const FormsScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
-  const [cases, setCases] = useState([]);
+  const [cases, setCases] = useState<Case[]>([]);
   const loadCases = async (): Promise<void> => {
     const clientCases = await getAllCases(uid as string);
-    setCases(clientCases as never[]);
+    setCases(clientCases);
   };
 
   useEffect(() => {
@@ -41,11 +41,11 @@ const FormsScreen = ({ navigation }: any) => {
           Object.keys(cases).map((id: any) => (
             <Button
               key={id}
-              title={caseTypes.get((cases[id] as Case).type) as string}
+              title={caseTypes.get(cases[id].type) as string}
               onPress={() =>
                 navigation.navigate('FormsStack', {
                   screen: 'Update',
-                  visitReason: (cases[id] as Case).type,
+                  visitReason: cases[id].type,
                 })
               }
             />

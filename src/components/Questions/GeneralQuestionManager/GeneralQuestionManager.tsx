@@ -1,5 +1,5 @@
 /* eslint-disable react/style-prop-object */
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
 import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
@@ -17,12 +17,7 @@ import {
 } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
-import {
-  Question,
-  Client,
-  QuestionManagerProps,
-  MultilingualQuestion,
-} from 'types/types';
+import { Question, Client, QuestionManagerProps } from 'types/types';
 import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
@@ -73,27 +68,21 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
 
   const getVisitReason = (visitReason: string) => {
     let index = -1;
-    // eslint-disable-next-line no-return-assign
     languages.map(lang =>
-      // eslint-disable-next-line no-nested-ternary
-      visitReasons
-        ? (visitReasons[lang] as Array<string>).includes(visitReason)
-          ? (index = visitReasons
-              ? (visitReasons[lang] as Array<string>).indexOf(visitReason)
-              : -1)
-          : null
+      visitReasons[lang].includes(visitReason)
+        ? (index = visitReasons[lang].indexOf(visitReason))
         : null,
     );
-    return visitReasons
-      ? (visitReasons as MultilingualQuestion).EN[index]
-      : null;
+    return visitReasons.EN[index];
   };
 
   const handleNext = () => {
+    console.log(currentAnswers);
+    console.log(currentAnswers.get('visitReason'));
     if (screen === finalGeneralScreen) {
       setFilledCase(false);
       if (currentAnswers.get('visitReason')) {
-        if (cases.includes(currentAnswers.get('visitReason') as never)) {
+        if (cases.includes(currentAnswers.get('visitReason'))) {
           setFilledCase(true);
         } else {
           setScreen(screen + 1);
@@ -109,13 +98,11 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     setAllQuestions(qs);
     const vr = (await getQuestion('7Y1pxuiOEe7Z6eiFtkX7', 'general'))
       .answerOptions;
-    setVisitReasons(vr as unknown as SetStateAction<null>);
+    setVisitReasons(vr);
   };
   const loadCases = async (): Promise<void> => {
-    const clientCases = await getAllCases(uid as string);
-    setCases(
-      clientCases.map(c => caseTypes.get(c.type)) as SetStateAction<never[]>,
-    );
+    const clientCases = await getAllCases(uid);
+    setCases(clientCases.map(c => caseTypes.get(c.type)));
   };
   const getQuestionComponent = (question: Question) => {
     const answerComponents = {
@@ -180,9 +167,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           break;
         case 6:
           sendAnswersToFirebase();
-          setNextScreen(
-            getVisitReason(currentAnswers.get('visitReason')) as string,
-          );
+          setNextScreen(getVisitReason(currentAnswers.get('visitReason')));
           break;
         default:
           setCurrentQuestions(allQuestions.slice(0, 5));
@@ -191,6 +176,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   }, [screen, allQuestions, existingAnswers]);
 
   const goBack = () => {
+    setFilledCase(false);
     if (screen > 0) {
       setScreen(screen - 1);
     } else {
