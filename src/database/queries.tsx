@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
 import {
@@ -241,7 +243,7 @@ export const getAllQuestionsOfType = async (
     questions.map(
       question =>
         (question.answerOptions = objectToAnswerOptionsMap(
-          question.answerOptions,
+          question.answerOptions, // fine?
         )),
     );
     return questions;

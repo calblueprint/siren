@@ -14,6 +14,7 @@ export const LogoTitle = () => {
         height: 37,
         width: 79,
       }}
+      // eslint-disable-next-line global-require
       source={require('/images/siren_logo.png')}
     />
   );
