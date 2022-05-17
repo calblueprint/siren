@@ -21,6 +21,7 @@ import {
   TextTitle,
 } from 'assets/fonts/Fonts';
 import { setDocument } from 'database/queries';
+import { Text } from 'context/ContextProvider';
 import {
   PicturesContainer,
   PageContainer,
@@ -31,7 +32,6 @@ import {
   ButtonDarkBlue,
   ButtonDarkBlueBottom,
 } from './styles';
-import { Text } from 'context/ContextProvider';
 
 // Firebase sets some timeers for a long period, which will trigger some warnings. Let's turn that off for this example
 LogBox.ignoreLogs([`Setting a timer for a long period`]);

@@ -1,7 +1,7 @@
 import { Colors } from 'assets/Colors';
 import { StyleSheet } from 'react-native';
 
-export const logo = StyleSheet.create({
+const logo = StyleSheet.create({
   container: {
     backgroundColor: Colors.lighterGray,
     height: 96,
@@ -9,3 +9,5 @@ export const logo = StyleSheet.create({
     borderBottomRightRadius: 5,
   },
 });
+
+export default logo;

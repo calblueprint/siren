@@ -1,25 +1,30 @@
 import React from 'react';
-import { QuestionComponentProps } from '../../../types/types';
-import { TextRegularBold } from '../../../../assets/fonts/Fonts';
+import { LanguageContext } from 'context/ContextProvider';
+import { QuestionComponentProps } from 'types/types';
+import { TextRegularBold } from 'assets/fonts/Fonts';
+// eslint-disable-next-line no-restricted-imports
 import {
   InputContainer,
   TextContainer,
   TextInput,
   TextDescription,
 } from '../styles';
-import { LanguageContext } from '../../../context/ContextProvider';
 
 export default function SmallInput(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
   const { userLanguage } = React.useContext(LanguageContext);
 
   const getDescription = () => {
-    return question.description.get(userLanguage).length > 0 ? (
-      <TextDescription>
-        {question.description.get(userLanguage)}
-      </TextDescription>
-    ) : null;
+    if (question?.description?.get(userLanguage)?.length) {
+      return (
+        <TextDescription>
+          {question.description.get(userLanguage)}
+        </TextDescription>
+      );
+    }
+    return null;
   };
+
   return (
     <InputContainer>
       <TextContainer>
