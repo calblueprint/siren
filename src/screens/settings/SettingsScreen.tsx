@@ -7,8 +7,9 @@ import {
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
-} from '../../../assets/fonts/Fonts';
-import { ButtonDark, TextInput } from '../../../assets/Components';
+} from 'assets/fonts/Fonts';
+import { ButtonDark, TextInput } from 'assets/Components';
+// eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import {
   RadioContainer,

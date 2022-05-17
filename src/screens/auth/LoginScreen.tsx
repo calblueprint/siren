@@ -11,6 +11,7 @@ import {
 } from 'assets/fonts/Fonts';
 import { login } from 'database/auth';
 import { Text } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import {
   ContentContainer,

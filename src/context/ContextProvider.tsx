@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Client } from '../types/types';
-import { getEmptyClient } from '../utils/utils';
-import { languageOptions, dictionaryList } from '../multilingual/index';
+import { getEmptyClient } from 'utils/utils';
+import { Client } from 'types/types';
+import { dictionaryList } from 'multilingual/index';
 
 // general function for creating a context
 const createContext = <A extends {} | null>(defaultValue: A) => {
@@ -53,6 +53,5 @@ export function LanguageProvider({ children }) {
 // get text according to id & current language
 export function Text(tid: any): string {
   const languageContext = useContext(LanguageContext);
-
   return languageContext.dictionary[tid];
 }

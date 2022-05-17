@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'react-native';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { getAllCases } from 'database/queries';
-import { TextTitle } from 'assets/fonts/Fonts';
+import { TextTitle, TextSubtitle } from 'assets/fonts/Fonts';
 import firebase from 'firebase';
+import { Case } from 'types/types';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -17,22 +18,22 @@ const caseTypes = new Map<string, string>([
 
 const FormsScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
-  const [cases, setCases] = useState(Case[]);
+  const [cases, setCases] = useState<Case[]>([]);
   const loadCases = async (): Promise<void> => {
-    const clientCases = await getAllCases(uid);
+    const clientCases = await getAllCases(uid as string);
     setCases(clientCases);
   };
 
   useEffect(() => {
     loadCases();
-  }, []);
+  }, [cases]);
 
   return (
     <ScrollPageContainer>
       <InnerPageContainer>
         <Button
           key="form"
-          title={Text('Go to form')}
+          title={Text('Go to form') as string}
           onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
         />
         <TextTitle>Your Cases</TextTitle>
@@ -40,7 +41,7 @@ const FormsScreen = ({ navigation }: any) => {
           Object.keys(cases).map((id: any) => (
             <Button
               key={id}
-              title={caseTypes.get(cases[id].type)}
+              title={caseTypes.get(cases[id].type) as string}
               onPress={() =>
                 navigation.navigate('FormsStack', {
                   screen: 'Update',
@@ -50,7 +51,7 @@ const FormsScreen = ({ navigation }: any) => {
             />
           ))
         ) : (
-          <TextTitle>No Cases Yet</TextTitle>
+          <TextSubtitle>No Cases Yet</TextSubtitle>
         )}
       </InnerPageContainer>
     </ScrollPageContainer>

@@ -16,7 +16,7 @@ import {
   NotificationsBell,
   SettingsCog,
 } from 'components/Header/Header';
-import { logo } from 'components/Header/styles';
+import logo from 'components/Header/styles';
 import UploadStack from './UploadStack';
 
 const auth = firebase.auth();

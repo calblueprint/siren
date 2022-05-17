@@ -56,12 +56,14 @@ export default function Calendar(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    // return question.description.length > 0 ? (
-    return question.description.get(userLanguage).length > 0 ? (
-      <TextDescription>
-        {question.description.get(userLanguage)}
-      </TextDescription>
-    ) : null;
+    if (question?.description?.get(userLanguage)?.length) {
+      return (
+        <TextDescription>
+          {question.description.get(userLanguage)}
+        </TextDescription>
+      );
+    }
+    return null;
   };
 
   return (
