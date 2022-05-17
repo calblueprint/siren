@@ -20,7 +20,7 @@ import {
   TextSubtitle,
   TextTitle,
 } from 'assets/fonts/Fonts';
-import { setDocument } from 'database/queries';
+import { setDocument, getClientCaseDocs } from 'database/queries';
 import { Text } from 'context/ContextProvider';
 import {
   PicturesContainer,
@@ -42,15 +42,24 @@ const CameraScreen = ({ navigation, route }: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   const storage = firebase.storage();
   const clientCase = route.params?.clientCase;
+  const caseId = clientCase?.id;
   const clientId = route.params?.clientId;
   const docName = route.params?.name;
 
   useEffect(() => {
-    if (route.params?.uris) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-      setImageUris(route.params.uris);
-    }
+    const loadImages = async (): Promise<void> => {
+      const clientCaseDocs = await getClientCaseDocs(clientId, caseId);
+      console.log(clientCaseDocs);
+      setImageUris(clientCaseDocs.map(doc => doc.url));
+      console.log(imageUris);
+    };
+    loadImages();
+
+    // if (route.params?.uris) {
+    //   // Post updated, do something with `route.params.post`
+    //   // For example, send the post to the server
+    //   setImageUris(route.params.uris);
+    // }
   }, [route.params?.uris]);
 
   useEffect(() => {
@@ -82,6 +91,7 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   const renderCurrentPictures = () => {
+    console.log(imageUris);
     return (
       <PicturesContainer>
         {imageUris.length !== 0

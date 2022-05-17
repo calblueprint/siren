@@ -78,6 +78,25 @@ export const setClient = async (client: Client) => {
 //   }
 // };
 
+export const getClientCaseDocs = async (
+  clientId: string,
+  caseId: string,
+): Promise<Document[]> => {
+  try {
+    const clientCase = await clientCollection
+      .doc(clientId)
+      .collection('cases')
+      .doc(caseId)
+      .collection('documents')
+      .get();
+    return clientCase.docs.map(doc => doc.data() as Document);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling.
+  }
+};
+
 export const getCase = async (
   clientId: string,
   caseId: string,
