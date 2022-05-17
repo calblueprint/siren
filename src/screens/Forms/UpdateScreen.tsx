@@ -6,7 +6,7 @@ import AdditionalQuestionManager from 'components/Questions/AdditionalQuestionMa
 
 const UpdateScreen = ({ route, navigation }: any) => {
   const { visitReason } = route.params;
-  const [additionalScreenType, setAdditionalScreenType] = useState(visitReason);
+  const additionalScreenType = visitReason;
   const [existingAnswers, setExistingAnswers] = useState(new Map());
   const { state } = React.useContext(ClientContext);
 

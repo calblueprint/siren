@@ -94,3 +94,9 @@ export type DocumentType = {
   poReport: string;
   // remaining types
 };
+
+export type MultilingualQuestion = {
+  EN: string;
+  ES: string;
+  VIET: string;
+};
