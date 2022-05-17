@@ -6,10 +6,10 @@ import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
-import { NameContainer } from '../styles';
-import { TextTitle } from '../../../assets/fonts/Fonts';
-import { CaseStatus } from '../../types/types';
+import { TextTitle } from 'assets/fonts/Fonts';
+import { CaseStatus } from 'types/types';
 // eslint-disable-next-line no-restricted-imports
+import { NameContainer } from '../styles';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;

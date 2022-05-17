@@ -194,6 +194,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     if (screen > 0) {
       setScreen(screen - 1);
     } else {
+      // eslint-disable-next-line react/destructuring-assignment
       props.goBack();
     }
   };

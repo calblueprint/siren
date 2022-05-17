@@ -10,6 +10,7 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
+// eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 

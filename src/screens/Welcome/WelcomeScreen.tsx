@@ -2,16 +2,15 @@
 import React from 'react';
 import { Appbar } from 'react-native-paper';
 import { Image } from 'react-native';
-import { RotationGestureHandler } from 'react-native-gesture-handler';
-import { TabRouter } from '@react-navigation/native';
-import { PageContainer } from '../styles';
 import {
   TextRegular,
   TextBold,
   TextRegularWhite,
   TextSubtitle,
-} from '../../../assets/fonts/Fonts';
-import { ButtonDark, ButtonLight } from '../../../assets/Components';
+} from 'assets/fonts/Fonts';
+import { ButtonDark, ButtonLight } from 'assets/Components';
+// eslint-disable-next-line no-restricted-imports
+import { PageContainer } from '../styles';
 import {
   ContentContainer,
   TitleContainer,

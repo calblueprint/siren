@@ -2,10 +2,11 @@
 import React, { useState, useContext } from 'react';
 import { Image } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import { TextRegular, TextRegularWhite } from 'assets/fonts/Fonts';
+import { ButtonDark } from 'assets/Components';
+import { TextRegularRed } from 'assets/fonts/Fonts';
+// eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
-import { TextRegular, TextRegularWhite } from '../../../assets/fonts/Fonts';
-import { ButtonDark } from '../../../assets/Components';
-import { TextRegularRed } from '../../../assets/fonts/Fonts';
 import {
   RadioContainer,
   ContentContainer,

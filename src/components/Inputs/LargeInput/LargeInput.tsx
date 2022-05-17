@@ -15,11 +15,14 @@ export default function LargeInput(props: QuestionComponentProps) {
   const { userLanguage } = React.useContext(LanguageContext);
 
   const getDescription = () => {
-    return question.description.get(userLanguage).length > 0 ? (
-      <TextDescription>
-        {question.description.get(userLanguage)}
-      </TextDescription>
-    ) : null;
+    if (question?.description?.get(userLanguage)?.length) {
+      return (
+        <TextDescription>
+          {question.description.get(userLanguage)}
+        </TextDescription>
+      );
+    }
+    return null;
   };
 
   return (
