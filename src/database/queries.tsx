@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-console */
 import {
@@ -75,6 +77,25 @@ export const setClient = async (client: Client) => {
 //     // TODO: Add error handling.
 //   }
 // };
+
+export const getClientCaseDocs = async (
+  clientId: string,
+  caseId: string,
+): Promise<Document[]> => {
+  try {
+    const clientCase = await clientCollection
+      .doc(clientId)
+      .collection('cases')
+      .doc(caseId)
+      .collection('documents')
+      .get();
+    return clientCase.docs.map(doc => doc.data() as Document);
+  } catch (e) {
+    console.warn(e);
+    throw e;
+    // TODO: Add error handling.
+  }
+};
 
 export const getCase = async (
   clientId: string,
@@ -241,7 +262,7 @@ export const getAllQuestionsOfType = async (
     questions.map(
       question =>
         (question.answerOptions = objectToAnswerOptionsMap(
-          question.answerOptions,
+          question.answerOptions, // fine?
         )),
     );
     return questions;
