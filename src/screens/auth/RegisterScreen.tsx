@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-imports */
+/* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
@@ -10,7 +12,6 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
-// eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
@@ -21,13 +22,42 @@ const RegisterScreen = ({ route, navigation }: any) => {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [fullName, setFullName] = useState('');
 
+  // TO DO: Apply text function to 
+
+  function checkPassword(password1: string, password2: string): boolean {
+    const hasLower = new RegExp('^(?=.*[a-z])');
+    const hasUpper = new RegExp('^(?=.*[A-Z])');
+    const hasNum = new RegExp('^(?=.*[0-9])');
+
+    if (password1 !== password2) {
+      alert('Passwords do not match');
+    } else if (password1.length < 6) {
+      alert('Password must be greater than 6 characters');
+      return false;
+    } else {
+      if (hasLower.test(password1) === false) {
+        alert('Password must contain lower case character');
+        return false;
+      }
+      if (hasUpper.test(password1) === false) {
+        alert('Password must contain upper case character');
+        return false;
+      }
+      if (hasNum.test(password1) === false) {
+        alert('Password must contain number');
+        return false;
+      }
+    }
+    return password === password2;
+  }
+
   const onRegister = (e: string, p: string, n: string, lang: string) => {
     if (email === '' || password === '' || fullName === '' || lang === '') {
-      console.log('please fill in all inputs');
-    } else if (password !== passwordRepeat) {
-      console.log('passwords do not match');
-    } else {
+      alert('Please fill in all inputs');
+    } else if (checkPassword(password, passwordRepeat)) {
       register(e, p, n, lang);
+    } else {
+      return null;
     }
   };
 
@@ -68,6 +98,10 @@ const RegisterScreen = ({ route, navigation }: any) => {
         />
         <TextRegular>
           {Text('Password')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextRegular>
+          Must contain at least 6 characters, 1 uppercase, 1 lowercase, and 1
+          number
         </TextRegular>
         <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
         <TextRegular>

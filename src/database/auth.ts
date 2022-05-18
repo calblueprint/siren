@@ -1,4 +1,5 @@
 import { Client } from 'types/types';
+import { Alert } from 'react-native';
 import firebase from './clientApp';
 import 'firebase/firestore';
 import { setClient } from './queries';
@@ -26,6 +27,7 @@ export async function register(
     }
   } catch (err) {
     console.log(err);
+    Alert.alert('An unknown error occured');
   }
 }
 

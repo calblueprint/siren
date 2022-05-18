@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
@@ -10,6 +11,8 @@ import {
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
 // eslint-disable-next-line no-restricted-imports
+import firebase from 'database/clientApp';
+import { LanguageContext, Text } from 'context/ContextProvider';
 import { PageContainer } from '../styles';
 import {
   RadioContainer,
@@ -18,10 +21,6 @@ import {
   ButtonView,
   ButtonHeader,
 } from './styles';
-// eslint-disable-next-line no-restricted-imports
-import firebase from '../../database/clientApp';
-// eslint-disable-next-line no-restricted-imports
-import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
