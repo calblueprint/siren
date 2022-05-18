@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
@@ -9,7 +10,9 @@ import {
   TextSubtitle,
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
-// eslint-disable-next-line no-restricted-imports
+import { dictionaryList } from 'multilingual';
+import { LanguageContext, Text } from 'context/ContextProvider';
+import firebase from 'database/clientApp';
 import { PageContainer } from '../styles';
 import {
   RadioContainer,
@@ -18,16 +21,12 @@ import {
   ButtonView,
   ButtonHeader,
 } from './styles';
-// eslint-disable-next-line no-restricted-imports
-import firebase from '../../database/clientApp';
-// eslint-disable-next-line no-restricted-imports
-import { LanguageContext, Text } from '../../context/ContextProvider';
-import { dictionaryList } from 'multilingual';
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
 function Radio({ handleRadioFunc, setLanguage }: any) {
   const [value, setValue] = useState('');
+
   const onChange = (val: string): void => {
     setLanguage(val);
     setValue(val);
@@ -36,9 +35,8 @@ function Radio({ handleRadioFunc, setLanguage }: any) {
 
   return (
     <RadioContainer>
-      {languageOptions.map((option, key) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ButtonContainer key={key}>
+      {languageOptions.map(option => (
+        <ButtonContainer key={option}>
           <RadioButton.Android
             color="black"
             value={option}
@@ -61,27 +59,33 @@ const SettingsScreen = ({ navigation }: any) => {
   const clientCollection = db.collection('clients');
   const { langUpdate } = React.useContext(LanguageContext);
 
-  const updateLanguage = async (lang: string) => {
+  // updates language in firebase
+  const updateFirebaseLanguage = async (lang: string) => {
     try {
       const lowercaseLang = lang.toLowerCase();
       const user = firebase.auth().currentUser;
       const userDoc = clientCollection.doc(user?.uid);
       const newFields = { language: lowercaseLang };
       await userDoc.update(newFields);
-      if (lowercaseLang === 'Español') {
-        langUpdate(dictionaryList.ES);
-      }
-      if (lowercaseLang === 'Tiếng Việt') {
-        langUpdate(dictionaryList.VIET);
-      }
-      if (lowercaseLang === 'English') {
-        langUpdate(dictionaryList.EN);
-      }
     } catch (err) {
       console.log('Error in updating language preference');
     }
   };
 
+  // updates local language context
+  const updateLanguageContext = (val: string): void => {
+    if (val === 'Español') {
+      langUpdate(dictionaryList.ES); // dictionary type
+    }
+    if (val === 'Tiếng Việt') {
+      langUpdate(dictionaryList.VIET);
+    }
+    if (val === 'English') {
+      langUpdate(dictionaryList.EN);
+    }
+  };
+
+  // query helper fucntions to update firebase (move to queries later)
   const updateEmail = async (newEmail: string) => {
     try {
       const user = firebase.auth().currentUser;
@@ -118,6 +122,7 @@ const SettingsScreen = ({ navigation }: any) => {
     }
   };
 
+  // update client info - TO DO: error handling
   const update = async (
     currPassword: string,
     newLang: string,
@@ -129,7 +134,7 @@ const SettingsScreen = ({ navigation }: any) => {
         updateEmail(newEmail);
       }
       if (newLang !== '') {
-        updateLanguage(newLang);
+        updateFirebaseLanguage(newLang);
       }
       if (newPassword !== '' && currPassword !== '') {
         updatePassword(currPassword, newPassword);
@@ -150,18 +155,6 @@ const SettingsScreen = ({ navigation }: any) => {
     </ButtonHeader>
   );
 
-  const handleRadio = (val: string): void => {
-    if (val === 'Español') {
-      userLanguageChange('ES');
-    }
-    if (val === 'Tiếng Việt') {
-      userLanguageChange('VIET');
-    }
-    if (val === 'English') {
-      userLanguageChange('EN');
-    }
-  };
-
   return (
     <PageContainer>
       {getBackHeader()}
@@ -170,12 +163,12 @@ const SettingsScreen = ({ navigation }: any) => {
         <TextRegular>{Text('Change Email')}</TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder={Text('ex. example@example.com')}
+          // placeholder={Text('ex. example@example.com')} // CAUSING ERRORS
         />
         <TextRegular>Change Password</TextRegular>
         <TextInput
           onChangeText={text => setPassword(text)}
-          placeholder={Text('ex. password123')}
+          // placeholder={Text('ex. password123')}
           secureTextEntry
         />
         <TextRegular>
@@ -187,11 +180,14 @@ const SettingsScreen = ({ navigation }: any) => {
         </TextRegular>
         <TextInput
           onChangeText={text => setCurrentPassword(text)}
-          placeholder={Text('ex. password123')}
+          // placeholder={Text('ex. password123')}
           secureTextEntry
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
-        <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
+        <Radio
+          handleRadioFunc={updateLanguageContext}
+          setLanguage={setLanguage}
+        />
       </ContentContainer>
 
       <ButtonView>
