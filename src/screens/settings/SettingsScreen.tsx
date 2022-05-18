@@ -9,6 +9,7 @@ import {
   TextSubtitle,
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
+import { logout } from 'database/auth';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import {
@@ -98,7 +99,7 @@ const SettingsScreen = ({ navigation }: any) => {
     try {
       const user = firebase.auth().currentUser;
       const credential = firebase.auth.EmailAuthProvider.credential(
-        user?.email,
+        user?.email as string,
         currPassword,
       );
       await user?.reauthenticateWithCredential(credential);
@@ -192,13 +193,18 @@ const SettingsScreen = ({ navigation }: any) => {
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
         <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
+        <ButtonView>
+          <ButtonDark
+            onPress={() => update(currentPassword, language, email, password)}
+          >
+            <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+          </ButtonDark>
+        </ButtonView>
       </ContentContainer>
 
       <ButtonView>
-        <ButtonDark
-          onPress={() => update(currentPassword, language, email, password)}
-        >
-          <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+        <ButtonDark onPress={logout}>
+          <TextRegularWhite>{Text('Logout')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>
     </PageContainer>
