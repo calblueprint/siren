@@ -22,6 +22,7 @@ import {
 import firebase from '../../database/clientApp';
 // eslint-disable-next-line no-restricted-imports
 import { LanguageContext, Text } from '../../context/ContextProvider';
+import { dictionaryList } from 'multilingual';
 
 const languageOptions = ['English', 'Español', 'Tiếng Việt'];
 
@@ -58,24 +59,23 @@ const SettingsScreen = ({ navigation }: any) => {
   const [currentPassword, setCurrentPassword] = useState('');
   const db = firebase.firestore();
   const clientCollection = db.collection('clients');
-  const { userLanguageChange } = React.useContext(LanguageContext);
+  const { langUpdate } = React.useContext(LanguageContext);
 
   const updateLanguage = async (lang: string) => {
     try {
       const lowercaseLang = lang.toLowerCase();
-      console.log('Updated Language!');
       const user = firebase.auth().currentUser;
       const userDoc = clientCollection.doc(user?.uid);
       const newFields = { language: lowercaseLang };
       await userDoc.update(newFields);
       if (lowercaseLang === 'Español') {
-        userLanguageChange('ES');
+        langUpdate(dictionaryList.ES);
       }
       if (lowercaseLang === 'Tiếng Việt') {
-        userLanguageChange('VIET');
+        langUpdate(dictionaryList.VIET);
       }
       if (lowercaseLang === 'English') {
-        userLanguageChange('EN');
+        langUpdate(dictionaryList.EN);
       }
     } catch (err) {
       console.log('Error in updating language preference');

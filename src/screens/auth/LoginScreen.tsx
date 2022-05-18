@@ -21,22 +21,17 @@ import {
 } from './styles';
 
 const LoginScreen = ({ route, navigation }: any) => {
-  const { language } = route.params;
+  // const { language } = route.params;
+  const { langState, langUpdate } = useContext(LanguageContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const getBackHeader = () => (
-    <ButtonHeader
-      onPress={() =>
-        navigation.navigate('Welcome', { languageParam: language })
-      }
-    >
+    <ButtonHeader onPress={() => navigation.navigate('Welcome')}>
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() =>
-          navigation.navigate('Welcome', { languageParam: language })
-        }
+        onPress={() => navigation.navigate('Welcome')}
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>

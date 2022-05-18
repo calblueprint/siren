@@ -1,11 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext } from 'react';
-import { Image } from 'react-native';
+import { EventSubscriptionVendor, Image } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { TextRegular, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDark } from 'assets/Components';
 import { TextRegularRed } from 'assets/fonts/Fonts';
 // eslint-disable-next-line no-restricted-imports
+import { dictionaryList } from 'multilingual';
+import { Dictionary } from 'types/types';
 import { PageContainer } from '../styles';
 import {
   RadioContainer,
@@ -49,19 +51,17 @@ function Radio({ handleRadioFunc }: any) {
 }
 
 const LanguageScreen = ({ navigation }: any) => {
-  const [language, setLanguage] = useState('English');
-  const { userLanguageChange } = useContext(LanguageContext);
+  const { langState, langUpdate } = useContext(LanguageContext);
 
   const handleRadio = (val: string): void => {
-    setLanguage(val);
     if (val === 'Español') {
-      userLanguageChange('ES');
+      langUpdate(dictionaryList.ES);
     }
     if (val === 'Tiếng Việt') {
-      userLanguageChange('VIET');
+      langUpdate(dictionaryList.VIET);
     }
     if (val === 'English') {
-      userLanguageChange('EN');
+      langUpdate(dictionaryList.EN);
     }
   };
 
@@ -79,8 +79,8 @@ const LanguageScreen = ({ navigation }: any) => {
       <ButtonContainer2>
         <ButtonView>
           <ButtonDark
-            onPress={() =>
-              navigation.navigate('Welcome', { languageParam: language })
+            onPress={
+              () => navigation.navigate('Welcome') // is this necessary?
             }
           >
             <TextRegularWhite>Continue</TextRegularWhite>

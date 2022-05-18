@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext } from 'react';
 import { Appbar } from 'react-native-paper';
 import { Image } from 'react-native';
 import {
@@ -20,12 +20,13 @@ import {
   ButtonHeader,
 } from './styles';
 // eslint-disable-next-line no-restricted-imports
-import { Text } from '../../context/ContextProvider';
+import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
 const WelcomeScreen = ({ route, navigation }: any) => {
-  const { languageParam } = route.params;
+  // const { languageParam } = route.params;
+  const { langState, langUpdate } = useContext(LanguageContext);
 
   const getBackHeader = () => (
     <ButtonHeader onPress={() => navigation.navigate('Language')}>
@@ -50,18 +51,14 @@ const WelcomeScreen = ({ route, navigation }: any) => {
       </ContentContainer>
       <ButtonContainer>
         <ButtonView>
-          <ButtonLight
-            onPress={() =>
-              navigation.navigate('Login', { language: languageParam })
-            }
-          >
+          <ButtonLight onPress={() => navigation.navigate('Login')}>
             <TextRegular>{Text('Log in')}</TextRegular>
           </ButtonLight>
         </ButtonView>
         <ButtonView>
           <ButtonDark
             onPress={() =>
-              navigation.navigate('Register', { language: languageParam })
+              navigation.navigate('Register', { language: langState })
             }
           >
             <TextRegularWhite>{Text('Register')}</TextRegularWhite>
