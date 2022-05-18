@@ -14,28 +14,29 @@ import { Text } from 'context/ContextProvider';
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
-const RegisterScreen = ({ navigation }: any) => {
+const RegisterScreen = ({ route, navigation }: any) => {
+  const { langCode } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [fullName, setFullName] = useState('');
 
-  const onRegister = (e: string, p: string, n: string, lang: string) => {
-    if (email === '' || password === '' || fullName === '' || lang === '') {
+  const onRegister = (e: string, p: string, n: string) => {
+    if (email === '' || password === '' || fullName === '') {
       console.log('please fill in all inputs');
     } else if (password !== passwordRepeat) {
       console.log('passwords do not match');
     } else {
-      register(e, p, n, lang);
+      register(e, p, n, langCode);
     }
   };
 
   const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Welcome')}>
+    <ButtonHeader onPress={() => navigation.navigate('Welcome', { langCode })}>
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Welcome')}
+        onPress={() => navigation.navigate('Welcome', { langCode })}
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
@@ -72,7 +73,7 @@ const RegisterScreen = ({ navigation }: any) => {
         />
       </ContentContainer>
       <ButtonView>
-        <ButtonDark onPress={() => onRegister(email, password, fullName, '')}>
+        <ButtonDark onPress={() => onRegister(email, password, fullName)}>
           <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>

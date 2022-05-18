@@ -52,17 +52,22 @@ function Radio({ handleRadioFunc }: any) {
 
 const LanguageScreen = ({ navigation }: any) => {
   const { langState, langUpdate } = useContext(LanguageContext);
+  const [langCode, setLangCode] = useState('EN');
 
   const handleRadio = (val: string): void => {
     if (val === 'Español') {
       langUpdate(dictionaryList.ES);
+      setLangCode('ES');
     }
     if (val === 'Tiếng Việt') {
       langUpdate(dictionaryList.VIET);
+      setLangCode('VIET');
     }
     if (val === 'English') {
       langUpdate(dictionaryList.EN);
+      setLangCode('EN');
     }
+    console.log(langCode);
   };
 
   return (
@@ -80,7 +85,7 @@ const LanguageScreen = ({ navigation }: any) => {
         <ButtonView>
           <ButtonDark
             onPress={
-              () => navigation.navigate('Welcome') // is this necessary?
+              () => navigation.navigate('Welcome', { langCode }) // is this necessary?
             }
           >
             <TextRegularWhite>Continue</TextRegularWhite>

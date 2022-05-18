@@ -24,7 +24,8 @@ import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
-const WelcomeScreen = ({ navigation }: any) => {
+const WelcomeScreen = ({ route, navigation }: any) => {
+  const { langCode } = route.params;
   const getBackHeader = () => (
     <ButtonHeader onPress={() => navigation.navigate('Language')}>
       <Appbar.BackAction
@@ -48,12 +49,16 @@ const WelcomeScreen = ({ navigation }: any) => {
       </ContentContainer>
       <ButtonContainer>
         <ButtonView>
-          <ButtonLight onPress={() => navigation.navigate('Login')}>
+          <ButtonLight
+            onPress={() => navigation.navigate('Login', { langCode })}
+          >
             <TextRegular>{Text('Log in')}</TextRegular>
           </ButtonLight>
         </ButtonView>
         <ButtonView>
-          <ButtonDark onPress={() => navigation.navigate('Register')}>
+          <ButtonDark
+            onPress={() => navigation.navigate('Register', { langCode })}
+          >
             <TextRegularWhite>{Text('Register')}</TextRegularWhite>
           </ButtonDark>
         </ButtonView>
