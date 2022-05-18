@@ -106,8 +106,6 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   const renderCurrentPictures = () => {
-    console.log(imageUrls);
-    console.log(imageUris);
     return (
       <PicturesContainer>
         {imageUrls.length !== 0
