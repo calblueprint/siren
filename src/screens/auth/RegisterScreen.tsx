@@ -14,8 +14,7 @@ import { Text } from 'context/ContextProvider';
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
-const RegisterScreen = ({ route, navigation }: any) => {
-  const { language } = route.params;
+const RegisterScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -32,17 +31,11 @@ const RegisterScreen = ({ route, navigation }: any) => {
   };
 
   const getBackHeader = () => (
-    <ButtonHeader
-      onPress={() =>
-        navigation.navigate('Welcome', { languageParam: language })
-      }
-    >
+    <ButtonHeader onPress={() => navigation.navigate('Welcome')}>
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() =>
-          navigation.navigate('Welcome', { languageParam: language })
-        }
+        onPress={() => navigation.navigate('Welcome')}
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
@@ -79,9 +72,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
         />
       </ContentContainer>
       <ButtonView>
-        <ButtonDark
-          onPress={() => onRegister(email, password, fullName, language)}
-        >
+        <ButtonDark onPress={() => onRegister(email, password, fullName, '')}>
           <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>

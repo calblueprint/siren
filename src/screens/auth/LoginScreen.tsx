@@ -20,9 +20,7 @@ import {
   ButtonHeader,
 } from './styles';
 
-const LoginScreen = ({ route, navigation }: any) => {
-  // const { language } = route.params;
-  const { langState, langUpdate } = useContext(LanguageContext);
+const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
