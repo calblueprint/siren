@@ -38,6 +38,7 @@ LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const CameraScreen = ({ navigation, route }: any) => {
   const [imageUris, setImageUris] = useState([] as string[]);
+  const [imageUrls, setImageUrls] = useState([] as string[]);
   const [uploading, setUploading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const storage = firebase.storage();
@@ -49,7 +50,7 @@ const CameraScreen = ({ navigation, route }: any) => {
   useEffect(() => {
     const loadImages = async (): Promise<void> => {
       const clientCaseDocs = await getClientCaseDocs(clientId, caseId);
-      setImageUris(
+      setImageUrls(
         clientCaseDocs.filter(doc => doc.type === docName).map(doc => doc.url),
       );
     };
@@ -85,10 +86,35 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   const renderCurrentPictures = () => {
-    // setImageUris(allClientDocs.map(doc => doc.url));
+    console.log(imageUrls);
     console.log(imageUris);
     return (
       <PicturesContainer>
+        {imageUrls.length !== 0
+          ? imageUrls.map(uri => (
+              <ImageBackground
+                key={uri}
+                source={{ uri }}
+                style={{
+                  height: 132,
+                  width: 100,
+                  marginLeft: 4,
+                  marginRight: 4,
+                  marginTop: 15,
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() =>
+                    setImageUrls(prevImageUrls =>
+                      prevImageUrls.filter(u => u !== uri),
+                    )
+                  }
+                >
+                  <AntDesign name="closecircleo" size={16} color="black" />
+                </TouchableOpacity>
+              </ImageBackground>
+            ))
+          : null}
         {imageUris.length !== 0
           ? imageUris.map(uri => (
               <ImageBackground
