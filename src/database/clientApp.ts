@@ -27,6 +27,4 @@ if (!firebase.apps.length) {
   firebase.app();
 }
 
-console.log(clientCredentials);
-
 export default firebase;

@@ -1,13 +1,11 @@
 import { Text } from 'context/ContextProvider';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-native';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { getAllCases } from 'database/queries';
 import { TextTitle, TextSubtitle } from 'assets/fonts/Fonts';
 import firebase from 'firebase';
 import { Case } from 'types/types';
-import { ButtonHeader } from 'screens/auth/styles';
-import { Appbar } from 'react-native-paper';
+import { ButtonHeader } from './styles';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -36,11 +34,10 @@ const FormsScreen = ({ navigation }: any) => {
         <ButtonHeader
           onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
         >
-          <Appbar.BackAction size={18} style={{ margin: 0 }} />
-          <TextSubtitle>{Text('Go Back')}</TextSubtitle>
+          <TextSubtitle>{Text('Go to form')}</TextSubtitle>
         </ButtonHeader>
         <TextTitle>Your Cases</TextTitle>
-        {cases.length !== 0 ? (
+        {cases.length ? (
           Object.keys(cases).map((id: any) => (
             <ButtonHeader
               key={id}
@@ -51,8 +48,7 @@ const FormsScreen = ({ navigation }: any) => {
                 })
               }
             >
-              <Appbar.BackAction size={18} style={{ margin: 0 }} />
-              <TextSubtitle>{Text('Go Back')}</TextSubtitle>
+              <TextSubtitle>{caseTypes.get(cases[id].type)}</TextSubtitle>
             </ButtonHeader>
           ))
         ) : (
