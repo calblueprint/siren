@@ -6,6 +6,8 @@ import { getAllCases } from 'database/queries';
 import { TextTitle, TextSubtitle } from 'assets/fonts/Fonts';
 import firebase from 'firebase';
 import { Case } from 'types/types';
+import { ButtonHeader } from 'screens/auth/styles';
+import { Appbar } from 'react-native-paper';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -31,24 +33,27 @@ const FormsScreen = ({ navigation }: any) => {
   return (
     <ScrollPageContainer>
       <InnerPageContainer>
-        <Button
-          key="form"
-          title={Text('Go to form') as string}
+        <ButtonHeader
           onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
-        />
+        >
+          <Appbar.BackAction size={18} style={{ margin: 0 }} />
+          <TextSubtitle>{Text('Go Back')}</TextSubtitle>
+        </ButtonHeader>
         <TextTitle>Your Cases</TextTitle>
         {cases.length !== 0 ? (
           Object.keys(cases).map((id: any) => (
-            <Button
+            <ButtonHeader
               key={id}
-              title={caseTypes.get(cases[id].type) as string}
               onPress={() =>
                 navigation.navigate('FormsStack', {
                   screen: 'Update',
                   visitReason: cases[id].type,
                 })
               }
-            />
+            >
+              <Appbar.BackAction size={18} style={{ margin: 0 }} />
+              <TextSubtitle>{Text('Go Back')}</TextSubtitle>
+            </ButtonHeader>
           ))
         ) : (
           <TextSubtitle>No Cases Yet</TextSubtitle>

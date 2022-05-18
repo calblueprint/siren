@@ -87,4 +87,4 @@ const I18n = ({ str }) => {
   return translated;
 };
 
-export const Text = str => <I18n str={str} />;
+export const Text = (str: string) => <I18n str={str} />;
