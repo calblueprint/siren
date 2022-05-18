@@ -20,7 +20,12 @@ import {
   TextSubtitle,
   TextTitle,
 } from 'assets/fonts/Fonts';
-import { setDocument, getClientCaseDocs } from 'database/queries';
+import { Document } from 'types/types';
+import {
+  setDocument,
+  getClientCaseDocs,
+  deleteDocument,
+} from 'database/queries';
 import { Text } from 'context/ContextProvider';
 import {
   PicturesContainer,
@@ -39,8 +44,10 @@ LogBox.ignoreLogs([`Setting a timer for a long period`]);
 const CameraScreen = ({ navigation, route }: any) => {
   const [imageUris, setImageUris] = useState([] as string[]);
   const [imageUrls, setImageUrls] = useState([] as string[]);
+  const [docs, setDocs] = useState([] as Document[]);
   const [uploading, setUploading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [numImagesUploaded, setNumImagesUploaded] = useState(-1);
   const storage = firebase.storage();
   const clientCase = route.params?.clientCase;
   const caseId = clientCase?.id;
@@ -50,9 +57,12 @@ const CameraScreen = ({ navigation, route }: any) => {
   useEffect(() => {
     const loadImages = async (): Promise<void> => {
       const clientCaseDocs = await getClientCaseDocs(clientId, caseId);
-      setImageUrls(
-        clientCaseDocs.filter(doc => doc.type === docName).map(doc => doc.url),
-      );
+      setDocs(clientCaseDocs);
+      const imgUrls = clientCaseDocs
+        .filter(doc => doc.type === docName)
+        .map(doc => doc.url);
+      setImageUrls(imgUrls);
+      setNumImagesUploaded(imgUrls.length);
     };
     loadImages();
   }, [route.params?.uris]);
@@ -83,6 +93,16 @@ const CameraScreen = ({ navigation, route }: any) => {
       );
     }
     return null;
+  };
+
+  const deleteDocs = () => {
+    if (imageUrls.length !== numImagesUploaded) {
+      docs.map(doc =>
+        imageUrls.includes(doc.url) || doc.type !== docName
+          ? null
+          : deleteDocument(clientId, caseId, doc),
+      );
+    }
   };
 
   const renderCurrentPictures = () => {
@@ -203,6 +223,11 @@ const CameraScreen = ({ navigation, route }: any) => {
     setModalVisible(false);
   };
 
+  const handleDone = () => {
+    uploadImages();
+    deleteDocs();
+  };
+
   const getPageDescription = () => {
     return Text('Tap on the button below to upload');
   };
@@ -245,8 +270,8 @@ const CameraScreen = ({ navigation, route }: any) => {
           </ModalButtonContainer>
         </ModalContainer>
       </Modal>
-      {imageUris.length > 0 ? (
-        <ButtonDarkBlueBottom onPress={uploadImages}>
+      {imageUrls.length !== numImagesUploaded || imageUris.length > 0 ? (
+        <ButtonDarkBlueBottom onPress={handleDone}>
           <TextRegularWhite>{Text('Done')}</TextRegularWhite>
         </ButtonDarkBlueBottom>
       ) : null}
