@@ -26,3 +26,11 @@ export const ButtonContainer = styled.View`
 export const ButtonView = styled.View`
   width: 45%;
 `;
+
+export const ButtonHeader = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+`;
