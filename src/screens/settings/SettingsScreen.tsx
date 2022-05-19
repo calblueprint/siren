@@ -10,6 +10,7 @@ import {
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
 import { logout } from 'database/auth';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import {
@@ -163,44 +164,58 @@ const SettingsScreen = ({ navigation }: any) => {
     }
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+    },
+  });
+
   return (
     <PageContainer>
-      {getBackHeader()}
-      <ContentContainer>
-        <TextRegular>{Text('welcome')}</TextRegular>
-        <TextRegular>{Text('Change Email')}</TextRegular>
-        <TextInput
-          onChangeText={text => setEmail(text)}
-          placeholder={Text('ex. example@example.com')}
-        />
-        <TextRegular>Change Password</TextRegular>
-        <TextInput
-          onChangeText={text => setPassword(text)}
-          placeholder={Text('ex. password123')}
-          secureTextEntry
-        />
-        <TextRegular>
-          {Text('Current Password')}
-          {' \n'}
-          <TextRegularRed>
-            {Text('Required if Changing Password')}
-          </TextRegularRed>
-        </TextRegular>
-        <TextInput
-          onChangeText={text => setCurrentPassword(text)}
-          placeholder={Text('ex. password123')}
-          secureTextEntry
-        />
-        <TextRegular>{Text('Change your language preference')}</TextRegular>
-        <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
-        <ButtonView>
-          <ButtonDark
-            onPress={() => update(currentPassword, language, email, password)}
-          >
-            <TextRegularWhite>{Text('Update')}</TextRegularWhite>
-          </ButtonDark>
-        </ButtonView>
-      </ContentContainer>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        {getBackHeader()}
+        <ContentContainer>
+          <TextRegular>{Text('welcome')}</TextRegular>
+          <TextRegular>{Text('Change Email')}</TextRegular>
+          <TextInput
+            onChangeText={text => setEmail(text)}
+            placeholder={Text('ex. example@example.com')}
+          />
+          <TextRegular>Change Password</TextRegular>
+          <TextInput
+            onChangeText={text => setPassword(text)}
+            placeholder={Text('ex. password123')}
+            secureTextEntry
+          />
+          <TextRegular>
+            {Text('Current Password')}
+            {' \n'}
+            <TextRegularRed>
+              {Text('Required if Changing Password')}
+            </TextRegularRed>
+          </TextRegular>
+          <TextInput
+            onChangeText={text => setCurrentPassword(text)}
+            placeholder={Text('ex. password123')}
+            secureTextEntry
+          />
+          <TextRegular>{Text('Change your language preference')}</TextRegular>
+          <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
+          <ButtonView>
+            <ButtonDark
+              onPress={() => update(currentPassword, language, email, password)}
+            >
+              <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+            </ButtonDark>
+          </ButtonView>
+        </ContentContainer>
+      </KeyboardAvoidingView>
 
       <ButtonView>
         <ButtonDark onPress={logout}>

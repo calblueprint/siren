@@ -10,6 +10,7 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
@@ -48,36 +49,50 @@ const RegisterScreen = ({ route, navigation }: any) => {
     </ButtonHeader>
   );
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+    },
+  });
+
   return (
     <PageContainer>
-      {getBackHeader()}
-      <ContentContainer>
-        <TextRegular>
-          {Text('Name')} <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput
-          onChangeText={text => setFullName(text)}
-          placeholder={Text('ex. Noah Alexander Hernandez')}
-        />
-        <TextRegular>
-          {Text('Email')} <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput
-          onChangeText={text => setEmail(text)}
-          placeholder={Text('ex. example@example.com')}
-        />
-        <TextRegular>
-          {Text('Password')} <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
-        <TextRegular>
-          {Text('Re-enter Password')} <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput
-          onChangeText={text => setPasswordRepeat(text)}
-          secureTextEntry
-        />
-      </ContentContainer>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        {getBackHeader()}
+        <ContentContainer>
+          <TextRegular>
+            {Text('Name')} <TextRegularRed>*</TextRegularRed>
+          </TextRegular>
+          <TextInput
+            onChangeText={text => setFullName(text)}
+            placeholder={Text('ex. Noah Alexander Hernandez')}
+          />
+          <TextRegular>
+            {Text('Email')} <TextRegularRed>*</TextRegularRed>
+          </TextRegular>
+          <TextInput
+            onChangeText={text => setEmail(text)}
+            placeholder={Text('ex. example@example.com')}
+          />
+          <TextRegular>
+            {Text('Password')} <TextRegularRed>*</TextRegularRed>
+          </TextRegular>
+          <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
+          <TextRegular>
+            {Text('Re-enter Password')} <TextRegularRed>*</TextRegularRed>
+          </TextRegular>
+          <TextInput
+            onChangeText={text => setPasswordRepeat(text)}
+            secureTextEntry
+          />
+        </ContentContainer>
+      </KeyboardAvoidingView>
       <ButtonView>
         <ButtonDark
           onPress={() => onRegister(email, password, fullName, language)}

@@ -28,6 +28,7 @@ import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import { LanguageContext } from 'context/ContextProvider';
 import firebase from 'firebase';
+import { KeyboardAwareScrollView, Platform, StyleSheet } from 'react-native';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -199,13 +200,27 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     }
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+    },
+  });
+
   return (
     <Container>
       <ButtonHeader onPress={goBack}>
         <Appbar.BackAction size={18} style={{ margin: 0 }} onPress={goBack} />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      {currentQuestions.map(question => getQuestionComponent(question))}
+      <KeyboardAwareScrollView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        {currentQuestions.map(question => getQuestionComponent(question))}
+      </KeyboardAwareScrollView>
       {filledCase ? <p>Already filled out a form for this case.</p> : null}
       <ButtonView>
         <ButtonDarkBlue onPress={() => handleNext()}>

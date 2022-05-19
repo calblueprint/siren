@@ -36,6 +36,7 @@
     "react-native-dotenv": "^3.2.0",
     "react-native-dropdown-picker": "^5.2.3",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-localize": "^2.2.1",
     "react-native-modal": "^12.1.0",
     "react-native-multiple-choice-picker": "^1.0.6",

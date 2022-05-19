@@ -11,6 +11,7 @@ import {
 } from 'assets/fonts/Fonts';
 import { login } from 'database/auth';
 import { Text } from 'context/ContextProvider';
+import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import {
@@ -42,25 +43,39 @@ const LoginScreen = ({ route, navigation }: any) => {
     </ButtonHeader>
   );
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+    },
+  });
+
   return (
     <PageContainer>
-      {getBackHeader()}
-      <ContentContainer>
-        <TitleContainer>
-          <TextBold>{Text('Log into SIREN')}</TextBold>
-        </TitleContainer>
-        <TextRegular>
-          {Text('Email')} <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput
-          onChangeText={text => setEmail(text)}
-          placeholder={Text('ex. example@example.com')}
-        />
-        <TextRegular>
-          {Text('Password')} <TextRegularRed>*</TextRegularRed>
-        </TextRegular>
-        <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
-      </ContentContainer>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        {getBackHeader()}
+        <ContentContainer>
+          <TitleContainer>
+            <TextBold>{Text('Log into SIREN')}</TextBold>
+          </TitleContainer>
+          <TextRegular>
+            {Text('Email')} <TextRegularRed>*</TextRegularRed>
+          </TextRegular>
+          <TextInput
+            onChangeText={text => setEmail(text)}
+            placeholder={Text('ex. example@example.com')}
+          />
+          <TextRegular>
+            {Text('Password')} <TextRegularRed>*</TextRegularRed>
+          </TextRegular>
+          <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
+        </ContentContainer>
+      </KeyboardAvoidingView>
       <ButtonView>
         <ButtonDark onPress={() => login(email, password)}>
           <TextRegularWhite>{Text('Log in')}</TextRegularWhite>
