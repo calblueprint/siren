@@ -43,7 +43,7 @@ import {
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const CameraScreen = ({ navigation, route }: any) => {
-  const { uris } = route.params ? route.params : [];
+  let { uris } = route.params ? route.params : [];
   const [imageUris, setImageUris] = useState(uris || ([] as string[]));
   const [imageUrls, setImageUrls] = useState([] as string[]);
   const [docs, setDocs] = useState([] as Document[]);
@@ -147,7 +147,7 @@ const CameraScreen = ({ navigation, route }: any) => {
               ))
             : null}
           {imageUris && imageUris.length !== 0
-            ? imageUris.map(uri => (
+            ? imageUris.map((uri: string | undefined) => (
                 <ImageBackground
                   key={uri}
                   source={{ uri }}
@@ -161,7 +161,7 @@ const CameraScreen = ({ navigation, route }: any) => {
                 >
                   <TouchableOpacity
                     onPress={() =>
-                      setImageUris(prevImageUris =>
+                      setImageUris((prevImageUris: any[]) =>
                         prevImageUris.filter(u => u !== uri),
                       )
                     }
@@ -172,7 +172,7 @@ const CameraScreen = ({ navigation, route }: any) => {
               ))
             : null}
           {uris && uris.length !== 0
-            ? uris.map(uri => (
+            ? uris.map((uri: string | undefined) => (
                 <ImageBackground
                   key={uri}
                   source={{ uri }}
@@ -234,10 +234,18 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
   const uploadImages = async () => {
     try {
-      console.log(imageUris);
-      console.log(uris);
-      await Promise.all(imageUris?.map(async uri => uploadImageAsync(uri)));
-      await Promise.all(uris?.map(async uri => uploadImageAsync(uri)));
+      setUploading(true);
+      if (imageUris) {
+        await Promise.all(
+          imageUris.map(async (uri: string) => uploadImageAsync(uri)),
+        );
+      }
+      if (uris) {
+        await Promise.all(
+          uris.map(async (uri: string) => uploadImageAsync(uri)),
+        );
+      }
+      setUploading(false);
     } catch (e) {
       console.log(e);
       alert(Text('Upload failed'));
@@ -249,18 +257,23 @@ const CameraScreen = ({ navigation, route }: any) => {
       allowsEditing: true,
     });
     if (!pickerResult.cancelled) {
-      setImageUris(prevImageUris => [...prevImageUris, pickerResult.uri]);
+      setImageUris((prevImageUris: any) => [
+        ...prevImageUris,
+        pickerResult.uri,
+      ]);
     }
     setModalVisible(false);
   };
 
-  const handleDone = () => {
-    setUploading(true);
-    if (uris && imageUris) {
-      uploadImages();
+  const handleDone = async () => {
+    console.log(uris);
+    console.log(imageUris);
+    if (uris || imageUris) {
+      await uploadImages();
     }
     deleteDocs();
-    setUploading(false);
+    uris = [];
+    setImageUris([]);
     navigation.goBack();
   };
 

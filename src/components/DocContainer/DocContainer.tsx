@@ -35,6 +35,18 @@ const DocContainer = ({
     const currStat = await getStatus(clientId, clientCase.id);
     setStat(currStat);
   };
+  const handleDocsUploaded = () => {
+    let foundDocs = true;
+    const docTypes = documents.map(doc => {
+      return doc.type;
+    });
+    // eslint-disable-next-line array-callback-return
+    docList.map(doc => {
+      // eslint-disable-next-line no-unused-expressions
+      docTypes.includes(doc) ? null : (foundDocs = false);
+    });
+    setSubmit(foundDocs);
+  };
 
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -46,23 +58,34 @@ const DocContainer = ({
     const submitDocs = () => {
       // Question: if already approved for appointment, should clients be reapproved if they delete a document?
       if (status !== '' && documents.length !== 0) {
-        if (
-          // go back to upload stage
-          (status === CaseStatus.InReview || status === CaseStatus.SchedApt) &&
-          new Set(documents.map(doc => doc.type)).size !== docList.length
-        ) {
+        // if (
+        //   // go back to upload stage
+        //   (status === CaseStatus.InReview || status === CaseStatus.SchedApt) &&
+        //   new Set(documents.map(doc => doc.type)).size !== docList.length
+        // ) {
+        //   setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
+        // } else if (
+        //   // advance to review stage
+        //   status === CaseStatus.SubmitDoc && // current state is upload
+        //   new Set(documents.map(doc => doc.type)).size === docList.length
+        // ) {
+        //   setStatus(clientId, clientCase.id, CaseStatus.InReview);
+        //   setSubmit(true);
+        // } else if (status === CaseStatus.InReview) {
+        //   setSubmit(true);
+        // }
+        handleDocsUploaded();
+        if (!submitted) {
           setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
-        } else if (
-          // advance to review stage
-          status === CaseStatus.SubmitDoc && // current state is upload
-          new Set(documents.map(doc => doc.type)).size === docList.length
-        ) {
+        } else if (status === CaseStatus.SubmitDoc) {
           setStatus(clientId, clientCase.id, CaseStatus.InReview);
-          setSubmit(true);
         }
       }
       return null;
     };
+    console.log(docList);
+    console.log(status);
+    console.log(documents);
     submitDocs();
   }, [status, documents]);
 
