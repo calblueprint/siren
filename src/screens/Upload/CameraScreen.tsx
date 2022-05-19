@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
+import { ScrollPageContainer } from 'screens/styles';
 import React, { useEffect, useState } from 'react';
 import {
   StatusBar,
@@ -42,7 +43,8 @@ import {
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const CameraScreen = ({ navigation, route }: any) => {
-  const [imageUris, setImageUris] = useState([] as string[]);
+  const { uris } = route.params ? route.params : [];
+  const [imageUris, setImageUris] = useState(uris || ([] as string[]));
   const [imageUrls, setImageUrls] = useState([] as string[]);
   const [docs, setDocs] = useState([] as Document[]);
   const [uploading, setUploading] = useState(false);
@@ -65,7 +67,7 @@ const CameraScreen = ({ navigation, route }: any) => {
       setNumImagesUploaded(imgUrls.length);
     };
     loadImages();
-  }, [route.params?.uris]);
+  }, []);
 
   useEffect(() => {
     const requestAccess = async () => {
@@ -105,64 +107,95 @@ const CameraScreen = ({ navigation, route }: any) => {
     }
   };
 
+  const concatUris = () => {
+    if (uris) {
+      if (!imageUris) {
+        setImageUris(uris);
+      } else {
+        setImageUris(uris.concat(imageUris));
+      }
+    }
+  };
+
   const renderCurrentPictures = () => {
     return (
-      <PicturesContainer>
-        {imageUrls.length !== 0
-          ? imageUrls.map(uri => (
-              <ImageBackground
-                key={uri}
-                source={{ uri }}
-                style={{
-                  height: 132,
-                  width: 100,
-                  marginLeft: 4,
-                  marginRight: 4,
-                  marginTop: 15,
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    setImageUrls(prevImageUrls =>
-                      prevImageUrls.filter(u => u !== uri),
-                    )
-                  }
+      <ScrollPageContainer>
+        <PicturesContainer>
+          {imageUrls.length !== 0
+            ? imageUrls.map(uri => (
+                <ImageBackground
+                  key={uri}
+                  source={{ uri }}
+                  style={{
+                    height: 132,
+                    width: 100,
+                    marginLeft: 4,
+                    marginRight: 4,
+                    marginTop: 15,
+                  }}
                 >
-                  <AntDesign name="closecircleo" size={16} color="black" />
-                </TouchableOpacity>
-              </ImageBackground>
-            ))
-          : null}
-        {imageUris.length !== 0
-          ? imageUris.map(uri => (
-              <ImageBackground
-                key={uri}
-                source={{ uri }}
-                style={{
-                  height: 132,
-                  width: 100,
-                  marginLeft: 4,
-                  marginRight: 4,
-                  marginTop: 15,
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    setImageUris(prevImageUris =>
-                      prevImageUris.filter(u => u !== uri),
-                    )
-                  }
+                  <TouchableOpacity
+                    onPress={() =>
+                      setImageUrls(prevImageUrls =>
+                        prevImageUrls.filter(u => u !== uri),
+                      )
+                    }
+                  >
+                    <AntDesign name="closecircleo" size={16} color="black" />
+                  </TouchableOpacity>
+                </ImageBackground>
+              ))
+            : null}
+          {imageUris && imageUris.length !== 0
+            ? imageUris.map(uri => (
+                <ImageBackground
+                  key={uri}
+                  source={{ uri }}
+                  style={{
+                    height: 132,
+                    width: 100,
+                    marginLeft: 4,
+                    marginRight: 4,
+                    marginTop: 15,
+                  }}
                 >
-                  <AntDesign name="closecircleo" size={16} color="black" />
-                </TouchableOpacity>
-              </ImageBackground>
-            ))
-          : null}
-        <AddPageContainer onPress={() => setModalVisible(true)}>
-          <AntDesign name="plus" size={16} color="black" />
-          <TextRegular>{Text('Add page(s)')}</TextRegular>
-        </AddPageContainer>
-      </PicturesContainer>
+                  <TouchableOpacity
+                    onPress={() =>
+                      setImageUris(prevImageUris =>
+                        prevImageUris.filter(u => u !== uri),
+                      )
+                    }
+                  >
+                    <AntDesign name="closecircleo" size={16} color="black" />
+                  </TouchableOpacity>
+                </ImageBackground>
+              ))
+            : null}
+          {uris && uris.length !== 0
+            ? uris.map(uri => (
+                <ImageBackground
+                  key={uri}
+                  source={{ uri }}
+                  style={{
+                    height: 132,
+                    width: 100,
+                    marginLeft: 4,
+                    marginRight: 4,
+                    marginTop: 15,
+                  }}
+                >
+                  <TouchableOpacity>
+                    <AntDesign name="closecircleo" size={16} color="black" />
+                  </TouchableOpacity>
+                </ImageBackground>
+              ))
+            : null}
+          <AddPageContainer onPress={() => setModalVisible(true)}>
+            <AntDesign name="plus" size={16} color="black" />
+            <TextRegular>{Text('Add page(s)')}</TextRegular>
+          </AddPageContainer>
+        </PicturesContainer>
+      </ScrollPageContainer>
     );
   };
 
@@ -202,7 +235,10 @@ const CameraScreen = ({ navigation, route }: any) => {
   const uploadImages = async () => {
     try {
       setUploading(true);
+      console.log(imageUris);
+      console.log(uris);
       await Promise.all(imageUris.map(async uri => uploadImageAsync(uri)));
+      await Promise.all(uris?.map(async uri => uploadImageAsync(uri)));
       setUploading(false);
       navigation.goBack();
     } catch (e) {
@@ -258,6 +294,7 @@ const CameraScreen = ({ navigation, route }: any) => {
               onPress={() => {
                 navigation.navigate('Image');
                 setModalVisible(false);
+                concatUris();
               }}
             >
               <TextRegularWhite>{Text('Select photos')}</TextRegularWhite>
@@ -268,7 +305,9 @@ const CameraScreen = ({ navigation, route }: any) => {
           </ModalButtonContainer>
         </ModalContainer>
       </Modal>
-      {imageUrls.length !== numImagesUploaded || imageUris.length > 0 ? (
+      {uris?.length !== 0 ||
+      imageUrls.length !== numImagesUploaded ||
+      imageUris.length > 0 ? (
         <ButtonDarkBlueBottom onPress={handleDone}>
           <TextRegularWhite>{Text('Done')}</TextRegularWhite>
         </ButtonDarkBlueBottom>
