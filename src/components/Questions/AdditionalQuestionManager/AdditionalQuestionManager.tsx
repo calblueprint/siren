@@ -20,7 +20,9 @@ import {
   ButtonView,
   Container,
 } from 'components/Questions/styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { LanguageContext } from 'context/ContextProvider';
+import { StyleSheet } from 'react-native';
 
 export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
@@ -104,6 +106,15 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     loadQuestions();
   }, []);
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+    },
+  });
+
   return (
     <Container>
       <ButtonHeader
@@ -116,7 +127,9 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
         />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      {allQuestions.map(question => getQuestionComponent(question))}
+      <KeyboardAwareScrollView style={styles.container}>
+        {allQuestions.map(question => getQuestionComponent(question))}
+      </KeyboardAwareScrollView>
       <ButtonView>
         <ButtonDarkBlue onPress={() => goToNextScreen()}>
           <TextRegularWhite>

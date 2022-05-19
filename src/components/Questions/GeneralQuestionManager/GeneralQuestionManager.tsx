@@ -28,7 +28,8 @@ import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
 import { LanguageContext } from 'context/ContextProvider';
 import firebase from 'firebase';
-import { KeyboardAwareScrollView, Platform, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { StyleSheet } from 'react-native';
 
 /*
 GeneralQuestionManager is the wrapper for all the "general" type questions on the intake
@@ -215,10 +216,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         <Appbar.BackAction size={18} style={{ margin: 0 }} onPress={goBack} />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      <KeyboardAwareScrollView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
+      <KeyboardAwareScrollView style={styles.container}>
         {currentQuestions.map(question => getQuestionComponent(question))}
       </KeyboardAwareScrollView>
       {filledCase ? <p>Already filled out a form for this case.</p> : null}

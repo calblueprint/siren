@@ -3,8 +3,6 @@ import { LanguageContext } from 'context/ContextProvider';
 import { QuestionComponentProps } from 'types/types';
 import { TextRegularBold } from 'assets/fonts/Fonts';
 // eslint-disable-next-line no-restricted-imports
-import { KeyboardAvoidingView, Platform } from 'react-native';
-// eslint-disable-next-line no-restricted-imports
 import {
   InputContainer,
   TextContainer,
