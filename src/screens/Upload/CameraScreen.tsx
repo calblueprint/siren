@@ -234,13 +234,10 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
   const uploadImages = async () => {
     try {
-      setUploading(true);
       console.log(imageUris);
       console.log(uris);
-      await Promise.all(imageUris.map(async uri => uploadImageAsync(uri)));
+      await Promise.all(imageUris?.map(async uri => uploadImageAsync(uri)));
       await Promise.all(uris?.map(async uri => uploadImageAsync(uri)));
-      setUploading(false);
-      navigation.goBack();
     } catch (e) {
       console.log(e);
       alert(Text('Upload failed'));
@@ -258,8 +255,13 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   const handleDone = () => {
-    uploadImages();
+    setUploading(true);
+    if (uris && imageUris) {
+      uploadImages();
+    }
     deleteDocs();
+    setUploading(false);
+    navigation.goBack();
   };
 
   const getPageDescription = () => {

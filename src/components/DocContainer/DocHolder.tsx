@@ -33,7 +33,9 @@ const DocHolder = ({ onClick, title, submitted }: DocProps) => {
     <DocSelect onPress={onClick}>
       {submitted ? Submitted : Missing}
       <TextRegular>{title}</TextRegular>
-      <ActionButton>{submitted ? Trash : Upload}</ActionButton>
+      <ActionButton onPress={onClick}>
+        {submitted ? Trash : Upload}
+      </ActionButton>
     </DocSelect>
   );
 };
