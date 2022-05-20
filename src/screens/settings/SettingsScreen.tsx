@@ -21,6 +21,7 @@ import {
   updateFirebaseLanguage,
   updatePassword,
 } from 'database/auth';
+import firebase from 'firebase';
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
@@ -132,10 +133,7 @@ const SettingsScreen = ({ navigation }: any) => {
       height: '100%',
       display: 'flex',
       width: '100%',
-    },
-    view: {
-      height: '100%',
-      marginTop: '8%',
+      marginTop: '10%',
     },
   });
 
@@ -150,34 +148,32 @@ const SettingsScreen = ({ navigation }: any) => {
         <TextSubtitle>{Text('Go Back')}</TextSubtitle>
       </ButtonHeader>
       <KeyboardAwareScrollView style={styles.container}>
-        <ContentContainer>
-          <TextRegular>{Text('welcome')}</TextRegular>
-          <TextRegular>{Text('Change Email')}</TextRegular>
-          <TextInput
-            onChangeText={text => setEmail(text)}
-            // placeholder={Text('ex. example@example.com')} // CAUSING ERRORS
-          />
-          <TextRegular>Change Password</TextRegular>
-          <TextInput
-            onChangeText={text => setPassword(text)}
-            // placeholder={Text('ex. password123')}
-            secureTextEntry
-          />
-          <TextRegular>
-            {Text('Current Password')}
-            {' \n'}
-            <TextRegularRed>
-              {Text('Required if Changing Password')}
-            </TextRegularRed>
-          </TextRegular>
-          <TextInput
-            onChangeText={text => setCurrentPassword(text)}
-            // placeholder={Text('ex. password123')}
-            secureTextEntry
-          />
-          <TextRegular>{Text('Change your language preference')}</TextRegular>
-          <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
-        </ContentContainer>
+        <TextRegular>{Text('welcome')}</TextRegular>
+        <TextRegular>{Text('Change Email')}</TextRegular>
+        <TextInput
+          onChangeText={text => setEmail(text)}
+          // placeholder={Text('ex. example@example.com')} // CAUSING ERRORS
+        />
+        <TextRegular>Change Password</TextRegular>
+        <TextInput
+          onChangeText={text => setPassword(text)}
+          // placeholder={Text('ex. password123')}
+          secureTextEntry
+        />
+        <TextRegular>
+          {Text('Current Password')}
+          {' \n'}
+          <TextRegularRed>
+            {Text('Required if Changing Password')}
+          </TextRegularRed>
+        </TextRegular>
+        <TextInput
+          onChangeText={text => setCurrentPassword(text)}
+          // placeholder={Text('ex. password123')}
+          secureTextEntry
+        />
+        <TextRegular>{Text('Change your language preference')}</TextRegular>
+        <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
       </KeyboardAwareScrollView>
 
       <ButtonView>

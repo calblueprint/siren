@@ -72,3 +72,7 @@ export const ButtonDarkBlueBottom = styled.TouchableOpacity`
   border-radius: 5px;
   background: #0F2536;
 `;
+
+export const Container = styled.ScrollView`
+  width: 100%;
+`;

@@ -23,7 +23,7 @@ export const ActionButton = styled.TouchableOpacity`
 
 export const Container = styled.View`
   border-radius: 8px;
-  width: 349px;
+  width: 100%;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
