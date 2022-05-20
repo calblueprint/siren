@@ -45,46 +45,12 @@ const [langContext, langProvider] = createLanguageContext<Dictionary>(
 export const LanguageProvider = langProvider; // used in App.tsx
 export const LanguageContext = langContext; // used by client context consumers
 
-// // Lanuage Context //
-// // create the language context with default selected language
-// export const LanguageContext = React.createContext({
-//   userLanguage: 'EN',
-//   dictionary: dictionaryList.EN,
-//   userLanguageChange: lang => {},
-// });
-
-// // define the Context Provider, which provides the language context to app
-// export function LanguageProvider({ children }) {
-//   const [userLanguage, setUserLanguage] = useState('EN');
-
-//   const langProvider = {
-//     userLanguage,
-//     dictionary: dictionaryList[userLanguage],
-//     userLanguageChange: (newLanguage: React.SetStateAction<string>) => {
-//       setUserLanguage(newLanguage);
-//     },
-//   };
-
-//   return (
-//     <LanguageContext.Provider value={langProvider}>
-//       {children}
-//     </LanguageContext.Provider>
-//   );
-// }
-
-// // get text according to id & current language
-// export function Text(tid: any): string {
-//   const languageContext = useContext(LanguageContext);
-//   // return languageContext.dictionary[tid];
-//   const lang = languageContext.state;
-//   return dictionaryList.($(lang))[tid];
-// }
-
-// I18n //
+// I18n indexes a langauge dictionary and returns translated version of current text
 const I18n = ({ str }) => {
   const dict = useContext(LanguageContext).langState;
   const translated = dict && dict[str] ? dict[str] : str;
   return translated;
 };
 
+// wrapper function for I18n
 export const Text = (str: string) => <I18n str={str} />;
