@@ -35,6 +35,7 @@ export async function register(
 export async function login(email: string, password: string) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
+    // TO DO: error handling for mismatched languages
   } catch (err) {
     console.log('Error signing in');
   }
