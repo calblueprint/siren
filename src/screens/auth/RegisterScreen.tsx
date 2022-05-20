@@ -6,15 +6,16 @@ import {
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
+  TextBold,
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
 import { StyleSheet } from 'react-native';
-// eslint-disable-next-line no-restricted-imports
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+// eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
-import { ButtonView, ButtonHeader } from './styles';
+import { TitleContainer, ButtonView, ButtonHeader } from './styles';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const { langStr } = route.params;
@@ -58,6 +59,9 @@ const RegisterScreen = ({ route, navigation }: any) => {
     <PageContainer>
       {getBackHeader()}
       <KeyboardAwareScrollView style={styles.container}>
+        <TitleContainer>
+          <TextBold>{Text('Register')}</TextBold>
+        </TitleContainer>
         <TextRegular>
           {Text('Name')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>

@@ -40,7 +40,7 @@ const LoginScreen = ({ route, navigation }: any) => {
       height: '100%',
       display: 'flex',
       width: '100%',
-      marginTop: '30%',
+      marginTop: '40%',
     },
   });
 
