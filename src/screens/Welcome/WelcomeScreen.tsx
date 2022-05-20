@@ -1,5 +1,6 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useContext } from 'react';
+import React from 'react';
 import { Appbar } from 'react-native-paper';
 import { Image } from 'react-native';
 import {
@@ -9,7 +10,7 @@ import {
   TextSubtitle,
 } from 'assets/fonts/Fonts';
 import { ButtonDark, ButtonLight } from 'assets/Components';
-// eslint-disable-next-line no-restricted-imports
+import { Text } from 'context/ContextProvider';
 import { PageContainer } from '../styles';
 import {
   ContentContainer,
@@ -19,13 +20,11 @@ import {
   ImageStyles,
   ButtonHeader,
 } from './styles';
-// eslint-disable-next-line no-restricted-imports
-import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
 const WelcomeScreen = ({ route, navigation }: any) => {
-  const { langCode } = route.params;
+  const { langStr } = route.params;
   const getBackHeader = () => (
     <ButtonHeader onPress={() => navigation.navigate('Language')}>
       <Appbar.BackAction
@@ -50,14 +49,14 @@ const WelcomeScreen = ({ route, navigation }: any) => {
       <ButtonContainer>
         <ButtonView>
           <ButtonLight
-            onPress={() => navigation.navigate('Login', { langCode })}
+            onPress={() => navigation.navigate('Login', { langStr })}
           >
             <TextRegular>{Text('Log in')}</TextRegular>
           </ButtonLight>
         </ButtonView>
         <ButtonView>
           <ButtonDark
-            onPress={() => navigation.navigate('Register', { langCode })}
+            onPress={() => navigation.navigate('Register', { langStr })}
           >
             <TextRegularWhite>{Text('Register')}</TextRegularWhite>
           </ButtonDark>

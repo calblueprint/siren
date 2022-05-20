@@ -1,3 +1,5 @@
+import { dictionaryList } from 'multilingual';
+
 export const objectToMap = (obj: Object): Map<any, any> => {
   return new Map(
     Array.from(Object.entries(obj), ([k, v]) =>
@@ -30,4 +32,23 @@ export const firestoreAutoId = (): string => {
     autoId += CHARS.charAt(Math.floor(Math.random() * CHARS.length));
   }
   return autoId;
+};
+
+export const updateLanguage = (
+  val: string,
+  dictUpdate: any, // local json
+  stringUpdate: any, // firebase user language field
+) => {
+  if (val === 'Español') {
+    dictUpdate(dictionaryList.ES); // dictionary type
+    stringUpdate('ES');
+  }
+  if (val === 'Tiếng Việt') {
+    dictUpdate(dictionaryList.VIET);
+    stringUpdate('VIET');
+  }
+  if (val === 'English') {
+    dictUpdate(dictionaryList.EN);
+    stringUpdate('EN');
+  }
 };

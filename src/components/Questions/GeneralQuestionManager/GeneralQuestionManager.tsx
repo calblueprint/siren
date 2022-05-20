@@ -26,7 +26,6 @@ import {
 import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
-import { LanguageContext } from 'context/ContextProvider';
 import firebase from 'firebase';
 
 /*
@@ -53,7 +52,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
   const { state } = React.useContext(ClientContext);
   const client: Client = state;
-  const { userLanguage } = React.useContext(LanguageContext);
+  const langStr = client.language;
   const finalGeneralScreen = 5;
   const uid = firebase.auth().currentUser?.uid;
   const [cases, setCases] = useState([]);
@@ -117,7 +116,8 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
       clientCases.map(c => caseTypes.get(c.type)) as SetStateAction<never[]>,
     );
   };
-  const getQuestionComponent = (question: Question) => {
+  const getQuestionComponent = (question: Question, id: number) => {
+    // id solves duplicate keys React error
     const answerComponents = {
       largeInput: LargeInput,
       smallInput: SmallInput,
@@ -128,7 +128,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     const QuestionComponent = answerComponents[question.answerType];
     return (
       <QuestionComponent
-        key={question.displayText.get(userLanguage)}
+        key={id}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
@@ -205,7 +205,9 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         <Appbar.BackAction size={18} style={{ margin: 0 }} onPress={goBack} />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      {currentQuestions.map(question => getQuestionComponent(question))}
+      {currentQuestions.map((question, id) =>
+        getQuestionComponent(question, id),
+      )}
       {filledCase ? <p>Already filled out a form for this case.</p> : null}
       <ButtonView>
         <ButtonDarkBlue onPress={() => handleNext()}>

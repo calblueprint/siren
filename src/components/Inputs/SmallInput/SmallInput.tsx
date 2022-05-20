@@ -1,5 +1,5 @@
 import React from 'react';
-import { LanguageContext } from 'context/ContextProvider';
+import { ClientContext } from 'context/ContextProvider';
 import { QuestionComponentProps } from 'types/types';
 import { TextRegularBold } from 'assets/fonts/Fonts';
 // eslint-disable-next-line no-restricted-imports
@@ -12,14 +12,13 @@ import {
 
 export default function SmallInput(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
-  const { userLanguage } = React.useContext(LanguageContext);
+  const { state } = React.useContext(ClientContext);
+  const langStr = state.language;
 
   const getDescription = () => {
-    if (question?.description?.get(userLanguage)?.length) {
+    if (question?.description?.get(langStr)?.length) {
       return (
-        <TextDescription>
-          {question.description.get(userLanguage)}
-        </TextDescription>
+        <TextDescription>{question.description.get(langStr)}</TextDescription>
       );
     }
     return null;
@@ -28,13 +27,11 @@ export default function SmallInput(props: QuestionComponentProps) {
   return (
     <InputContainer>
       <TextContainer>
-        <TextRegularBold>
-          {question.displayText.get(userLanguage)}
-        </TextRegularBold>
+        <TextRegularBold>{question.displayText.get(langStr)}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       <TextInput
-        placeholder={question.example.get(userLanguage)}
+        placeholder={question.example.get(langStr)}
         onChangeText={t => setAnswer(question, t)}
         defaultValue={existingAnswer || ''}
       />

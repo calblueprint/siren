@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import { RadioButton } from 'react-native-paper';
 import {
   TextRegular,
   TextRegularWhite,
@@ -10,117 +9,23 @@ import {
   TextSubtitle,
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
+import LanguageRadio from 'components/LanguageRadio/LanguageRadio';
 import { dictionaryList } from 'multilingual';
 import { LanguageContext, Text } from 'context/ContextProvider';
-import firebase from 'database/clientApp';
-import { PageContainer } from '../styles';
 import {
-  RadioContainer,
-  ButtonContainer,
-  ContentContainer,
-  ButtonView,
-  ButtonHeader,
-} from './styles';
-
-const languageOptions = ['English', 'Español', 'Tiếng Việt'];
-
-function Radio({ handleRadioFunc, setLanguage }: any) {
-  const [value, setValue] = useState('');
-
-  const onChange = (val: string): void => {
-    setLanguage(val);
-    setValue(val);
-    handleRadioFunc(val);
-  };
-
-  return (
-    <RadioContainer>
-      {languageOptions.map(option => (
-        <ButtonContainer key={option}>
-          <RadioButton.Android
-            color="black"
-            value={option}
-            status={value === option ? 'checked' : 'unchecked'}
-            onPress={() => onChange(option)}
-          />
-          <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
-        </ButtonContainer>
-      ))}
-    </RadioContainer>
-  );
-}
+  updateEmail,
+  updateFirebaseLanguage,
+  updatePassword,
+} from 'database/auth';
+import { PageContainer } from '../styles';
+import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState(''); // string type in Firebase
   const [currentPassword, setCurrentPassword] = useState('');
-  const db = firebase.firestore();
-  const clientCollection = db.collection('clients');
-  const { langUpdate } = React.useContext(LanguageContext);
-
-  // updates language in firebase
-  const updateFirebaseLanguage = async (lang: string) => {
-    try {
-      const lowercaseLang = lang.toLowerCase();
-      const user = firebase.auth().currentUser;
-      const userDoc = clientCollection.doc(user?.uid);
-      const newFields = { language: lowercaseLang };
-      await userDoc.update(newFields);
-    } catch (err) {
-      console.log('Error in updating language preference');
-    }
-  };
-
-  // updates local language context
-  const updateLanguageContext = (val: string): void => {
-    if (val === 'Español') {
-      langUpdate(dictionaryList.ES); // dictionary type
-    }
-    if (val === 'Tiếng Việt') {
-      langUpdate(dictionaryList.VIET);
-    }
-    if (val === 'English') {
-      langUpdate(dictionaryList.EN);
-    }
-  };
-
-  // query helper fucntions to update firebase (move to queries later)
-  const updateEmail = async (newEmail: string) => {
-    try {
-      const user = firebase.auth().currentUser;
-      const userDoc = clientCollection.doc(user?.uid);
-      const newFields = { email: newEmail };
-      await userDoc.update(newFields);
-      await user?.updateEmail(newEmail);
-    } catch (err) {
-      console.log('Error in updating email');
-    }
-  };
-
-  const reauthenticate = async (currPassword: string) => {
-    try {
-      const user = firebase.auth().currentUser;
-      const credential = firebase.auth.EmailAuthProvider.credential(
-        user?.email,
-        currPassword,
-      );
-      await user?.reauthenticateWithCredential(credential);
-    } catch (err) {
-      console.log('Error in reauthenticating');
-    }
-  };
-
-  const updatePassword = async (currPassword: string, newPassword: string) => {
-    try {
-      const user = firebase.auth().currentUser;
-      reauthenticate(currPassword);
-      await user?.updatePassword(newPassword);
-    } catch (err) {
-      console.log('Error in updating password');
-      console.log(err);
-    }
-  };
+  const { langUpdate } = React.useContext(LanguageContext); // dicitionary
 
   // update client info - TO DO: error handling
   const update = async (
@@ -184,10 +89,7 @@ const SettingsScreen = ({ navigation }: any) => {
           secureTextEntry
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
-        <Radio
-          handleRadioFunc={updateLanguageContext}
-          setLanguage={setLanguage}
-        />
+        <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
       </ContentContainer>
 
       <ButtonView>

@@ -15,7 +15,7 @@ import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
 const RegisterScreen = ({ route, navigation }: any) => {
-  const { langCode } = route.params;
+  const { langStr } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
@@ -27,16 +27,16 @@ const RegisterScreen = ({ route, navigation }: any) => {
     } else if (password !== passwordRepeat) {
       console.log('passwords do not match');
     } else {
-      register(e, p, n, langCode);
+      register(e, p, n, langStr);
     }
   };
 
   const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Welcome', { langCode })}>
+    <ButtonHeader onPress={() => navigation.navigate('Welcome', { langStr })}>
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Welcome', { langCode })}
+        onPress={() => navigation.navigate('Welcome', { langStr })}
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
@@ -51,14 +51,16 @@ const RegisterScreen = ({ route, navigation }: any) => {
         </TextRegular>
         <TextInput
           onChangeText={text => setFullName(text)}
-          placeholder={Text('ex. Noah Alexander Hernandez')}
+          // BUG: using placeholder with Text wrapper will result in JSON serialize errors
+          // TO DO/WORKAROUND: use TextRegular (or any other regular text components) and set as description before a TextInput
+          // placeholder={Text('ex. Noah Alexander Hernandez')}
         />
         <TextRegular>
           {Text('Email')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder={Text('ex. example@example.com')}
+          // placeholder={Text('ex. example@example.com')}
         />
         <TextRegular>
           {Text('Password')} <TextRegularRed>*</TextRegularRed>
