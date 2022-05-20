@@ -47,7 +47,7 @@ export const ButtonHeader = styled.TouchableOpacity`
   justify-content: flex-start;
   margin-left: -10px;
   z-index: 1;
-  top: 10%;
+  top: 0%;
   left: 0px;
 `;
 

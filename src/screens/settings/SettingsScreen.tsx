@@ -10,7 +10,8 @@ import {
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
 import { logout } from 'database/auth';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Platform, StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import {
@@ -141,17 +142,6 @@ const SettingsScreen = ({ navigation }: any) => {
     }
   };
 
-  const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Home')}>
-      <Appbar.BackAction
-        size={18}
-        style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Home')}
-      />
-      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
-    </ButtonHeader>
-  );
-
   const handleRadio = (val: string): void => {
     if (val === 'Español') {
       userLanguageChange('ES');
@@ -171,16 +161,25 @@ const SettingsScreen = ({ navigation }: any) => {
       display: 'flex',
       width: '100%',
     },
+    view: {
+      height: '100%',
+      marginTop: '8%',
+    },
   });
 
   return (
     <PageContainer>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        {getBackHeader()}
-        <ContentContainer>
+      <ButtonHeader onPress={() => navigation.navigate('Home')}>
+        <Appbar.BackAction
+          size={18}
+          style={{ margin: 0 }}
+          onPress={() => navigation.navigate('Home')}
+        />
+        <TextSubtitle>{Text('Go Back')}</TextSubtitle>
+      </ButtonHeader>
+
+      <KeyboardAwareScrollView style={styles.container}>
+        <ContentContainer style={styles.view}>
           <TextRegular>{Text('welcome')}</TextRegular>
           <TextRegular>{Text('Change Email')}</TextRegular>
           <TextInput
@@ -215,7 +214,7 @@ const SettingsScreen = ({ navigation }: any) => {
             </ButtonDark>
           </ButtonView>
         </ContentContainer>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
 
       <ButtonView>
         <ButtonDark onPress={logout}>
