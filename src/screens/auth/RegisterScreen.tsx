@@ -10,10 +10,11 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { PageContainer } from '../styles';
-import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import { ButtonView, ButtonHeader } from './styles';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const { langStr } = route.params;
@@ -49,46 +50,43 @@ const RegisterScreen = ({ route, navigation }: any) => {
       height: '100%',
       display: 'flex',
       width: '100%',
+      marginTop: '30%',
     },
   });
 
   return (
     <PageContainer>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        {getBackHeader()}
-        <ContentContainer>
-          <TextRegular>
-            {Text('Name')} <TextRegularRed>*</TextRegularRed>
-          </TextRegular>
-          <TextInput
-            onChangeText={text => setFullName(text)}
-            // BUG: using placeholder with Text wrapper will result in JSON serialize errors
-            // TO DO/WORKAROUND: use TextRegular (or any other regular text components) and set as description before a TextInput
-            // placeholder={Text('ex. Noah Alexander Hernandez')}
-          />
-          <TextRegular>
-            {Text('Email')} <TextRegularRed>*</TextRegularRed>
-          </TextRegular>
-          <TextInput
-            onChangeText={text => setEmail(text)}
-            // placeholder={Text('ex. example@example.com')}
-          />
-          <TextRegular>
-            {Text('Password')} <TextRegularRed>*</TextRegularRed>
-          </TextRegular>
-          <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
-          <TextRegular>
-            {Text('Re-enter Password')} <TextRegularRed>*</TextRegularRed>
-          </TextRegular>
-          <TextInput
-            onChangeText={text => setPasswordRepeat(text)}
-            secureTextEntry
-          />
-        </ContentContainer>
-      </KeyboardAvoidingView>
+      {getBackHeader()}
+      <KeyboardAwareScrollView style={styles.container}>
+        <TextRegular>
+          {Text('Name')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput
+          onChangeText={text => setFullName(text)}
+          // BUG: using placeholder with Text wrapper will result in JSON serialize errors
+          // TO DO/WORKAROUND: use TextRegular (or any other regular text components) and set as description before a TextInput
+          // placeholder={Text('ex. Noah Alexander Hernandez')}
+        />
+        <TextRegular>
+          {Text('Email')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput
+          onChangeText={text => setEmail(text)}
+          // placeholder={Text('ex. example@example.com')}
+        />
+        <TextRegular>
+          {Text('Password')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
+        <TextRegular>
+          {Text('Re-enter Password')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput
+          onChangeText={text => setPasswordRepeat(text)}
+          secureTextEntry
+        />
+      </KeyboardAwareScrollView>
+
       <ButtonView>
         <ButtonDark onPress={() => onRegister(email, password, fullName)}>
           <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>

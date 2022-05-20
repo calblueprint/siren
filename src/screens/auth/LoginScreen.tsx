@@ -12,15 +12,11 @@ import {
 } from 'assets/fonts/Fonts';
 import { login } from 'database/auth';
 import { Text } from 'context/ContextProvider';
-import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { PageContainer } from '../styles';
-import {
-  ContentContainer,
-  TitleContainer,
-  ButtonView,
-  ButtonHeader,
-} from './styles';
+import { TitleContainer, ButtonView, ButtonHeader } from './styles';
 
 const LoginScreen = ({ route, navigation }: any) => {
   const { langStr } = route.params;
@@ -44,33 +40,29 @@ const LoginScreen = ({ route, navigation }: any) => {
       height: '100%',
       display: 'flex',
       width: '100%',
+      marginTop: '30%',
     },
   });
 
   return (
     <PageContainer>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        {getBackHeader()}
-        <ContentContainer>
-          <TitleContainer>
-            <TextBold>{Text('Log into SIREN')}</TextBold>
-          </TitleContainer>
-          <TextRegular>
-            {Text('Email')} <TextRegularRed>*</TextRegularRed>
-          </TextRegular>
-          <TextInput
-            onChangeText={text => setEmail(text)}
-            // placeholder={Text('ex. example@example.com')}
-          />
-          <TextRegular>
-            {Text('Password')} <TextRegularRed>*</TextRegularRed>
-          </TextRegular>
-          <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
-        </ContentContainer>
-      </KeyboardAvoidingView>
+      {getBackHeader()}
+      <KeyboardAwareScrollView style={styles.container}>
+        <TitleContainer>
+          <TextBold>{Text('Log into SIREN')}</TextBold>
+        </TitleContainer>
+        <TextRegular>
+          {Text('Email')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput
+          onChangeText={text => setEmail(text)}
+          // placeholder={Text('ex. example@example.com')}
+        />
+        <TextRegular>
+          {Text('Password')} <TextRegularRed>*</TextRegularRed>
+        </TextRegular>
+        <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
+      </KeyboardAwareScrollView>
       <ButtonView>
         <ButtonDark onPress={() => login(email, password)}>
           <TextRegularWhite>{Text('Log in')}</TextRegularWhite>
