@@ -1,8 +1,8 @@
+/* eslint-disable no-restricted-imports */
 import React from 'react';
 import { TextRegularBold } from 'assets/fonts/Fonts';
 import { QuestionComponentProps } from 'types/types';
-import { LanguageContext } from 'context/ContextProvider';
-// eslint-disable-next-line no-restricted-imports
+import { ClientContext } from 'context/ContextProvider';
 import {
   InputContainer,
   TextContainer,
@@ -12,14 +12,13 @@ import {
 
 export default function LargeInput(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
-  const { userLanguage } = React.useContext(LanguageContext);
+  const { state } = React.useContext(ClientContext);
+  const langStr = state.language;
 
   const getDescription = () => {
-    if (question?.description?.get(userLanguage)?.length) {
+    if (question?.description?.get(langStr)?.length) {
       return (
-        <TextDescription>
-          {question.description.get(userLanguage)}
-        </TextDescription>
+        <TextDescription>{question.description.get(langStr)}</TextDescription>
       );
     }
     return null;
@@ -28,14 +27,12 @@ export default function LargeInput(props: QuestionComponentProps) {
   return (
     <InputContainer>
       <TextContainer>
-        <TextRegularBold>
-          {question.displayText.get(userLanguage)}
-        </TextRegularBold>
+        <TextRegularBold>{question.displayText.get(langStr)}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       <TextInput
         onChangeText={t => setAnswer(question, t)}
-        placeholder={question.example.get(userLanguage)}
+        placeholder={question.example.get(langStr)}
         multiline
         numberOfLines={4}
         defaultValue={existingAnswer || ''}

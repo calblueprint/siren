@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { QuestionComponentProps } from 'types/types';
 import { TextRegularBold } from 'assets/fonts/Fonts';
 import { Colors } from 'assets/Colors';
-import { LanguageContext } from 'context/ContextProvider';
+import { ClientContext } from 'context/ContextProvider';
 // eslint-disable-next-line no-restricted-imports
 import { TextContainer, TextDescription, TextExample } from '../styles';
 import { PlatformContainer } from './styles';
@@ -26,7 +26,8 @@ export default function Dropdown(props: QuestionComponentProps) {
   const [toggle, setToggle] = useState(false);
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
-  const { userLanguage } = React.useContext(LanguageContext);
+  const { state } = React.useContext(ClientContext);
+  const langStr = state.language;
 
   const onChange = (val: any): void => {
     setShow(false);
@@ -45,11 +46,9 @@ export default function Dropdown(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    if (question?.description?.get(userLanguage)?.length) {
+    if (question?.description?.get(langStr)?.length) {
       return (
-        <TextDescription>
-          {question.description.get(userLanguage)}
-        </TextDescription>
+        <TextDescription>{question.description.get(langStr)}</TextDescription>
       );
     }
     return null;
@@ -65,8 +64,7 @@ export default function Dropdown(props: QuestionComponentProps) {
           {show ? (
             <View>
               <Picker selectedValue={value} onValueChange={onChange}>
-                {/* {console.log(question)} */}
-                {question?.answerOptions?.get(userLanguage)?.map(option => (
+                {question?.answerOptions?.get(langStr)?.map(option => (
                   <Picker.Item
                     key={option}
                     label={option}
@@ -82,7 +80,7 @@ export default function Dropdown(props: QuestionComponentProps) {
     return (
       <PlatformContainer style={{ height: 30 }}>
         <Picker selectedValue={value} onValueChange={onChange}>
-          {question?.answerOptions?.get(userLanguage)?.map(option => (
+          {question?.answerOptions?.get(langStr)?.map(option => (
             <Picker.Item
               key={option}
               label={option}
@@ -97,9 +95,7 @@ export default function Dropdown(props: QuestionComponentProps) {
   return (
     <>
       <TextContainer>
-        <TextRegularBold>
-          {question.displayText.get(userLanguage)}
-        </TextRegularBold>
+        <TextRegularBold>{question.displayText.get(langStr)}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       {getPlatform()}

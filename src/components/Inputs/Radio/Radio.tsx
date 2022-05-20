@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RadioButton } from 'react-native-paper';
 import { QuestionComponentProps } from 'types/types';
 import { TextRegularBold, TextRegular } from 'assets/fonts/Fonts';
-import { LanguageContext } from 'context/ContextProvider';
+import { ClientContext } from 'context/ContextProvider';
 import { ButtonContainer, RadioContainer } from './styles';
 // eslint-disable-next-line no-restricted-imports
 import { TextContainer, TextDescription } from '../styles';
@@ -10,7 +10,8 @@ import { TextContainer, TextDescription } from '../styles';
 export default function Radio(props: QuestionComponentProps) {
   const { question, setAnswer, existingAnswer } = props;
   const [value, setValue] = useState(existingAnswer);
-  const { userLanguage } = React.useContext(LanguageContext);
+  const { state } = React.useContext(ClientContext);
+  const langStr = state.language;
 
   const onChange = (val: any): void => {
     setValue(val);
@@ -18,23 +19,21 @@ export default function Radio(props: QuestionComponentProps) {
   };
 
   const getDescription = () => {
-    return question.description.get(userLanguage).length > 0 ? (
-      <TextDescription>
-        {question.description.get(userLanguage)}
-      </TextDescription>
-    ) : null;
+    if (question?.description?.get(langStr)?.length) {
+      return (
+        <TextDescription>{question.description.get(langStr)}</TextDescription>
+      );
+    }
+    return null;
   };
 
   return (
     <TextContainer>
-      <TextRegularBold>
-        {question.displayText.get(userLanguage)}
-      </TextRegularBold>
+      <TextRegularBold>{question.displayText.get(langStr)}</TextRegularBold>
       {getDescription()}
       <RadioContainer>
-        {question.answerOptions.get(userLanguage)?.map((option, key) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ButtonContainer key={key}>
+        {question?.answerOptions?.get(langStr)?.map(option => (
+          <ButtonContainer key={option}>
             <RadioButton
               value={option}
               status={value === option ? 'checked' : 'unchecked'}

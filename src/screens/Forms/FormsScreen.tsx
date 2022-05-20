@@ -1,11 +1,11 @@
 import { Text } from 'context/ContextProvider';
 import React, { useEffect, useState } from 'react';
-import { Button } from 'react-native';
 import { ScrollPageContainer, InnerPageContainer } from 'screens/styles';
 import { getAllCases } from 'database/queries';
 import { TextTitle, TextSubtitle } from 'assets/fonts/Fonts';
 import firebase from 'firebase';
 import { Case } from 'types/types';
+import { ButtonHeader } from './styles';
 
 // TODO: integrate user auth, retention of answers.
 
@@ -31,24 +31,25 @@ const FormsScreen = ({ navigation }: any) => {
   return (
     <ScrollPageContainer>
       <InnerPageContainer>
-        <Button
-          key="form"
-          title={Text('Go to form') as string}
+        <ButtonHeader
           onPress={() => navigation.navigate('FormsStack', { screen: 'Form' })}
-        />
+        >
+          <TextSubtitle>{Text('Go to form')}</TextSubtitle>
+        </ButtonHeader>
         <TextTitle>Your Cases</TextTitle>
-        {cases.length !== 0 ? (
+        {cases.length ? (
           Object.keys(cases).map((id: any) => (
-            <Button
+            <ButtonHeader
               key={id}
-              title={caseTypes.get(cases[id].type) as string}
               onPress={() =>
                 navigation.navigate('FormsStack', {
                   screen: 'Update',
                   visitReason: cases[id].type,
                 })
               }
-            />
+            >
+              <TextSubtitle>{caseTypes.get(cases[id].type)}</TextSubtitle>
+            </ButtonHeader>
           ))
         ) : (
           <TextSubtitle>No Cases Yet</TextSubtitle>

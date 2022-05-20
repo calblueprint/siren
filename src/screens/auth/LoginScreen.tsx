@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
@@ -22,22 +23,16 @@ import {
 } from './styles';
 
 const LoginScreen = ({ route, navigation }: any) => {
-  const { language } = route.params;
+  const { langStr } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const getBackHeader = () => (
-    <ButtonHeader
-      onPress={() =>
-        navigation.navigate('Welcome', { languageParam: language })
-      }
-    >
+    <ButtonHeader onPress={() => navigation.navigate('Welcome', { langStr })}>
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() =>
-          navigation.navigate('Welcome', { languageParam: language })
-        }
+        onPress={() => navigation.navigate('Welcome', { langStr })}
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
@@ -68,7 +63,7 @@ const LoginScreen = ({ route, navigation }: any) => {
           </TextRegular>
           <TextInput
             onChangeText={text => setEmail(text)}
-            placeholder={Text('ex. example@example.com')}
+            // placeholder={Text('ex. example@example.com')}
           />
           <TextRegular>
             {Text('Password')} <TextRegularRed>*</TextRegularRed>

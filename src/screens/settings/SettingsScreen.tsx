@@ -1,7 +1,7 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import { RadioButton } from 'react-native-paper';
 import {
   TextRegular,
   TextRegularWhite,
@@ -11,53 +11,23 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { logout } from 'database/auth';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
-import { PageContainer } from '../styles';
+import LanguageRadio from 'components/LanguageRadio/LanguageRadio';
+import { dictionaryList } from 'multilingual';
+import { LanguageContext, Text } from 'context/ContextProvider';
 import {
-  RadioContainer,
-  ButtonContainer,
-  ContentContainer,
-  ButtonView,
-  ButtonHeader,
-} from './styles';
-// eslint-disable-next-line no-restricted-imports
-import firebase from '../../database/clientApp';
-// eslint-disable-next-line no-restricted-imports
-import { LanguageContext, Text } from '../../context/ContextProvider';
-
-const languageOptions = ['English', 'Español', 'Tiếng Việt'];
-
-function Radio({ handleRadioFunc, setLanguage }: any) {
-  const [value, setValue] = useState('');
-  const onChange = (val: string): void => {
-    setLanguage(val);
-    setValue(val);
-    handleRadioFunc(val);
-  };
-
-  return (
-    <RadioContainer>
-      {languageOptions.map((option, key) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ButtonContainer key={key}>
-          <RadioButton.Android
-            color="black"
-            value={option}
-            status={value === option ? 'checked' : 'unchecked'}
-            onPress={() => onChange(option)}
-          />
-          <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
-        </ButtonContainer>
-      ))}
-    </RadioContainer>
-  );
-}
+  updateEmail,
+  updateFirebaseLanguage,
+  updatePassword,
+} from 'database/auth';
+import { PageContainer } from '../styles';
+import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState(''); // string type in Firebase
   const [currentPassword, setCurrentPassword] = useState('');
   const db = firebase.firestore();
   const clientCollection = db.collection('clients');
@@ -120,7 +90,9 @@ const SettingsScreen = ({ navigation }: any) => {
       console.log(err);
     }
   };
+  const { langUpdate } = React.useContext(LanguageContext); // dicitionary
 
+  // update client info - TO DO: error handling
   const update = async (
     currPassword: string,
     newLang: string,
@@ -132,7 +104,7 @@ const SettingsScreen = ({ navigation }: any) => {
         updateEmail(newEmail);
       }
       if (newLang !== '') {
-        updateLanguage(newLang);
+        updateFirebaseLanguage(newLang);
       }
       if (newPassword !== '' && currPassword !== '') {
         updatePassword(currPassword, newPassword);
@@ -177,19 +149,18 @@ const SettingsScreen = ({ navigation }: any) => {
         />
         <TextSubtitle>{Text('Go Back')}</TextSubtitle>
       </ButtonHeader>
-
       <KeyboardAwareScrollView style={styles.container}>
-        <ContentContainer style={styles.view}>
+        <ContentContainer>
           <TextRegular>{Text('welcome')}</TextRegular>
           <TextRegular>{Text('Change Email')}</TextRegular>
           <TextInput
             onChangeText={text => setEmail(text)}
-            placeholder={Text('ex. example@example.com')}
+            // placeholder={Text('ex. example@example.com')} // CAUSING ERRORS
           />
           <TextRegular>Change Password</TextRegular>
           <TextInput
             onChangeText={text => setPassword(text)}
-            placeholder={Text('ex. password123')}
+            // placeholder={Text('ex. password123')}
             secureTextEntry
           />
           <TextRegular>
@@ -201,18 +172,11 @@ const SettingsScreen = ({ navigation }: any) => {
           </TextRegular>
           <TextInput
             onChangeText={text => setCurrentPassword(text)}
-            placeholder={Text('ex. password123')}
+            // placeholder={Text('ex. password123')}
             secureTextEntry
           />
           <TextRegular>{Text('Change your language preference')}</TextRegular>
-          <Radio handleRadioFunc={handleRadio} setLanguage={setLanguage} />
-          <ButtonView>
-            <ButtonDark
-              onPress={() => update(currentPassword, language, email, password)}
-            >
-              <TextRegularWhite>{Text('Update')}</TextRegularWhite>
-            </ButtonDark>
-          </ButtonView>
+          <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
         </ContentContainer>
       </KeyboardAwareScrollView>
 
