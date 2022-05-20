@@ -15,34 +15,28 @@ import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
 
 const RegisterScreen = ({ route, navigation }: any) => {
-  const { language } = route.params;
+  const { langStr } = route.params;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [fullName, setFullName] = useState('');
 
-  const onRegister = (e: string, p: string, n: string, lang: string) => {
-    if (email === '' || password === '' || fullName === '' || lang === '') {
+  const onRegister = (e: string, p: string, n: string) => {
+    if (email === '' || password === '' || fullName === '') {
       console.log('please fill in all inputs');
     } else if (password !== passwordRepeat) {
       console.log('passwords do not match');
     } else {
-      register(e, p, n, lang);
+      register(e, p, n, langStr);
     }
   };
 
   const getBackHeader = () => (
-    <ButtonHeader
-      onPress={() =>
-        navigation.navigate('Welcome', { languageParam: language })
-      }
-    >
+    <ButtonHeader onPress={() => navigation.navigate('Welcome', { langStr })}>
       <Appbar.BackAction
         size={18}
         style={{ margin: 0 }}
-        onPress={() =>
-          navigation.navigate('Welcome', { languageParam: language })
-        }
+        onPress={() => navigation.navigate('Welcome', { langStr })}
       />
       <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
@@ -57,14 +51,16 @@ const RegisterScreen = ({ route, navigation }: any) => {
         </TextRegular>
         <TextInput
           onChangeText={text => setFullName(text)}
-          placeholder={Text('ex. Noah Alexander Hernandez')}
+          // BUG: using placeholder with Text wrapper will result in JSON serialize errors
+          // TO DO/WORKAROUND: use TextRegular (or any other regular text components) and set as description before a TextInput
+          // placeholder={Text('ex. Noah Alexander Hernandez')}
         />
         <TextRegular>
           {Text('Email')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
           onChangeText={text => setEmail(text)}
-          placeholder={Text('ex. example@example.com')}
+          // placeholder={Text('ex. example@example.com')}
         />
         <TextRegular>
           {Text('Password')} <TextRegularRed>*</TextRegularRed>
@@ -79,9 +75,7 @@ const RegisterScreen = ({ route, navigation }: any) => {
         />
       </ContentContainer>
       <ButtonView>
-        <ButtonDark
-          onPress={() => onRegister(email, password, fullName, language)}
-        >
+        <ButtonDark onPress={() => onRegister(email, password, fullName)}>
           <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>

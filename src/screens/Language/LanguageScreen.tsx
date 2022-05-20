@@ -1,69 +1,25 @@
+/* eslint-disable no-restricted-imports */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useContext } from 'react';
 import { Image } from 'react-native';
-import { RadioButton } from 'react-native-paper';
 import { TextRegular, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDark } from 'assets/Components';
 import { TextRegularRed } from 'assets/fonts/Fonts';
-// eslint-disable-next-line no-restricted-imports
+import { LanguageContext, Text } from 'context/ContextProvider';
+import Radio from 'components/LanguageRadio/LanguageRadio';
 import { PageContainer } from '../styles';
 import {
-  RadioContainer,
   ContentContainer,
-  ButtonContainer,
   ButtonView,
   ImageStyles,
   ButtonContainer2,
 } from './styles';
-// eslint-disable-next-line no-restricted-imports
-import { LanguageContext, Text } from '../../context/ContextProvider';
 
 const sirenLogo = require('../../images/siren_logo.png');
 
-const languageOptions = ['English', 'Español', 'Tiếng Việt'];
-
-function Radio({ handleRadioFunc }: any) {
-  const [value, setValue] = useState('English');
-
-  const onChange = (val: string): void => {
-    setValue(val);
-    handleRadioFunc(val);
-  };
-
-  return (
-    <RadioContainer>
-      {languageOptions.map((option, key) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <ButtonContainer key={key}>
-          <RadioButton.Android
-            color="black"
-            value={option}
-            status={value === option ? 'checked' : 'unchecked'}
-            onPress={() => onChange(option)}
-          />
-          <TextRegular onPress={() => onChange(option)}>{option}</TextRegular>
-        </ButtonContainer>
-      ))}
-    </RadioContainer>
-  );
-}
-
 const LanguageScreen = ({ navigation }: any) => {
-  const [language, setLanguage] = useState('English');
-  const { userLanguageChange } = useContext(LanguageContext);
-
-  const handleRadio = (val: string): void => {
-    setLanguage(val);
-    if (val === 'Español') {
-      userLanguageChange('ES');
-    }
-    if (val === 'Tiếng Việt') {
-      userLanguageChange('VIET');
-    }
-    if (val === 'English') {
-      userLanguageChange('EN');
-    }
-  };
+  const { langUpdate } = useContext(LanguageContext); // dictionary type
+  const [langStr, setLanguage] = useState('EN'); // string type
 
   return (
     <PageContainer>
@@ -74,13 +30,15 @@ const LanguageScreen = ({ navigation }: any) => {
           <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextRegular>{Text('welcome')}</TextRegular>
-        <Radio handleRadioFunc={handleRadio} />
+        <Radio dictUpdate={langUpdate} stringUpdate={setLanguage} />
       </ContentContainer>
       <ButtonContainer2>
         <ButtonView>
           <ButtonDark
-            onPress={() =>
-              navigation.navigate('Welcome', { languageParam: language })
+            onPress={
+              // we pass langStr to Register/Login screens to update language in Firebase which is a string type - used for IntakeForm translations
+              // comparatively, langState is a dictionary type used for static translations
+              () => navigation.navigate('Welcome', { langStr })
             }
           >
             <TextRegularWhite>Continue</TextRegularWhite>

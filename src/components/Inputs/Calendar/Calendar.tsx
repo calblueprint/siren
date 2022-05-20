@@ -9,7 +9,7 @@ import {
   TextExample,
 } from 'components/Inputs/styles';
 import { Colors } from 'assets/Colors';
-import { LanguageContext } from 'context/ContextProvider';
+import { ClientContext } from 'context/ContextProvider';
 
 const styles = StyleSheet.create({
   calendar: {
@@ -35,7 +35,8 @@ export default function Calendar(props: QuestionComponentProps) {
   const [date, setDate] = useState(existingAnswer || new Date(1598051730000));
   const [show, setShow] = useState(false);
   const [isSet, setisSet] = useState(false);
-  const { userLanguage } = React.useContext(LanguageContext);
+  const { state } = React.useContext(ClientContext);
+  const langStr = state.language;
 
   const onChange = (event: Event, selectedDate?: Date) => {
     setShow(false);
@@ -52,15 +53,13 @@ export default function Calendar(props: QuestionComponentProps) {
   const getExampleText = () => {
     return isSet
       ? date.toLocaleDateString('en-us')
-      : ` ${question.example.get(userLanguage)} `;
+      : ` ${question.example.get(langStr)} `;
   };
 
   const getDescription = () => {
-    if (question?.description?.get(userLanguage)?.length) {
+    if (question?.description?.get(langStr)?.length) {
       return (
-        <TextDescription>
-          {question.description.get(userLanguage)}
-        </TextDescription>
+        <TextDescription>{question.description.get(langStr)}</TextDescription>
       );
     }
     return null;
@@ -69,9 +68,7 @@ export default function Calendar(props: QuestionComponentProps) {
   return (
     <TextContainer style={{ marginBottom: 24 }}>
       <TextContainer>
-        <TextRegularBold>
-          {question.displayText.get(userLanguage)}
-        </TextRegularBold>
+        <TextRegularBold>{question.displayText.get(langStr)}</TextRegularBold>
         {getDescription()}
       </TextContainer>
       <Pressable style={styles.example} onPress={showDatepicker}>
