@@ -15,7 +15,11 @@ import {
   getAllCases,
   getQuestion,
 } from 'database/queries';
-import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
+import {
+  TextSubtitle,
+  TextRegularWhite,
+  TextRegular,
+} from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
 import {
   Question,
@@ -52,7 +56,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const [screen, setScreen] = useState(managerSpecificProps?.screen || 0);
   const { state } = React.useContext(ClientContext);
   const client: Client = state;
-  const langStr = client.language;
   const finalGeneralScreen = 5;
   const uid = firebase.auth().currentUser?.uid;
   const [cases, setCases] = useState([]);
@@ -208,7 +211,9 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
       {currentQuestions.map((question, id) =>
         getQuestionComponent(question, id),
       )}
-      {filledCase ? <p>Already filled out a form for this case.</p> : null}
+      {filledCase ? (
+        <TextRegular>Already filled out a form for this case.</TextRegular>
+      ) : null}
       <ButtonView>
         <ButtonDarkBlue onPress={() => handleNext()}>
           <TextRegularWhite>Next</TextRegularWhite>
