@@ -15,7 +15,7 @@ import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
 import LanguageRadio from 'components/LanguageRadio/LanguageRadio';
 import { dictionaryList } from 'multilingual';
-import { LanguageContext, Text } from 'context/ContextProvider';
+import { ClientContext, LanguageContext, Text } from 'context/ContextProvider';
 import {
   updateEmail,
   updateFirebaseLanguage,
@@ -33,6 +33,7 @@ const SettingsScreen = ({ navigation }: any) => {
   const db = firebase.firestore();
   const clientCollection = db.collection('clients');
   const { userLanguageChange } = React.useContext(LanguageContext);
+  const { state } = React.useContext(ClientContext);
 
   const updateLanguage = async (lang: string) => {
     try {
@@ -84,11 +85,10 @@ const SettingsScreen = ({ navigation }: any) => {
   const updatePassword = async (currPassword: string, newPassword: string) => {
     try {
       const user = firebase.auth().currentUser;
-      reauthenticate(currPassword);
+      await reauthenticate(currPassword);
       await user?.updatePassword(newPassword);
     } catch (err) {
       console.log('Error in updating password');
-      console.log(err);
     }
   };
   const { langUpdate } = React.useContext(LanguageContext); // dicitionary
@@ -101,11 +101,12 @@ const SettingsScreen = ({ navigation }: any) => {
     newPassword: string,
   ) => {
     try {
+      const client: Client = state;
       if (newEmail !== '') {
-        updateEmail(newEmail);
+        updateEmail(newEmail, client.id);
       }
       if (newLang !== '') {
-        updateFirebaseLanguage(newLang);
+        updateFirebaseLanguage(newLang, client.id);
       }
       if (newPassword !== '' && currPassword !== '') {
         updatePassword(currPassword, newPassword);
@@ -174,6 +175,13 @@ const SettingsScreen = ({ navigation }: any) => {
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
         <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
+        <ButtonView>
+          <ButtonDark
+            onPress={() => update(currentPassword, language, email, password)}
+          >
+            <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+          </ButtonDark>
+        </ButtonView>
       </KeyboardAwareScrollView>
 
       <ButtonView>
