@@ -74,9 +74,9 @@ export async function updatePassword(
   }
 }
 
-export async function updateEmail(newEmail: string) {
+export async function updateEmail(newEmail: string, clientId: string) {
   try {
-    const userDoc = clientCollection.doc(user?.uid);
+    const userDoc = clientCollection.doc(clientId);
     const newFields = { email: newEmail };
     await userDoc.update(newFields);
     await user?.updateEmail(newEmail);
@@ -85,9 +85,9 @@ export async function updateEmail(newEmail: string) {
   }
 }
 
-export async function updateFirebaseLanguage(lang: string) {
+export async function updateFirebaseLanguage(lang: string, clientId: string) {
   try {
-    const userDoc = clientCollection.doc(user?.uid);
+    const userDoc = clientCollection.doc(clientId);
     const newFields = { language: lang };
     await userDoc.update(newFields);
   } catch (err) {
