@@ -58,22 +58,6 @@ const DocContainer = ({
     const submitDocs = () => {
       // Question: if already approved for appointment, should clients be reapproved if they delete a document?
       if (status !== '' && documents.length !== 0) {
-        // if (
-        //   // go back to upload stage
-        //   (status === CaseStatus.InReview || status === CaseStatus.SchedApt) &&
-        //   new Set(documents.map(doc => doc.type)).size !== docList.length
-        // ) {
-        //   setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
-        // } else if (
-        //   // advance to review stage
-        //   status === CaseStatus.SubmitDoc && // current state is upload
-        //   new Set(documents.map(doc => doc.type)).size === docList.length
-        // ) {
-        //   setStatus(clientId, clientCase.id, CaseStatus.InReview);
-        //   setSubmit(true);
-        // } else if (status === CaseStatus.InReview) {
-        //   setSubmit(true);
-        // }
         handleDocsUploaded();
         if (!submitted) {
           setStatus(clientId, clientCase.id, CaseStatus.SubmitDoc);
@@ -83,9 +67,6 @@ const DocContainer = ({
       }
       return null;
     };
-    console.log(docList);
-    console.log(status);
-    console.log(documents);
     submitDocs();
   }, [status, documents]);
 
