@@ -20,7 +20,6 @@ import {
   ButtonView,
   Container,
 } from 'components/Questions/styles';
-import { LanguageContext } from 'context/ContextProvider';
 
 export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
@@ -36,7 +35,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     existingAnswers?.get(caseType) || new Map(),
   );
   const { state } = React.useContext(ClientContext);
-  const { userLanguage } = React.useContext(LanguageContext);
+  const langStr = state.language;
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -67,7 +66,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     }
     return (
       <QuestionComponent
-        key={question.displayText.get(userLanguage)}
+        key={question.displayText.get(langStr)}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={

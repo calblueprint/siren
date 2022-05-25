@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { getEmptyClient } from 'utils/utils';
-import { Client } from 'types/types';
+import { Client, Dictionary } from 'types/types';
 import { dictionaryList } from 'multilingual/index';
 
 // general function for creating a context
@@ -23,35 +23,34 @@ const [context, provider] = createContext<Client>(getEmptyClient());
 export const ClientProvider = provider; // used in App.tsx
 export const ClientContext = context; // used by client context consumers
 
-// Lanuage Context //
-// create the language context with default selected language
-export const LanguageContext = React.createContext({
-  userLanguage: 'EN',
-  dictionary: dictionaryList.EN,
-  userLanguageChange: lang => {},
-});
+// general function for creating a context
+const createLanguageContext = <A extends {} | null>(defaultValue: A) => {
+  type UpdateType = React.Dispatch<React.SetStateAction<typeof defaultValue>>;
+  const defaultUpdate: UpdateType = () => defaultValue;
+  const ctx = React.createContext({
+    langState: defaultValue,
+    langUpdate: defaultUpdate,
+  });
+  function Provider(props: React.PropsWithChildren<{}>) {
+    const [langState, langUpdate] = React.useState(defaultValue);
+    return <ctx.Provider value={{ langState, langUpdate }} {...props} />;
+  }
+  return [ctx, Provider] as const; // alternatively, [typeof ctx, typeof Provider]
+};
 
-// define the Context Provider, which provides the language context to app
-export function LanguageProvider({ children }) {
-  const [userLanguage, setUserLanguage] = useState('EN');
+// create a context for the language
+const [langContext, langProvider] = createLanguageContext<Dictionary>(
+  dictionaryList.EN,
+);
+export const LanguageProvider = langProvider; // used in App.tsx
+export const LanguageContext = langContext; // used by client context consumers
 
-  const langProvider = {
-    userLanguage,
-    dictionary: dictionaryList[userLanguage],
-    userLanguageChange: newLanguage => {
-      setUserLanguage(newLanguage);
-    },
-  };
+// I18n indexes a langauge dictionary and returns translated version of current text
+const I18n = ({ str }) => {
+  const dict = useContext(LanguageContext).langState;
+  const translated = dict && dict[str] ? dict[str] : str;
+  return translated;
+};
 
-  return (
-    <LanguageContext.Provider value={langProvider}>
-      {children}
-    </LanguageContext.Provider>
-  );
-}
-
-// get text according to id & current language
-export function Text(tid: any): string {
-  const languageContext = useContext(LanguageContext);
-  return languageContext.dictionary[tid];
-}
+// wrapper function for I18n
+export const Text = (str: string) => <I18n str={str} />;

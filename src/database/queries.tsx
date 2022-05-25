@@ -450,3 +450,15 @@ export const getStatus = async (
     throw e;
   }
 };
+
+// updates the language field in Firebase. Used in SettingsScreen and LanguageScreen
+export const updateFirebaseLanguage = async (lang: string) => {
+  try {
+    const user = firebase.auth().currentUser;
+    const userDoc = clientCollection.doc(user?.uid);
+    const newFields = { language: lang };
+    await userDoc.update(newFields);
+  } catch (err) {
+    console.log('Error in updating language preference');
+  }
+};
