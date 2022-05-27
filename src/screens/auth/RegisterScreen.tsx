@@ -67,7 +67,6 @@ const RegisterScreen = ({ route, navigation }: any) => {
         </TextRegular>
         <TextInput
           onChangeText={text => {
-            console.log(text);
             setFullName(text);
           }}
           // BUG: using placeholder with Text wrapper will result in JSON serialize errors
