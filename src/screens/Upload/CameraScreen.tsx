@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 import * as ImagePicker from 'expo-image-picker';
 import firebase from 'firebase/app';
+import { ScrollPageContainer } from 'screens/styles';
 import React, { useEffect, useState } from 'react';
 import {
   StatusBar,
@@ -20,7 +21,12 @@ import {
   TextSubtitle,
   TextTitle,
 } from 'assets/fonts/Fonts';
-import { setDocument } from 'database/queries';
+import { Document } from 'types/types';
+import {
+  setDocument,
+  getClientCaseDocs,
+  deleteDocument,
+} from 'database/queries';
 import { Text } from 'context/ContextProvider';
 import {
   PicturesContainer,
@@ -37,21 +43,31 @@ import {
 LogBox.ignoreLogs([`Setting a timer for a long period`]);
 
 const CameraScreen = ({ navigation, route }: any) => {
-  const [imageUris, setImageUris] = useState([] as string[]);
+  let { uris } = route.params ? route.params : [];
+  const [imageUris, setImageUris] = useState(uris || ([] as string[]));
+  const [imageUrls, setImageUrls] = useState([] as string[]);
+  const [docs, setDocs] = useState([] as Document[]);
   const [uploading, setUploading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [numImagesUploaded, setNumImagesUploaded] = useState(-1);
   const storage = firebase.storage();
   const clientCase = route.params?.clientCase;
+  const caseId = clientCase?.id;
   const clientId = route.params?.clientId;
   const docName = route.params?.name;
 
   useEffect(() => {
-    if (route.params?.uris) {
-      // Post updated, do something with `route.params.post`
-      // For example, send the post to the server
-      setImageUris(route.params.uris);
-    }
-  }, [route.params?.uris]);
+    const loadImages = async (): Promise<void> => {
+      const clientCaseDocs = await getClientCaseDocs(clientId, caseId);
+      setDocs(clientCaseDocs);
+      const imgUrls = clientCaseDocs
+        .filter(doc => doc.type === docName)
+        .map(doc => doc.url);
+      setImageUrls(imgUrls);
+      setNumImagesUploaded(imgUrls.length);
+    };
+    loadImages();
+  }, []);
 
   useEffect(() => {
     const requestAccess = async () => {
@@ -81,39 +97,105 @@ const CameraScreen = ({ navigation, route }: any) => {
     return null;
   };
 
+  const deleteDocs = () => {
+    if (imageUrls.length !== numImagesUploaded) {
+      docs.map(doc =>
+        imageUrls.includes(doc.url) || doc.type !== docName
+          ? null
+          : deleteDocument(clientId, caseId, doc),
+      );
+    }
+  };
+
+  const concatUris = () => {
+    if (uris) {
+      if (!imageUris) {
+        setImageUris(uris);
+      } else {
+        setImageUris(uris.concat(imageUris));
+      }
+    }
+  };
+
   const renderCurrentPictures = () => {
     return (
-      <PicturesContainer>
-        {imageUris.length !== 0
-          ? imageUris.map(uri => (
-              <ImageBackground
-                key={uri}
-                source={{ uri }}
-                style={{
-                  height: 132,
-                  width: 100,
-                  marginLeft: 4,
-                  marginRight: 4,
-                  marginTop: 15,
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() =>
-                    setImageUris(prevImageUris =>
-                      prevImageUris.filter(u => u !== uri),
-                    )
-                  }
+      <ScrollPageContainer>
+        <PicturesContainer>
+          {imageUrls.length !== 0
+            ? imageUrls.map(uri => (
+                <ImageBackground
+                  key={uri}
+                  source={{ uri }}
+                  style={{
+                    height: 132,
+                    width: 100,
+                    marginLeft: 4,
+                    marginRight: 4,
+                    marginTop: 15,
+                  }}
                 >
-                  <AntDesign name="closecircleo" size={16} color="black" />
-                </TouchableOpacity>
-              </ImageBackground>
-            ))
-          : null}
-        <AddPageContainer onPress={() => setModalVisible(true)}>
-          <AntDesign name="plus" size={16} color="black" />
-          <TextRegular>{Text('Add page(s)')}</TextRegular>
-        </AddPageContainer>
-      </PicturesContainer>
+                  <TouchableOpacity
+                    onPress={() =>
+                      setImageUrls(prevImageUrls =>
+                        prevImageUrls.filter(u => u !== uri),
+                      )
+                    }
+                  >
+                    <AntDesign name="closecircleo" size={16} color="black" />
+                  </TouchableOpacity>
+                </ImageBackground>
+              ))
+            : null}
+          {imageUris && imageUris.length !== 0
+            ? imageUris.map((uri: string | undefined) => (
+                <ImageBackground
+                  key={uri}
+                  source={{ uri }}
+                  style={{
+                    height: 132,
+                    width: 100,
+                    marginLeft: 4,
+                    marginRight: 4,
+                    marginTop: 15,
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() =>
+                      setImageUris((prevImageUris: any[]) =>
+                        prevImageUris.filter(u => u !== uri),
+                      )
+                    }
+                  >
+                    <AntDesign name="closecircleo" size={16} color="black" />
+                  </TouchableOpacity>
+                </ImageBackground>
+              ))
+            : null}
+          {uris && uris.length !== 0
+            ? uris.map((uri: string | undefined) => (
+                <ImageBackground
+                  key={uri}
+                  source={{ uri }}
+                  style={{
+                    height: 132,
+                    width: 100,
+                    marginLeft: 4,
+                    marginRight: 4,
+                    marginTop: 15,
+                  }}
+                >
+                  <TouchableOpacity>
+                    <AntDesign name="closecircleo" size={16} color="black" />
+                  </TouchableOpacity>
+                </ImageBackground>
+              ))
+            : null}
+          <AddPageContainer onPress={() => setModalVisible(true)}>
+            <AntDesign name="plus" size={16} color="black" />
+            <TextRegular>{Text('Add page(s)')}</TextRegular>
+          </AddPageContainer>
+        </PicturesContainer>
+      </ScrollPageContainer>
     );
   };
 
@@ -153,9 +235,17 @@ const CameraScreen = ({ navigation, route }: any) => {
   const uploadImages = async () => {
     try {
       setUploading(true);
-      await Promise.all(imageUris.map(async uri => uploadImageAsync(uri)));
+      if (imageUris) {
+        await Promise.all(
+          imageUris.map(async (uri: string) => uploadImageAsync(uri)),
+        );
+      }
+      if (uris) {
+        await Promise.all(
+          uris.map(async (uri: string) => uploadImageAsync(uri)),
+        );
+      }
       setUploading(false);
-      navigation.goBack();
     } catch (e) {
       console.log(e);
       alert(Text('Upload failed'));
@@ -167,9 +257,24 @@ const CameraScreen = ({ navigation, route }: any) => {
       allowsEditing: true,
     });
     if (!pickerResult.cancelled) {
-      setImageUris(prevImageUris => [...prevImageUris, pickerResult.uri]);
+      setImageUris((prevImageUris: any) => [
+        ...prevImageUris,
+        pickerResult.uri,
+      ]);
     }
     setModalVisible(false);
+  };
+
+  const handleDone = async () => {
+    console.log(uris);
+    console.log(imageUris);
+    if (uris || imageUris) {
+      await uploadImages();
+    }
+    deleteDocs();
+    uris = [];
+    setImageUris([]);
+    navigation.goBack();
   };
 
   const getPageDescription = () => {
@@ -204,6 +309,7 @@ const CameraScreen = ({ navigation, route }: any) => {
               onPress={() => {
                 navigation.navigate('Image');
                 setModalVisible(false);
+                concatUris();
               }}
             >
               <TextRegularWhite>{Text('Select photos')}</TextRegularWhite>
@@ -214,8 +320,10 @@ const CameraScreen = ({ navigation, route }: any) => {
           </ModalButtonContainer>
         </ModalContainer>
       </Modal>
-      {imageUris.length > 0 ? (
-        <ButtonDarkBlueBottom onPress={uploadImages}>
+      {uris?.length !== 0 ||
+      imageUrls.length !== numImagesUploaded ||
+      imageUris.length > 0 ? (
+        <ButtonDarkBlueBottom onPress={handleDone}>
           <TextRegularWhite>{Text('Done')}</TextRegularWhite>
         </ButtonDarkBlueBottom>
       ) : null}

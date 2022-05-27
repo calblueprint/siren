@@ -18,6 +18,7 @@ const statusDict: { [key: string]: number } = {
   inReview: 2,
   schedApt: 3,
   attenApt: 4,
+  resubmit: 0,
 };
 
 const ProgressTracker = (props: TrackerProps) => {
@@ -43,7 +44,14 @@ const ProgressTracker = (props: TrackerProps) => {
       >
         <ProgressStep label="Intake" removeBtnRow scrollable={false}>
           <View style={{ alignItems: 'center' }}>
-            <TextRegular>Please submit an intake form.</TextRegular>
+            {status === 'resubmit' ? (
+              <TextRegular>
+                Your case was rejected. Please edit your intake form and/or
+                documents.
+              </TextRegular>
+            ) : (
+              <TextRegular>Please submit an intake form.</TextRegular>
+            )}
           </View>
         </ProgressStep>
         <ProgressStep label="Upload" removeBtnRow scrollable={false}>

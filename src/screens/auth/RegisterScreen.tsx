@@ -66,7 +66,10 @@ const RegisterScreen = ({ route, navigation }: any) => {
           {Text('Name')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
-          onChangeText={text => setFullName(text)}
+          onChangeText={text => {
+            console.log(text);
+            setFullName(text);
+          }}
           // BUG: using placeholder with Text wrapper will result in JSON serialize errors
           // TO DO/WORKAROUND: use TextRegular (or any other regular text components) and set as description before a TextInput
           // placeholder={Text('ex. Noah Alexander Hernandez')}

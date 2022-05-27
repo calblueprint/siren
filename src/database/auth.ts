@@ -14,19 +14,39 @@ export async function register(
   language: string,
 ) {
   try {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(val => {
+        if (user !== null) {
+          const client: Client = {
+            id: user.uid,
+            email,
+            fullName,
+            createdAt: new Date(),
+            answers: new Map(),
+            language,
+          };
+          setClient(client);
+        }
+      })
+      .catch(() => {
+        throw new Error('User not registered');
+      });
 
-    if (user !== null) {
-      const client: Client = {
-        id: user.uid,
-        email,
-        fullName,
-        createdAt: new Date(),
-        answers: new Map(),
-        language,
-      };
-      await setClient(client);
-    }
+    // if (user !== null) {
+    //   const client: Client = {
+    //     id: user.uid,
+    //     email,
+    //     fullName,
+    //     createdAt: new Date(),
+    //     answers: new Map(),
+    //     language,
+    //   };
+    //   await setClient(client);
+    // } else {
+    //   throw new Error('User not registered');
+    // }
   } catch (err) {
     console.log(err);
   }

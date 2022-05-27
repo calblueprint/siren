@@ -14,7 +14,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { StyleSheet } from 'react-native';
 // eslint-disable-next-line no-restricted-imports
 import LanguageRadio from 'components/LanguageRadio/LanguageRadio';
-import { dictionaryList } from 'multilingual';
 import { ClientContext, LanguageContext, Text } from 'context/ContextProvider';
 import {
   updateEmail,
@@ -23,7 +22,7 @@ import {
 } from 'database/auth';
 import firebase from 'firebase';
 import { PageContainer } from '../styles';
-import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import { ButtonView, ButtonHeader } from './styles';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -34,28 +33,6 @@ const SettingsScreen = ({ navigation }: any) => {
   const clientCollection = db.collection('clients');
   const { userLanguageChange } = React.useContext(LanguageContext);
   const { state } = React.useContext(ClientContext);
-
-  const updateLanguage = async (lang: string) => {
-    try {
-      const lowercaseLang = lang.toLowerCase();
-      console.log('Updated Language!');
-      const user = firebase.auth().currentUser;
-      const userDoc = clientCollection.doc(user?.uid);
-      const newFields = { language: lowercaseLang };
-      await userDoc.update(newFields);
-      if (lowercaseLang === 'Español') {
-        userLanguageChange('ES');
-      }
-      if (lowercaseLang === 'Tiếng Việt') {
-        userLanguageChange('VIET');
-      }
-      if (lowercaseLang === 'English') {
-        userLanguageChange('EN');
-      }
-    } catch (err) {
-      console.log('Error in updating language preference');
-    }
-  };
 
   const updateEmail = async (newEmail: string) => {
     try {
@@ -106,6 +83,8 @@ const SettingsScreen = ({ navigation }: any) => {
         updateEmail(newEmail, client.id);
       }
       if (newLang !== '') {
+        console.log(newLang);
+        console.log(language);
         updateFirebaseLanguage(newLang, client.id);
       }
       if (newPassword !== '' && currPassword !== '') {
@@ -113,18 +92,6 @@ const SettingsScreen = ({ navigation }: any) => {
       }
     } catch (err) {
       console.log('Error in updating info');
-    }
-  };
-
-  const handleRadio = (val: string): void => {
-    if (val === 'Español') {
-      userLanguageChange('ES');
-    }
-    if (val === 'Tiếng Việt') {
-      userLanguageChange('VIET');
-    }
-    if (val === 'English') {
-      userLanguageChange('EN');
     }
   };
 
