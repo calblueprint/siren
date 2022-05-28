@@ -56,7 +56,7 @@ const LoginScreen = ({ route, navigation }: any) => {
         <TextInput onChangeText={text => setPassword(text)} secureTextEntry />
       </ContentContainer>
       <ButtonView>
-        <ButtonDark onPress={() => login(email, password)}>
+        <ButtonDark onPress={() => login(email, password, langStr)}>
           <TextRegularWhite>{Text('Log in')}</TextRegularWhite>
         </ButtonDark>
       </ButtonView>

@@ -2,6 +2,7 @@ import { Client } from 'types/types';
 import firebase from './clientApp';
 import 'firebase/firestore';
 import { setClient } from './queries';
+import { alertTextStr } from 'database/helpers';
 
 const db = firebase.firestore();
 const clientCollection = db.collection('clients');
@@ -32,11 +33,12 @@ export async function register(
   }
 }
 
-export async function login(email: string, password: string) {
+export async function login(email: string, password: string, langStr: string) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     // TO DO: error handling for mismatched languages
   } catch (err) {
+    alertTextStr('The email or password you entered is invalid.', langStr);
     console.log('Error signing in');
   }
 }
