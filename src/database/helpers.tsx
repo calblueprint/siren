@@ -58,3 +58,9 @@ export const updateLanguage = (
 export function alertTextStr(str: string, langStr: string): void {
   alert(TextStr(str, langStr));
 }
+
+// checks email format
+export function checkEmail(e: string): boolean {
+  const regex = /[\w]+@[\w]+.[\w][\w]+/gm;
+  return regex.test(e);
+}

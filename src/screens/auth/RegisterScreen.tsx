@@ -10,7 +10,7 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
-import { alertTextStr } from 'database/helpers';
+import { alertTextStr, checkEmail } from 'database/helpers';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
@@ -47,11 +47,6 @@ const RegisterScreen = ({ route, navigation }: any) => {
       }
     }
     return password === password2;
-  }
-
-  function checkEmail(e: string): boolean {
-    const regex = /[\w]+@[\w]+.[\w][\w]+/gm;
-    return regex.test(e);
   }
 
   const onRegister = (e: string, p: string, n: string) => {

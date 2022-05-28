@@ -52,5 +52,9 @@
     "Password must contain upper case character" : "Mật khẩu phải chứa ký tự chữ hoa",
     "Password must contain number" : "Mật khẩu phải chứa số",
     "Please fill in all inputs" : "Vui lòng điền vào tất cả các đầu vào",
-    "Email is badly formatted" : "Email bị định dạng sai"
+    "Email is badly formatted" : "Email bị định dạng sai",
+    "The email or password you entered is invalid." : "Email hoặc mật khẩu bạn đã nhập không hợp lệ.",
+    "Language" : "Ngôn ngữ",
+    "Updated: " : "Đã cập nhật: ",
+    "Could not update: " : "Không thể cập nhật: "
 }

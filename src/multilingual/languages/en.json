@@ -52,5 +52,9 @@
     "Password must contain upper case character" : "Password must contain upper case character",
     "Password must contain number" : "Password must contain number",
     "Please fill in all inputs" : "Please fill in all inputs",
-    "Email is badly formatted" : "Email is badly formatted"
+    "Email is badly formatted" : "Email is badly formatted",
+    "The email or password you entered is invalid." : "The email or password you entered is invalid.",
+    "Language" : "Language",
+    "Updated: " : "Updated: ",
+    "Could not update: " : "Could not update: "
 }

@@ -52,5 +52,9 @@
     "Password must contain upper case character" : "La contraseña debe contener caracteres en mayúsculas",
     "Password must contain number" : "La contraseña debe contener un número",
     "Please fill in all inputs" : "Por favor complete todas las entradas",
-    "Email is badly formatted" : "El correo electrónico está mal formateado"
+    "Email is badly formatted" : "El correo electrónico está mal formateado",
+    "The email or password you entered is invalid." : "Correo electrónico o contraseña que usted entro es invalido.",
+    "Language" : "Idioma",
+    "Updated: " : "Actualizada: ",
+    "Could not update: " : "No se pudo actualizar: "
 }
