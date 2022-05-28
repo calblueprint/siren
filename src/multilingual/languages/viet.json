@@ -45,5 +45,12 @@
     "Select how to upload your document pages" : "Chọn cách tải lên các trang tài liệu của bạn",
     "Select photos" : "Chọn ảnh",
     "Take photos" : "Chụp ảnh",
-    "Done" : "Xong"
+    "Done" : "Xong",
+    "Passwords do not match" : "Mất khẩu không hợp lệ",
+    "Password must be greater than 6 characters" : "Mật khẩu phải lớn hơn 6 ký tự",
+    "Password must contain lower case character" : "Mật khẩu phải chứa ký tự viết thường",
+    "Password must contain upper case character" : "Mật khẩu phải chứa ký tự chữ hoa",
+    "Password must contain number" : "Mật khẩu phải chứa số",
+    "Please fill in all inputs" : "Vui lòng điền vào tất cả các đầu vào",
+    "Email is badly formatted" : "Email bị định dạng sai"
 }
