@@ -2,10 +2,18 @@ import { Client } from 'types/types';
 import firebase from './clientApp';
 import 'firebase/firestore';
 import { setClient } from './queries';
+import { alertTextStr } from 'database/helpers';
 
 const db = firebase.firestore();
 const clientCollection = db.collection('clients');
-const user = firebase.auth().currentUser;
+let user = firebase.auth().currentUser;
+
+// helper func to handle if user is null (a user would be null because the currentUser is retrieved before it is set)
+function handleUser() {
+  if (user === null) {
+    user = firebase.auth().currentUser;
+  }
+}
 
 export async function register(
   email: string,
@@ -32,11 +40,12 @@ export async function register(
   }
 }
 
-export async function login(email: string, password: string) {
+export async function login(email: string, password: string, langStr: string) {
   try {
     await firebase.auth().signInWithEmailAndPassword(email, password);
     // TO DO: error handling for mismatched languages
   } catch (err) {
+    alertTextStr('The email or password you entered is invalid.', langStr);
     console.log('Error signing in');
   }
 }
@@ -51,7 +60,7 @@ export async function logout() {
 
 export async function reauthenticate(currPassword: string) {
   try {
-    // const user = firebase.auth().currentUser;
+    handleUser();
     const credential = firebase.auth.EmailAuthProvider.credential(
       user?.email,
       currPassword,
@@ -65,17 +74,21 @@ export async function reauthenticate(currPassword: string) {
 export async function updatePassword(
   currPassword: string,
   newPassword: string,
-) {
+): Promise<boolean> {
   try {
+    handleUser();
     reauthenticate(currPassword);
     await user?.updatePassword(newPassword);
+    return true;
   } catch (err) {
     console.log('Error in updating password');
+    return false;
   }
 }
 
 export async function updateEmail(newEmail: string) {
   try {
+    handleUser();
     const userDoc = clientCollection.doc(user?.uid);
     const newFields = { email: newEmail };
     await userDoc.update(newFields);
@@ -85,12 +98,16 @@ export async function updateEmail(newEmail: string) {
   }
 }
 
-export async function updateFirebaseLanguage(lang: string) {
+export async function updateFirebaseLanguage(lang: string): Promise<boolean> {
   try {
+    handleUser();
     const userDoc = clientCollection.doc(user?.uid);
     const newFields = { language: lang };
     await userDoc.update(newFields);
+    return true;
   } catch (err) {
     console.log('Error in updating language preference');
+    console.log(user);
+    return false;
   }
 }

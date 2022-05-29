@@ -54,3 +54,10 @@ const I18n = ({ str }) => {
 
 // wrapper function for I18n
 export const Text = (str: string) => <I18n str={str} />;
+
+// functions lke I18n but returns a string instead of object
+export const TextStr = (str: string, lang: any): string => {
+  const dict = dictionaryList[lang];
+  const translated = dict && dict[str] ? dict[str] : str;
+  return translated;
+};

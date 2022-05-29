@@ -32,7 +32,7 @@ const WelcomeScreen = ({ route, navigation }: any) => {
         style={{ margin: 0 }}
         onPress={() => navigation.navigate('Language')}
       />
-      <TextSubtitle>Go Back</TextSubtitle>
+      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
     </ButtonHeader>
   );
 

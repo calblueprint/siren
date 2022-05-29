@@ -45,5 +45,20 @@
     "Select how to upload your document pages" : "Chọn cách tải lên các trang tài liệu của bạn",
     "Select photos" : "Chọn ảnh",
     "Take photos" : "Chụp ảnh",
-    "Done" : "Xong"
+    "Done" : "Xong",
+    "Passwords do not match" : "Mất khẩu không hợp lệ",
+    "Password must be greater than 6 characters" : "Mật khẩu phải lớn hơn 6 ký tự",
+    "Password must contain lower case character" : "Mật khẩu phải chứa ký tự viết thường",
+    "Password must contain upper case character" : "Mật khẩu phải chứa ký tự chữ hoa",
+    "Password must contain number" : "Mật khẩu phải chứa số",
+    "Please fill in all inputs" : "Vui lòng điền vào tất cả các đầu vào",
+    "Email is badly formatted" : "Email bị định dạng sai",
+    "The email or password you entered is invalid." : "Email hoặc mật khẩu bạn đã nhập không hợp lệ.",
+    "Language" : "Ngôn ngữ",
+    "Updated: " : "Đã cập nhật: ",
+    "Could not update: " : "Không thể cập nhật: ",
+    "Already filled out a form for this case." : "Đã điền vào một biểu mẫu cho trường hợp này.",
+    "Adjustment of status" : "Điều chỉnh trạng thái",
+    "DACA renewal" : "Gia hạn DACA",
+    "Citizenship" : "Quyền công dân"
 }

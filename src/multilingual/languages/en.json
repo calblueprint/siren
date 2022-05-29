@@ -45,5 +45,20 @@
     "Select how to upload your document pages" : "Select how to upload your document pages",
     "Select photos" : "Select photos",
     "Take photos" : "Take photos",
-    "Done" : "Done"
+    "Done" : "Done",
+    "Passwords do not match" : "Passwords do not match",
+    "Password must be greater than 6 characters" : "Password must be greater than 6 characters",
+    "Password must contain lower case character" : "Password must contain lower case character",
+    "Password must contain upper case character" : "Password must contain upper case character",
+    "Password must contain number" : "Password must contain number",
+    "Please fill in all inputs" : "Please fill in all inputs",
+    "Email is badly formatted" : "Email is badly formatted",
+    "The email or password you entered is invalid." : "The email or password you entered is invalid.",
+    "Language" : "Language",
+    "Updated: " : "Updated: ",
+    "Could not update: " : "Could not update: ",
+    "Already filled out a form for this case." : "Already filled out a form for this case.",
+    "Adjustment of status" : "Adjustment of status",
+    "DACA renewal" : "DACA renewal",
+    "Citizenship" : "Citizenship"
 }

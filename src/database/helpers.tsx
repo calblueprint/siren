@@ -1,4 +1,5 @@
 import { dictionaryList } from 'multilingual';
+import { TextStr } from 'context/ContextProvider';
 
 export const objectToMap = (obj: Object): Map<any, any> => {
   return new Map(
@@ -52,3 +53,14 @@ export const updateLanguage = (
     stringUpdate('EN');
   }
 };
+
+// alert that handles translation
+export function alertTextStr(str: string, langStr: string): void {
+  alert(TextStr(str, langStr));
+}
+
+// checks email format
+export function checkEmail(e: string): boolean {
+  const regex = /[\w]+@[\w]+.[\w][\w]+/gm;
+  return regex.test(e);
+}

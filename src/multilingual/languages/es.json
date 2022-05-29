@@ -45,5 +45,20 @@
     "Select how to upload your document pages" : "Cómo escanear tus documentos",
     "Select photos" : "Seleccionar fotos",
     "Take photos" : "Toma fotos",
-    "Done" : "Hecho"
+    "Done" : "Hecho",
+    "Passwords do not match" : "Las contraseñas no coinciden",
+    "Password must be greater than 6 characters" : "La contraseña debe tener más de 6 caracteres",
+    "Password must contain lower case character" : "La contraseña debe contener caracteres en minúsculas",
+    "Password must contain upper case character" : "La contraseña debe contener caracteres en mayúsculas",
+    "Password must contain number" : "La contraseña debe contener un número",
+    "Please fill in all inputs" : "Por favor complete todas las entradas",
+    "Email is badly formatted" : "El correo electrónico está mal formateado",
+    "The email or password you entered is invalid." : "Correo electrónico o contraseña que usted entro es invalido.",
+    "Language" : "Idioma",
+    "Updated: " : "Actualizada: ",
+    "Could not update: " : "No se pudo actualizar: ",
+    "Already filled out a form for this case." : "Ya he rellenado un formulario para este caso.",
+    "Adjustment of status" : "Ajuste de estado",
+    "DACA renewal" : "renovación de DACA",
+    "Citizenship" : "Ciudadanía"
 }

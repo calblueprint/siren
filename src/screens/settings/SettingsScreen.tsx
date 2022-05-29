@@ -8,9 +8,10 @@ import {
   TextRegularRed,
   TextSubtitle,
 } from 'assets/fonts/Fonts';
+import { alertTextStr, checkEmail } from 'database/helpers';
+import { TextStr } from 'context/ContextProvider';
 import { ButtonDark, TextInput } from 'assets/Components';
 import LanguageRadio from 'components/LanguageRadio/LanguageRadio';
-import { dictionaryList } from 'multilingual';
 import { LanguageContext, Text } from 'context/ContextProvider';
 import {
   updateEmail,
@@ -26,6 +27,9 @@ const SettingsScreen = ({ navigation }: any) => {
   const [language, setLanguage] = useState(''); // string type in Firebase
   const [currentPassword, setCurrentPassword] = useState('');
   const { langUpdate } = React.useContext(LanguageContext); // dicitionary
+  const e = TextStr('Email', language);
+  const p = TextStr('Password', language);
+  const l = TextStr('Language', language);
 
   // update client info - TO DO: error handling
   const update = async (
@@ -35,14 +39,56 @@ const SettingsScreen = ({ navigation }: any) => {
     newPassword: string,
   ) => {
     try {
+      let updated = '';
+      let err = '';
+      // handle email
       if (newEmail !== '') {
-        updateEmail(newEmail);
+        if (checkEmail(newEmail)) {
+          const updatedTemp = updated.concat(`\n${e}`);
+          updated = updatedTemp;
+          await updateEmail(newEmail);
+          setEmail('');
+        } else {
+          const errTemp = err.concat(`\n${e}`);
+          err = errTemp;
+        }
       }
+      // handle language
       if (newLang !== '') {
-        updateFirebaseLanguage(newLang);
+        if (await updateFirebaseLanguage(newLang)) {
+          const updatedTemp = updated.concat(`\n${l}`);
+          updated = updatedTemp;
+          setLanguage('');
+        } else {
+          const errTemp = err.concat(`\n${l}`);
+          err = errTemp;
+        }
       }
+      // handle password
       if (newPassword !== '' && currPassword !== '') {
-        updatePassword(currPassword, newPassword);
+        if (await updatePassword(currPassword, newPassword)) {
+          const updatedTemp = updated.concat(`\n${p}`);
+          updated = updatedTemp;
+          setPassword('');
+        } else {
+          const errTemp = err.concat(`\n${p}`);
+          err = errTemp;
+        }
+      }
+      // handle alerts
+      let updatedFinal = '';
+      if (updated !== '') {
+        updatedFinal = TextStr('Updated: ', language)
+          .concat(updated)
+          .concat('\n');
+      }
+      let errFinal = '';
+      if (err !== '') {
+        errFinal = TextStr('Could not update: ', language).concat(err);
+      }
+      if (updated !== '' || err !== '') {
+        // alert if there are updates made
+        alertTextStr(updatedFinal.concat(`\n${errFinal}`), newLang);
       }
     } catch (err) {
       console.log('Error in updating info');

@@ -10,6 +10,7 @@ import {
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
+import { alertTextStr, checkEmail } from 'database/helpers';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
 import { ContentContainer, ButtonView, ButtonHeader } from './styles';
@@ -21,11 +22,42 @@ const RegisterScreen = ({ route, navigation }: any) => {
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const [fullName, setFullName] = useState('');
 
+  function checkPassword(password1: string, password2: string): boolean {
+    const hasLower = new RegExp('^(?=.*[a-z])');
+    const hasUpper = new RegExp('^(?=.*[A-Z])');
+    const hasNum = new RegExp('^(?=.*[0-9])');
+
+    if (password1 !== password2) {
+      alertTextStr('Passwords do not match', langStr);
+    } else if (password1.length < 6) {
+      alertTextStr('Password must be greater than 6 characters', langStr);
+      return false;
+    } else {
+      if (hasLower.test(password1) === false) {
+        alertTextStr('Password must contain lower case character', langStr);
+        return false;
+      }
+      if (hasUpper.test(password1) === false) {
+        alertTextStr('Password must contain upper case character', langStr);
+        return false;
+      }
+      if (hasNum.test(password1) === false) {
+        alertTextStr('Password must contain number', langStr);
+        return false;
+      }
+    }
+    return password === password2;
+  }
+
   const onRegister = (e: string, p: string, n: string) => {
     if (email === '' || password === '' || fullName === '') {
+      alertTextStr('Please fill in all inputs', langStr);
       console.log('please fill in all inputs');
-    } else if (password !== passwordRepeat) {
-      console.log('passwords do not match');
+    } else if (!checkEmail(email)) {
+      alertTextStr('Email is badly formatted', langStr);
+      console.log('email issue');
+    } else if (!checkPassword(password, passwordRepeat)) {
+      console.log('password issue');
     } else {
       register(e, p, n, langStr);
     }
