@@ -56,5 +56,9 @@
     "The email or password you entered is invalid." : "The email or password you entered is invalid.",
     "Language" : "Language",
     "Updated: " : "Updated: ",
-    "Could not update: " : "Could not update: "
+    "Could not update: " : "Could not update: ",
+    "Already filled out a form for this case." : "Already filled out a form for this case.",
+    "Adjustment of status" : "Adjustment of status",
+    "DACA renewal" : "DACA renewal",
+    "Citizenship" : "Citizenship"
 }

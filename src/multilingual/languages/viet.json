@@ -56,5 +56,9 @@
     "The email or password you entered is invalid." : "Email hoặc mật khẩu bạn đã nhập không hợp lệ.",
     "Language" : "Ngôn ngữ",
     "Updated: " : "Đã cập nhật: ",
-    "Could not update: " : "Không thể cập nhật: "
+    "Could not update: " : "Không thể cập nhật: ",
+    "Already filled out a form for this case." : "Đã điền vào một biểu mẫu cho trường hợp này.",
+    "Adjustment of status" : "Điều chỉnh trạng thái",
+    "DACA renewal" : "Gia hạn DACA",
+    "Citizenship" : "Quyền công dân"
 }

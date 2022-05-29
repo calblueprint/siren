@@ -3,7 +3,8 @@ import React, { SetStateAction, useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
 import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
-import { ClientContext } from 'context/ContextProvider';
+import { ClientContext, TextStr } from 'context/ContextProvider';
+import { alertTextStr } from 'database/helpers';
 import {
   ButtonHeader,
   ButtonView,
@@ -15,11 +16,7 @@ import {
   getAllCases,
   getQuestion,
 } from 'database/queries';
-import {
-  TextSubtitle,
-  TextRegularWhite,
-  TextRegular,
-} from 'assets/fonts/Fonts';
+import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
 import {
   Question,
@@ -59,7 +56,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const finalGeneralScreen = 5;
   const uid = firebase.auth().currentUser?.uid;
   const [cases, setCases] = useState([]);
-  const [filledCase, setFilledCase] = useState(false);
   const caseTypes = new Map<string, string>([
     ['I90', 'I-90'],
     ['adjustmentOfStatus', 'Adjustment of status'],
@@ -92,11 +88,14 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   };
 
   const handleNext = () => {
+    console.log(cases);
     if (screen === finalGeneralScreen) {
-      setFilledCase(false);
       if (currentAnswers.get('visitReason')) {
         if (cases.includes(currentAnswers.get('visitReason') as never)) {
-          setFilledCase(true);
+          alertTextStr(
+            'Already filled out a form for this case.',
+            client.language,
+          );
         } else {
           setScreen(screen + 1);
         }
@@ -116,7 +115,9 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const loadCases = async (): Promise<void> => {
     const clientCases = await getAllCases(uid as string);
     setCases(
-      clientCases.map(c => caseTypes.get(c.type)) as SetStateAction<never[]>,
+      clientCases.map(c =>
+        TextStr(caseTypes.get(c.type) as string, client.language),
+      ) as SetStateAction<never[]>,
     );
   };
   const getQuestionComponent = (question: Question, id: number) => {
@@ -211,9 +212,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
       {currentQuestions.map((question, id) =>
         getQuestionComponent(question, id),
       )}
-      {filledCase ? (
-        <TextRegular>Already filled out a form for this case.</TextRegular>
-      ) : null}
       <ButtonView>
         <ButtonDarkBlue onPress={() => handleNext()}>
           <TextRegularWhite>Next</TextRegularWhite>
