@@ -4,6 +4,7 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { Colors } from 'assets/Colors';
 import { TextBold, TextRegular } from 'assets/fonts/Fonts';
 import { convertCamelToTitleCase } from 'utils/utils';
+import { CaseStatus } from 'types/types';
 import { TitleContainer, MainContainer } from './styles';
 
 interface TrackerProps {
@@ -18,6 +19,7 @@ const statusDict: { [key: string]: number } = {
   inReview: 2,
   schedApt: 3,
   attenApt: 4,
+  resubmit: 0,
 };
 
 const ProgressTracker = (props: TrackerProps) => {
@@ -43,7 +45,14 @@ const ProgressTracker = (props: TrackerProps) => {
       >
         <ProgressStep label="Intake" removeBtnRow scrollable={false}>
           <View style={{ alignItems: 'center' }}>
-            <TextRegular>Please submit an intake form.</TextRegular>
+            {status === CaseStatus.Resubmit ? (
+              <TextRegular>
+                Your case has been rejected. Please make changes to your form
+                and/or documents.
+              </TextRegular>
+            ) : (
+              <TextRegular>Please submit an intake form.</TextRegular>
+            )}
           </View>
         </ProgressStep>
         <ProgressStep label="Upload" removeBtnRow scrollable={false}>
