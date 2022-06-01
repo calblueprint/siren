@@ -89,6 +89,7 @@ const SettingsScreen = ({ navigation }: any) => {
       if (newPassword !== '' && currPassword !== '') {
         updatePassword(currPassword, newPassword);
       }
+      navigation.navigate('Home');
     } catch (err) {
       console.log('Error in updating info');
     }
