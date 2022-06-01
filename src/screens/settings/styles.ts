@@ -31,12 +31,6 @@ export const ButtonContainer = styled.View`
   align-items: center;
 `;
 
-// export const ButtonView = styled.View`
-//   width: 70%;
-//   position: absolute;
-//   bottom: 10%;
-// `;
-
 export const ButtonHeader = styled.TouchableOpacity`
   position: absolute;
   display: flex;
@@ -63,4 +57,9 @@ export const ButtonContainer2 = styled.View`
 
 export const ButtonView = styled.View`
   width: 45%;
+`;
+
+export const ButtonView2 = styled.View`
+  width: 45%;
+  margin-bottom: 5px;
 `;

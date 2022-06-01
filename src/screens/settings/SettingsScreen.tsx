@@ -23,7 +23,7 @@ import {
 import firebase from 'firebase';
 import { Client } from 'types/types';
 import { PageContainer } from '../styles';
-import { ButtonView, ButtonHeader } from './styles';
+import { ButtonView, ButtonView2, ButtonHeader } from './styles';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -141,15 +141,15 @@ const SettingsScreen = ({ navigation }: any) => {
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
         <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
-        <ButtonView>
-          <ButtonDark
-            onPress={() => update(currentPassword, language, email, password)}
-          >
-            <TextRegularWhite>{Text('Update')}</TextRegularWhite>
-          </ButtonDark>
-        </ButtonView>
       </KeyboardAwareScrollView>
 
+      <ButtonView2>
+        <ButtonDark
+          onPress={() => update(currentPassword, language, email, password)}
+        >
+          <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+        </ButtonDark>
+      </ButtonView2>
       <ButtonView>
         <ButtonDark onPress={logout}>
           <TextRegularWhite>{Text('Logout')}</TextRegularWhite>
