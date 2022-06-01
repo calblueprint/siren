@@ -68,12 +68,12 @@ const HomeScreen = ({ navigation }: any) => {
                   Linking.openURL('mailto:Info@sirenimmigrantrights.org')
                 }
               >
-                <TextBold>{Text('Email')}</TextBold>
+                <TextBold>{Text('Email SIREN')}</TextBold>
               </ButtonLight>
             </ContactButton>
             <ContactButton>
               <ButtonLight onPress={() => Linking.openURL(`tel:${4084533003}`)}>
-                <TextBold>{Text('Call')}</TextBold>
+                <TextBold>{Text('Call SIREN')}</TextBold>
               </ButtonLight>
             </ContactButton>
           </ButtonContainer>
@@ -91,12 +91,12 @@ const HomeScreen = ({ navigation }: any) => {
                   )
                 }
               >
-                <TextBold>{Text('Email')}</TextBold>
+                <TextBold>{Text('Email SIREN')}</TextBold>
               </ButtonLight>
             </ContactButton>
             <ContactButton>
               <ButtonLight onPress={() => Linking.openURL(`tel:${5598400005}`)}>
-                <TextBold>{Text('Call')}</TextBold>
+                <TextBold>{Text('Call SIREN')}</TextBold>
               </ButtonLight>
             </ContactButton>
           </ButtonContainer>
