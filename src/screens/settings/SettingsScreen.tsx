@@ -21,6 +21,7 @@ import {
   updatePassword,
 } from 'database/auth';
 import firebase from 'firebase';
+import { Client } from 'types/types';
 import { PageContainer } from '../styles';
 import { ButtonView, ButtonHeader } from './styles';
 
@@ -80,11 +81,9 @@ const SettingsScreen = ({ navigation }: any) => {
     try {
       const client: Client = state;
       if (newEmail !== '') {
-        updateEmail(newEmail, client.id);
+        updateEmail(newEmail);
       }
       if (newLang !== '') {
-        console.log(newLang);
-        console.log(language);
         updateFirebaseLanguage(newLang, client.id);
       }
       if (newPassword !== '' && currPassword !== '') {
