@@ -12,7 +12,12 @@ import { ButtonLight } from 'assets/Components';
 import { Text } from 'context/ContextProvider';
 // eslint-disable-next-line no-restricted-imports
 import { NameContainer } from '../styles';
-import { ContactButton, ButtonContainer, ContactContainer } from './styles';
+import {
+  ContactButton,
+  ButtonContainer,
+  ContactContainer,
+  ContactHeaderContainer,
+} from './styles';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
@@ -59,6 +64,9 @@ const HomeScreen = ({ navigation }: any) => {
           />
         )}
 
+        <ContactHeaderContainer>
+          <TextBold>{Text('Need help?')}</TextBold>
+        </ContactHeaderContainer>
         <ContactContainer>
           <TextRegular>{Text('Email/Call Bay Area Office: ')}</TextRegular>
           <ButtonContainer>

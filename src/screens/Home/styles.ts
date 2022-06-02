@@ -6,11 +6,17 @@ export const ContactButton = styled.View`
 `;
 
 export const ButtonContainer = styled.View`
+  margin-top: 5px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 `;
 
 export const ContactContainer = styled.View`
-  margin-bottom: 5px;
+  margin-bottom: 8px;
+`;
+
+export const ContactHeaderContainer = styled.View`
+  margin-top: 20px;
+  margin-bottom: 10px;
 `;
