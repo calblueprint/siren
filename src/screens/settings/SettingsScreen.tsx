@@ -34,41 +34,8 @@ const SettingsScreen = ({ navigation }: any) => {
   const clientCollection = db.collection('clients');
   const { userLanguageChange } = React.useContext(LanguageContext);
   const { state } = React.useContext(ClientContext);
+  const user = firebase.auth().currentUser;
 
-  const updateEmail = async (newEmail: string) => {
-    try {
-      const user = firebase.auth().currentUser;
-      const userDoc = clientCollection.doc(user?.uid);
-      const newFields = { email: newEmail };
-      await userDoc.update(newFields);
-      await user?.updateEmail(newEmail);
-    } catch (err) {
-      console.log('Error in updating email');
-    }
-  };
-
-  const reauthenticate = async (currPassword: string) => {
-    try {
-      const user = firebase.auth().currentUser;
-      const credential = firebase.auth.EmailAuthProvider.credential(
-        user?.email as string,
-        currPassword,
-      );
-      await user?.reauthenticateWithCredential(credential);
-    } catch (err) {
-      console.log('Error in reauthenticating');
-    }
-  };
-
-  const updatePassword = async (currPassword: string, newPassword: string) => {
-    try {
-      const user = firebase.auth().currentUser;
-      await reauthenticate(currPassword);
-      await user?.updatePassword(newPassword);
-    } catch (err) {
-      console.log('Error in updating password');
-    }
-  };
   const { langUpdate } = React.useContext(LanguageContext); // dicitionary
 
   // update client info - TO DO: error handling
@@ -81,7 +48,7 @@ const SettingsScreen = ({ navigation }: any) => {
     try {
       const client: Client = state;
       if (newEmail !== '') {
-        updateEmail(newEmail);
+        updateEmail(newEmail, client.id);
       }
       if (newLang !== '') {
         updateFirebaseLanguage(newLang, client.id);

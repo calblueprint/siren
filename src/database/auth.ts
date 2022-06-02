@@ -5,7 +5,7 @@ import { setClient } from './queries';
 
 const db = firebase.firestore();
 const clientCollection = db.collection('clients');
-const user = firebase.auth().currentUser;
+let user = firebase.auth().currentUser;
 
 export async function register(
   email: string,
@@ -53,9 +53,9 @@ export async function logout() {
 
 export async function reauthenticate(currPassword: string) {
   try {
-    // const user = firebase.auth().currentUser;
+    user = firebase.auth().currentUser;
     const credential = firebase.auth.EmailAuthProvider.credential(
-      user?.email,
+      user?.email as string,
       currPassword,
     );
     await user?.reauthenticateWithCredential(credential);
