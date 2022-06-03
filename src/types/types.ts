@@ -4,6 +4,7 @@ export enum CaseStatus {
   InReview = 'inReview',
   SchedApt = 'schedApt',
   AttenApt = 'attenApt',
+  Resubmit = 'resubmit',
 }
 export enum QuestionType {
   General = 'general',

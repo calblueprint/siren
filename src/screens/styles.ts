@@ -10,7 +10,6 @@ export const PageContainer = styled.View`
 
 export const NameContainer = styled.View`
   align-self: flex-start;
-  left: 15px;
   margin-bottom: 16px;
 `;
 

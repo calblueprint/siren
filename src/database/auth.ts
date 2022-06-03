@@ -5,7 +5,7 @@ import { setClient } from './queries';
 
 const db = firebase.firestore();
 const clientCollection = db.collection('clients');
-const user = firebase.auth().currentUser;
+let user = firebase.auth().currentUser;
 
 export async function register(
   email: string,
@@ -14,11 +14,13 @@ export async function register(
   language: string,
 ) {
   try {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const usr = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
 
-    if (user !== null) {
+    if (usr.user !== null) {
       const client: Client = {
-        id: user.uid,
+        id: usr.user.uid,
         email,
         fullName,
         createdAt: new Date(),
@@ -51,9 +53,9 @@ export async function logout() {
 
 export async function reauthenticate(currPassword: string) {
   try {
-    // const user = firebase.auth().currentUser;
+    user = firebase.auth().currentUser;
     const credential = firebase.auth.EmailAuthProvider.credential(
-      user?.email,
+      user?.email as string,
       currPassword,
     );
     await user?.reauthenticateWithCredential(credential);
@@ -74,9 +76,9 @@ export async function updatePassword(
   }
 }
 
-export async function updateEmail(newEmail: string) {
+export async function updateEmail(newEmail: string, clientId: string) {
   try {
-    const userDoc = clientCollection.doc(user?.uid);
+    const userDoc = clientCollection.doc(clientId);
     const newFields = { email: newEmail };
     await userDoc.update(newFields);
     await user?.updateEmail(newEmail);
@@ -85,9 +87,9 @@ export async function updateEmail(newEmail: string) {
   }
 }
 
-export async function updateFirebaseLanguage(lang: string) {
+export async function updateFirebaseLanguage(lang: string, clientId: string) {
   try {
-    const userDoc = clientCollection.doc(user?.uid);
+    const userDoc = clientCollection.doc(clientId);
     const newFields = { language: lang };
     await userDoc.update(newFields);
   } catch (err) {

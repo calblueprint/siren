@@ -48,19 +48,3 @@ export const SettingsCog = ({ navigation }: Props) => {
     />
   );
 };
-
-export const NotificationsBell = ({ navigation }: Props) => {
-  return (
-    <MaterialCommunityIcons
-      name="bell"
-      color={Colors.brandBlue}
-      size={20}
-      style={{
-        position: 'absolute',
-        right: '8%',
-        bottom: '20%',
-      }}
-      onPress={() => navigation.navigate('MiscStack', { screen: 'Test' })}
-    />
-  );
-};
