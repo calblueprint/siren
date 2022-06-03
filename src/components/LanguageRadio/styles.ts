@@ -2,7 +2,7 @@
 import styled from 'styled-components/native';
 
 export const RadioContainer = styled.View`
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;

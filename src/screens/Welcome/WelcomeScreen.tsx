@@ -20,6 +20,7 @@ import {
   ImageStyles,
   ButtonHeader,
 } from './styles';
+import 'firebase/firestore';
 
 const sirenLogo = require('../../images/siren_logo.png');
 

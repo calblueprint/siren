@@ -11,21 +11,32 @@ import {
 import { alertTextStr, checkEmail } from 'database/helpers';
 import { TextStr } from 'context/ContextProvider';
 import { ButtonDark, TextInput } from 'assets/Components';
+import { logout } from 'database/auth';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { StyleSheet } from 'react-native';
+// eslint-disable-next-line no-restricted-imports
 import LanguageRadio from 'components/LanguageRadio/LanguageRadio';
-import { LanguageContext, Text } from 'context/ContextProvider';
+import { ClientContext, LanguageContext, Text } from 'context/ContextProvider';
 import {
   updateEmail,
   updateFirebaseLanguage,
   updatePassword,
 } from 'database/auth';
+import { Client } from 'types/types';
 import { PageContainer } from '../styles';
-import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import {
+  ButtonView,
+  ButtonHeader,
+  ButtonContainer,
+  ButtonsContainer,
+} from './styles';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [language, setLanguage] = useState(''); // string type in Firebase
   const [currentPassword, setCurrentPassword] = useState('');
+  const { state } = React.useContext(ClientContext);
   const { langUpdate } = React.useContext(LanguageContext); // dicitionary
   const e = TextStr('Email', language);
   const p = TextStr('Password', language);
@@ -39,6 +50,7 @@ const SettingsScreen = ({ navigation }: any) => {
     newPassword: string,
   ) => {
     try {
+      const client: Client = state;
       let updated = '';
       let err = '';
       // handle email
@@ -46,7 +58,7 @@ const SettingsScreen = ({ navigation }: any) => {
         if (checkEmail(newEmail)) {
           const updatedTemp = updated.concat(`\n${e}`);
           updated = updatedTemp;
-          await updateEmail(newEmail);
+          await updateEmail(newEmail, client.id);
           setEmail('');
         } else {
           const errTemp = err.concat(`\n${e}`);
@@ -55,7 +67,7 @@ const SettingsScreen = ({ navigation }: any) => {
       }
       // handle language
       if (newLang !== '') {
-        if (await updateFirebaseLanguage(newLang)) {
+        if (await updateFirebaseLanguage(newLang, client.id)) {
           const updatedTemp = updated.concat(`\n${l}`);
           updated = updatedTemp;
           setLanguage('');
@@ -90,26 +102,33 @@ const SettingsScreen = ({ navigation }: any) => {
         // alert if there are updates made
         alertTextStr(updatedFinal.concat(`\n${errFinal}`), newLang);
       }
+      navigation.navigate('Home');
     } catch (err) {
       console.log('Error in updating info');
     }
   };
 
-  const getBackHeader = () => (
-    <ButtonHeader onPress={() => navigation.navigate('Home')}>
-      <Appbar.BackAction
-        size={18}
-        style={{ margin: 0 }}
-        onPress={() => navigation.navigate('Home')}
-      />
-      <TextSubtitle>{Text('Go Back')}</TextSubtitle>
-    </ButtonHeader>
-  );
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+      marginTop: '10%',
+    },
+  });
 
   return (
     <PageContainer>
-      {getBackHeader()}
-      <ContentContainer>
+      <ButtonHeader onPress={() => navigation.navigate('Home')}>
+        <Appbar.BackAction
+          size={18}
+          style={{ margin: 0 }}
+          onPress={() => navigation.navigate('Home')}
+        />
+        <TextSubtitle>{Text('Go Back')}</TextSubtitle>
+      </ButtonHeader>
+      <KeyboardAwareScrollView style={styles.container}>
         <TextRegular>{Text('welcome')}</TextRegular>
         <TextRegular>{Text('Change Email')}</TextRegular>
         <TextInput
@@ -136,15 +155,26 @@ const SettingsScreen = ({ navigation }: any) => {
         />
         <TextRegular>{Text('Change your language preference')}</TextRegular>
         <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
-      </ContentContainer>
+      </KeyboardAwareScrollView>
 
-      <ButtonView>
-        <ButtonDark
-          onPress={() => update(currentPassword, language, email, password)}
-        >
-          <TextRegularWhite>{Text('Update')}</TextRegularWhite>
-        </ButtonDark>
-      </ButtonView>
+      <ButtonsContainer>
+        <ButtonContainer>
+          <ButtonView>
+            <ButtonDark
+              onPress={() => update(currentPassword, language, email, password)}
+            >
+              <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+            </ButtonDark>
+          </ButtonView>
+        </ButtonContainer>
+        <ButtonContainer>
+          <ButtonView>
+            <ButtonDark onPress={logout}>
+              <TextRegularWhite>{Text('Logout')}</TextRegularWhite>
+            </ButtonDark>
+          </ButtonView>
+        </ButtonContainer>
+      </ButtonsContainer>
     </PageContainer>
   );
 };

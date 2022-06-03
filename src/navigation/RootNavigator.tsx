@@ -11,11 +11,7 @@ import { ClientContext } from 'context/ContextProvider';
 import { getEmptyClient } from 'utils/utils';
 import { getClient } from 'database/queries';
 import { Client } from 'types/types';
-import {
-  LogoTitle,
-  NotificationsBell,
-  SettingsCog,
-} from 'components/Header/Header';
+import { LogoTitle, SettingsCog } from 'components/Header/Header';
 import logo from 'components/Header/styles';
 import UploadStack from './UploadStack';
 
@@ -87,9 +83,7 @@ export default function RootNavigator() {
                 headerTitleAlign: 'center',
                 headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
-                headerRight: () => (
-                  <NotificationsBell navigation={navigation} />
-                ),
+                headerRight: () => null,
               })}
             />
             <Stack.Screen
@@ -102,9 +96,7 @@ export default function RootNavigator() {
                 headerTitleAlign: 'center',
                 headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
-                headerRight: () => (
-                  <NotificationsBell navigation={navigation} />
-                ),
+                headerRight: () => null,
               })}
             />
             <Stack.Screen
@@ -117,9 +109,7 @@ export default function RootNavigator() {
                 headerTitleAlign: 'center',
                 headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
-                headerRight: () => (
-                  <NotificationsBell navigation={navigation} />
-                ),
+                headerRight: () => null,
               })}
             />
             <Stack.Screen
@@ -132,9 +122,7 @@ export default function RootNavigator() {
                 headerTitleAlign: 'center',
                 headerStyle: logo.container,
                 headerLeft: () => <SettingsCog navigation={navigation} />,
-                headerRight: () => (
-                  <NotificationsBell navigation={navigation} />
-                ),
+                headerRight: () => null,
               })}
             />
           </>

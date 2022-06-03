@@ -5,6 +5,7 @@ import { getDocList, getAllCases } from 'database/queries';
 import { ClientContext } from 'context/ContextProvider';
 import { Case } from 'types/types';
 import { useIsFocused } from '@react-navigation/native';
+import { Container } from './styles';
 
 const UploadScreen = ({ navigation }: any) => {
   const [clientCases, setClientCases] = useState([] as Case[]); // container headers
@@ -53,7 +54,11 @@ const UploadScreen = ({ navigation }: any) => {
     return docContainers;
   };
 
-  return <PageContainer>{getDocContainers()}</PageContainer>;
+  return (
+    <PageContainer>
+      <Container>{getDocContainers()}</Container>
+    </PageContainer>
+  );
 };
 
 export default UploadScreen;
