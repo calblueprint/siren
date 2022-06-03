@@ -1,15 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
-import { ScrollView } from 'react-native';
+import { Linking, ScrollView } from 'react-native';
 import { PageContainer } from 'screens/styles';
 import { getAllCases, getClient } from 'database/queries';
 import { Case } from 'types/types';
 import firebase from 'firebase';
 import ProgressTracker from 'components/ProgressTracker/ProgressTracker';
-import { TextTitle } from 'assets/fonts/Fonts';
+import { TextBold, TextRegular, TextTitle } from 'assets/fonts/Fonts';
 import { CaseStatus } from 'types/types';
+import { ButtonLight } from 'assets/Components';
+import { Text } from 'context/ContextProvider';
 // eslint-disable-next-line no-restricted-imports
 import { NameContainer } from '../styles';
+import {
+  ContactButton,
+  ButtonContainer,
+  ContactContainer,
+  ContactHeaderContainer,
+} from './styles';
 
 const HomeScreen = ({ navigation }: any) => {
   const uid = firebase.auth().currentUser?.uid;
@@ -37,6 +45,7 @@ const HomeScreen = ({ navigation }: any) => {
       <NameContainer>
         <TextTitle>Hi {name}!</TextTitle>
       </NameContainer>
+
       <ScrollView>
         {cases.length !== 0 ? (
           Object.keys(cases).map((id: any) => (
@@ -54,6 +63,52 @@ const HomeScreen = ({ navigation }: any) => {
             // Under the hood, an official case & its status isn't !exist in Firebase until client submits intake form
           />
         )}
+
+        <ContactHeaderContainer>
+          <TextBold>{Text('Need help?')}</TextBold>
+        </ContactHeaderContainer>
+        <ContactContainer>
+          <TextRegular>{Text('Email/Call Bay Area Office: ')}</TextRegular>
+          <ButtonContainer>
+            <ContactButton>
+              <ButtonLight
+                onPress={() =>
+                  Linking.openURL('mailto:Info@sirenimmigrantrights.org')
+                }
+              >
+                <TextBold>{Text('Email SIREN')}</TextBold>
+              </ButtonLight>
+            </ContactButton>
+            <ContactButton>
+              <ButtonLight onPress={() => Linking.openURL(`tel:${4084533003}`)}>
+                <TextBold>{Text('Call SIREN')}</TextBold>
+              </ButtonLight>
+            </ContactButton>
+          </ButtonContainer>
+        </ContactContainer>
+        <ContactContainer>
+          <TextRegular>
+            {Text('Email/Call Central Valley Office: ')}
+          </TextRegular>
+          <ButtonContainer>
+            <ContactButton>
+              <ButtonLight
+                onPress={() =>
+                  Linking.openURL(
+                    'mailto:Centralvalley@sirenimmigrantrights.org',
+                  )
+                }
+              >
+                <TextBold>{Text('Email SIREN')}</TextBold>
+              </ButtonLight>
+            </ContactButton>
+            <ContactButton>
+              <ButtonLight onPress={() => Linking.openURL(`tel:${5598400005}`)}>
+                <TextBold>{Text('Call SIREN')}</TextBold>
+              </ButtonLight>
+            </ContactButton>
+          </ButtonContainer>
+        </ContactContainer>
       </ScrollView>
     </PageContainer>
   );

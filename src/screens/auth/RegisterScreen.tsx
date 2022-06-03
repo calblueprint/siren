@@ -6,13 +6,16 @@ import {
   TextRegularWhite,
   TextRegularRed,
   TextSubtitle,
+  TextBold,
 } from 'assets/fonts/Fonts';
 import { ButtonDark, TextInput } from 'assets/Components';
 import { register } from 'database/auth';
 import { Text } from 'context/ContextProvider';
+import { StyleSheet } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // eslint-disable-next-line no-restricted-imports
 import { PageContainer } from '../styles';
-import { ContentContainer, ButtonView, ButtonHeader } from './styles';
+import { TitleContainer, ButtonView, ButtonHeader } from './styles';
 
 const RegisterScreen = ({ route, navigation }: any) => {
   const { langStr } = route.params;
@@ -42,15 +45,30 @@ const RegisterScreen = ({ route, navigation }: any) => {
     </ButtonHeader>
   );
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      height: '100%',
+      display: 'flex',
+      width: '100%',
+      marginTop: '40%',
+    },
+  });
+
   return (
     <PageContainer>
       {getBackHeader()}
-      <ContentContainer>
+      <KeyboardAwareScrollView style={styles.container}>
+        <TitleContainer>
+          <TextBold>{Text('Register')}</TextBold>
+        </TitleContainer>
         <TextRegular>
           {Text('Name')} <TextRegularRed>*</TextRegularRed>
         </TextRegular>
         <TextInput
-          onChangeText={text => setFullName(text)}
+          onChangeText={text => {
+            setFullName(text);
+          }}
           // BUG: using placeholder with Text wrapper will result in JSON serialize errors
           // TO DO/WORKAROUND: use TextRegular (or any other regular text components) and set as description before a TextInput
           // placeholder={Text('ex. Noah Alexander Hernandez')}
@@ -73,7 +91,8 @@ const RegisterScreen = ({ route, navigation }: any) => {
           onChangeText={text => setPasswordRepeat(text)}
           secureTextEntry
         />
-      </ContentContainer>
+      </KeyboardAwareScrollView>
+
       <ButtonView>
         <ButtonDark onPress={() => onRegister(email, password, fullName)}>
           <TextRegularWhite>{Text('Get started!')}</TextRegularWhite>
