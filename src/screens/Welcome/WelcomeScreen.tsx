@@ -11,7 +11,6 @@ import {
 } from 'assets/fonts/Fonts';
 import { ButtonDark, ButtonLight } from 'assets/Components';
 import { Text } from 'context/ContextProvider';
-import firebase from 'database/clientApp';
 import { PageContainer } from '../styles';
 import {
   ContentContainer,

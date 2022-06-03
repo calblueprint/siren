@@ -266,8 +266,6 @@ const CameraScreen = ({ navigation, route }: any) => {
   };
 
   const handleDone = async () => {
-    console.log(uris);
-    console.log(imageUris);
     if (uris || imageUris) {
       await uploadImages();
     }

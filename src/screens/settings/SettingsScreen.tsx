@@ -20,22 +20,21 @@ import {
   updateFirebaseLanguage,
   updatePassword,
 } from 'database/auth';
-import firebase from 'firebase';
 import { Client } from 'types/types';
 import { PageContainer } from '../styles';
-import { ButtonView, ButtonView2, ButtonHeader } from './styles';
+import {
+  ButtonView,
+  ButtonHeader,
+  ButtonContainer,
+  ButtonsContainer,
+} from './styles';
 
 const SettingsScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [language, setLanguage] = useState(''); // string type in Firebase
   const [currentPassword, setCurrentPassword] = useState('');
-  const db = firebase.firestore();
-  const clientCollection = db.collection('clients');
-  const { userLanguageChange } = React.useContext(LanguageContext);
   const { state } = React.useContext(ClientContext);
-  const user = firebase.auth().currentUser;
-
   const { langUpdate } = React.useContext(LanguageContext); // dicitionary
 
   // update client info - TO DO: error handling
@@ -111,18 +110,24 @@ const SettingsScreen = ({ navigation }: any) => {
         <LanguageRadio dictUpdate={langUpdate} stringUpdate={setLanguage} />
       </KeyboardAwareScrollView>
 
-      <ButtonView2>
-        <ButtonDark
-          onPress={() => update(currentPassword, language, email, password)}
-        >
-          <TextRegularWhite>{Text('Update')}</TextRegularWhite>
-        </ButtonDark>
-      </ButtonView2>
-      <ButtonView>
-        <ButtonDark onPress={logout}>
-          <TextRegularWhite>{Text('Logout')}</TextRegularWhite>
-        </ButtonDark>
-      </ButtonView>
+      <ButtonsContainer>
+        <ButtonContainer>
+          <ButtonView>
+            <ButtonDark
+              onPress={() => update(currentPassword, language, email, password)}
+            >
+              <TextRegularWhite>{Text('Update')}</TextRegularWhite>
+            </ButtonDark>
+          </ButtonView>
+        </ButtonContainer>
+        <ButtonContainer>
+          <ButtonView>
+            <ButtonDark onPress={logout}>
+              <TextRegularWhite>{Text('Logout')}</TextRegularWhite>
+            </ButtonDark>
+          </ButtonView>
+        </ButtonContainer>
+      </ButtonsContainer>
     </PageContainer>
   );
 };
