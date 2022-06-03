@@ -229,9 +229,6 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           getQuestionComponent(question, id),
         )}
       </KeyboardAwareScrollView>
-      {filledCase ? (
-        <TextRegular>Already filled out a form for this case.</TextRegular>
-      ) : null}
       <ButtonView>
         <ButtonDarkBlue onPress={() => handleNext()}>
           <TextRegularWhite>Next</TextRegularWhite>
