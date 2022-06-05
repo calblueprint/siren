@@ -2,13 +2,21 @@
 import React, { useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
 import {
+  getAllCases,
   getAllQuestionsOfType,
   setCaseAndNumCases,
   setClient,
+  setStatus,
 } from 'database/queries';
 import { TextSubtitle, TextRegularWhite } from 'assets/fonts/Fonts';
 import { ButtonDarkBlue } from 'assets/Components';
-import { Question, Client, QuestionManagerProps } from 'types/types';
+import {
+  Question,
+  Client,
+  QuestionManagerProps,
+  CaseStatus,
+  Case,
+} from 'types/types';
 import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
@@ -37,6 +45,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   const [currentAnswers, setCurrentAnswers] = useState(
     existingAnswers?.get(caseType) || new Map(),
   );
+  const [cases, setCases] = useState<Case[]>([]);
   const { state } = React.useContext(ClientContext);
   const langStr = state.language;
 
@@ -47,6 +56,10 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   const loadQuestions = async (): Promise<void> => {
     const qs: Question[] = await getAllQuestionsOfType(caseType);
     setAllQuestions(qs);
+    const client: Client = state;
+    const cs: Case[] = await getAllCases(client.id);
+    setCases(cs);
+    console.log(cs);
   };
   const getQuestionComponent = (question: Question) => {
     const answerComponents = {
@@ -98,7 +111,12 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   };
 
   const goToNextScreen = () => {
+    const client: Client = state;
+    const clientCase = cases.filter(c => c.type === caseType);
     sendAnswersToFirebase();
+    if (isUpdating && clientCase[0].status === CaseStatus.Resubmit) {
+      setStatus(client.id, clientCase[0].id, CaseStatus.SubmitDoc);
+    }
     setNextScreen();
   };
 
