@@ -8,10 +8,15 @@ export const objectToMap = (obj: Object): Map<any, any> => {
   );
 };
 
-export const objectToAnswerOptionsMap = (obj: Object): Map<any, any> => {
-  return new Map(
-    Array.from(Object.entries(obj), ([k, v]) => [k, v as Array<String>]),
-  );
+export const objectToAnswerOptionsMap = (
+  obj: Map<string, string[]> | undefined,
+): Map<string, string[]> => {
+  if (typeof obj !== 'undefined') {
+    return new Map(
+      Array.from(Object.entries(obj), ([k, v]) => [k, v as Array<string>]),
+    );
+  }
+  return new Map();
 };
 
 export const mapToObject = (map: Map<any, any>): Object => {

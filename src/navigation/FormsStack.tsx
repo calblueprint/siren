@@ -20,12 +20,12 @@ const FormsStack = ({ route }: any) => {
         component={FinalIntakeScreen}
         options={{ headerShown: false }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Update"
         component={UpdateScreen}
         options={{ headerShown: false }}
         initialParams={{ visitReason }}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };

@@ -12,7 +12,7 @@ import { Question, Client, QuestionManagerProps } from 'types/types';
 import LargeInput from 'components/Inputs/LargeInput/LargeInput';
 import SmallInput from 'components/Inputs/SmallInput/SmallInput';
 import Dropdown from 'components/Inputs/Dropdown/Dropdown';
-import Calendar from 'components/Inputs/Calendar/Calendar';
+// import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
 import { ClientContext } from 'context/ContextProvider';
 import {
@@ -20,11 +20,11 @@ import {
   ButtonView,
   Container,
 } from 'components/Questions/styles';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { LanguageContext } from 'context/ContextProvider';
-import { StyleSheet } from 'react-native';
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+// import { LanguageContext } from 'context/ContextProvider';
+// import { StyleSheet } from 'react-native';
 
-export default function AdditionalQuestionManager(props: QuestionManagerProps) {
+const AdditionalQuestionManager = (props: QuestionManagerProps) => {
   const [allQuestions, setAllQuestions] = useState([] as Question[]);
   const {
     setPreviousScreen,
@@ -39,6 +39,7 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
   );
   const { state } = React.useContext(ClientContext);
   const langStr = state.language;
+  console.log(langStr);
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
@@ -53,23 +54,23 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
       largeInput: LargeInput,
       smallInput: SmallInput,
       dropdown: Dropdown,
-      calendar: Calendar,
+      calendar: SmallInput,
       radio: Radio,
     };
     const QuestionComponent = answerComponents[question.answerType];
-    const existToCurrentAnswers = (): void => {
-      existingAnswers.get(caseType)?.forEach((value, key) => {
-        if (!currentAnswers.has(key)) {
-          currentAnswers.set(key, value);
-        }
-      });
-    };
-    if (isUpdating) {
-      existToCurrentAnswers();
-    }
+    // const existToCurrentAnswers = (): void => {
+    //   existingAnswers.get(caseType)?.forEach((value, key) => {
+    //     if (!currentAnswers.has(key)) {
+    //       currentAnswers.set(key, value);
+    //     }
+    //   });
+    // };
+    // if (isUpdating) {
+    //   existToCurrentAnswers();
+    // }
     return (
       <QuestionComponent
-        key={question.displayText.get(langStr)}
+        key={question.id}
         question={question}
         setAnswer={setAnswer}
         existingAnswer={
@@ -92,9 +93,9 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
     }
     client.answers.set(caseType, currentAnswers);
     await setClient(client);
-    if (!isUpdating) {
-      await setCaseAndNumCases(client.id, caseType);
-    }
+    // if (!isUpdating) {
+    await setCaseAndNumCases(client.id, caseType);
+    // }
   };
 
   const goToNextScreen = () => {
@@ -104,18 +105,44 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
 
   useEffect(() => {
     loadQuestions();
+    return () => {
+      setAllQuestions([] as Question[]);
+    };
   }, []);
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      height: '100%',
-      display: 'flex',
-      width: '100%',
-    },
-  });
+  // const styles = StyleSheet.create({
+  //   container: {
+  //     flex: 1,
+  //     height: '100%',
+  //     display: 'flex',
+  //     width: '100%',
+  //   },
+  // });
 
   return (
+    //   <Container>
+    //     <ButtonHeader
+    //       onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
+    //     >
+    //       <Appbar.BackAction
+    //         size={18}
+    //         style={{ margin: 0 }}
+    //         onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
+    //       />
+    //       <TextSubtitle>Go Back</TextSubtitle>
+    //     </ButtonHeader>
+    //     <KeyboardAwareScrollView style={styles.container}>
+    //       {allQuestions.map(question => getQuestionComponent(question))}
+    //     </KeyboardAwareScrollView>
+    //     <ButtonView>
+    //       <ButtonDarkBlue onPress={() => goToNextScreen()}>
+    //         <TextRegularWhite>
+    //           {isUpdating ? 'Update' : 'Submit'}
+    //         </TextRegularWhite>
+    //       </ButtonDarkBlue>
+    //     </ButtonView>
+    //   </Container>
+    // );
     <Container>
       <ButtonHeader
         onPress={() => (setPreviousScreen ? setPreviousScreen() : null)}
@@ -127,16 +154,14 @@ export default function AdditionalQuestionManager(props: QuestionManagerProps) {
         />
         <TextSubtitle>Go Back</TextSubtitle>
       </ButtonHeader>
-      <KeyboardAwareScrollView style={styles.container}>
-        {allQuestions.map(question => getQuestionComponent(question))}
-      </KeyboardAwareScrollView>
+      {allQuestions.map(question => getQuestionComponent(question))}
       <ButtonView>
         <ButtonDarkBlue onPress={() => goToNextScreen()}>
-          <TextRegularWhite>
-            {isUpdating ? 'Update' : 'Submit'}
-          </TextRegularWhite>
+          <TextRegularWhite>Submit</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
     </Container>
   );
-}
+};
+
+export default AdditionalQuestionManager;

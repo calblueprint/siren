@@ -37,7 +37,7 @@ const FormsScreen = ({ navigation }: any) => {
           <TextSubtitle>{Text('Go to form')}</TextSubtitle>
         </ButtonHeader>
         <TextTitle>Your Cases</TextTitle>
-        {cases.length ? (
+        {/* {cases.length ? (
           Object.keys(cases).map((id: any) => (
             <ButtonHeader
               key={id}
@@ -53,7 +53,7 @@ const FormsScreen = ({ navigation }: any) => {
           ))
         ) : (
           <TextSubtitle>No Cases Yet</TextSubtitle>
-        )}
+        )} */}
       </InnerPageContainer>
     </ScrollPageContainer>
   );

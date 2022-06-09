@@ -27,15 +27,15 @@ export const ClientContext = context; // used by client context consumers
 const createLanguageContext = <A extends {} | null>(defaultValue: A) => {
   type UpdateType = React.Dispatch<React.SetStateAction<typeof defaultValue>>;
   const defaultUpdate: UpdateType = () => defaultValue;
-  const ctx = React.createContext({
+  const langctx = React.createContext({
     langState: defaultValue,
     langUpdate: defaultUpdate,
   });
   function Provider(props: React.PropsWithChildren<{}>) {
     const [langState, langUpdate] = React.useState(defaultValue);
-    return <ctx.Provider value={{ langState, langUpdate }} {...props} />;
+    return <langctx.Provider value={{ langState, langUpdate }} {...props} />;
   }
-  return [ctx, Provider] as const; // alternatively, [typeof ctx, typeof Provider]
+  return [langctx, Provider] as const; // alternatively, [typeof ctx, typeof Provider]
 };
 
 // create a context for the language

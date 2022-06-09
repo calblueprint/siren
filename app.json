@@ -29,6 +29,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow SIREN to access your photos",
+          "cameraPermission": "Allow SIREN to access your camera"
+        }
+      ]
+    ]
   }
 }

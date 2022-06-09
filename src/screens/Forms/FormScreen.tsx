@@ -28,8 +28,10 @@ const FormsScreen = ({ navigation }: any) => {
   }, []);
 
   const setAdditionalScreen = (visitReason: string): void => {
+    console.log('visit reason', visitReason);
     loadClient();
     getCaseTypeFromKey(visitReason).then(caseType => {
+      console.log('case type', caseType);
       setAdditionalScreenType(caseType);
       setShowAdditionalScreen(true);
       setShowGeneralScreen(false);

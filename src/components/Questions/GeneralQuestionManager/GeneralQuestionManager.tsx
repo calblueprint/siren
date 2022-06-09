@@ -1,7 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React, { SetStateAction, useEffect, useState } from 'react';
 import { Appbar } from 'react-native-paper';
-import Calendar from 'components/Inputs/Calendar/Calendar';
+// import Calendar from 'components/Inputs/Calendar/Calendar';
 import Radio from 'components/Inputs/Radio/Radio';
 import { ClientContext } from 'context/ContextProvider';
 import {
@@ -69,29 +69,30 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     ['dacaRenewal', 'DACA renewal'],
   ]);
   const languages = ['EN', 'ES', 'VIET'];
-  const [visitReasons, setVisitReasons] = useState(null);
+  const [visitReason, setVisitReason] = useState('');
 
   const setAnswer = (question: Question, input: any): void => {
     setCurrentAnswers(currentAnswers.set(question.key, input));
   };
 
-  const getVisitReason = (visitReason: string) => {
-    let index = -1;
-    // eslint-disable-next-line no-return-assign
-    languages.map(lang =>
-      // eslint-disable-next-line no-nested-ternary
-      visitReasons
-        ? (visitReasons[lang] as Array<string>).includes(visitReason)
-          ? (index = visitReasons
-              ? (visitReasons[lang] as Array<string>).indexOf(visitReason)
-              : -1)
-          : null
-        : null,
-    );
-    return visitReasons
-      ? (visitReasons as MultilingualQuestion).EN[index]
-      : null;
-  };
+  // const getVisitReason = (visitReason: string) => {
+  //   console.log(visitReason);
+  //   let index = -1;
+  //   // eslint-disable-next-line no-return-assign
+  //   languages.map(lang =>
+  //     // eslint-disable-next-line no-nested-ternary
+  //     visitReasons
+  //       ? (visitReasons[lang] as Array<string>).includes(visitReason)
+  //         ? (index = visitReasons
+  //             ? (visitReasons[lang] as Array<string>).indexOf(visitReason)
+  //             : -1)
+  //         : null
+  //       : null,
+  //   );
+  //   return visitReasons
+  //     ? (visitReasons as MultilingualQuestion).EN[index]
+  //     : null;
+  // };
 
   const handleNext = () => {
     if (screen === finalGeneralScreen) {
@@ -111,23 +112,24 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
   const loadQuestions = async (): Promise<void> => {
     const qs: Question[] = await getAllQuestionsOfType('general');
     setAllQuestions(qs);
-    const vr = (await getQuestion('7Y1pxuiOEe7Z6eiFtkX7', 'general'))
-      .answerOptions;
-    setVisitReasons(vr as unknown as SetStateAction<null>);
+    // const vr = await getQuestion('7Y1pxuiOEe7Z6eiFtkX7', 'general');
+    // // .answerOptions;
+    // console.log('vr', vr);
+    // setVisitReasons(vr as unknown as SetStateAction<null>);
   };
-  const loadCases = async (): Promise<void> => {
-    const clientCases = await getAllCases(uid as string);
-    setCases(
-      clientCases.map(c => caseTypes.get(c.type)) as SetStateAction<never[]>,
-    );
-  };
+  // const loadCases = async (): Promise<void> => {
+  //   const clientCases = await getAllCases(uid as string);
+  //   setCases(
+  //     clientCases.map(c => caseTypes.get(c.type)) as SetStateAction<never[]>,
+  //   );
+  // };
   const getQuestionComponent = (question: Question, id: number) => {
     // id solves duplicate keys React error
     const answerComponents = {
       largeInput: LargeInput,
       smallInput: SmallInput,
       dropdown: Dropdown,
-      calendar: Calendar,
+      calendar: SmallInput,
       radio: Radio,
     };
     const QuestionComponent = answerComponents[question.answerType];
@@ -154,11 +156,16 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
     }
     client.answers.set('general', currentAnswers);
     await setClient(client);
+    setVisitReason(client.answers.get('general')?.get('visitReason'));
+    setNextScreen(client.answers.get('general')?.get('visitReason'));
   };
 
   useEffect(() => {
     loadQuestions();
-    loadCases();
+    return () => {
+      setAllQuestions([] as Question[]);
+    };
+    // loadCases();
   }, []);
 
   useEffect(() => {
@@ -185,9 +192,7 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
           break;
         case 6:
           sendAnswersToFirebase();
-          setNextScreen(
-            getVisitReason(currentAnswers.get('visitReason')) as string,
-          );
+          // setNextScreen(visitReason);
           break;
         default:
           setCurrentQuestions(allQuestions.slice(0, 5));
@@ -228,7 +233,8 @@ export default function GeneralQuestionManager(props: QuestionManagerProps) {
         <TextRegular>Already filled out a form for this case.</TextRegular>
       ) : null}
       <ButtonView>
-        <ButtonDarkBlue onPress={() => handleNext()}>
+        {/* <ButtonDarkBlue onPress={() => handleNext()}> */}
+        <ButtonDarkBlue onPress={() => setScreen(screen + 1)}>
           <TextRegularWhite>Next</TextRegularWhite>
         </ButtonDarkBlue>
       </ButtonView>
