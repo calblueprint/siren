@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { Appbar } from 'react-native-paper';
-import { Image } from 'react-native';
+// import { Image } from 'react-native';
 import {
   TextRegular,
   TextBold,
@@ -17,12 +17,12 @@ import {
   TitleContainer,
   ButtonContainer,
   ButtonView,
-  ImageStyles,
+  // ImageStyles,
   ButtonHeader,
 } from './styles';
 import 'firebase/firestore';
 
-const sirenLogo = require('../../images/siren_logo.png');
+// const sirenLogo = require('../../images/siren_logo.png');
 
 const WelcomeScreen = ({ route, navigation }: any) => {
   const { langStr } = route.params;
@@ -41,7 +41,7 @@ const WelcomeScreen = ({ route, navigation }: any) => {
     <PageContainer>
       {getBackHeader()}
       <ContentContainer>
-        <Image style={ImageStyles.logo} source={sirenLogo} />
+        {/* <Image style={ImageStyles.logo} source={sirenLogo} /> */}
         <TitleContainer>
           <TextBold>{Text('Welcome to the SIREN App!')}</TextBold>
         </TitleContainer>
